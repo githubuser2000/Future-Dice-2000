@@ -11,6 +11,11 @@ import random
 # zahl die definiert werden sein soll z.B. 5 Augen als kurz vor Maximum
 # sys.argv
 
+def sigmoid(x,n,xe,e):
+    x-=int(sys.argv[1])/2
+    xe-=int(sys.argv[1])/2
+    return ( n / (n + math.exp(-x)) ) / ( n / (n + math.exp(-xe)) ) * e
+
 def lin(x,n,xe,e):
     #print(str(x))
     #print(str(e))
@@ -73,7 +78,9 @@ fkt = { 'lin' : lin,
         '-poly' : poly,
         '-exp' : expo,
         '-rand' : rand,
-        '-kombi' : kombi}
+        '-kombi' : kombi,
+        'logistic' : sigmoid,
+        '-logistic' : sigmoid}
 
 
 
@@ -83,7 +90,8 @@ randfkt = { 1 : lin,
         4 : poly,
         5 : expo,
         6 : kombi,
-        7 : gewicht}
+        7 : gewicht,
+        8 : sigmoid}
 
 randfkt2 = { 1 : 'lin',
         2 : 'log',
@@ -91,7 +99,8 @@ randfkt2 = { 1 : 'lin',
         4 : 'poly',
         5 : 'exp',
         6 : 'kombi',
-        7 : 'gewicht' }
+        7 : 'gewicht',
+        8 : 'lostistic'}
 
 randfktvar = random.randrange(6)+1
 randfktvar2 = random.randrange(6)+1
