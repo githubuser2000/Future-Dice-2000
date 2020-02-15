@@ -26,7 +26,7 @@ def expo(x,n,xe,e):
     return pow(n,x) / pow(n,xe) * e
 
 
-def kombi(x,n,xe,e,reku = 30):
+def kombi(x,n,xe,e,reku = 50):
     try:
         randfktvar = random.randrange(6)+1
         randfktvar2 = random.randrange(6)+1
@@ -49,8 +49,8 @@ def kombi(x,n,xe,e,reku = 30):
             return kombi(x,n,xe,e,reku)
 
 def gewicht(type1,x,n,xe,e,type2,n2,xe2,e2):
-    return ( fkt[type2](x,n,xe,e),
-            fkt[type1](x,n2,xe2,e2) )
+    return ( fkt[type1](x,n,xe,e),
+            fkt[type2](x,n2,xe2,e2) )
 
 
 def rand(x,n,xe,e):
