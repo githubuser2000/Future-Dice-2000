@@ -113,7 +113,12 @@ def weightedrand(weights):
 
 
 
-
+def help():
+    print("dice.py 3 -lin 3 2 7")
+    print("dice.py 3 gewicht poly 3 2 0.7 -poly 1 2 5")
+    print("dice.py 3 gewicht lin 3 3 7 lin 3 3 7")
+    print("dice.py 3 kombi 3 3 0.7")
+    print("dice.py 3 rand 3 3 5")
 
 
 def main(inp):
@@ -129,7 +134,7 @@ def main(inp):
             if inp[2][0]=='-':
                 values.reverse()
             for i,value in enumerate(values):
-                print(str(i)+": "+str(value))
+                print(str(i+1)+": "+str(value))
             dice = random.randrange(inp[1])
             print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice+1)+")")
     elif len(inp) > 10 and inp[2] == "gewicht":
@@ -152,19 +157,16 @@ def main(inp):
             if inp[7][0]=='-':
                 values.reverse()
             for i,(rando,value) in enumerate(zip(randos,values)):
-                print(str(i)+": "+str(rando)+", "+str(value))
+                print(str(i+1)+": "+str(rando)+", "+str(value))
             zeroTo_n_rand = weightedrand(randos)
             print("rand augenzahl ergebnis: "+str(weightedrand(randos)))
             #dice = random.randrange(inp[1])+1
             print("Würfelwurf: "+str(values[zeroTo_n_rand])+" (Würfelaugen "+str(zeroTo_n_rand)+")")
     else:
-        print("dice.py 3 -lin 3 2 7")
-        print("dice.py 3 gewicht poly 3 2 0.7 -poly 1 2 5")
-        print("dice.py 3 gewicht lin 3 3 7 lin 3 3 7")
-        print("dice.py 3 kombi 3 3 0.7")
-        print("dice.py 3 rand 3 3 5")
-
+        help()
 
 
 if len(sys.argv) > 5:
     main(sys.argv)
+else:
+    help()
