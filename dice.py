@@ -26,22 +26,27 @@ def expo(x,n,xe,e):
     return pow(n,x) / pow(n,xe) * e
 
 
-def kombi(x,n,xe,e):
-    randfktvar = random.randrange(6)+1
-    randfktvar2 = random.randrange(6)+1
-    randfktvar3 = random.randrange(4)+1
-    if randfktvar3 == 1:
-        print("Kombi Mulitply: "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
-        return randfkt[randfktvar](x,n,xe,e) * randfkt[randfktvar2](x,n,xe,e)
-    elif randfktvar3 == 2:
-        print("Kombi Addition "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
-        return randfkt[randfktvar](x,n,xe,e) + randfkt[randfktvar2](x,n,xe,e)
-    elif randfktvar3 == 3:
-        print("Kombi Logarithm "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
-        return math.log(randfkt[randfktvar](x,n,xe,e)+1.1,randfkt[randfktvar2](x,n,xe,e)+1.1)
-    elif randfktvar3 == 4:
-        print("Kombi Root "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
-        return pow(randfkt[randfktvar](x,n,xe,e), 1 / ( randfkt[randfktvar2](x,n,xe,e) + 1 ))
+def kombi(x,n,xe,e,reku = 30):
+    try:
+        randfktvar = random.randrange(6)+1
+        randfktvar2 = random.randrange(6)+1
+        randfktvar3 = random.randrange(4)+1
+        if randfktvar3 == 1:
+            print("Kombi Mulitply: "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
+            return randfkt[randfktvar](x,n,xe,e) * randfkt[randfktvar2](x,n,xe,e)
+        elif randfktvar3 == 2:
+            print("Kombi Addition "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
+            return randfkt[randfktvar](x,n,xe,e) + randfkt[randfktvar2](x,n,xe,e)
+        elif randfktvar3 == 3:
+            print("Kombi Logarithm "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
+            return math.log(randfkt[randfktvar](x,n,xe,e)+1.1,randfkt[randfktvar2](x,n,xe,e)+1.1)
+        elif randfktvar3 == 4:
+            print("Kombi Root "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
+            return pow(randfkt[randfktvar](x,n,xe,e), 1 / ( randfkt[randfktvar2](x,n,xe,e) + 1 ))
+    except:
+        if reku > 0:
+            reku -= 1
+            return kombi(x,n,xe,e,reku)
 
 def gewicht(type1,x,n,xe,e,type2,n2,xe2,e2):
     return ( fkt[type2](x,n,xe,e),
@@ -152,6 +157,13 @@ def main(inp):
             print("rand augenzahl ergebnis: "+str(weightedrand(randos)))
             #dice = random.randrange(inp[1])+1
             print("Würfelwurf: "+str(values[zeroTo_n_rand])+" (Würfelaugen "+str(zeroTo_n_rand)+")")
+    else:
+        print("dice.py 3 -lin 3 2 7")
+        print("dice.py 3 gewicht poly 3 2 0.7 -poly 1 2 5")
+        print("dice.py 3 gewicht lin 3 3 7 lin 3 3 7")
+        print("dice.py 3 kombi 3 3 0.7")
+        print("dice.py 3 rand 3 3 5")
+
 
 
 if len(sys.argv) > 5:
