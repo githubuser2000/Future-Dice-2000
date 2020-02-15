@@ -81,11 +81,9 @@ def main(inp):
     inp[4] = int(inp[4])
     inp[5] = float(inp[5])
     inp[1] = int(inp[1])
-    if inp[4] <= inp[1] and inp[4] > 1 and ( inp[2] != 'rand' or inp[1] < 7):# and inp[5] <= inp[1] and inp[5] > 1:
-        #inp[4]-=1
-        #inp[5]-=1
+    if inp[4] <= inp[1] and inp[4] > 1:
         for a in range(1,int(inp[1])+1):
-            print(str(fkt[inp[2]](int(a),int(inp[3]),int(inp[4]),inp[5])))
+            print(str(a)+": "+str(fkt[inp[2]](int(a),int(inp[3]),int(inp[4]),inp[5])))
         dice = random.randrange(inp[1])+1
         print("Würfelwurf: "+str(fkt[inp[2]](dice,int(inp[3]),int(inp[4]),inp[5]))+" (Würfelaugen "+str(dice)+")")
 
