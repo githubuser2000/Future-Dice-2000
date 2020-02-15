@@ -61,7 +61,15 @@ fkt = { 'lin' : lin,
         'exp' : expo,
         'rand' : rand,
         'kombi' : kombi,
-        'gewicht' : gewicht}
+        'gewicht' : gewicht,
+        '-lin' : lin,
+        '-log' : log,
+        '-root' : root,
+        '-poly' : poly,
+        '-exp' : expo,
+        '-rand' : rand,
+        '-kombi' : kombi}
+
 
 
 randfkt = { 1 : lin,
@@ -110,10 +118,15 @@ def main(inp):
         inp[5] = float(inp[5])
         inp[1] = int(inp[1])
         if inp[4] <= inp[1] and inp[4] > 1 and inp[2] != "gewicht":
+            values = []
             for a in range(1,int(inp[1])+1):
-                print(str(a)+": "+str(fkt[inp[2]](int(a),int(inp[3]),int(inp[4]),inp[5])))
-            dice = random.randrange(inp[1])+1
-            print("Würfelwurf: "+str(fkt[inp[2]](dice,int(inp[3]),int(inp[4]),inp[5]))+" (Würfelaugen "+str(dice)+")")
+                values.append(fkt[inp[2]](int(a),int(inp[3]),int(inp[4]),inp[5]))
+            if inp[2][0]=='-':
+                values.reverse()
+            for i,value in enumerate(values):
+                print(str(i)+": "+str(value))
+            dice = random.randrange(inp[1])
+            print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice+1)+")")
     elif len(inp) > 10 and inp[2] == "gewicht":
         until = int(inp[1])
         inp[5] = int(inp[5])
@@ -121,7 +134,7 @@ def main(inp):
         inp[1] = int(inp[1])
         inp[8] = int(inp[8])
         inp[9] = int(inp[9])
-        inp[10] = int(inp[10])
+        inp[10] = float(inp[10])
         if inp[5] <= inp[1] and inp[5] > 1 and (len(inp) > 10 and inp[2] == "gewicht" ):
             randos = []
             values = []
@@ -129,7 +142,12 @@ def main(inp):
                 thing = fkt[inp[2]](inp[3],int(a),int(inp[4]),int(inp[5]),inp[6],inp[7],int(inp[8]),int(inp[9]),inp[10])
                 randos.append(thing[0])
                 values.append(thing[1])
-                print(str(a)+": "+str(thing))
+            if inp[3][0]=='-':
+                randos.reverse()
+            if inp[7][0]=='-':
+                values.reverse()
+            for i,(rando,value) in enumerate(zip(randos,values)):
+                print(str(i)+": "+str(rando)+", "+str(value))
             zeroTo_n_rand = weightedrand(randos)
             print("rand augenzahl ergebnis: "+str(weightedrand(randos)))
             #dice = random.randrange(inp[1])+1
