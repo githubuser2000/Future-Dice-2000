@@ -135,11 +135,12 @@ def main(inp):
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = float(inp[5])
+        inp[3] = float(inp[3])
         inp[1] = int(inp[1])
         if inp[4] <= inp[1] and inp[4] > 1 and inp[2] != "gewicht":
             values = []
-            for a in range(1,int(inp[1])+1):
-                values.append(fkt[inp[2]](int(a),int(inp[3]),int(inp[4]),inp[5]))
+            for a in range(1,until+1):
+                values.append(fkt[inp[2]](a,inp[3],inp[4],inp[5]))
             if inp[2][0]=='-':
                 values.reverse()
             for i,value in enumerate(values):
@@ -148,17 +149,18 @@ def main(inp):
             print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice+1)+")")
     elif len(inp) > 10 and inp[2] == "gewicht":
         until = int(inp[1])
+        inp[4] = int(inp[4])
         inp[5] = int(inp[5])
         inp[6] = float(inp[6])
         inp[1] = int(inp[1])
-        inp[8] = int(inp[8])
+        inp[8] = float(inp[8])
         inp[9] = int(inp[9])
         inp[10] = float(inp[10])
         if inp[5] <= inp[1] and inp[5] > 1 and (len(inp) > 10 and inp[2] == "gewicht" ):
             randos = []
             values = []
-            for a in range(1,int(inp[1])+1):
-                thing = fkt[inp[2]](inp[3],int(a),int(inp[4]),int(inp[5]),inp[6],inp[7],int(inp[8]),int(inp[9]),inp[10])
+            for a in range(1,until+1):
+                thing = fkt[inp[2]](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
                 randos.append(thing[0])
                 values.append(thing[1])
             if inp[3][0]=='-':
