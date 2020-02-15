@@ -1,0 +1,65 @@
+1581789958|2020-02-15 19:05:58|JOIN #ot|wonderwoman|
+1581789960|2020-02-15 19:06:00|PING :75D5D5|75D5D5|
+1581789960|2020-02-15 19:06:00|PONG :75D5D5|wonderwoman|75D5D5
+1581789960|2020-02-15 19:06:00|JOIN #ot|wonderwoman|
+1581789960|2020-02-15 19:06:00||:hugoboss2000.no-ip.biz 001 wonderwoman :Welcome to the devserv IRC Network wonderwoman!wonderwoma@compalhub.home
+:hugoboss2000.no-ip.biz 002 wonderwoman :Your host is hugoboss2000.no-ip.biz, running version UnrealIRCd-4.2.4.1
+:hugoboss2000.no-ip.biz 003 wonderwoman :This server was created Mon Oct 7 2019 at 18:55:38 CEST
+:hugoboss2000.no-ip.biz 004 wonderwoman hugoboss2000.no-ip.biz UnrealIRCd-4.2.4.1 iowrsxzdHtIDZRqpWGTSB lvhopsmntikraqbeIzMQNRTOVKDdGLPZSCcf
+:hugoboss2000.no-ip.biz 005 wonderwoman AWAYLEN=307 CASEMAPPING=ascii CHANLIMIT=#:10 CHANMODES=beI,kLf,l,psmntirzMQNRTOVKDdGPZSCc CHANNELLEN=32 CHANTYPES=# DEAF=d ELIST=MNUCT EXCEPTS EXTBAN=~,tmTSOcaRrnqj HCN INVEX :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman KICKLEN=307 KNOCK MAP MAXCHANNELS=10 MAXLIST=b:60,e:60,I:60 MAXNICKLEN=30 MODES=12 NAMESX NETWORK=devserv NICKLEN=30 PREFIX=(qaohv)~&@%+ QUITLEN=307 :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman SAFELIST SILENCE=15 STATUSMSG=~&@%+ TARGMAX=DCC||hugoboss2000.no-ip.biz 001 wonderwoman||Welcome to the devserv IRC Network wonderwoman!wonderwoma@compalhub.home
+:hugoboss2000.no-ip.biz 002 wonderwoman :Your host is hugoboss2000.no-ip.biz, running version UnrealIRCd-4.2.4.1
+:hugoboss2000.no-ip.biz 003 wonderwoman :This server was created Mon Oct 7 2019 at 18:55:38 CEST
+:hugoboss2000.no-ip.biz 004 wonderwoman hugoboss2000.no-ip.biz UnrealIRCd-4.2.4.1 iowrsxzdHtIDZRqpWGTSB lvhopsmntikraqbeIzMQNRTOVKDdGLPZSCcf
+:hugoboss2000.no-ip.biz 005 wonderwoman AWAYLEN=307 CASEMAPPING=ascii CHANLIMIT=#:10 CHANMODES=beI,kLf,l,psmntirzMQNRTOVKDdGPZSCc CHANNELLEN=32 CHANTYPES=# DEAF=d ELIST=MNUCT EXCEPTS EXTBAN=~,tmTSOcaRrnqj HCN INVEX :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman KICKLEN=307 KNOCK MAP MAXCHANNELS=10 MAXLIST=b:60,e:60,I:60 MAXNICKLEN=30 MODES=12 NAMESX NETWORK=devserv NICKLEN=30 PREFIX=(qaohv)~&@%+ QUITLEN=307 :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman SAFELIST SILENCE=15 STATUSMSG=~&@%+ TARGMAX=DCC|
+1581789960|2020-02-15 19:06:00|PONG 001|wonderwoman|
+1581789960|2020-02-15 19:06:00||LOW:,ISON:,JOIN:,KICK:4,KILL:,LIST:,NAMES:1,NOTICE:1,PART:,PRIVMSG:4,SAJOIN:,SAPART:,USERHOST:,USERIP:,WATCH:,WHOIS:1,WHOWAS:1 TOPICLEN=360 UHNAMES USERIP WALLCHOPS WATCH=128 WATCHOPTS=A :are supported by this server
+:hugoboss2000.no-ip.biz 396 wonderwoman Clk-CAEB9374.home :is now your displayed host
+:hugoboss2000.no-ip.biz 251 wonderwoman :There are 1 users and 2 invisible on 1 servers
+:hugoboss2000.no-ip.biz 254 wonderwoman 1 :channels formed
+:hugoboss2000.no-ip.biz 255 wonderwoman :I have 3 clients and 0 servers
+:hugoboss2000.no-ip.biz 265 wonderwoman 3 5 :Current local users 3, max 5
+:hugoboss2000.no-ip.biz 266 wonderwoman 3 3 :Current global users 3, max 3
+:hugoboss2000.no-ip.biz 375 wonderwoman :- hugoboss2000.no-ip.biz Message of the Day - 
+:hugoboss2000.no-ip.biz 372 wonderwoman :- 9/2/2020 17:20
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######  #   #  #####  #####||,ISON||,JOIN:,KICK:4,KILL:,LIST:,NAMES:1,NOTICE:1,PART:,PRIVMSG:4,SAJOIN:,SAPART:,USERHOST:,USERIP:,WATCH:,WHOIS:1,WHOWAS:1 TOPICLEN=360 UHNAMES USERIP WALLCHOPS WATCH=128 WATCHOPTS=A :are supported by this server
+:hugoboss2000.no-ip.biz 396 wonderwoman Clk-CAEB9374.home :is now your displayed host
+:hugoboss2000.no-ip.biz 251 wonderwoman :There are 1 users and 2 invisible on 1 servers
+:hugoboss2000.no-ip.biz 254 wonderwoman 1 :channels formed
+:hugoboss2000.no-ip.biz 255 wonderwoman :I have 3 clients and 0 servers
+:hugoboss2000.no-ip.biz 265 wonderwoman 3 5 :Current local users 3, max 5
+:hugoboss2000.no-ip.biz 266 wonderwoman 3 3 :Current global users 3, max 3
+:hugoboss2000.no-ip.biz 375 wonderwoman :- hugoboss2000.no-ip.biz Message of the Day - 
+:hugoboss2000.no-ip.biz 372 wonderwoman :- 9/2/2020 17:20
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######  #   #  #####  #####|
+1581789960|2020-02-15 19:06:00||#####  #   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #       #   #  #      #      #   #  #   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #    #  ###      # #   #####  ###    #####   # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #        # #       #  #      # #     # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######    #    #####  #####  #  #     #         #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 376 wonderwoman :End of /MOTD command.
+:wonderwoman MODE wonderwoman :+iwx
+:wonderwoman!wonderwoma@Clk-CAEB9374.home JOIN :#ot
+:hugoboss2000.no-ip.biz 353 wonderwoman = #ot :wonderwoman mov alex 
+:hugoboss2000.no-ip.biz 366 wonderwoman #ot :End of /NAMES list.||hugoboss2000.no-ip.biz 372 wonderwoman||- #       #   ##  #       #   #  #      #      #   #  #   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #    #  ###      # #   #####  ###    #####   # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #        # #       #  #      # #     # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######    #    #####  #####  #  #     #         #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 376 wonderwoman :End of /MOTD command.
+:wonderwoman MODE wonderwoman :+iwx
+:wonderwoman!wonderwoma@Clk-CAEB9374.home JOIN :#ot
+:hugoboss2000.no-ip.biz 353 wonderwoman = #ot :wonderwoman mov alex 
+:hugoboss2000.no-ip.biz 366 wonderwoman #ot :End of /NAMES list.|
+1581789966|2020-02-15 19:06:06|:trace!trace@808C1ED8.3DE4ED8E.3DD7867D.IP JOIN :#ot|trace|#ot
+1581790002|2020-02-15 19:06:42|:alex!trace@808C1ED8.3DE4ED8E.3DD7867D.IP QUIT :Quit: Leaving|alex|Quit: Leaving
+1581790020|2020-02-15 19:07:00|:alex!trace@808C1ED8.3DE4ED8E.3DD7867D.IP JOIN :#ot|alex|#ot
+1581790042|2020-02-15 19:07:22|:alex!trace@808C1ED8.3DE4ED8E.3DD7867D.IP PRIVMSG #ot :!messages|alex|!messages
+1581790042|2020-02-15 19:07:22|PRIVMSG #ot :nothing from user anyone to user trace|wonderwoman|nothing from user anyone to user trace
+1581790046|2020-02-15 19:07:26|:alex!trace@808C1ED8.3DE4ED8E.3DD7867D.IP PRIVMSG #ot :!bitcoin|alex|!bitcoin
