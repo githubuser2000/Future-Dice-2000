@@ -3,7 +3,7 @@
 import sys
 import math
 import random
-from collections import defaultdict
+#from collections import defaultdict
 # argv
 # 1 ist würfel bis zahl
 # 2 ist lin log root etc
@@ -14,7 +14,7 @@ from collections import defaultdict
 inpp = sys.argv
 
 wuerfelWurfMoeglichkeiten = {}
-wuerfelWurf = defaultdict(list)
+wuerfelWurf = []
 
 def sigmoid(x,n,xe,e):
     x-=int(inpp[1])/2
@@ -152,7 +152,7 @@ def main(inp):
                 wuerfelWurfMoeglichkeiten[i] = value
                 print(str(i+1)+": "+str(value))
             dice = random.randrange(inp[1])
-            wuerfelWurf[dice].append(values[dice])
+            wuerfelWurf.append((dice,values[dice]))
             print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice+1)+")")
     elif len(inp) > 10 and inp[2] == "gewicht":
         until = int(inp[1])
@@ -181,7 +181,7 @@ def main(inp):
             zeroTo_n_rand = weightedrand(randos)
             print("rand augenzahl ergebnis: "+str(weightedrand(randos)))
             #dice = random.randrange(inp[1])+1
-            wuerfelWurf[zeroTo_n_rand].append((wuerfelWurfMoeglichkeiten[zeroTo_n_rand-1],values[zeroTo_n_rand]))
+            wuerfelWurf.append((zeroTo_n_rand,wuerfelWurfMoeglichkeiten[zeroTo_n_rand-1],values[zeroTo_n_rand]))
             print("Würfelwurf: "+str(values[zeroTo_n_rand])+" (Würfelaugen "+str(zeroTo_n_rand)+")")
     else:
         help()
