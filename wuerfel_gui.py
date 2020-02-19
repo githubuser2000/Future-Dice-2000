@@ -83,10 +83,24 @@ if __name__ == '__main__':
 
    # Eintrag 1 nutz
    #wurf = Checkbar(root, list(alex_dice.randfkt2.values()))
-   wurf = Checkbar(root, list(alex_dice.randfkt2.values()))
+   def ShowChoice():
+       print(str(v.get()))
+       print(('' if v2.get() == 0 else '-')+str(alex_dice.randfkt2[v.get()]))
+       #print(str(v2.get()))
+   v = IntVar()
+   v.set(1)
+   v2 = IntVar()
+   for val,txt in alex_dice.randfkt2.items():
+       Radiobutton(root,
+                text=txt,
+                #padx = 20,
+                variable=v,
+                command=ShowChoice,
+                value=val).pack(anchor=W)
+   wurf = Checkbutton(root, text='umgekehrt',variable=v2)
    wurf.pack(side=LEFT,  fill=X)
-   wurf.pack(side=BOTTOM)
-   wurf.config(relief=GROOVE, bd=2)
+   #wurf.pack(side=BOTTOM)
+   #wurf.config(relief=GROOVE, bd=2)
 
 
    Label(root, text="Parameter Sammelung - Nr.1").pack()
