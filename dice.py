@@ -181,7 +181,8 @@ def main(inp):
             zeroTo_n_rand = weightedrand(randos)
             print("rand augenzahl ergebnis: "+str(weightedrand(randos)))
             #dice = random.randrange(inp[1])+1
-            wuerfelWurf.append((zeroTo_n_rand,wuerfelWurfMoeglichkeiten[zeroTo_n_rand-1],values[zeroTo_n_rand]))
+            ergebnis = wuerfelWurfMoeglichkeiten[zeroTo_n_rand]
+            wuerfelWurf.append((zeroTo_n_rand,ergebnis[0],ergebnis[1]))
             print("Würfelwurf: "+str(values[zeroTo_n_rand])+" (Würfelaugen "+str(zeroTo_n_rand)+")")
     else:
         help()
