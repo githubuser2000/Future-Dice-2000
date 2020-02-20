@@ -14,6 +14,7 @@ import random
 inpp = sys.argv
 include1 = None
 include2 = None
+include3 = None
 
 def sigmoid(x,n,xe,e):
     x-=int(inpp[1])/2
@@ -36,26 +37,43 @@ def expo(x,n,xe,e):
 
 
 def kombi(x,n,xe,e,reku = 50):
+    global include1,include2,include3
     try:
         okay1 = False
         okay2 = False
         for i,k in zip(include1,include2):
-            if include1 is True:
+            if i:
                 okay1 = True
-            if include2 is True:
+            if k:
                 okay2 = True
-        if okay1 == False or okay2 == False:
-            return None
-        while True:
-            randfktvar = random.randrange(len(include1))
-            if include1[randftkvar]:
-                break
-        while True:
-            randfktvar2 = random.randrange(len(include2))
-            if include12[randftkvar]:
-                break
 
-        randfktvar3 = random.randrange(4)+1
+        if not okay1 or not okay2:
+            return None
+        randfktvar = len(include1)
+        randfktvar2 = len(include2)
+        randfktvar3 = len(include3)
+        include1.append(False)
+        include2.append(False)
+        include3.append(False)
+        d = 100
+        while not include1[randfktvar]:
+            d-=1
+            if d <= 0:
+                return None
+            randfktvar = random.randrange(len(include1)-1)
+        d = 100
+        while not include2[randfktvar2]:
+            d-=1
+            if d <= 0:
+                return None
+            randfktvar2 = random.randrange(len(include2)-1)
+        d = 100
+        while not include3[randfktvar3]:
+            d-=1
+            if d <= 0:
+                return None
+            randfktvar3 = random.randrange(len(include3)-1)+1
+        print(str(randfktvar3))
         if randfktvar3 == 1:
             print("Kombi Mulitply: "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
             return randfkt[randfktvar](x,n,xe,e) * randfkt[randfktvar2](x,n,xe,e)
@@ -79,10 +97,11 @@ def gewicht(type1,x,n,xe,e,type2,n2,xe2,e2):
 
 
 def rand(x,n,xe,e):
+    global randfktvarA
     #print(str(randfktvar))
     if x == 1:
-        print(str(randfkt2[randfktvar]))
-    return randfkt[randfktvar](x,n,xe,e)
+        print(str(randfkt2[randfktvarA]))
+    return randfkt[randfktvarA](x,n,xe,e)
 
 fkt = { 'lin' : lin,
         'log' : log,
@@ -110,8 +129,8 @@ randfkt = { 1 : lin,
         4 : poly,
         5 : expo,
         6 : kombi,
-        7 : gewicht,
-        8 : sigmoid}
+        8 : gewicht,
+        7 : sigmoid}
 
 randfkt2 = { 1 : 'lin',
         2 : 'log',
@@ -119,11 +138,14 @@ randfkt2 = { 1 : 'lin',
         4 : 'poly',
         5 : 'exp',
         6 : 'kombi',
-        7 : 'gewicht',
-        8 : 'lostistic'}
+        8 : 'gewicht',
+        7 : 'lostistic'}
 
-randfktvar = random.randrange(6)+1
-randfktvar2 = random.randrange(6)+1
+randfkt3 = { 1 : 'mul',
+        2 : 'add',
+        3 : 'log',
+        4 : 'root'}
+
 
 def weightedrand(weights):
     summ = 0
@@ -151,7 +173,7 @@ def help():
 
 wuerfeltype = None
 
-def wuerfeln(values,wuerfelType,wuerfelWurf,include1 = None,randos = None, include2 = None):
+def wuerfeln(values,wuerfelType,wuerfelWurf,randos = None):
     if wuerfelType == 0:
         dice = random.randrange(len(values))
         wuerfelWurf.append((dice,values[dice]))
@@ -166,13 +188,19 @@ def wuerfeln(values,wuerfelType,wuerfelWurf,include1 = None,randos = None, inclu
     return wuerfelWurf
 
 def main(inp,werfen = True):
+    global randfktvarA
+    global include1,include2,include3
+    randfktvarA = random.randrange(len(randfkt))-1
     wuerfelWurf = []
     wuerfelWurfMoeglichkeiten = {}
-    print(str((inp)))
-    if len(inp) == 8:
-        if not type(inp[7]) is list:
-            inp[6] = None
-            include1 = inp[6]
+    if len(inp) > 3:
+        if type(inp[-3]) is list:
+            include1 = inp[-3]
+        if type(inp[-2]) is list:
+            include2 = inp[-2]
+        if type(inp[-1]) is list:
+            include3 = inp[-1]
+    if len(inp) == 9:
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = float(inp[5])
@@ -188,8 +216,8 @@ def main(inp,werfen = True):
                 wuerfelWurfMoeglichkeiten[i] = value
                 print(str(i+1)+": "+str(value))
             if werfen:
-                wuerfelWurf = wuerfeln(values,0,wuerfelWurf,inp[6])
-    elif len(inp) == 13 and inp[2] == "gewicht":
+                wuerfelWurf = wuerfeln(values,0,wuerfelWurf)
+    elif len(inp) == 14 and inp[2] == "gewicht":
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = int(inp[5])
@@ -199,12 +227,6 @@ def main(inp,werfen = True):
         inp[9] = int(inp[9])
         inp[10] = float(inp[10])
         if inp[5] <= inp[1] and inp[5] > 0 and inp[9] <= inp[1] and inp[9] > 0:
-            if not type(inp[12]) is list:
-                inp[12] = None
-                include2 = inp[12]
-            if not type(inp[11]) is list:
-                inp[11] = None
-                include1 = inp[11]
             randos = []
             values = []
             for a in range(1,until+1):
@@ -220,7 +242,7 @@ def main(inp,werfen = True):
                 print(str(i+1)+": "+str(value))
                 print(str(i+1)+": "+str(rando)+", "+str(value))
             if werfen:
-                wuerfelWurf = wuerfeln(values,1,wuerfelWurf,inp[6],randos,inp[11])
+                wuerfelWurf = wuerfeln(values,1,wuerfelWurf,randos)
     else:
         help()
         return None
@@ -230,11 +252,13 @@ def main(inp,werfen = True):
 
 
 if len(sys.argv) > 5:
-    include1 = []
-    include2 = []
+    i1 = []
+    i2 = []
+    i3 = []
     for i in range(len(randfkt2)):
-        include1.append(True)
-        include2.append(True)
-    main(sys.argv + [include1] + [include2])
+        i1.append(True)
+        i2.append(True)
+    i3.append([True,True,True,True])
+    main(sys.argv + [i1] + [i2] + [i3])
 else:
     help()
