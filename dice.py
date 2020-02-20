@@ -134,7 +134,7 @@ def help():
 
 wuerfeltype = None
 
-def wuerfeln(values,wuerfelType,wuerfelWurf,randos=None):
+def wuerfeln(values,wuerfelType,wuerfelWurf,include1 = None,randos = None, include2 = None):
     if wuerfelType == 0:
         dice = random.randrange(len(values))
         wuerfelWurf.append((dice,values[dice]))
@@ -151,7 +151,10 @@ def wuerfeln(values,wuerfelType,wuerfelWurf,randos=None):
 def main(inp,werfen = True):
     wuerfelWurf = []
     wuerfelWurfMoeglichkeiten = {}
-    if len(inp) > 5 and len(inp) < 7:
+    #print(str((inp)))
+    if len(inp) == 8:
+        if not type(inp[7]) is list:
+            inp[6] = None
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = float(inp[5])
@@ -167,8 +170,8 @@ def main(inp,werfen = True):
                 wuerfelWurfMoeglichkeiten[i] = value
                 print(str(i+1)+": "+str(value))
             if werfen:
-                wuerfelWurf = wuerfeln(values,0,wuerfelWurf)
-    elif len(inp) > 10 and inp[2] == "gewicht":
+                wuerfelWurf = wuerfeln(values,0,wuerfelWurf,inp[6])
+    elif len(inp) == 13 and inp[2] == "gewicht":
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = int(inp[5])
@@ -177,7 +180,11 @@ def main(inp,werfen = True):
         inp[8] = float(inp[8])
         inp[9] = int(inp[9])
         inp[10] = float(inp[10])
-        if inp[5] <= inp[1] and inp[5] > 1 and (len(inp) > 10 and inp[2] == "gewicht" ):
+        if inp[5] <= inp[1] and inp[5] > 0 and inp[9] <= inp[1] and inp[9] > 0:
+            if not type(inp[12]) is list:
+                inp[12] = None
+            if not type(inp[11]) is list:
+                inp[11] = None
             randos = []
             values = []
             for a in range(1,until+1):
@@ -193,7 +200,7 @@ def main(inp,werfen = True):
                 print(str(i+1)+": "+str(value))
                 print(str(i+1)+": "+str(rando)+", "+str(value))
             if werfen:
-                wuerfelWurf = wuerfeln(values,1,wuerfelWurf,randos)
+                wuerfelWurf = wuerfeln(values,1,wuerfelWurf,inp[6],randos,inp[11])
     else:
         help()
         return None
@@ -203,6 +210,11 @@ def main(inp,werfen = True):
 
 
 if len(sys.argv) > 5:
-    main(sys.argv)
+    include1 = []
+    include2 = []
+    for i in range(len(randfkt2)):
+        include1.append(True)
+        include2.append(True)
+    main(sys.argv + [include1] + [include2])
 else:
     help()
