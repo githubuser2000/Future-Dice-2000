@@ -13,8 +13,6 @@ import random
 
 inpp = sys.argv
 
-wuerfelWurfMoeglichkeiten = {}
-wuerfelWurf = []
 
 def sigmoid(x,n,xe,e):
     x-=int(inpp[1])/2
@@ -134,8 +132,25 @@ def help():
     print("dice.py 3 kombi 3 3 0.7")
     print("dice.py 3 rand 3 3 5")
 
+wuerfeltype = None
 
-def main(inp):
+def wuerfeln(values,wuerfelType,wuerfelWurf,randos=None):
+    if wuerfelType == 0:
+        dice = random.randrange(len(values))
+        wuerfelWurf.append((dice,values[dice]))
+        print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice+1)+")")
+    elif wuerfelType == 1:
+        zeroTo_n_rand = weightedrand(randos)
+        print("rand augenzahl ergebnis: "+str(weightedrand(randos)))
+        #dice = random.randrange(inp[1])+1
+        ergebnis = (randos[zeroTo_n_rand],values[zeroTo_n_rand])
+        wuerfelWurf.append((zeroTo_n_rand,ergebnis[0],ergebnis[1]))
+        print("Würfelwurf: "+str(values[zeroTo_n_rand])+" (Würfelaugen "+str(zeroTo_n_rand)+")")
+    return wuerfelWurf
+
+def main(inp,werfen = True):
+    wuerfelWurf = []
+    wuerfelWurfMoeglichkeiten = {}
     if len(inp) > 5 and len(inp) < 7:
         until = int(inp[1])
         inp[4] = int(inp[4])
@@ -151,9 +166,8 @@ def main(inp):
             for i,value in enumerate(values):
                 wuerfelWurfMoeglichkeiten[i] = value
                 print(str(i+1)+": "+str(value))
-            dice = random.randrange(inp[1])
-            wuerfelWurf.append((dice,values[dice]))
-            print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice+1)+")")
+            if werfen:
+                wuerfelWurf = wuerfeln(values,0,wuerfelWurf)
     elif len(inp) > 10 and inp[2] == "gewicht":
         until = int(inp[1])
         inp[4] = int(inp[4])
@@ -178,12 +192,8 @@ def main(inp):
                 wuerfelWurfMoeglichkeiten[i] = (rando,value)
                 print(str(i+1)+": "+str(value))
                 print(str(i+1)+": "+str(rando)+", "+str(value))
-            zeroTo_n_rand = weightedrand(randos)
-            print("rand augenzahl ergebnis: "+str(weightedrand(randos)))
-            #dice = random.randrange(inp[1])+1
-            ergebnis = wuerfelWurfMoeglichkeiten[zeroTo_n_rand]
-            wuerfelWurf.append((zeroTo_n_rand,ergebnis[0],ergebnis[1]))
-            print("Würfelwurf: "+str(values[zeroTo_n_rand])+" (Würfelaugen "+str(zeroTo_n_rand)+")")
+            if werfen:
+                wuerfelWurf = wuerfeln(values,1,wuerfelWurf,randos)
     else:
         help()
         return None
