@@ -168,25 +168,25 @@ def help():
 
 wuerfeltype = None
 
-def wuerfeln(values,wuerfelType,wuerfelWurf,randos = None):
+def wuerfeln(values,wuerfelType,wuerfelWuerfe,randos = None):
     if wuerfelType == 0:
         dice = random.randrange(len(values))
-        wuerfelWurf.append((dice,values[dice]))
+        wuerfelWuerfe.append((dice,values[dice]))
         print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice+1)+")")
     elif wuerfelType == 1:
         zeroTo_n_rand = weightedrand(randos)
         print("rand augenzahl ergebnis: "+str(weightedrand(randos)))
         #dice = random.randrange(inp[1])+1
         ergebnis = (randos[zeroTo_n_rand],values[zeroTo_n_rand])
-        wuerfelWurf.append((zeroTo_n_rand,ergebnis[0],ergebnis[1]))
+        wuerfelWuerfe.append((zeroTo_n_rand,ergebnis[0],ergebnis[1]))
         print("Würfelwurf: "+str(values[zeroTo_n_rand])+" (Würfelaugen "+str(zeroTo_n_rand)+")")
-    return wuerfelWurf
+    return wuerfelWuerfe
 
-def main(inp,werfen = True):
+def main(inp,werfen = 1):
     global randfktvarA
     global include1,include2,include3
-    wuerfelWurf = []
-    wuerfelWurfMoeglichkeiten = {}
+    wuerfelWuerfe = []
+    wuerfelWuerfeMoeglichkeiten = {}
     if len(inp) > 3:
         if type(inp[-3]) is list and type(inp[-2]) is list and type(inp[-1]) is list:
             include1,include2,include3 = inp[-3],inp[-2],inp[-1]
@@ -209,10 +209,10 @@ def main(inp,werfen = True):
             if inp[2][0]=='-':
                 values.reverse()
             for i,value in enumerate(values):
-                wuerfelWurfMoeglichkeiten[i] = value
+                wuerfelWuerfeMoeglichkeiten[i] = value
                 print(str(i+1)+": "+str(value))
-            if werfen:
-                wuerfelWurf = wuerfeln(values,0,wuerfelWurf)
+            for i in range(werfen):
+                wuerfelWuerfe = wuerfeln(values,0,wuerfelWuerfe)
     elif len(inp) == 11 and inp[2] == "gewicht":
         until = int(inp[1])
         inp[4] = int(inp[4])
@@ -234,15 +234,15 @@ def main(inp,werfen = True):
             if inp[7][0]=='-':
                 values.reverse()
             for i,(rando,value) in enumerate(zip(randos,values)):
-                wuerfelWurfMoeglichkeiten[i] = (rando,value)
+                wuerfelWuerfeMoeglichkeiten[i] = (rando,value)
                 print(str(i+1)+": "+str(value))
                 print(str(i+1)+": "+str(rando)+", "+str(value))
-            if werfen:
-                wuerfelWurf = wuerfeln(values,1,wuerfelWurf,randos)
+            for i in range(werfen):
+                wuerfelWuerfe = wuerfeln(values,1,wuerfelWuerfe,randos)
     else:
         help()
         return None
-    result = (wuerfelWurfMoeglichkeiten,wuerfelWurf)
+    result = (wuerfelWuerfeMoeglichkeiten,wuerfelWuerfe)
     print(str(result))
     return result
 
