@@ -188,13 +188,15 @@ def main(inp,werfen = True):
     wuerfelWurf = []
     wuerfelWurfMoeglichkeiten = {}
     if len(inp) > 3:
-        if type(inp[-3]) is list:
-            include1 = inp[-3]
-        if type(inp[-2]) is list:
-            include2 = inp[-2]
-        if type(inp[-1]) is list:
-            include3 = inp[-1]
-    if len(inp) == 9:
+        if type(inp[-3]) is list and type(inp[-2]) is list and type(inp[-1]) is list:
+            include1,include2,include3 = inp[-3],inp[-2],inp[-1]
+        else:
+            i1,i2,i3 = [],[],[True,True,True,True]
+            for i in range(len(randfkt2)):
+                i1.append(True)
+                i2.append(True)
+            include1,include2,include3 = i1,i2,i3
+    if len(inp) == 6:
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = float(inp[5])
@@ -211,7 +213,7 @@ def main(inp,werfen = True):
                 print(str(i+1)+": "+str(value))
             if werfen:
                 wuerfelWurf = wuerfeln(values,0,wuerfelWurf)
-    elif len(inp) == 14 and inp[2] == "gewicht":
+    elif len(inp) == 11 and inp[2] == "gewicht":
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = int(inp[5])
@@ -246,13 +248,6 @@ def main(inp,werfen = True):
 
 
 if len(sys.argv) > 5:
-    i1 = []
-    i2 = []
-    i3 = []
-    for i in range(len(randfkt2)):
-        i1.append(True)
-        i2.append(True)
-    i3=[True,True,True,True]
-    main(sys.argv + [i1] + [i2] + [i3])
+    main(sys.argv)
 else:
     help()
