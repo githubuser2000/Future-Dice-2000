@@ -35,10 +35,20 @@ def poly(x,n,xe,e):
 def expo(x,n,xe,e):
     return pow(n,x) / pow(n,xe) * e
 
+def randselect(includex):
+        d = 1000
+        randfktvarx = random.randrange(len(includex))+1
+        while not includex[randfktvarx-1]:
+            d-=1
+            if d <= 0:
+                return None
+            randfktvarx = random.randrange(len(includex))+1
+        return randfktvarx
 
 def kombi(x,n,xe,e,reku = 50):
     global include1,include2,include3
     try:
+    #if True:
         okay1 = False
         okay2 = False
         for i,k in zip(include1,include2):
@@ -49,43 +59,21 @@ def kombi(x,n,xe,e,reku = 50):
 
         if not okay1 or not okay2:
             return None
-        randfktvar = len(include1)
-        randfktvar2 = len(include2)
-        randfktvar3 = len(include3)
-        include1.append(False)
-        include2.append(False)
-        include3.append(False)
-        d = 100
-        while not include1[randfktvar]:
-            d-=1
-            if d <= 0:
-                return None
-            randfktvar = random.randrange(len(include1)-1)
-        d = 100
-        while not include2[randfktvar2]:
-            d-=1
-            if d <= 0:
-                return None
-            randfktvar2 = random.randrange(len(include2)-1)
-        d = 100
-        while not include3[randfktvar3]:
-            d-=1
-            if d <= 0:
-                return None
-            randfktvar3 = random.randrange(len(include3)-1)+1
-        print(str(randfktvar3))
+        randfktvar1,randfktvar2,randfktvar3 = randselect(include1),randselect(include2),randselect(include3)
+        print(str(randfktvar1)+" "+str(randfktvar2)+" "+str(randfktvar3))
+
         if randfktvar3 == 1:
-            print("Kombi Mulitply: "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
-            return randfkt[randfktvar](x,n,xe,e) * randfkt[randfktvar2](x,n,xe,e)
+            print("Kombi Mulitply: "+str(randfkt2[randfktvar1])+" "+str(randfkt2[randfktvar2]))
+            return randfkt[randfktvar1](x,n,xe,e) * randfkt[randfktvar2](x,n,xe,e)
         elif randfktvar3 == 2:
-            print("Kombi Addition "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
-            return randfkt[randfktvar](x,n,xe,e) + randfkt[randfktvar2](x,n,xe,e)
+            print("Kombi Addition "+str(randfkt2[randfktvar1])+" "+str(randfkt2[randfktvar2]))
+            return randfkt[randfktvar1](x,n,xe,e) + randfkt[randfktvar2](x,n,xe,e)
         elif randfktvar3 == 3:
-            print("Kombi Logarithm "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
-            return math.log(randfkt[randfktvar](x,n,xe,e)+1.1,randfkt[randfktvar2](x,n,xe,e)+1.1)
+            print("Kombi Logarithm "+str(randfkt2[randfktvar1])+" "+str(randfkt2[randfktvar2]))
+            return math.log(randfkt[randfktvar1](x,n,xe,e)+1.1,randfkt[randfktvar2](x,n,xe,e)+1.1)
         elif randfktvar3 == 4:
-            print("Kombi Root "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
-            return pow(randfkt[randfktvar](x,n,xe,e), 1 / ( randfkt[randfktvar2](x,n,xe,e) + 1 ))
+            print("Kombi Root "+str(randfkt2[randfktvar1])+" "+str(randfkt2[randfktvar2]))
+            return pow(randfkt[randfktvar1](x,n,xe,e), 1 / ( randfkt[randfktvar2](x,n,xe,e) + 1 ))
     except:
         if reku > 0:
             reku -= 1
@@ -98,10 +86,15 @@ def gewicht(type1,x,n,xe,e,type2,n2,xe2,e2):
 
 def rand(x,n,xe,e):
     global randfktvarA
-    #print(str(randfktvar))
+    randfktvarA = randselect(include1)
+    a = 100
+    while randfkt[randfktvarA].__name__ == "gewicht" and a>0:
+        randfktvarA = randselect(include1)
+        a -= 1
     if x == 1:
         print(str(randfkt2[randfktvarA]))
-    return randfkt[randfktvarA](x,n,xe,e)
+    result = randfkt[randfktvarA](x,n,xe,e)
+    return result
 
 fkt = { 'lin' : lin,
         'log' : log,
@@ -129,8 +122,9 @@ randfkt = { 1 : lin,
         4 : poly,
         5 : expo,
         6 : kombi,
-        8 : gewicht,
-        7 : sigmoid}
+        7 : sigmoid,
+        8 : rand,
+        9 : gewicht}
 
 randfkt2 = { 1 : 'lin',
         2 : 'log',
@@ -138,8 +132,9 @@ randfkt2 = { 1 : 'lin',
         4 : 'poly',
         5 : 'exp',
         6 : 'kombi',
-        8 : 'gewicht',
-        7 : 'lostistic'}
+        7 : 'lostistic',
+        8 : 'rand',
+        9 : 'gewicht'}
 
 randfkt3 = { 1 : 'mul',
         2 : 'add',
@@ -190,7 +185,6 @@ def wuerfeln(values,wuerfelType,wuerfelWurf,randos = None):
 def main(inp,werfen = True):
     global randfktvarA
     global include1,include2,include3
-    randfktvarA = random.randrange(len(randfkt))-1
     wuerfelWurf = []
     wuerfelWurfMoeglichkeiten = {}
     if len(inp) > 3:
@@ -258,7 +252,7 @@ if len(sys.argv) > 5:
     for i in range(len(randfkt2)):
         i1.append(True)
         i2.append(True)
-    i3.append([True,True,True,True])
+    i3=[True,True,True,True]
     main(sys.argv + [i1] + [i2] + [i3])
 else:
     help()
