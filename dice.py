@@ -12,7 +12,8 @@ import random
 # sys.argv
 
 inpp = sys.argv
-
+include1 = None
+include2 = None
 
 def sigmoid(x,n,xe,e):
     x-=int(inpp[1])/2
@@ -36,8 +37,24 @@ def expo(x,n,xe,e):
 
 def kombi(x,n,xe,e,reku = 50):
     try:
-        randfktvar = random.randrange(6)+1
-        randfktvar2 = random.randrange(6)+1
+        okay1 = False
+        okay2 = False
+        for i,k in zip(include1,include2):
+            if include1 is True:
+                okay1 = True
+            if include2 is True:
+                okay2 = True
+        if okay1 == False or okay2 == False:
+            return None
+        while True:
+            randfktvar = random.randrange(len(include1))
+            if include1[randftkvar]:
+                break
+        while True:
+            randfktvar2 = random.randrange(len(include2))
+            if include12[randftkvar]:
+                break
+
         randfktvar3 = random.randrange(4)+1
         if randfktvar3 == 1:
             print("Kombi Mulitply: "+str(randfkt2[randfktvar])+" "+str(randfkt2[randfktvar2]))
@@ -151,10 +168,11 @@ def wuerfeln(values,wuerfelType,wuerfelWurf,include1 = None,randos = None, inclu
 def main(inp,werfen = True):
     wuerfelWurf = []
     wuerfelWurfMoeglichkeiten = {}
-    #print(str((inp)))
+    print(str((inp)))
     if len(inp) == 8:
         if not type(inp[7]) is list:
             inp[6] = None
+            include1 = inp[6]
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = float(inp[5])
@@ -183,8 +201,10 @@ def main(inp,werfen = True):
         if inp[5] <= inp[1] and inp[5] > 0 and inp[9] <= inp[1] and inp[9] > 0:
             if not type(inp[12]) is list:
                 inp[12] = None
+                include2 = inp[12]
             if not type(inp[11]) is list:
                 inp[11] = None
+                include1 = inp[11]
             randos = []
             values = []
             for a in range(1,until+1):
