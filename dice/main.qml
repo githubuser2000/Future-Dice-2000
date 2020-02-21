@@ -15,13 +15,13 @@ Window {
         columns: 3
 
         Label {
-            text: "Label"
+            text: ""
         }
         Label {
             text: "Label"
         }
         Label {
-            text: "Label"
+            text: ""
         }
 
 
@@ -89,26 +89,26 @@ Window {
             //anchors.fill: parent
             id: layout
 
-
+            ButtonGroup { id: radioA }
             Column {
 
                 CheckBox {
                     id: parentBox1
                     text: qsTr("Parent")
-                    checkState: childGroup.checkState
+                    //checkState: childGroup.checkState
                 }
 
                 CheckBox {
                     checked: true
                     text: qsTr("Child 1")
                     leftPadding: indicator.width
-                    ButtonGroup.group: childGroup
+                    ButtonGroup.group: radioA
                 }
 
                 CheckBox {
                     text: qsTr("Child 2")
                     leftPadding: indicator.width
-                    ButtonGroup.group: childGroup
+                    ButtonGroup.group: radioA
                 }
             }
         }
@@ -116,26 +116,26 @@ Window {
             //anchors.fill: parent
             id: layout5
 
-
+ButtonGroup { id: radioB }
             Column {
 
                 CheckBox {
                     id: parentBox2
                     text: qsTr("Parent")
-                    checkState: childGroup.checkState
+                    //checkState: childGroup.checkState
                 }
 
                 CheckBox {
                     checked: true
                     text: qsTr("Child 1")
                     leftPadding: indicator.width
-                    ButtonGroup.group: childGroup
+                    ButtonGroup.group: radioB
                 }
 
                 CheckBox {
                     text: qsTr("Child 2")
                     leftPadding: indicator.width
-                    ButtonGroup.group: childGroup
+                    ButtonGroup.group: radioB
                 }
             }
         }
@@ -143,26 +143,26 @@ Window {
             //anchors.fill: parent
             id: layout7
 
-
+ButtonGroup { id: radioC }
             Column {
 
                 CheckBox {
                     id: parentBox3
                     text: qsTr("Parent")
-                    checkState: childGroup.checkState
+                    //checkState: childGroup.checkState
                 }
 
                 CheckBox {
                     checked: true
                     text: qsTr("Child 1")
                     leftPadding: indicator.width
-                    ButtonGroup.group: childGroup
+                    ButtonGroup.group: radioC
                 }
 
                 CheckBox {
                     text: qsTr("Child 2")
                     leftPadding: indicator.width
-                    ButtonGroup.group: childGroup
+                    ButtonGroup.group: radioC
                 }
             }
         }
