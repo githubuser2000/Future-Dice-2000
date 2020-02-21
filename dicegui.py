@@ -33,9 +33,9 @@ def runQML():
         #print(str(type(w.contentItem().childItems()).__name__))
         for v in w.contentItem().childItems():
             print(str(v.setOpacity(0.9)))
-            for x in v.childItems():
+            for i,x in enumerate(v.childItems()):
                 print(str(x.setOpacity(0.9)))
-                x.stackAfter(v.childItems()[1])
+                x.stackAfter(v.childItems()[i])
 
 
 
