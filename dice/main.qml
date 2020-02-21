@@ -14,6 +14,17 @@ Window {
         anchors.fill: parent
         columns: 3
 
+        Label {
+            text: "Label"
+        }
+        Label {
+            text: "Label"
+        }
+        Label {
+            text: "Label"
+        }
+
+
         ColumnLayout {
             RadioButton {
                 checked: true
@@ -74,15 +85,69 @@ Window {
                 text: name + ": " + number
             }
         }
-        RowLayout {
+        ColumnLayout {
             //anchors.fill: parent
             id: layout
 
 
-            Row {
+            Column {
 
                 CheckBox {
-                    id: parentBox
+                    id: parentBox1
+                    text: qsTr("Parent")
+                    checkState: childGroup.checkState
+                }
+
+                CheckBox {
+                    checked: true
+                    text: qsTr("Child 1")
+                    leftPadding: indicator.width
+                    ButtonGroup.group: childGroup
+                }
+
+                CheckBox {
+                    text: qsTr("Child 2")
+                    leftPadding: indicator.width
+                    ButtonGroup.group: childGroup
+                }
+            }
+        }
+        ColumnLayout {
+            //anchors.fill: parent
+            id: layout5
+
+
+            Column {
+
+                CheckBox {
+                    id: parentBox2
+                    text: qsTr("Parent")
+                    checkState: childGroup.checkState
+                }
+
+                CheckBox {
+                    checked: true
+                    text: qsTr("Child 1")
+                    leftPadding: indicator.width
+                    ButtonGroup.group: childGroup
+                }
+
+                CheckBox {
+                    text: qsTr("Child 2")
+                    leftPadding: indicator.width
+                    ButtonGroup.group: childGroup
+                }
+            }
+        }
+        ColumnLayout {
+            //anchors.fill: parent
+            id: layout7
+
+
+            Column {
+
+                CheckBox {
+                    id: parentBox3
                     text: qsTr("Parent")
                     checkState: childGroup.checkState
                 }
