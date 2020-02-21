@@ -18,7 +18,8 @@ Window {
             text: ""
         }
         Label {
-            text: "Label"
+            objectName: "foo_object"
+            text: "nichts"
         }
         Label {
             text: ""
