@@ -176,7 +176,7 @@ def wuerfeln(values,wuerfelType,wuerfelWuerfe,uniq,randos = None):
     if wuerfelType == 0:
         while True:
             dice = random.randrange(len(values))
-            if not dice in wuerfelAugenSet:
+            if not dice in wuerfelAugenSet or not uniq:
                 wuerfelAugenSet.add(dice)
                 break
         wuerfelWuerfe.append((dice,values[dice]))
@@ -184,7 +184,7 @@ def wuerfeln(values,wuerfelType,wuerfelWuerfe,uniq,randos = None):
     elif wuerfelType == 1:
         while True:
             dice = weightedrand(randos)
-            if not dice in wuerfelAugenSet:
+            if not dice in wuerfelAugenSet or not uniq:
                 wuerfelAugenSet.add(dice)
                 break
         print("rand augenzahl ergebnis: "+str(dice))
