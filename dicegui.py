@@ -5,21 +5,39 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QIcon
 import sys
 from PyQt5 import QtCore
+from PyQt5.QtQuick import QQuickView
 
-class guisettings():
-    info = 'text'
 
 
 def runQML():
+    #view = QQuickView()
+    #ui.setupUi(this)
+    #container = QWidget.createWindowContainer(view, this)
+    #container.setMinimumSize(200, 200)
+    #container.setMaximumSize(200, 200)
     app =QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 #    app.setWindowIcon(QIcon("icon.png"))
     root = engine.rootContext()
     engine.load('dice/main.qml')
+    #ui.verticalLayout.addWidget(container)
     child = engine.rootObjects()[0].findChild(QtCore.QObject, "foo_object")
     #print(str(child))
     child.setProperty("text", "Blödsinn")
     #root.setContextProperty("guisettings", guisettings)
+
+
+
+    print(str(len(engine.rootObjects())))
+    for w in engine.rootObjects():
+        #print(str(type(w.contentItem().childItems()).__name__))
+        for v in w.contentItem().childItems():
+            print(str(v.setOpacity(0.9)))
+            for x in v.childItems():
+                print(str(x.setOpacity(0.9)))
+                x.stackAfter(v.childItems()[1])
+
+
 
 
     if not engine.rootObjects():
