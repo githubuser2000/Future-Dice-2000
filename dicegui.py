@@ -12,14 +12,22 @@ import model2
 
 class MainWindow(QQmlApplicationEngine):
     wuerfelrestellt = False
-    radioval = 'lin'
+    radi = 'lin'
+
     @pyqtSlot()
-    def radioSett(self,radioval):
-        self.radioval = radioval
-        print(str(radioval))
+    def getRadioBselected(self,radu):
+        print(str(radu))
+        #radios = self.rootObjects()[0].findChild(QObject, "radiolayout")
+        #print(radios.property["objectName"])
+        #for i,radio in enumerate(radios.children()):
+        #    print(str(radio.property("text")))
+        #    print(str("x"+str(radio.property("checked"))))
+        #    if radio.property("checked"):
+        #        print(dice.randfkt2[i+1])
+
     @pyqtSlot()
     def wuerfeln2(self):
-        print(str(self.radios.property("checksate")))
+        #print(str(self.radios.property("checksate")))
         if not self.wuerfelrestellt:
             self.wuerfelErstellen()
         else:
@@ -43,17 +51,11 @@ class MainWindow(QQmlApplicationEngine):
             print("x")
             #wuerfe.setProperty("text", "x" )
             self.radiogroup = self.rootObjects()[0].findChild(QObject, "radiogroup")
-            print(str(self.radiogroup))
-            print(str(self.radiogroup.property("checksate")))
-            radios = self.rootObjects()[0].findChild(QObject, "radios")
-            for i,radio in enumerate(radios.children()[0].children()):
-                print(str(radio.property("text")))
-                print(str(radio.property("checked")))
-                if radio.property("checked"):
-                    print(dice.randfkt2[i+1])
+            #print(str(self.radiogroup))
+            print(str(self.radiogroup.property("ButtonGroup")))
             #priint(wuerfe.property("text"))
             #print(wuerfe.property("text"))
-            result = dice.main(['dicegui',augen.property("text"),self.radiogroup.property("checksate"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
+            result = dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
             for ell in result:
                 for i,el in enumerate(ell):
                     self.scrollmodel.insertPerson(i, str(el), True)
@@ -67,6 +69,9 @@ class MainWindow(QQmlApplicationEngine):
         context.setContextProperty("radiomodel", radiomodel)
         context.setContextProperty("scrollmodel", self.scrollmodel)
         self.load('dice/main.qml')
+
+        #rado = self.rootObjects()[0].findChild(QObject, "radios")
+        #rado.setProperty("onClicked", self.radu() )
 
         #layout = QVBoxLayout()
         #layout.addWidget(QPushButton('Top'))

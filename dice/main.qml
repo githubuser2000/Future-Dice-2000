@@ -27,12 +27,13 @@ Window {
 
 
         ColumnLayout {
+            objectName: "radiolayout"
             ButtonGroup {
                 id: group
                 buttons: repeaterradios.children
                 objectName: "radiogroup"
-                //onClicked:  MainWindow.radioSett(self,button.text)
-                onClicked:  console.log("clicked:",button.text)
+                onClicked:  {MainWindow.getRadioBselected(button.text);
+                /*onClicked:*/  console.log("clicked:",button.text)}
             }
             Repeater {
                 id: repeaterradios
@@ -61,6 +62,7 @@ Window {
                 objectName: "augen"
                 validator: IntValidator {bottom: 1; top: 10000000;}
                 focus: true
+                text: "3"
             }
             Label {
                 text: "n"
@@ -69,15 +71,18 @@ Window {
                 objectName: "n"
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
+                text: "3"
             }
             Label {
 
                 text: "x"
+
             }
             TextField {
                 objectName: "x"
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
+                text: "3"
             }
             Label {
                 text: "Wert an Stelle"
@@ -86,6 +91,7 @@ Window {
                 objectName: "y"
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
+                text: "3"
             }
             Label {
                 text: "Würfe"
@@ -94,6 +100,7 @@ Window {
                 objectName: "wuerfe"
                 validator: IntValidator {bottom: 0; top: 10000000;}
                 focus: true
+                text: "3"
             }
 
             Button {
