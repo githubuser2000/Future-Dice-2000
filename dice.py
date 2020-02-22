@@ -200,6 +200,7 @@ def main(inp,werfen = 2, uniq_ = False):
     global randfktvarA
     global include1,include2,include3
     global values, wuerfelType, wuerfelWuerfe, uniq, randos
+    wuerfelWuerfe = werfen
     uniq = uniq_
     wuerfelWuerfe = []
     wuerfelWuerfeMoeglichkeiten = {}

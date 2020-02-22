@@ -100,6 +100,7 @@ Window {
                 y: 424
                 text: qsTr("Würfeln")
                 spacing: -3
+                onClicked: MainWindow.wuerfeln2()
             }
 
         }

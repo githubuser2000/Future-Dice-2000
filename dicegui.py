@@ -12,6 +12,13 @@ import model2
 
 class MainWindow(QQmlApplicationEngine):
     @pyqtSlot()
+    def wuerfeln2(self):
+        result = dice.wuerfeln()
+        print("r " + str(result) )
+        for ell in result:
+            for i,el in enumerate(ell):
+                self.scrollmodel.insertPerson(i, str(el), True)
+    @pyqtSlot()
     def wuerfelErstellen(self):
         wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
         n = self.rootObjects()[0].findChild(QObject, "n")
