@@ -27,16 +27,16 @@ Window {
 
 
         ColumnLayout {
-            RadioButton {
-                checked: true
-                text: qsTr("First")
+            Repeater {
+                model: ['a']
+                objectName: "radios"
+                RadioButton {
+                    checked: false
+                    //text: qsTr("First")
+                    text: modelData
+                }
             }
-            RadioButton {
-                text: qsTr("Second")
-            }
-            RadioButton {
-                text: qsTr("Third")
-            }
+
         }
         Grid {
             columns: 2
@@ -117,7 +117,7 @@ Window {
             //anchors.fill: parent
             id: layout5
 
-ButtonGroup { id: radioB }
+            ButtonGroup { id: radioB }
             Column {
 
                 CheckBox {
@@ -144,7 +144,7 @@ ButtonGroup { id: radioB }
             //anchors.fill: parent
             id: layout7
 
-ButtonGroup { id: radioC }
+            ButtonGroup { id: radioC }
             Column {
 
                 CheckBox {

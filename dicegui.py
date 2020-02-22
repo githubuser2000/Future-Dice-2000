@@ -26,8 +26,10 @@ def runQML():
     component = QQmlComponent(engine, 'dice/Radio1.qml')
     #ui.verticalLayout.addWidget(container)
     child = engine.rootObjects()[0].findChild(QtCore.QObject, "foo_object")
+    radios = engine.rootObjects()[0].findChild(QtCore.QObject, "radios")
     #print(str(child))
     child.setProperty("text", "Blödsinn")
+    radios.setProperty("model", ["a","b","c"])
     #root.setContextProperty("guisettings", guisettings)
 
 
