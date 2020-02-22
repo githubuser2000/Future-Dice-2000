@@ -12,7 +12,7 @@ import model2
 
 class MainWindow(QQmlApplicationEngine):
     @pyqtSlot()
-    def wuerfelErstellen():
+    def wuerfelErstellen(self):
         print("x")
     def __init__(self):
         super().__init__()

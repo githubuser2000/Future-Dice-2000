@@ -86,7 +86,7 @@ Window {
                 x: 196
                 y: 383
                 text: qsTr("Würfel erstellen")
-                onClicked: wuerfelErstellen()
+                onClicked: MainWindow.wuerfelErstellen()
             }
             Button {
                 id: wuerfe
