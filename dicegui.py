@@ -8,11 +8,14 @@ from PyQt5 import QtCore
 from PyQt5.QtQuick import QQuickView, QQuickItem
 from PyQt5.QtCore import QObject, QAbstractListModel, QModelIndex, Qt, QVariant
 import dice
+import model2
 
 class analysistypes():
     def __init__(self,name):
         self.nam = name
     def name(self):
+        return self.nam
+    def text(self):
         return self.nam
     def checked(self):
         if self.name == 'lin':
@@ -29,18 +32,20 @@ class Model(QAbstractListModel):
     NameRole = Qt.UserRole + 1
     CheckedRole = Qt.UserRole + 2
 
-    _roles = {NameRole: b"name", CheckedRole: b"checked"}
+    _roles = {NameRole: b"text", CheckedRole: b"checked"}
     def __init__(self, parent=None):
         QAbstractListModel.__init__(self, parent)
 
         self._datas = []
 
     def addData(self, data):
+        #print(data.name())
         self.beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
         self._datas.append(data)
         self.endInsertRows()
 
     def rowCount(self, parent=QModelIndex()):
+        #print("y")
         return len(self._datas)
 
     def data(self, index, role=Qt.DisplayRole):
@@ -50,7 +55,6 @@ class Model(QAbstractListModel):
         except IndexError:
             print("ERR")
             return QVariant()
-        return data.name()
         if role == self.NameRole:
             return data.name()
         if role == self.CheckedRole:
@@ -59,6 +63,7 @@ class Model(QAbstractListModel):
         return QVariant()
 
     def roleNames(self):
+        #print("x")
         return self._roles
 def runQML():
     #view = QQuickView()
@@ -73,12 +78,12 @@ def runQML():
     #ui.verticalLayout.addWidget(container)
     #radios = engine.rootObjects()[0].findChild(QtCore.QObject, "radios")
     #print(str(child))
-    print(str(dice.randfkt2.values()))
+    #print(str(dice.randfkt2.values()))
     #radios.setProperty("model", list(dice.randfkt2.values()))
-    radiomodel = Model()
-    for el in dice.randfkt2.values():
-        print(analysistypes(el).name())
-        radiomodel.addData(analysistypes(el))
+    radiomodel = model2.PersonModel()
+    #for i,el in enumerate(list(dice.randfkt2.values())):
+        #print(analysistypes(el).name())
+        #radiomodel.analysisTypesAdd({ 'text' : dice.randfkt2.values(), 'checked' : True if i==0 else False  })
     context = engine.rootContext()
     context.setContextProperty("radiomodel", radiomodel)
     engine.load('dice/main.qml')

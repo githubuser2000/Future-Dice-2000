@@ -30,11 +30,11 @@ Window {
             Repeater {
                 model: radiomodel
                 objectName: "radios"
-                delegate: RadioButton {
-                    //checked: radiomodel.checked
+                RadioButton {
+                    checked: age
                     //text: qsTr("First")
-                    text: radiomodel.text
-                    objectName: radiomodel.text
+                    text: name
+                    objectName: name
                 }
             }
 
