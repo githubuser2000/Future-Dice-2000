@@ -105,6 +105,7 @@ Window {
         }
         ScrollView {
             id: scrollView
+            objectName: 'scrollView'
             x: 487
             y: 174
             width: 200
@@ -114,6 +115,14 @@ Window {
             clip: true
             spacing: 2
             padding: -2
+            Repeater {
+                model: scrollmodel
+                objectName: "scrollrepeater"
+                Label {
+                    text: "ABC"
+                    font.pixelSize: 224
+                }
+            }
         }
         ColumnLayout {
             //anchors.fill: parent

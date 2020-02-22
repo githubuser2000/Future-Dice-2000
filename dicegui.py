@@ -18,23 +18,28 @@ class MainWindow(QQmlApplicationEngine):
         x = self.rootObjects()[0].findChild(QObject, "x")
         y = self.rootObjects()[0].findChild(QObject, "y")
         augen = self.rootObjects()[0].findChild(QObject, "augen")
+        sview = self.rootObjects()[0].findChild(QObject, "scrollView")
         print("x")
         #wuerfe.setProperty("text", "x" )
         print(wuerfe.property("text"))
         print(wuerfe.property("text"))
         dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")])
+        for i,el in enumerate(list(dice.randfkt2.values())):
+            self.scrollmodel.insertPerson(i, el, True)
     def __init__(self):
         super().__init__()
         radiomodel = model2.PersonModel()
+        self.scrollmodel = model2.PersonModel()
         for i,el in enumerate(list(dice.randfkt2.values())):
             radiomodel.insertPerson(i, el, True if i==0 else False)
         context = self.rootContext()
         context.setContextProperty("radiomodel", radiomodel)
+        context.setContextProperty("scrollmodel", self.scrollmodel)
         self.load('dice/main.qml')
 
-        layout = QVBoxLayout()
-        layout.addWidget(QPushButton('Top'))
-        layout.addWidget(QPushButton('Bottom'))
+        #layout = QVBoxLayout()
+        #layout.addWidget(QPushButton('Top'))
+        #layout.addWidget(QPushButton('Bottom'))
         context = QQmlContext(self.rootContext())
 
     def show_(self):
