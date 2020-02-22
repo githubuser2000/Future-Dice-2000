@@ -115,12 +115,24 @@ Window {
             clip: true
             spacing: 2
             padding: -2
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+            /*
             Repeater {
                 model: scrollmodel
                 objectName: "scrollrepeater"
                 Label {
                     text: "ABC"
                     font.pixelSize: 224
+                }
+                Label {
+                    text: "ABC"
+                    font.pixelSize: 224
+                }
+            }*/
+            ListView {
+                model: scrollmodel
+                delegate: ItemDelegate {
+                    text: "Item " + index
                 }
             }
         }
