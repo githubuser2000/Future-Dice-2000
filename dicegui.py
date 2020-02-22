@@ -79,7 +79,6 @@ def runQML():
     radiomodel = Model()
     for el in dice.randfkt2.values():
         radiomodel.addData(analysistypes(el))
-        print(radiomodel.data(0,CheckedRole))
     radios.setProperty("radiomodel", radiomodel )
     #lin = radios.children()[1]
     #print(str(lin))
