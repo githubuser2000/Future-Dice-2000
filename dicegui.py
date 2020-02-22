@@ -13,10 +13,9 @@ import model2
 class MainWindow(QQmlApplicationEngine):
     @pyqtSlot()
     def wuerfelErstellen(self):
-	    wuerfe = engine.rootObjects()[0].findChild(QtCore.QObject, "wurfe")
-        wuerfe.
+        wuerfe = engine.rootObjects()[0].findChild(QtCore.QObject, "wurfe")
         print("x")
-        wuerfes.etProperty("checked", QString("x") )
+        wuerfes.setProperty("checked", QString("x") )
     def __init__(self):
         super().__init__()
         radiomodel = model2.PersonModel()
