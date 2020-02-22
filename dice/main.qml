@@ -28,12 +28,13 @@ Window {
 
         ColumnLayout {
             Repeater {
-                model: []
+                model: radiomodel
                 objectName: "radios"
                 RadioButton {
-                    checked: false
+                    checked: radiomodel.checked
                     //text: qsTr("First")
-                    text: modelData
+                    text: radiomodel.text
+                    objectName: radiomodel.text
                 }
             }
 

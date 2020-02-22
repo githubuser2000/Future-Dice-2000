@@ -6,13 +6,57 @@ from PyQt5.QtGui import QIcon
 import sys
 from PyQt5 import QtCore
 from PyQt5.QtQuick import QQuickView, QQuickItem
-from PyQt5.QtCore import QObject
-#from UM.Application import Application
+from PyQt5.QtCore import QObject, QAbstractListModel, QModelIndex, Qt, QVariant
 import dice
 
-class blub(QObject):
-    pass
+class analysistypes():
+    def __init__(self,name):
+        self.nam = name
+    def name(self):
+        return self.nam
+    def checked(self):
+        if self.name == 'lin':
+            return True
+        else:
+            return False
+class Model(QAbstractListModel):
 
+    #WidthRole = Qt.UserRole + 1
+    #HeightRole = Qt.UserRole + 2
+    #ColorRole = Qt.UserRole + 3
+#
+    #_roles = {WidthRole: b"width", HeightRole: b"height", ColorRole: b"color"}
+    NameRole = Qt.UserRole + 1
+    CheckedRole = Qt.UserRole + 2
+
+    _roles = {NameRole: b"name", CheckedRole: b"checked"}
+    def __init__(self, parent=None):
+        QAbstractListModel.__init__(self, parent)
+
+        self._datas = []
+
+    def addData(self, data):
+        self.beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
+        self._datas.append(data)
+        self.endInsertRows()
+
+    def rowCount(self, parent=QModelIndex()):
+        return len(self._datas)
+
+    def data(self, index, role=Qt.DisplayRole):
+        try:
+            data = self._datas[index.row()]
+        except IndexError:
+            return QVariant()
+        if role == self.NameRole:
+            return data.name()
+        if role == self.CheckedRole:
+            return data.checked()
+
+        return QVariant()
+
+    def roleNames(self):
+        return self._roles
 def runQML():
     #view = QQuickView()
     #ui.setupUi(this)
@@ -30,7 +74,17 @@ def runQML():
     radios = engine.rootObjects()[0].findChild(QtCore.QObject, "radios")
     #print(str(child))
     child.setProperty("text", "Blödsinn")
-    radios.setProperty("model", dice.randfkt2.values())
+    print(str(dice.randfkt2.values()))
+    #radios.setProperty("model", list(dice.randfkt2.values()))
+    radiomodel = Model()
+    for el in dice.randfkt2.values():
+        radiomodel.addData(analysistypes(el))
+        #print(radiomodel[-1].name())
+    radios.setProperty("radiomodel", radiomodel )
+    #lin = radios.children()[1]
+    #print(str(lin))
+    #print(str(lin.property("checked")))
+    #lin.setProperty("checked", 1 )
     #root.setContextProperty("guisettings", guisettings)
 
 
@@ -53,7 +107,7 @@ def runQML():
     component.create()
     #print(str(component))
     context = QQmlContext(engine.rootContext())
-    context.setContextProperty("liste", blub)
+    #context.setContextProperty("liste", blub)
     view = component.create(context)
     #print(str(view))
     engine.rootObjects()[0].contentItem().childItems()[0].childItems()[1]=view
