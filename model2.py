@@ -10,8 +10,8 @@ class PersonModel(QAbstractListModel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.persons = [
-            {'name': 'jon', 'checked_': True},
-            {'name': 'jane', 'checked_': False}
+            #{'name': 'jon', 'checked_': True},
+            #{'name': 'jane', 'checked_': False}
         ]
 
     def data(self, QModelIndex, role):

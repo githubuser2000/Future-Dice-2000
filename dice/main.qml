@@ -31,6 +31,9 @@ Window {
                 model: radiomodel
                 objectName: "radios"
                 RadioButton {
+                    Layout.preferredHeight: 20
+                    indicator.height: 20
+                    indicator.width: 20
                     checked: checked_
                     //text: qsTr("First")
                     text: name
