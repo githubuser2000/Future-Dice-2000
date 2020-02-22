@@ -4,7 +4,7 @@ from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent, QQmlContext
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from PyQt5.QtGui import QIcon
 import sys
-from PyQt5 import QtCore
+#from PyQt5 import QtCore
 from PyQt5.QtQuick import QQuickView, QQuickItem
 from PyQt5.QtCore import QObject, QAbstractListModel, QModelIndex, Qt, QVariant, pyqtSlot, QUrl
 import dice
@@ -13,9 +13,9 @@ import model2
 class MainWindow(QQmlApplicationEngine):
     @pyqtSlot()
     def wuerfelErstellen(self):
-        wuerfe = engine.rootObjects()[0].findChild(QtCore.QObject, "wurfe")
+        wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
         print("x")
-        wuerfes.setProperty("checked", QString("x") )
+        wuerfe.setProperty("checked", "x" )
     def __init__(self):
         super().__init__()
         radiomodel = model2.PersonModel()
