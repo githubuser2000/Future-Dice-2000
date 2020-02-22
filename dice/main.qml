@@ -27,7 +27,15 @@ Window {
 
 
         ColumnLayout {
+            ButtonGroup {
+                id: group
+                buttons: repeaterradios.children
+                objectName: "radiogroup"
+                //onClicked:  MainWindow.radioSett(self,button.text)
+                onClicked:  console.log("clicked:",button.text)
+            }
             Repeater {
+                id: repeaterradios
                 model: radiomodel
                 objectName: "radios"
                 RadioButton {
@@ -38,6 +46,7 @@ Window {
                     //text: qsTr("First")
                     text: name
                     objectName: name
+                    ButtonGroup.group: group
                 }
             }
 
