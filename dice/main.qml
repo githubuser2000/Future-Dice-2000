@@ -49,6 +49,7 @@ Window {
                 text: "Augen"
             }
             TextField {
+                objectName: "augen"
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
@@ -56,13 +57,16 @@ Window {
                 text: "n"
             }
             TextField {
+                objectName: "n"
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
             Label {
-                text: "Stelle für Wert"
+
+                text: "x"
             }
             TextField {
+                objectName: ""
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
@@ -70,6 +74,7 @@ Window {
                 text: "Wert an Stelle"
             }
             TextField {
+                objectName: "y"
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
@@ -77,6 +82,7 @@ Window {
                 text: "Würfe"
             }
             TextField {
+                objectName: "wuerfe"
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
