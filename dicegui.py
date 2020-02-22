@@ -11,29 +11,37 @@ import dice
 import model2
 
 class MainWindow(QQmlApplicationEngine):
+    wuerfelrestellt = False
     @pyqtSlot()
     def wuerfeln2(self):
-        result = dice.wuerfeln()
-        print("r " + str(result) )
-        for ell in result:
-            for i,el in enumerate(ell):
-                self.scrollmodel.insertPerson(i, str(el), True)
+        if not self.wuerfelrestellt:
+            self.wuerfelErstellen()
+        else:
+            wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
+            for i in range(int(wuerfe.property("text"))):
+                result = dice.wuerfeln()
+                print("r " + str(result) )
+                for ell in result:
+                    for i,el in enumerate(ell):
+                        self.scrollmodel.insertPerson(i, str(el), True)
     @pyqtSlot()
     def wuerfelErstellen(self):
-        wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
-        n = self.rootObjects()[0].findChild(QObject, "n")
-        x = self.rootObjects()[0].findChild(QObject, "x")
-        y = self.rootObjects()[0].findChild(QObject, "y")
-        augen = self.rootObjects()[0].findChild(QObject, "augen")
-        sview = self.rootObjects()[0].findChild(QObject, "scrollView")
-        print("x")
-        #wuerfe.setProperty("text", "x" )
-        print(wuerfe.property("text"))
-        print(wuerfe.property("text"))
-        result = dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
-        for ell in result:
-            for i,el in enumerate(ell):
-                self.scrollmodel.insertPerson(i, str(el), True)
+        if not self.wuerfelrestellt:
+            self.wuerfelrestellt = True
+            wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
+            n = self.rootObjects()[0].findChild(QObject, "n")
+            x = self.rootObjects()[0].findChild(QObject, "x")
+            y = self.rootObjects()[0].findChild(QObject, "y")
+            augen = self.rootObjects()[0].findChild(QObject, "augen")
+            sview = self.rootObjects()[0].findChild(QObject, "scrollView")
+            print("x")
+            #wuerfe.setProperty("text", "x" )
+            print(wuerfe.property("text"))
+            print(wuerfe.property("text"))
+            result = dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
+            for ell in result:
+                for i,el in enumerate(ell):
+                    self.scrollmodel.insertPerson(i, str(el), True)
     def __init__(self):
         super().__init__()
         radiomodel = model2.PersonModel()

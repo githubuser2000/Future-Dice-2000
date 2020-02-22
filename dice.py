@@ -170,6 +170,7 @@ wuerfeltype = None
 wuerfelAugenSet = set()
 values, wuerfelType, wuerfelWuerfe, uniq, randos = None, None, None, None, None
 
+
 def wuerfeln():
     global wuerfelAugenSet
     global values, wuerfelType, wuerfelWuerfe, uniq, randos
