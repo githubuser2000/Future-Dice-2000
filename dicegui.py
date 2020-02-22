@@ -79,8 +79,8 @@ def runQML():
     for el in dice.randfkt2.values():
         print(analysistypes(el).name())
         radiomodel.addData(analysistypes(el))
-    context = engine.rootContext()
-    context.setContextProperty("radiomodel", radiomodel)
+    #context = engine.rootContext()
+    #context.setContextProperty("radiomodel", radiomodel)
     engine.load('dice/main.qml')
     component = QQmlComponent(engine, 'dice/Radio1.qml')
     child = engine.rootObjects()[0].findChild(QtCore.QObject, "foo_object")
