@@ -50,15 +50,15 @@ class MainWindow(QQmlApplicationEngine):
             sview = self.rootObjects()[0].findChild(QObject, "scrollView")
             print("x")
             #wuerfe.setProperty("text", "x" )
-            blub = self.rootObjects()[0].findChild(QObject, "LRad")
+            LRad = self.rootObjects()[0].findChild(QObject, "LRad")
             #print(str(blub))
-            print(str(blub.property("text")))
+            print(str(LRad.property("text")))
             #print(str(self.radiogroup))
             #print(str(self.radiogroup.property("ButtonGroup")))
             #priint(wuerfe.property("text"))
 
             #print(wuerfe.property("text"))
-            result = dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
+            result = dice.main(['dicegui',augen.property("text"),LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
             for ell in result:
                 for i,el in enumerate(ell):
                     self.scrollmodel.insertPerson(i, str(el), True)
