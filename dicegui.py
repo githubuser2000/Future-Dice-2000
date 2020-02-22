@@ -23,9 +23,10 @@ class MainWindow(QQmlApplicationEngine):
         #wuerfe.setProperty("text", "x" )
         print(wuerfe.property("text"))
         print(wuerfe.property("text"))
-        dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")])
-        for i,el in enumerate(list(dice.randfkt2.values())):
-            self.scrollmodel.insertPerson(i, el, True)
+        result = dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
+        for ell in result:
+            for i,el in enumerate(ell):
+                self.scrollmodel.insertPerson(i, str(el), True)
     def __init__(self):
         super().__init__()
         radiomodel = model2.PersonModel()

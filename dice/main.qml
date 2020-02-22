@@ -132,7 +132,7 @@ Window {
             ListView {
                 model: scrollmodel
                 delegate: ItemDelegate {
-                    text: "Item " + index
+                    text: name
                 }
             }
         }
