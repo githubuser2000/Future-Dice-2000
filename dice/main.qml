@@ -40,6 +40,7 @@ Window {
                 text: "lin"
                 objectName: 'LRad'
                 id : rade
+                visible: false
             }
             Repeater {
                 id: repeaterradios
@@ -94,6 +95,7 @@ Window {
             }
             Label {
                 text: "Wert an Stelle"
+
             }
             TextField {
                 objectName: "y"

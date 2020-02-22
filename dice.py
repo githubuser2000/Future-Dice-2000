@@ -132,7 +132,7 @@ randfkt2 = { 1 : 'lin',
         4 : 'poly',
         5 : 'exp',
         6 : 'kombi',
-        7 : 'lostistic',
+        7 : 'logistic',
         8 : 'rand',
         9 : 'gewicht'}
 
