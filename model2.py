@@ -10,8 +10,8 @@ class PersonModel(QAbstractListModel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.persons = [
-            {'name': 'jon', 'checked': True},
-            {'name': 'jane', 'checked': False}
+            {'name': 'jon', 'checked_': True},
+            {'name': 'jane', 'checked_': False}
         ]
 
     def data(self, QModelIndex, role):
@@ -19,7 +19,7 @@ class PersonModel(QAbstractListModel):
         if role == self.Name:
             return self.persons[row]["name"]
         if role == self.Checked:
-            return self.persons[row]["checked"]
+            return self.persons[row]["checked_"]
 
     def rowCount(self, parent=None):
         return len(self.persons)
@@ -27,13 +27,13 @@ class PersonModel(QAbstractListModel):
     def roleNames(self):
         return {
             Qt.UserRole + 1: b'name',
-            Qt.UserRole + 2: b'checked'
+            Qt.UserRole + 2: b'checked_'
         }
 
     @pyqtSlot()
     def addData(self):
         self.beginResetModel()
-        self.persons = self.persons.append({'name': 'peter', 'checked': False})
+        self.persons = self.persons.append({'name': 'peter', 'checked_': False})
         self.endResetModel()
         print(self.persons)
 
@@ -41,7 +41,7 @@ class PersonModel(QAbstractListModel):
     def editData(self):
         print(self.model.persons)
     @pyqtSlot(int, str, int)
-    def insertPerson(self, row, name, checked):
+    def insertPerson(self, row, name, checked_):
         self.beginInsertRows(QModelIndex(), row, row)
-        self.persons.insert(row, {'name': name, 'checked': checked})
+        self.persons.insert(row, {'name': name, 'checked_': checked_})
         self.endInsertRows()

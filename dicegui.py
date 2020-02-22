@@ -81,9 +81,9 @@ def runQML():
     #print(str(dice.randfkt2.values()))
     #radios.setProperty("model", list(dice.randfkt2.values()))
     radiomodel = model2.PersonModel()
-    #for i,el in enumerate(list(dice.randfkt2.values())):
+    for i,el in enumerate(list(dice.randfkt2.values())):
         #print(analysistypes(el).name())
-        #radiomodel.analysisTypesAdd({ 'text' : dice.randfkt2.values(), 'checked' : True if i==0 else False  })
+        radiomodel.insertPerson(i, el, True if i==0 else False)
     context = engine.rootContext()
     context.setContextProperty("radiomodel", radiomodel)
     engine.load('dice/main.qml')
