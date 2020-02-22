@@ -50,7 +50,7 @@ Window {
             }
             TextField {
                 objectName: "augen"
-                validator: IntValidator {bottom: 11; top: 31;}
+                validator: IntValidator {bottom: 1; top: 10000000;}
                 focus: true
             }
             Label {
@@ -58,7 +58,7 @@ Window {
             }
             TextField {
                 objectName: "n"
-                validator: IntValidator {bottom: 11; top: 31;}
+                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
             }
             Label {
@@ -67,7 +67,7 @@ Window {
             }
             TextField {
                 objectName: ""
-                validator: IntValidator {bottom: 11; top: 31;}
+                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
             }
             Label {
@@ -75,7 +75,7 @@ Window {
             }
             TextField {
                 objectName: "y"
-                validator: IntValidator {bottom: 11; top: 31;}
+                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
             }
             Label {
@@ -83,7 +83,7 @@ Window {
             }
             TextField {
                 objectName: "wuerfe"
-                validator: IntValidator {bottom: 11; top: 31;}
+                validator: IntValidator {bottom: 0; top: 10000000;}
                 focus: true
             }
 

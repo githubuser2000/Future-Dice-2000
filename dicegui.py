@@ -15,7 +15,8 @@ class MainWindow(QQmlApplicationEngine):
     def wuerfelErstellen(self):
         wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
         print("x")
-        wuerfe.setProperty("text", "x" )
+        #wuerfe.setProperty("text", "x" )
+        print(wuerfe.property("text"))
     def __init__(self):
         super().__init__()
         radiomodel = model2.PersonModel()
