@@ -44,10 +44,13 @@ class Model(QAbstractListModel):
         return len(self._datas)
 
     def data(self, index, role=Qt.DisplayRole):
+        print("DATA")
         try:
             data = self._datas[index.row()]
         except IndexError:
+            print("ERR")
             return QVariant()
+        return data.name()
         if role == self.NameRole:
             return data.name()
         if role == self.CheckedRole:
@@ -65,24 +68,26 @@ def runQML():
     #container.setMaximumSize(200, 200)
     app =QApplication(sys.argv)
     engine = QQmlApplicationEngine()
-#    app.setWindowIcon(QIcon("icon.png"))
-    root = engine.rootContext()
-    engine.load('dice/main.qml')
-    component = QQmlComponent(engine, 'dice/Radio1.qml')
+    #app.setWindowIcon(QIcon("icon.png"))
+    #root = engine.rootContext()
     #ui.verticalLayout.addWidget(container)
-    child = engine.rootObjects()[0].findChild(QtCore.QObject, "foo_object")
-    radios = engine.rootObjects()[0].findChild(QtCore.QObject, "radios")
+    #radios = engine.rootObjects()[0].findChild(QtCore.QObject, "radios")
     #print(str(child))
-    child.setProperty("text", "Blödsinn")
     print(str(dice.randfkt2.values()))
     #radios.setProperty("model", list(dice.randfkt2.values()))
     radiomodel = Model()
     for el in dice.randfkt2.values():
+        print(analysistypes(el).name())
         radiomodel.addData(analysistypes(el))
-    radios.setProperty("radiomodel", radiomodel )
+    context = engine.rootContext()
+    context.setContextProperty("radiomodel", radiomodel)
+    engine.load('dice/main.qml')
+    component = QQmlComponent(engine, 'dice/Radio1.qml')
+    child = engine.rootObjects()[0].findChild(QtCore.QObject, "foo_object")
+    child.setProperty("text", "Blödsinn")
     #lin = radios.children()[1]
     #print(str(lin))
-    #print(str(lin.property("checked")))
+    print('o '+ str(engine.rootObjects()[0].findChild(QtCore.QObject, "lin")))
     #lin.setProperty("checked", 1 )
     #root.setContextProperty("guisettings", guisettings)
 

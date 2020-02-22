@@ -6,8 +6,8 @@ import QtQuick.Controls 2.12
 
 Window {
     visible: true
-    width: 640
-    height: 480
+    width: 840
+    height: 680
     title: qsTr("Hello World")
 
     GridLayout {
@@ -30,8 +30,8 @@ Window {
             Repeater {
                 model: radiomodel
                 objectName: "radios"
-                RadioButton {
-                    checked: radiomodel.checked
+                delegate: RadioButton {
+                    //checked: radiomodel.checked
                     //text: qsTr("First")
                     text: radiomodel.text
                     objectName: radiomodel.text
