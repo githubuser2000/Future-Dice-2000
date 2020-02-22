@@ -31,7 +31,7 @@ Window {
                 model: radiomodel
                 objectName: "radios"
                 RadioButton {
-                    checked: age
+                    checked: checked
                     //text: qsTr("First")
                     text: name
                     objectName: name
