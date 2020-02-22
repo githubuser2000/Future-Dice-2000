@@ -19,7 +19,7 @@ class MainWindow(QQmlApplicationEngine):
         print(str(radioval))
     @pyqtSlot()
     def wuerfeln2(self):
-        print(str(self.radios.property("checksate")))
+        #print(str(self.radios.property("checksate")))
         if not self.wuerfelrestellt:
             self.wuerfelErstellen()
         else:
@@ -43,7 +43,7 @@ class MainWindow(QQmlApplicationEngine):
             print("x")
             #wuerfe.setProperty("text", "x" )
             self.radiogroup = self.rootObjects()[0].findChild(QObject, "radiogroup")
-            print(str(self.radiogroup.property("checksate")))
+            #print(str(self.radiogroup.property("checksate")))
             radios = self.rootObjects()[0].findChild(QObject, "radios")
             for i,radio in enumerate(radios.children()[0].children()):
                 print(str(radio.property("text")))
@@ -52,7 +52,7 @@ class MainWindow(QQmlApplicationEngine):
                     print(dice.randfkt2[i+1])
             #priint(wuerfe.property("text"))
             #print(wuerfe.property("text"))
-            result = dice.main(['dicegui',augen.property("text"),self.radioval,n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
+            result = dice.main(['dicegui',augen.property("text"),self.radiogroup.property("checksate"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
             for ell in result:
                 for i,el in enumerate(ell):
                     self.scrollmodel.insertPerson(i, str(el), True)
