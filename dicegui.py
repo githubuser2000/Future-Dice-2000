@@ -12,11 +12,11 @@ import model2
 
 class MainWindow(QQmlApplicationEngine):
     wuerfelrestellt = False
-    radi = 'lin'
+#    radi = 'lin'
 
     @pyqtSlot()
-    def getRadioBselected(self,radu):
-        print(str(radu))
+    def getRadioBselected(self):
+        print(str(self.radi))
         #radios = self.rootObjects()[0].findChild(QObject, "radiolayout")
         #print(radios.property["objectName"])
         #for i,radio in enumerate(radios.children()):
@@ -50,10 +50,13 @@ class MainWindow(QQmlApplicationEngine):
             sview = self.rootObjects()[0].findChild(QObject, "scrollView")
             print("x")
             #wuerfe.setProperty("text", "x" )
-            self.radiogroup = self.rootObjects()[0].findChild(QObject, "radiogroup")
+            blub = self.rootObjects()[0].findChild(QObject, "LRad")
+            #print(str(blub))
+            print(str(blub.property("text")))
             #print(str(self.radiogroup))
-            print(str(self.radiogroup.property("ButtonGroup")))
+            #print(str(self.radiogroup.property("ButtonGroup")))
             #priint(wuerfe.property("text"))
+
             #print(wuerfe.property("text"))
             result = dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
             for ell in result:

@@ -28,12 +28,18 @@ Window {
 
         ColumnLayout {
             objectName: "radiolayout"
+            /*
             ButtonGroup {
                 id: group
                 buttons: repeaterradios.children
                 objectName: "radiogroup"
-                onClicked:  {MainWindow.getRadioBselected(button.text);
-                /*onClicked:*/  console.log("clicked:",button.text)}
+                //onClicked: { MainWindow.getRadioBselected(MainWindow,button.text);
+                onClicked:  console.log("clicked:",button.text)
+            }*/
+            Label {
+                text: "lin"
+                objectName: 'LRad'
+                id : rade
             }
             Repeater {
                 id: repeaterradios
@@ -47,7 +53,8 @@ Window {
                     //text: qsTr("First")
                     text: name
                     objectName: name
-                    ButtonGroup.group: group
+                    //ButtonGroup.group: group
+                    onClicked:  rade.text = text
                 }
             }
 
@@ -60,6 +67,7 @@ Window {
             }
             TextField {
                 objectName: "augen"
+                id : augen
                 validator: IntValidator {bottom: 1; top: 10000000;}
                 focus: true
                 text: "3"
