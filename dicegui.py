@@ -8,6 +8,7 @@ from PyQt5 import QtCore
 from PyQt5.QtQuick import QQuickView, QQuickItem
 from PyQt5.QtCore import QObject
 #from UM.Application import Application
+import dice
 
 class blub(QObject):
     pass
@@ -29,7 +30,7 @@ def runQML():
     radios = engine.rootObjects()[0].findChild(QtCore.QObject, "radios")
     #print(str(child))
     child.setProperty("text", "Blödsinn")
-    radios.setProperty("model", ["a","b","c"])
+    radios.setProperty("model", dice.randfkt2.values())
     #root.setContextProperty("guisettings", guisettings)
 
 

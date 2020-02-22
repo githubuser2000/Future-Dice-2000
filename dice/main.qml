@@ -28,7 +28,7 @@ Window {
 
         ColumnLayout {
             Repeater {
-                model: ['a']
+                model: []
                 objectName: "radios"
                 RadioButton {
                     checked: false
