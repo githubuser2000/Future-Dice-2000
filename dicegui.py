@@ -14,9 +14,15 @@ class MainWindow(QQmlApplicationEngine):
     @pyqtSlot()
     def wuerfelErstellen(self):
         wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
+        n = self.rootObjects()[0].findChild(QObject, "n")
+        x = self.rootObjects()[0].findChild(QObject, "x")
+        y = self.rootObjects()[0].findChild(QObject, "y")
+        augen = self.rootObjects()[0].findChild(QObject, "augen")
         print("x")
         #wuerfe.setProperty("text", "x" )
         print(wuerfe.property("text"))
+        print(wuerfe.property("text"))
+        dice.main(['dicegui',augen.property("text"),'lin',n.property("text"),x.property("text"),y.property("text")])
     def __init__(self):
         super().__init__()
         radiomodel = model2.PersonModel()

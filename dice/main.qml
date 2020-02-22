@@ -66,7 +66,7 @@ Window {
                 text: "x"
             }
             TextField {
-                objectName: ""
+                objectName: "x"
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
             }
