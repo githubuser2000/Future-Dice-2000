@@ -54,7 +54,7 @@ def runQML():
     view = component.create(context)
     #print(str(view))
     engine.rootObjects()[0].contentItem().childItems()[0].childItems()[1]=view
-    for a in engine.rootObjects()[0].contentItem().childItems()[0].childItems()
+    for a in engine.rootObjects()[0].contentItem().childItems()[0].childItems():
         a = view
     #for w in engine.rootObjects():
     #    pass
