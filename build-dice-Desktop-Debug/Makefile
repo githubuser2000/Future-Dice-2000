@@ -979,7 +979,8 @@ compiler_rcc_clean:
 qrc_qml.cpp: ../dice/qml.qrc \
 		/usr/lib64/qt5/bin/rcc \
 		../dice/ContactModel.qml \
-		../dice/main.qml
+		../dice/main.qml \
+		../dice/Radio1.qml
 	/usr/lib64/qt5/bin/rcc -name qml ../dice/qml.qrc -o qrc_qml.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

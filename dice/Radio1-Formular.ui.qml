@@ -1,6 +1,14 @@
 import QtQuick 2.4
 
-Item {
-    width: 400
-    height: 400
+ColumnLayout {
+    RadioButton {
+        checked: true
+        text: qsTr("First")
+    }
+    RadioButton {
+        text: qsTr("Second")
+    }
+    RadioButton {
+        text: qsTr("Third")
+    }
 }

@@ -46,49 +46,68 @@ Window {
             columns: 2
             spacing: 2
             Label {
-                text: "Label"
+                text: "Augen"
             }
             TextField {
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
             Label {
-                text: "Label"
+                text: "n"
             }
             TextField {
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
             Label {
-                text: "Label"
+                text: "Stelle für Wert"
             }
             TextField {
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
             Label {
-                text: "Label"
+                text: "Wert an Stelle"
             }
             TextField {
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
             }
             Label {
-                text: "Label"
+                text: "Würfe"
             }
             TextField {
                 validator: IntValidator {bottom: 11; top: 31;}
                 focus: true
+            }
+
+            Button {
+                id: wuefelerstellen
+                x: 196
+                y: 383
+                text: qsTr("Würfel erstellen")
+                onClicked: wuerfelErstellen()
+            }
+            Button {
+                id: wuerfe
+                x: 196
+                y: 424
+                text: qsTr("Würfeln")
+                spacing: -3
             }
 
         }
-        ListView {
-            width: 180; height: 200
-
-            model: ContactModel {}
-            delegate: Text {
-                text: name + ": " + number
-            }
+        ScrollView {
+            id: scrollView
+            x: 487
+            y: 174
+            width: 200
+            height: 200
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            clip: true
+            spacing: 2
+            padding: -2
         }
         ColumnLayout {
             //anchors.fill: parent
@@ -173,6 +192,12 @@ Window {
         }
     }
 }
+
+
+
+
+
+
 
 
 /*##^## Designer {
