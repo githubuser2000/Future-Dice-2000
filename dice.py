@@ -16,23 +16,23 @@ include1 = None
 include2 = None
 include3 = None
 
-def sigmoid(x,n,xe,e):
+def sigmoid(x,n,xe,e,xth=0):
     x-=int(inpp_[1])/2
     xe-=int(inpp_[1])/2
     return ( n / (n + math.exp(-x)) ) / ( n / (n + math.exp(-xe)) ) * e
 
-def lin(x,n,xe,e):
+def lin(x,n,xe,e,xth=0):
     #print(str(x))
     #print(str(e))
     #print(str(xe))
     return (x * e) / xe
-def log(x,n,xe,e):
+def log(x,n,xe,e,xth=0):
     return math.log(x,n) / math.log(xe,n) * e
-def root(x,n,xe,e):
+def root(x,n,xe,e,xth=0):
     return pow(x,1/n) / pow(xe,1/n) * e
-def poly(x,n,xe,e):
+def poly(x,n,xe,e,xth=0):
     return pow(x,n) / pow(xe,n) * e
-def expo(x,n,xe,e):
+def expo(x,n,xe,e,xth=0):
     return pow(n,x) / pow(n,xe) * e
 
 def randselect(includex):
@@ -45,7 +45,7 @@ def randselect(includex):
             randfktvarx = random.randrange(len(includex))+1
         return randfktvarx
 
-def kombi(x,n,xe,e,reku = 50):
+def kombi(x,n,xe,e,reku = 50,xth=0):
     global include1,include2,include3
     try:
     #if True:

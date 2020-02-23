@@ -1,29 +1,48 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
+import QtQuick 2.8
+import QtQuick.Window 2.8
 import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.12
+import QtQuick.Controls 2.8
 
 
 Window {
     visible: true
-    width: 940
+    width: 700
     height: 580
-    title: qsTr("Hello World")
+    title: qsTr("Dice Future 2000")
+    id : win
 
 
     GridLayout {
-        anchors.fill: parent
-        columns: 3
+        //anchors.fill: parent
+        columns: 4
+        anchors.leftMargin: 20
+        anchors.topMargin: 20
+        anchors.rightMargin: 20
+        anchors.left: win.right
+        anchors.top: win.top
+/*        Label {
+            text: " "
+        }*/
         Grid {
+            id: haupt
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            transformOrigin: Item.TopLeft
             columns: 4
-            spacing: 4
+            spacing: 10
+            anchors.leftMargin: 20
+            anchors.rightMargin: 20
+            anchors.topMargin: 20
+            //anchors.fill: parent
+            anchors.left: win.right
+            anchors.top: win.top
+
 
 
             Switch {
                 id: reverse_
                 x: 90
                 y: 119
-                text: qsTr("Rückwärts")
+                text: qsTr("umgekehrt")
                 objectName: "reverse"
             }
 
@@ -31,19 +50,20 @@ Window {
                 id: uniq
                 x: 232
                 y: 119
-                text: qsTr("jeder Wurf passiert")
+                text: qsTr("uniq")
                 objectName: "uniq"
             }
-            Label {
-                text: " "
-            }
+
 
             Switch {
                 id: reverse2_
                 x: 90
                 y: 119
-                text: qsTr("Rückwärts2")
+                text: qsTr("umgekehrt2")
                 objectName: "reverse2"
+            }
+            Label {
+                text: " "
             }
             Label {
                 text: "Augen"
@@ -54,6 +74,8 @@ Window {
                 validator: IntValidator {bottom: 1; top: 10000000;}
                 focus: true
                 text: "3"
+                width: 50
+                horizontalAlignment: Text.AlignRight
             }
             Label {
                 text: "Würfe"
@@ -64,6 +86,9 @@ Window {
                 validator: IntValidator {bottom: 1; top: 10000000;}
                 focus: true
                 text: "3"
+                width: 50
+                horizontalAlignment: Text.AlignRight
+
             }
             Label {
                 text: "n"
@@ -73,6 +98,8 @@ Window {
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
+                width: 50
+                horizontalAlignment: Text.AlignRight
             }
             Label {
                 text: "n2"
@@ -83,6 +110,9 @@ Window {
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
+                width: 50
+                horizontalAlignment: Text.AlignRight
+
             }
             Label {
                 text: "x"
@@ -92,6 +122,9 @@ Window {
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
+                width: 50
+                horizontalAlignment: Text.AlignRight
+
             }
             Label {
                 text: "x2"
@@ -102,6 +135,9 @@ Window {
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
+                width: 50
+                horizontalAlignment: Text.AlignRight
+
             }
             Label {
                 text: "Wert an Stelle"
@@ -112,6 +148,9 @@ Window {
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
+                width: 50
+                horizontalAlignment: Text.AlignRight
+
             }
             Label {
                 text: "Wert 2    "
@@ -122,6 +161,9 @@ Window {
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
+                width: 50
+                horizontalAlignment: Text.AlignRight
+
             }
             Button {
                 id: bwuefelerstellen
@@ -145,9 +187,13 @@ Window {
         ButtonGroup {
             id: radioGroup2
         }
-        GridLayout {
+        Grid {
+            anchors.leftMargin: 20
+            anchors.rightMargin: 20
 
+            transformOrigin: Item.TopLeft
             columns: 1
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Switch {
                 id: gewicht
                 x: 90
@@ -156,7 +202,10 @@ Window {
                 objectName: "gewicht"
             }
             GridLayout {
+                anchors.leftMargin: 20
+                anchors.rightMargin: 20
 
+                transformOrigin: Item.TopLeft
                 columns: 2
                 objectName: "radiolayout"
 
@@ -185,7 +234,7 @@ Window {
 
 
                 GridLayout {
-
+                    transformOrigin: Item.TopLeft
                     columns: 1
                     Label {
                         text: "Wert"
@@ -210,6 +259,7 @@ Window {
                     }
                 }
                 GridLayout {
+                    transformOrigin: Item.TopLeft
                     columns: 1
 
                     Label {
@@ -237,9 +287,7 @@ Window {
                 }
             }
         }
-        Label {
-            text: " "
-        }
+        Item { Layout.fillWidth: true }
 
 
 
@@ -270,6 +318,10 @@ Window {
         }
 
         GridLayout {
+            anchors.leftMargin: 20
+            anchors.rightMargin: 20
+
+            transformOrigin: Item.TopLeft
 
             columns: 3
 
@@ -351,6 +403,8 @@ Window {
         }
     }
 }
+
+
 
 
 
