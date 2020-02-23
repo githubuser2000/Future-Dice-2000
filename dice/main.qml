@@ -6,61 +6,14 @@ import QtQuick.Controls 2.12
 
 Window {
     visible: true
-    width: 1040
+    width: 840
     height: 680
     title: qsTr("Hello World")
 
 
     GridLayout {
         anchors.fill: parent
-        columns: 3
-
-        Label {
-            text: ""
-        }
-        Label {
-            objectName: "foo_object"
-            text: "nichts"
-        }
-        Label {
-            text: ""
-        }
-
-
-        ColumnLayout {
-            objectName: "radiolayout"
-            /*
-            ButtonGroup {
-                id: group
-                buttons: repeaterradios.children
-                objectName: "radiogroup"
-                //onClicked: { MainWindow.getRadioBselected(MainWindow,button.text);
-                onClicked:  console.log("clicked:",button.text)
-            }*/
-            Label {
-                text: "lin"
-                objectName: 'LRad'
-                id : rade
-                visible: false
-            }
-            Repeater {
-                id: repeaterradios
-                model: radiomodel
-                objectName: "radios"
-                RadioButton {
-                    Layout.preferredHeight: 20
-                    indicator.height: 20
-                    indicator.width: 20
-                    checked: checked_
-                    //text: qsTr("First")
-                    text: name
-                    objectName: name
-                    //ButtonGroup.group: group
-                    onClicked:  rade.text = text
-                }
-            }
-
-        }
+        columns: 4
         Grid {
             columns: 4
             spacing: 4
@@ -180,29 +133,75 @@ Window {
                 onClicked: MainWindow.wuerfeln2()
             }
         }
-        Label {
-            text: "lin"
-            objectName: 'LRad2'
-            id : rade2
-            visible: false
+
+        ColumnLayout {
+            objectName: "radiolayout"
+
+            /*
+            ButtonGroup {
+                id: group
+                buttons: repeaterradios.children
+                objectName: "radiogroup"
+                //onClicked: { MainWindow.getRadioBselected(MainWindow,button.text);
+                onClicked:  console.log("clicked:",button.text)
+            }*/
+            Label {
+                text: "lin"
+                objectName: 'LRad'
+                id : rade
+                visible: false
+            }
+            Repeater {
+                id: repeaterradios
+                model: radiomodel
+                objectName: "radios"
+                RadioButton {
+                    Layout.preferredHeight: 15
+                    indicator.height: 15
+                    indicator.width: 15
+                    checked: checked_
+                    //text: qsTr("First")
+                    text: name
+                    objectName: name
+                    //ButtonGroup.group: group
+                    onClicked:  rade.text = text
+                }
+            }
+
         }
-        Repeater {
-            id: repeaterradios2
-            model: radiomodel
-            objectName: "radios2"
-            RadioButton {
-                Layout.preferredHeight: 20
-                indicator.height: 20
-                indicator.width: 20
-                checked: checked_
-                //text: qsTr("First")
-                text: name
-                objectName: name
-                //ButtonGroup.group: group
-                onClicked:  rade.text = text
+        ColumnLayout {
+            objectName: "radiolayout2"
+            Label {
+                text: "lin"
+                objectName: 'LRad2'
+                id : rade2
+                visible: false
+            }
+            Repeater {
+                id: repeaterradios2
+                model: radiomodel
+                objectName: "radios2"
+                RadioButton {
+                    Layout.preferredHeight: 15
+                    indicator.height: 15
+                    indicator.width: 15
+                    checked: checked_
+                    //text: qsTr("First")
+                    text: name
+                    objectName: name
+                    //ButtonGroup.group: group
+                    onClicked:  rade.text = text
+                }
             }
         }
+        Label {
+            text: " "
+        }
 
+
+
+        //anchors.fill: parent
+        id: layoutZ
         ScrollView {
             id: scrollView
             objectName: 'scrollView'
@@ -226,32 +225,34 @@ Window {
                 }
             }
         }
-        ColumnLayout {
-            //anchors.fill: parent
-            id: layoutZ
+
+        GridLayout {
+
+            columns: 3
 
 
-            Column {
+
+            ColumnLayout {
+                anchors.fill: parent
                 Repeater {
                     id: chk1
                     model: chkmodel1
                     objectName: "repeatercheck1"
 
                     CheckBox {
+                        Layout.preferredHeight: 15
+                        indicator.height: 15
+                        indicator.width: 15
                         text : name
                         checked: checked_
+
                     }
                 }
             }
-
-        }
-
-        ColumnLayout {
-            //anchors.fill: parent
-            id: layout5
+            ColumnLayout {
 
 
-            Column {
+
 
                 Repeater {
                     id: chk2
@@ -259,27 +260,26 @@ Window {
                     objectName: "repeatercheck2"
 
                     CheckBox {
+                        Layout.preferredHeight: 15
+                        indicator.height: 15
+                        indicator.width: 15
                         text : name
                         checked: checked_
+
 
                     }
                 }
             }
-
-        }
-        ColumnLayout {
-            //anchors.fill: parent
-            id: layout7
-
-
-
-            Column {
+            ColumnLayout {
                 Repeater {
                     id: chk3
                     model: chkmodel3
                     objectName: "repeatercheck3"
 
                     CheckBox {
+                        Layout.preferredHeight: 15
+                        indicator.height: 15
+                        indicator.width: 15
                         text : name
                         checked: checked_
 
