@@ -86,8 +86,8 @@ class MainWindow(QQmlApplicationEngine):
             #wuerfe.setProperty("text", "x" )
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
             LRad2 = self.rootObjects()[0].findChild(QObject, "LRad2")
-            ListChecked1 = self.rootObjects()[0].findChild(QObject, "repeatercheck1")
-            print("u"+ str(ListChecked1.children()[0].children())+" "+ str(ListChecked1.children()[1].children()))
+            ListChecked1 = self.rootObjects()[0].findChild(QObject, "_LCheck1_")
+            print("u"+ str(ListChecked1.property("anObject").toVariant()))
             #ListChecked2 = self.rootObjects()[0].findChild(QObject, "repeatercheck2")
             #ListChecked3 = self.rootObjects()[0].findChild(QObject, "repeatercheck3")
             gezinkt = True if self.rootObjects()[0].findChild(QObject, "gewicht").property("position") == 1 else False

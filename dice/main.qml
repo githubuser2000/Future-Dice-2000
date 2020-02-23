@@ -272,13 +272,14 @@ Window {
         GridLayout {
 
             columns: 3
-            /*
+
             Label {
-                text: "lin"
-                objectName: 'LRad'
-                id : rade
+                text: "LCheck1"
+                objectName: '_LCheck1_'
+                id : lCheck1
                 visible: false
-            }
+                property var anObject: { "foo": 10, "bar": 20 }
+            }/*
             Label {
                 text: "lin"
                 objectName: 'LRad'
@@ -304,7 +305,12 @@ Window {
                         indicator.height: 15
                         indicator.width: 15
                         text : name
+                        objectName: 'chk1_'+name
                         checked: checked_
+                        onClicked: {
+                            console.log("clicked:",text)
+                            lCheck1.anObject.text=checked
+                      }
 
                     }
                 }
