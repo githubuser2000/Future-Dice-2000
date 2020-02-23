@@ -144,6 +144,7 @@ Window {
 
             columns: 2
             objectName: "radiolayout"
+            anchors.fill: parent
 
             /*
             ButtonGroup {
