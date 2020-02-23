@@ -13,7 +13,7 @@ Window {
 
     GridLayout {
         anchors.fill: parent
-        columns: 4
+        columns: 3
         Grid {
             columns: 4
             spacing: 4
@@ -134,7 +134,9 @@ Window {
             }
         }
 
-        ColumnLayout {
+        GridLayout {
+
+            columns: 2
             objectName: "radiolayout"
 
             /*
@@ -168,9 +170,8 @@ Window {
                 }
             }
 
-        }
-        ColumnLayout {
-            objectName: "radiolayout2"
+
+
             Label {
                 text: "lin"
                 objectName: 'LRad2'
@@ -233,7 +234,7 @@ Window {
 
 
             ColumnLayout {
-                anchors.fill: parent
+
                 Repeater {
                     id: chk1
                     model: chkmodel1
