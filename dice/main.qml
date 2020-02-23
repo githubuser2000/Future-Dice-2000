@@ -159,86 +159,76 @@ Window {
             spacing: 2
             padding: -2
             ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-            /*
-            Repeater {
-                model: scrollmodel
-                objectName: "scrollrepeater"
-                Label {
-                    text: "ABC"
-                    font.pixelSize: 224
-                }
-                Label {
-                    text: "ABC"
-                    font.pixelSize: 224
-                }
-            }*/
+
             ListView {
                 model: scrollmodel
-                delegate: ItemDelegate {
+                highlight: Rectangle { color: "lightsteelblue" }
+                highlightRangeMode: ListView.ApplyRange
+                delegate: Text {
                     text: name
                 }
             }
-}
-            ColumnLayout {
-                //anchors.fill: parent
-                id: layoutZ
+        }
+        ColumnLayout {
+            //anchors.fill: parent
+            id: layoutZ
 
 
-                Column {
-                    Repeater {
-                        id: chk1
-                        model: chkmodel1
-                        objectName: "repeatercheck1"
+            Column {
+                Repeater {
+                    id: chk1
+                    model: chkmodel1
+                    objectName: "repeatercheck1"
 
-                        CheckBox {
-                            text : name
-                            checked: checked_
-                        }
+                    CheckBox {
+                        text : name
+                        checked: checked_
                     }
                 }
-
             }
 
-            ColumnLayout {
-                //anchors.fill: parent
-                id: layout5
+        }
+
+        ColumnLayout {
+            //anchors.fill: parent
+            id: layout5
 
 
-                Column {
+            Column {
 
-                    Repeater {
-                        id: chk2
-                        model: chkmodel2
-                        objectName: "repeatercheck2"
+                Repeater {
+                    id: chk2
+                    model: chkmodel2
+                    objectName: "repeatercheck2"
 
-                        CheckBox {
-                            text : name
-                            checked: checked_
+                    CheckBox {
+                        text : name
+                        checked: checked_
 
-                        }
                     }
                 }
-
             }
-            ColumnLayout {
-                //anchors.fill: parent
-                id: layout7
+
+        }
+        ColumnLayout {
+            //anchors.fill: parent
+            id: layout7
 
 
 
-                Column {
-                    Repeater {
-                        id: chk3
-                        model: chkmodel3
-                        objectName: "repeatercheck3"
+            Column {
+                Repeater {
+                    id: chk3
+                    model: chkmodel3
+                    objectName: "repeatercheck3"
 
-                        CheckBox {
-                            text : name
-                            checked: checked_
+                    CheckBox {
+                        text : name
+                        checked: checked_
 
-                        }
                     }
                 }
+            }
 
         }
     }
