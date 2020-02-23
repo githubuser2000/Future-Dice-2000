@@ -288,8 +288,8 @@ Window {
                 property var anObject: { "lin": true }
             }
             Label {
-                text: "LCheck2"
-                objectName: '_LCheck2_'
+                text: "LCheck3"
+                objectName: '_LCheck3_'
                 id : lCheck3
                 visible: false
                 property var anObject: { "lin": true }
@@ -309,11 +309,6 @@ Window {
                         text : name
                         objectName: 'chk1_'+name
                         checked: checked_
-                        /*onClicked: {
-                            console.log("clicked:",text)
-                            lCheck1.anObject.text=checked
-
-                      }*/
                         onCheckedChanged: lCheck1.anObject[text]=checked
 
                     }
@@ -331,7 +326,7 @@ Window {
                         indicator.width: 15
                         text : name
                         checked: checked_
-                        onCheckedChanged: lCheck2.anObject.text=checked
+                        onCheckedChanged: lCheck2.anObject[text]=checked
                     }
                 }
             }
@@ -347,7 +342,7 @@ Window {
                         indicator.width: 15
                         text : name
                         checked: checked_
-                        onCheckedChanged: lCheck3.anObject.text=checked
+                        onCheckedChanged: lCheck3.anObject[text]=checked
 
                     }
                 }
