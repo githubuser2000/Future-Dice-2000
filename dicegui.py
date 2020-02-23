@@ -53,7 +53,6 @@ class MainWindow(QQmlApplicationEngine):
 
     @pyqtSlot()
     def wuerfeln2(self):
-        self.checkedchanged()
         #print(str(self.radios.property("checksate")))
         if not self.wuerfelrestellt:
             self.wuerfelErstellen()
@@ -67,21 +66,22 @@ class MainWindow(QQmlApplicationEngine):
 #                    for i,el in enumerate(ell):
 #                        self.scrollmodel.insertPerson(i, str(el), True)
     def checkedchanged(self):
-        ListChecked1 = self.rootObjects()[0].findChild(QObject, "_LCheck1_")
-        changedchecked = ListChecked1.property("anObject").toVariant()
-        checklist=[]
-        for fktTypes in enumerate(list(dice.randfkt2.values())):
-            for key,value in changedchecked.items():
-                if key == fktTypes:
-                    checklist.append(value)
-                else:
-                    checklist.append(True)
-        print(str(checklist))
+        Lists=[]
+        for checkgroups in ["_LCheck1_","_LCheck2_", "_LCheck3_"]:
+            ListChecked = self.rootObjects()[0].findChild(QObject, checkgroups)
+            changedchecked = ListChecked.property("anObject").toVariant()
+            checklist=[]
+            for key0,key1 in dice.randfkt2.items():
+                for key2,value2 in changedchecked.items():
+                    if key2 == key1:
+                        checklist.append(value2)
+            Lists.append(checklist)
+        return Lists
 
 
     @pyqtSlot()
     def wuerfelErstellen(self):
-        self.checkedchanged()
+        Lists = self.checkedchanged()
         if not self.wuerfelrestellt:
             self.wuerfe = 0
             self.wuerfelrestellt = True
@@ -122,10 +122,11 @@ class MainWindow(QQmlApplicationEngine):
             y.property("text")
             uniq.property("position")
             wuerfe.property("text")
+            #print(str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
             if not gezinkt:
-                result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
+                result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             else:
-                result = dice.main(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
+                result = dice.main(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             self.insertresults(result)
 #            for ell in result:
 #                for i,el in enumerate(ell):
