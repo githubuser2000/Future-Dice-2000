@@ -26,19 +26,23 @@ class MainWindow(QQmlApplicationEngine):
         #        print(dice.randfkt2[i+1])
 
     def insertresults(self,result):
+        pos = 1
         for i,oneOf2 in enumerate(result):
 #            for i,elo in enumerate(ell):
 #                for i,el in enumerate(elo):
             if type(oneOf2) is dict:
                 for k,(key, value) in enumerate(oneOf2.items()):
-                    self.scrollmodel.insertPerson(i, 'Augen '+str(key+1)+". :     "+str((round(float(value)*100))/100), True)
+                    pos += 1
+                    self.scrollmodel.insertPerson(k, 'Augen '+str(key+1)+". :     "+str((round(float(value)*100))/100), True)
         for i,oneOf2 in enumerate(result):
             if  type(oneOf2) is tuple and len(oneOf2) == 2:
-                self.scrollmodel.insertPerson(i, "Wurf: "+ str(oneOf2[0])+". :     "+str(oneOf2[1]), True)
+                pos += 1
+                self.scrollmodel.insertPerson(pos, "Wurf: "+ str(oneOf2[0])+". :     "+str(oneOf2[1]), True)
             elif  type(oneOf2) is list:
                 for k,erstwuerfe in enumerate(oneOf2):
                     if  len(erstwuerfe) == 2:
-                        self.scrollmodel.insertPerson(i, "Wurf: "+ str(erstwuerfe[0])+". :     "+str(erstwuerfe[1]), True)
+                        pos += 1
+                        self.scrollmodel.insertPerson(k, "Wurf: "+ str(erstwuerfe[0])+". :     "+str(erstwuerfe[1]), True)
 
     @pyqtSlot()
     def wuerfeln2(self):
