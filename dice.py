@@ -211,13 +211,13 @@ def main(inp,werfen = 2, uniq_ = False):
     if len(inp) > 3:
         if type(inp[-3]) is list and type(inp[-2]) is list and type(inp[-1]) is list:
             include1,include2,include3 = inp[-3],inp[-2],inp[-1]
+            inp=inp[:-3]
         else:
             i1,i2,i3 = [],[],[True,True,True,True]
             for i in range(len(randfkt2)):
                 i1.append(True)
                 i2.append(True)
             include1,include2,include3 = i1,i2,i3
-            inp=inp[:-3]
     if len(inp) == 6:
         until = int(inp[1])
         inp[4] = int(inp[4])
