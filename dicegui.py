@@ -76,6 +76,7 @@ class MainWindow(QQmlApplicationEngine):
             print("x "+str(uniq.property("position"))+" x "+str(reverse.property("position")))
             #wuerfe.setProperty("text", "x" )
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
+            LRad2 = self.rootObjects()[0].findChild(QObject, "LRad2")
             #print(str(blub))
             print(str(LRad.property("text")))
             #print(str(self.radiogroup))
@@ -95,6 +96,7 @@ class MainWindow(QQmlApplicationEngine):
             if LRad.property("text") != "gewicht":
                 result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             else:
+                print(str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")]))
                 result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             self.insertresults(result)
 #            for ell in result:

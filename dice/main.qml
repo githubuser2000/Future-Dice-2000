@@ -7,7 +7,7 @@ import QtQuick.Controls 2.12
 Window {
     visible: true
     width: 940
-    height: 680
+    height: 580
     title: qsTr("Hello World")
 
 
@@ -17,7 +17,7 @@ Window {
         Grid {
             columns: 4
             spacing: 4
-            anchors.fill: parent
+
 
             Switch {
                 id: reverse_
@@ -139,10 +139,15 @@ Window {
                 onClicked: MainWindow.wuerfeln2()
             }
         }
-
+        ButtonGroup {
+            id: radioGroup
+        }
+        ButtonGroup {
+            id: radioGroup2
+        }
         GridLayout {
 
-            columns: 2
+            columns: 3
             objectName: "radiolayout"
 
 
@@ -160,51 +165,63 @@ Window {
                 id : rade
                 visible: false
             }
-            ButtonGroup {
-                id: radioGroup
-            }
-            Repeater {
-                id: repeaterradios
-                model: radiomodel
-                objectName: "radios"
-                RadioButton {
-                    Layout.preferredHeight: 15
-                    indicator.height: 15
-                    indicator.width: 15
-                    checked: checked_
-                    //text: qsTr("First")
-                    text: name
-                    objectName: name
-                    ButtonGroup.group: radioGroup
-                    onClicked:  rade.text = text
-                }
-            }
-
-            ButtonGroup {
-                id: radioGroup2
-            }
-
             Label {
                 text: "lin"
                 objectName: 'LRad2'
                 id : rade2
                 visible: false
             }
-            Repeater {
-                id: repeaterradios2
-                model: radiomodel
-                objectName: "radios2"
-                RadioButton {
-                    Layout.preferredHeight: 15
-                    indicator.height: 15
-                    indicator.width: 15
-                    checked: checked_
-                    //text: qsTr("First")
-                    text: name
-                    objectName: name
-                    //ButtonGroup.group: group
-                    onClicked:  rade2.text = text
-                    ButtonGroup.group: radioGroup2
+
+
+            GridLayout {
+
+                columns: 1
+                Label {
+                    text: "Wert"
+                    objectName: 'L1'
+                    id : l1
+                }
+                Repeater {
+                    id: repeaterradios
+                    model: radiomodel
+                    objectName: "radios"
+                    RadioButton {
+                        Layout.preferredHeight: 15
+                        indicator.height: 15
+                        indicator.width: 15
+                        checked: checked_
+                        //text: qsTr("First")
+                        text: name
+                        objectName: name
+                        ButtonGroup.group: radioGroup
+                        onClicked:  rade.text = text
+                    }
+                }
+            }
+            GridLayout {
+                columns: 1
+
+                Label {
+                    text: "Gewicht"
+                    objectName: 'L2'
+                    id : l2
+                }
+                Repeater {
+                    id: repeaterradios2
+                    model: radiomodel
+                    objectName: "radios2"
+                    RadioButton {
+                        Layout.preferredHeight: 15
+                        indicator.height: 15
+                        indicator.width: 15
+                        checked: checked_
+                        //text: qsTr("First")
+                        text: name
+                        objectName: name
+                        //ButtonGroup.group: group
+                        onClicked:  rade2.text = text
+                        ButtonGroup.group: radioGroup2
+                    }
                 }
             }
         }
@@ -219,11 +236,11 @@ Window {
         ScrollView {
             id: scrollView
             objectName: 'scrollView'
-            x: 487
-            y: 174
+            //x: 487
+            //y: 174
             width: 200
-            height: 200
-            Layout.fillHeight: true
+            height: 100
+            //Layout.fillHeight: true
             Layout.fillWidth: true
             clip: true
             spacing: 2
