@@ -81,30 +81,24 @@ def kombi(x,n,xe,e,reku = 50):
 
 def gewicht(type1,x,n,xe,e,type2,n2,xe2,e2):
     return ( fkt[type1](x,n,xe,e),
-            fkt[type2](x,n2,xe2,e2) )
+            fkt[type2](x,n2,xe2,e2,1) )
 
 randTooOften=10000
 
 def rand(x,n,xe,e):
     global include1,include2, randfktvarA, randTooOften
+    okay1, okay2 = False, False
     for i,k in zip(include1,include2):
         if i:
             okay1 = True
         if k:
             okay2 = True
-    if not okay1 or not okay2:
-        if randTooOften > 0:
-            randTooOften -= 1
-            return rand(x,n,xe,e)
-    randfktvarA = randselect(include1)
-    a = 100
-    while randfkt[randfktvarA].__name__ == "gewicht" and a>0:
-        randfktvarA = randselect(include1)
-        a -= 1
-    if x == 1:
-        print(str(randfkt2[randfktvarA]))
+    if (not okay1 and randnumber == 0) or (not okay2 and randnumber == 1):
+        return 1
+    randfktvarA = randselect(include1,randnumber)
     result = randfkt[randfktvarA](x,n,xe,e)
     return result
+
 
 fkt = { 'lin' : lin,
         'log' : log,
@@ -260,7 +254,7 @@ def main(inp,werfen = 2, uniq_ = False):
             randos = []
             values = []
             for a in range(1,until+1):
-                thing = fkt[inp[2]](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
+                thing = fkt['gewicht'](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
                 randos.append(thing[0])
                 values.append(thing[1])
             if inp[3][0]=='-':
