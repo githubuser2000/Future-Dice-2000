@@ -314,7 +314,7 @@ Window {
                             lCheck1.anObject.text=checked
 
                       }*/
-                        onCheckedChanged: lCheck1.anObject.text=checked
+                        onCheckedChanged: lCheck1.anObject[text]=checked
 
                     }
                 }
