@@ -122,7 +122,7 @@ class MainWindow(QQmlApplicationEngine):
             y.property("text")
             uniq.property("position")
             wuerfe.property("text")
-            #print(str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
+            print('ü '+str(gezinkt)+' '+str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
             if not gezinkt:
                 result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             else:

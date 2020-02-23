@@ -11,14 +11,14 @@ import random
 # zahl die definiert werden sein soll z.B. 5 Augen als kurz vor Maximum
 # sys.argv
 
-inpp = sys.argv
+inpp_ = None
 include1 = None
 include2 = None
 include3 = None
 
 def sigmoid(x,n,xe,e):
-    x-=int(inpp[1])/2
-    xe-=int(inpp[1])/2
+    x-=int(inpp_[1])/2
+    xe-=int(inpp_[1])/2
     return ( n / (n + math.exp(-x)) ) / ( n / (n + math.exp(-xe)) ) * e
 
 def lin(x,n,xe,e):
@@ -60,7 +60,7 @@ def kombi(x,n,xe,e,reku = 50):
         if not okay1 or not okay2:
             return None
         randfktvar1,randfktvar2,randfktvar3 = randselect(include1),randselect(include2),randselect(include3)
-        print(str(randfktvar1)+" "+str(randfktvar2)+" "+str(randfktvar3))
+        #print("-- "+str(randfktvar1)+" "+str(randfktvar2)+" "+str(randfktvar3))
 
         if randfktvar3 == 1:
             print("Kombi Mulitply: "+str(randfkt2[randfktvar1])+" "+str(randfkt2[randfktvar2]))
@@ -83,19 +83,16 @@ def gewicht(type1,x,n,xe,e,type2,n2,xe2,e2):
     return ( fkt[type1](x,n,xe,e),
             fkt[type2](x,n2,xe2,e2,1) )
 
-randTooOften=10000
 
-def rand(x,n,xe,e):
-    global include1,include2, randfktvarA, randTooOften
-    okay1, okay2 = False, False
-    for i,k in zip(include1,include2):
+def rand(x,n,xe,e,xth=0):
+    global include1,include2, randfktvarA
+    okay1 = False
+    for i in include1:
         if i:
             okay1 = True
-        if k:
-            okay2 = True
-    if (not okay1 and randnumber == 0) or (not okay2 and randnumber == 1):
+    if not okay1:
         return 1
-    randfktvarA = randselect(include1,randnumber)
+    randfktvarA = randselect(include1 if xth == 0 else include2)
     result = randfkt[randfktvarA](x,n,xe,e)
     return result
 
@@ -205,9 +202,10 @@ def wuerfeln():
     return wuerfelWuerfe2
 
 def main(inp,werfen = 2, uniq_ = False):
-    global randfktvarA
+    global randfktvarA, inpp_
     global include1,include2,include3
     global values, wuerfelType, wuerfelWuerfe, uniq, randos
+    inpp_ = inp
     wuerfelWuerfe = werfen
     uniq = uniq_
     wuerfelWuerfe = []
@@ -242,6 +240,7 @@ def main(inp,werfen = 2, uniq_ = False):
                 wuerfelType = 0
                 wuerfelWuerfe.append(wuerfeln())
     elif len(inp) == 11 and inp[2] == "gewicht":
+        print("d")
         until = int(inp[1])
         inp[4] = int(inp[4])
         inp[5] = int(inp[5])
