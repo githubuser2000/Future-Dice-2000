@@ -272,11 +272,28 @@ Window {
         GridLayout {
 
             columns: 3
-
+            /*
+            Label {
+                text: "lin"
+                objectName: 'LRad'
+                id : rade
+                visible: false
+            }
+            Label {
+                text: "lin"
+                objectName: 'LRad'
+                id : rade
+                visible: false
+            }
+            Label {
+                text: "lin"
+                objectName: 'LRad'
+                id : rade
+                visible: false
+            }*/
 
 
             ColumnLayout {
-
                 Repeater {
                     id: chk1
                     model: chkmodel1
@@ -293,10 +310,6 @@ Window {
                 }
             }
             ColumnLayout {
-
-
-
-
                 Repeater {
                     id: chk2
                     model: chkmodel2
