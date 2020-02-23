@@ -3,13 +3,13 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.12
 
-
+app.setWindowIcon(QIcon("C:/path_to_ico/favicon.png"));
 Window {
     visible: true
     width: 840
     height: 680
     title: qsTr("Hello World")
-
+    
 
     GridLayout {
         anchors.fill: parent
