@@ -65,17 +65,19 @@ Window {
             spacing: 2
 
             Switch {
-                id: element
+                id: reverse_
                 x: 90
                 y: 119
                 text: qsTr("Rückwärts")
+                objectName: "reverse"
             }
 
             Switch {
-                id: element1
+                id: uniq
                 x: 232
                 y: 119
                 text: qsTr("jeder Wurf passiert")
+                objectName: "uniq"
             }
             Label {
                 text: "Augen"

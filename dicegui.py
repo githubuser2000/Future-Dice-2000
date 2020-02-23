@@ -48,7 +48,9 @@ class MainWindow(QQmlApplicationEngine):
             y = self.rootObjects()[0].findChild(QObject, "y")
             augen = self.rootObjects()[0].findChild(QObject, "augen")
             sview = self.rootObjects()[0].findChild(QObject, "scrollView")
-            print("x")
+            uniq = self.rootObjects()[0].findChild(QObject, "uniq")
+            reverse = self.rootObjects()[0].findChild(QObject, "reverse")
+            print("x "+str(uniq.property("position"))+" x "+str(reverse.property("position")))
             #wuerfe.setProperty("text", "x" )
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
             #print(str(blub))
@@ -58,7 +60,7 @@ class MainWindow(QQmlApplicationEngine):
             #priint(wuerfe.property("text"))
 
             #print(wuerfe.property("text"))
-            result = dice.main(['dicegui',augen.property("text"),LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), False)
+            result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             for ell in result:
                 for i,el in enumerate(ell):
                     self.scrollmodel.insertPerson(i, str(el), True)
