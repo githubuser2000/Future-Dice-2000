@@ -25,6 +25,21 @@ class MainWindow(QQmlApplicationEngine):
         #    if radio.property("checked"):
         #        print(dice.randfkt2[i+1])
 
+    def insertresults(self,result):
+        for i,oneOf2 in enumerate(result):
+#            for i,elo in enumerate(ell):
+#                for i,el in enumerate(elo):
+            if type(oneOf2) is dict:
+                for k,(key, value) in enumerate(oneOf2.items()):
+                    self.scrollmodel.insertPerson(i, 'Augen '+str(key+1)+". :     "+str((round(float(value)*100))/100), True)
+        for i,oneOf2 in enumerate(result):
+            if  type(oneOf2) is tuple and len(oneOf2) == 2:
+                self.scrollmodel.insertPerson(i, "Wurf: "+ str(oneOf2[0])+". :     "+str(oneOf2[1]), True)
+            elif  type(oneOf2) is list:
+                for k,erstwuerfe in enumerate(oneOf2):
+                    if  len(erstwuerfe) == 2:
+                        self.scrollmodel.insertPerson(i, "Wurf: "+ str(erstwuerfe[0])+". :     "+str(erstwuerfe[1]), True)
+
     @pyqtSlot()
     def wuerfeln2(self):
         #print(str(self.radios.property("checksate")))
@@ -35,9 +50,10 @@ class MainWindow(QQmlApplicationEngine):
             for i in range(int(wuerfe.property("text"))):
                 result = dice.wuerfeln()
                 print("r " + str(result) )
-                for ell in result:
-                    for i,el in enumerate(ell):
-                        self.scrollmodel.insertPerson(i, str(el), True)
+                self.insertresults(result)
+#                for ell in result:
+#                    for i,el in enumerate(ell):
+#                        self.scrollmodel.insertPerson(i, str(el), True)
     @pyqtSlot()
     def wuerfelErstellen(self):
         if not self.wuerfelrestellt:
@@ -61,9 +77,10 @@ class MainWindow(QQmlApplicationEngine):
 
             #print(wuerfe.property("text"))
             result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
-            for ell in result:
-                for i,el in enumerate(ell):
-                    self.scrollmodel.insertPerson(i, str(el), True)
+            self.insertresults(result)
+#            for ell in result:
+#                for i,el in enumerate(ell):
+#                    self.scrollmodel.insertPerson(i, str(el), True)
     def __init__(self):
         super().__init__()
         self.radiomodel = model2.PersonModel()
