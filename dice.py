@@ -83,9 +83,19 @@ def gewicht(type1,x,n,xe,e,type2,n2,xe2,e2):
     return ( fkt[type1](x,n,xe,e),
             fkt[type2](x,n2,xe2,e2) )
 
+randTooOften=10000
 
 def rand(x,n,xe,e):
-    global randfktvarA
+    global include1,include2, randfktvarA, randTooOften
+    for i,k in zip(include1,include2):
+        if i:
+            okay1 = True
+        if k:
+            okay2 = True
+    if not okay1 or not okay2:
+        if randTooOften > 0:
+            randTooOften -= 1
+            return rand(x,n,xe,e)
     randfktvarA = randselect(include1)
     a = 100
     while randfkt[randfktvarA].__name__ == "gewicht" and a>0:
@@ -211,6 +221,7 @@ def main(inp,werfen = 2, uniq_ = False):
     if len(inp) > 3:
         if type(inp[-3]) is list and type(inp[-2]) is list and type(inp[-1]) is list:
             include1,include2,include3 = inp[-3],inp[-2],inp[-1]
+            print('_'+str(include1))
             inp=inp[:-3]
         else:
             i1,i2,i3 = [],[],[True,True,True,True]
