@@ -30,18 +30,26 @@ class MainWindow(QQmlApplicationEngine):
 #                for i,el in enumerate(elo):
             if type(oneOf2) is dict:
                 for k,(key, value) in enumerate(oneOf2.items()):
-                    print(str(key+1)+" "+str(value))
-                    self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". :    Wert "+str((round(float(value)*100))/100), True)
+                    if type(value) is tuple:
+                        self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". :    Wert "+str(round(float(value[0])*100)/100)+", Gewicht:"+str(round(float(value[1])*100)/100), True)
+                    else:
+                        self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". :    Wert "+str((round(float(value)*100))/100), True)
                 self.scrollmodel.insertPerson(0, '', True)
         for i,oneOf2 in enumerate(result):
             if  type(oneOf2) is tuple and len(oneOf2) == 2:
                 self.wuerfe += 1
-                self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(oneOf2[0])+1)+". :     Wert "+str(oneOf2[1]), True)
+                if type(oneOf2[1]) is tuple and len(oneOf2[1]) == 2:
+                    self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(oneOf2[0])+1)+". :     Wert "+str(round(float(oneOf2[1][0])*100)/100)+", Gewicht: "+str(round(float(oneOf2[1][1])*100)/100), True)
+                else:
+                    self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(oneOf2[0])+1)+". :     Wert "+str(oneOf2[1]), True)
             elif  type(oneOf2) is list:
                 for k,erstwuerfe in enumerate(oneOf2):
                     if  len(erstwuerfe) == 2:
                         self.wuerfe += 1
-                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(erstwuerfe[0])+1)+". :    Wert "+str(erstwuerfe[1]), True)
+                        if type(erstwuerfe[1]) is tuple and len(erstwuerfe[1]) == 2:
+                            self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(erstwuerfe[0])+1)+". :    Wert "+str(round(float(erstwuerfe[1][0])*100)/100)+", Gewicht: "+str(round(float(erstwuerfe[1][1])*100)/100), True)
+                        else:
+                            self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(erstwuerfe[0])+1)+". :    Wert "+str(round(float(erstwuerfe[1])*100)/100), True)
 
     @pyqtSlot()
     def wuerfeln2(self):
@@ -78,9 +86,9 @@ class MainWindow(QQmlApplicationEngine):
             #wuerfe.setProperty("text", "x" )
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
             LRad2 = self.rootObjects()[0].findChild(QObject, "LRad2")
-            gezinkt = True if self.rootObjects()[0].findChild(QObject, "gewicht") == 1 else False
+            gezinkt = True if self.rootObjects()[0].findChild(QObject, "gewicht").property("position") == 1 else False
             #print(str(blub))
-            print(str(LRad.property("text")))
+            #print(str(self.rootObjects()[0].findChild(QObject, "gewicht").property("position")))
             #print(str(self.radiogroup))
             #print(str(self.radiogroup.property("ButtonGroup")))
             #priint(wuerfe.property("text"))
@@ -95,7 +103,7 @@ class MainWindow(QQmlApplicationEngine):
             y.property("text")
             uniq.property("position")
             wuerfe.property("text")
-            if gezinkt:
+            if not gezinkt:
                 result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             else:
                 result = dice.main(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
