@@ -6,7 +6,7 @@ import QtQuick.Controls 2.12
 
 Window {
     visible: true
-    width: 840
+    width: 940
     height: 680
     title: qsTr("Hello World")
 
@@ -17,6 +17,7 @@ Window {
         Grid {
             columns: 4
             spacing: 4
+            anchors.fill: parent
 
             Switch {
                 id: reverse_
@@ -36,8 +37,13 @@ Window {
             Label {
                 text: " "
             }
-            Label {
-                text: " "
+
+            Switch {
+                id: reverse2_
+                x: 90
+                y: 119
+                text: qsTr("Rückwärts2")
+                objectName: "reverse2"
             }
             Label {
                 text: "Augen"
@@ -153,6 +159,9 @@ Window {
                 id : rade
                 visible: false
             }
+            ButtonGroup {
+                id: radioGroup
+            }
             Repeater {
                 id: repeaterradios
                 model: radiomodel
@@ -165,12 +174,14 @@ Window {
                     //text: qsTr("First")
                     text: name
                     objectName: name
-                    //ButtonGroup.group: group
+                    ButtonGroup.group: radioGroup
                     onClicked:  rade.text = text
                 }
             }
 
-
+            ButtonGroup {
+                id: radioGroup2
+            }
 
             Label {
                 text: "lin"
@@ -191,7 +202,8 @@ Window {
                     text: name
                     objectName: name
                     //ButtonGroup.group: group
-                    onClicked:  rade.text = text
+                    onClicked:  rade2.text = text
+                    ButtonGroup.group: radioGroup2
                 }
             }
         }

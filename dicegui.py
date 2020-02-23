@@ -72,6 +72,7 @@ class MainWindow(QQmlApplicationEngine):
             sview = self.rootObjects()[0].findChild(QObject, "scrollView")
             uniq = self.rootObjects()[0].findChild(QObject, "uniq")
             reverse = self.rootObjects()[0].findChild(QObject, "reverse")
+            reverse2 = self.rootObjects()[0].findChild(QObject, "reverse2")
             print("x "+str(uniq.property("position"))+" x "+str(reverse.property("position")))
             #wuerfe.setProperty("text", "x" )
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
@@ -91,12 +92,10 @@ class MainWindow(QQmlApplicationEngine):
             y.property("text")
             uniq.property("position")
             wuerfe.property("text")
-            #if LRad.property("text") != "gewicht":
-            result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
-            #else:
-            #    print("no")
-            #    pass
-                #result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
+            if LRad.property("text") != "gewicht":
+                result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
+            else:
+                result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             self.insertresults(result)
 #            for ell in result:
 #                for i,el in enumerate(ell):
@@ -114,7 +113,6 @@ class MainWindow(QQmlApplicationEngine):
             self.chkmodel3.insertPerson(i, el, True)
         context = self.rootContext()
         context.setContextProperty("radiomodel", self.radiomodel)
-        context.setContextProperty("radiomodel2", self.radiomodel)
         context.setContextProperty("scrollmodel", self.scrollmodel)
         context.setContextProperty("chkmodel1", self.chkmodel1)
         context.setContextProperty("chkmodel2", self.chkmodel2)
