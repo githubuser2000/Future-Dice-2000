@@ -62,6 +62,9 @@ class MainWindow(QQmlApplicationEngine):
             self.wuerfe = 0
             self.wuerfelrestellt = True
             wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
+            n2 = self.rootObjects()[0].findChild(QObject, "n2")
+            x2 = self.rootObjects()[0].findChild(QObject, "x2")
+            y2 = self.rootObjects()[0].findChild(QObject, "y2")
             n = self.rootObjects()[0].findChild(QObject, "n")
             x = self.rootObjects()[0].findChild(QObject, "x")
             y = self.rootObjects()[0].findChild(QObject, "y")
@@ -79,7 +82,21 @@ class MainWindow(QQmlApplicationEngine):
             #priint(wuerfe.property("text"))
 
             #print(wuerfe.property("text"))
+            result = None
+            augen.property("text")
+            reverse.property("position")
+            LRad.property("text")
+            n.property("text")
+            x.property("text")
+            y.property("text")
+            uniq.property("position")
+            wuerfe.property("text")
+            #if LRad.property("text") != "gewicht":
             result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
+            #else:
+            #    print("no")
+            #    pass
+                #result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             self.insertresults(result)
 #            for ell in result:
 #                for i,el in enumerate(ell):
@@ -97,6 +114,7 @@ class MainWindow(QQmlApplicationEngine):
             self.chkmodel3.insertPerson(i, el, True)
         context = self.rootContext()
         context.setContextProperty("radiomodel", self.radiomodel)
+        context.setContextProperty("radiomodel2", self.radiomodel)
         context.setContextProperty("scrollmodel", self.scrollmodel)
         context.setContextProperty("chkmodel1", self.chkmodel1)
         context.setContextProperty("chkmodel2", self.chkmodel2)
