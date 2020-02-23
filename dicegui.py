@@ -64,13 +64,21 @@ class MainWindow(QQmlApplicationEngine):
                     self.scrollmodel.insertPerson(i, str(el), True)
     def __init__(self):
         super().__init__()
-        radiomodel = model2.PersonModel()
+        self.radiomodel = model2.PersonModel()
         self.scrollmodel = model2.PersonModel()
+        self.chkmodel1,self.chkmodel2,self.chkmodel3 = model2.PersonModel(),model2.PersonModel(),model2.PersonModel()
         for i,el in enumerate(list(dice.randfkt2.values())):
-            radiomodel.insertPerson(i, el, True if i==0 else False)
+            self.radiomodel.insertPerson(i, el, True if i==0 else False)
+            self.chkmodel1.insertPerson(i, el, True if i==0 else False)
+            self.chkmodel2.insertPerson(i, el, True if i==0 else False)
+        for i,el in enumerate(list(dice.randfkt3.values())):
+            self.chkmodel3.insertPerson(i, el, True if i==0 else False)
         context = self.rootContext()
-        context.setContextProperty("radiomodel", radiomodel)
+        context.setContextProperty("radiomodel", self.radiomodel)
         context.setContextProperty("scrollmodel", self.scrollmodel)
+        context.setContextProperty("chkmodel1", self.chkmodel1)
+        context.setContextProperty("chkmodel2", self.chkmodel2)
+        context.setContextProperty("chkmodel3", self.chkmodel3)
         self.load('dice/main.qml')
 
         #rado = self.rootObjects()[0].findChild(QObject, "radios")

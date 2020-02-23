@@ -63,6 +63,20 @@ Window {
         Grid {
             columns: 2
             spacing: 2
+
+            Switch {
+                id: element
+                x: 90
+                y: 119
+                text: qsTr("Rückwärts")
+            }
+
+            Switch {
+                id: element1
+                x: 232
+                y: 119
+                text: qsTr("jeder Wurf passiert")
+            }
             Label {
                 text: "Augen"
             }
@@ -162,90 +176,72 @@ Window {
                     text: name
                 }
             }
-        }
-        ColumnLayout {
-            //anchors.fill: parent
-            id: layout
+}
+            ColumnLayout {
+                //anchors.fill: parent
+                id: layoutZ
 
-            ButtonGroup { id: radioA }
-            Column {
 
-                CheckBox {
-                    id: parentBox1
-                    text: qsTr("Parent")
-                    //checkState: childGroup.checkState
+                Column {
+                    Repeater {
+                        id: chk1
+                        model: chkmodel1
+                        objectName: "repeatercheck1"
+
+                        CheckBox {
+                            checked: true
+                            ButtonGroup.group: checkgroup1
+                        }
+                    }
                 }
 
-                CheckBox {
-                    checked: true
-                    text: qsTr("Child 1")
-                    leftPadding: indicator.width
-                    ButtonGroup.group: radioA
-                }
-
-                CheckBox {
-                    text: qsTr("Child 2")
-                    leftPadding: indicator.width
-                    ButtonGroup.group: radioA
-                }
             }
-        }
-        ColumnLayout {
-            //anchors.fill: parent
-            id: layout5
 
-            ButtonGroup { id: radioB }
-            Column {
+            ColumnLayout {
+                //anchors.fill: parent
+                id: layout5
 
-                CheckBox {
-                    id: parentBox2
-                    text: qsTr("Parent")
-                    //checkState: childGroup.checkState
+
+                Column {
+
+                    Repeater {
+                        id: chk2
+                        model: chkmodel2
+                        objectName: "repeatercheck2"
+
+                        CheckBox {
+
+                            ButtonGroup.group: checkgroup2
+                        }
+                    }
                 }
 
-                CheckBox {
-                    checked: true
-                    text: qsTr("Child 1")
-                    leftPadding: indicator.width
-                    ButtonGroup.group: radioB
-                }
-
-                CheckBox {
-                    text: qsTr("Child 2")
-                    leftPadding: indicator.width
-                    ButtonGroup.group: radioB
-                }
             }
-        }
-        ColumnLayout {
-            //anchors.fill: parent
-            id: layout7
+            ColumnLayout {
+                //anchors.fill: parent
+                id: layout7
 
-            ButtonGroup { id: radioC }
-            Column {
 
-                CheckBox {
-                    id: parentBox3
-                    text: qsTr("Parent")
-                    //checkState: childGroup.checkState
+
+                Column {
+                    Repeater {
+                        id: chk3
+                        model: chkmodel3
+                        objectName: "repeatercheck3"
+
+                        CheckBox {
+
+                            ButtonGroup.group: checkgroup3
+                        }
+                    }
                 }
 
-                CheckBox {
-                    checked: true
-                    text: qsTr("Child 1")
-                    leftPadding: indicator.width
-                    ButtonGroup.group: radioC
-                }
-
-                CheckBox {
-                    text: qsTr("Child 2")
-                    leftPadding: indicator.width
-                    ButtonGroup.group: radioC
-                }
-            }
         }
     }
 }
+
+
+
 
 
 
