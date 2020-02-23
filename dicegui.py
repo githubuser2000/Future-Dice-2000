@@ -53,6 +53,7 @@ class MainWindow(QQmlApplicationEngine):
 
     @pyqtSlot()
     def wuerfeln2(self):
+        self.checkedchanged()
         #print(str(self.radios.property("checksate")))
         if not self.wuerfelrestellt:
             self.wuerfelErstellen()
@@ -65,8 +66,22 @@ class MainWindow(QQmlApplicationEngine):
 #                for ell in result:
 #                    for i,el in enumerate(ell):
 #                        self.scrollmodel.insertPerson(i, str(el), True)
+    def checkedchanged(self):
+        ListChecked1 = self.rootObjects()[0].findChild(QObject, "_LCheck1_")
+        changedchecked = ListChecked1.property("anObject").toVariant()
+        checklist=[]
+        for fktTypes in enumerate(list(dice.randfkt2.values())):
+            for key,value in changedchecked.items():
+                if key == fktTypes:
+                    checklist.append(value)
+                else:
+                    checklist.append(True)
+        print(str(checklist))
+
+
     @pyqtSlot()
     def wuerfelErstellen(self):
+        self.checkedchanged()
         if not self.wuerfelrestellt:
             self.wuerfe = 0
             self.wuerfelrestellt = True
