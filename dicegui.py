@@ -30,6 +30,7 @@ class MainWindow(QQmlApplicationEngine):
 #                for i,el in enumerate(elo):
             if type(oneOf2) is dict:
                 for k,(key, value) in enumerate(oneOf2.items()):
+                    print(str(key+1)+" "+str(value))
                     self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". :    Wert "+str((round(float(value)*100))/100), True)
                 self.scrollmodel.insertPerson(0, '', True)
         for i,oneOf2 in enumerate(result):
@@ -77,6 +78,7 @@ class MainWindow(QQmlApplicationEngine):
             #wuerfe.setProperty("text", "x" )
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
             LRad2 = self.rootObjects()[0].findChild(QObject, "LRad2")
+            gezinkt = True if self.rootObjects()[0].findChild(QObject, "gewicht") == 1 else False
             #print(str(blub))
             print(str(LRad.property("text")))
             #print(str(self.radiogroup))
@@ -93,11 +95,10 @@ class MainWindow(QQmlApplicationEngine):
             y.property("text")
             uniq.property("position")
             wuerfe.property("text")
-            if LRad.property("text") != "gewicht":
+            if gezinkt:
                 result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             else:
-                print(str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")]))
-                result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
+                result = dice.main(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")],int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             self.insertresults(result)
 #            for ell in result:
 #                for i,el in enumerate(ell):
@@ -107,7 +108,7 @@ class MainWindow(QQmlApplicationEngine):
         self.radiomodel = model2.PersonModel()
         self.scrollmodel = model2.PersonModel()
         self.chkmodel1,self.chkmodel2,self.chkmodel3 = model2.PersonModel(),model2.PersonModel(),model2.PersonModel()
-        for i,el in enumerate(list(dice.randfkt2.values())):
+        for i,el in enumerate(list(dice.randfkt2.values())[:-1]):
             self.radiomodel.insertPerson(i, el, True if i==0 else False)
             self.chkmodel1.insertPerson(i, el, True)
             self.chkmodel2.insertPerson(i, el, True)

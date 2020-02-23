@@ -147,11 +147,21 @@ Window {
         }
         GridLayout {
 
-            columns: 3
-            objectName: "radiolayout"
+            columns: 1
+            Switch {
+                id: gewicht
+                x: 90
+                y: 119
+                text: qsTr("gezinkt")
+                objectName: "gewicht"
+            }
+            GridLayout {
+
+                columns: 2
+                objectName: "radiolayout"
 
 
-            /*
+                /*
             ButtonGroup {
                 id: group
                 buttons: repeaterradios.children
@@ -159,68 +169,70 @@ Window {
                 //onClicked: { MainWindow.getRadioBselected(MainWindow,button.text);
                 onClicked:  console.log("clicked:",button.text)
             }*/
-            Label {
-                text: "lin"
-                objectName: 'LRad'
-                id : rade
-                visible: false
-            }
-            Label {
-                text: "lin"
-                objectName: 'LRad2'
-                id : rade2
-                visible: false
-            }
-
-
-            GridLayout {
-
-                columns: 1
                 Label {
-                    text: "Wert"
-                    objectName: 'L1'
-                    id : l1
+                    text: "lin"
+                    objectName: 'LRad'
+                    id : rade
+                    visible: false
                 }
-                Repeater {
-                    id: repeaterradios
-                    model: radiomodel
-                    objectName: "radios"
-                    RadioButton {
-                        Layout.preferredHeight: 15
-                        indicator.height: 15
-                        indicator.width: 15
-                        checked: checked_
-                        //text: qsTr("First")
-                        text: name
-                        objectName: name
-                        ButtonGroup.group: radioGroup
-                        onClicked:  rade.text = text
+                Label {
+                    text: "lin"
+                    objectName: 'LRad2'
+                    id : rade2
+                    visible: false
+                }
+
+
+
+                GridLayout {
+
+                    columns: 1
+                    Label {
+                        text: "Wert"
+                        objectName: 'L1'
+                        id : l1
+                    }
+                    Repeater {
+                        id: repeaterradios
+                        model: radiomodel
+                        objectName: "radios"
+                        RadioButton {
+                            Layout.preferredHeight: 15
+                            indicator.height: 15
+                            indicator.width: 15
+                            checked: checked_
+                            //text: qsTr("First")
+                            text: name
+                            objectName: name
+                            ButtonGroup.group: radioGroup
+                            onClicked:  rade.text = text
+                        }
                     }
                 }
-            }
-            GridLayout {
-                columns: 1
+                GridLayout {
+                    columns: 1
 
-                Label {
-                    text: "Gewicht"
-                    objectName: 'L2'
-                    id : l2
-                }
-                Repeater {
-                    id: repeaterradios2
-                    model: radiomodel
-                    objectName: "radios2"
-                    RadioButton {
-                        Layout.preferredHeight: 15
-                        indicator.height: 15
-                        indicator.width: 15
-                        checked: checked_
-                        //text: qsTr("First")
-                        text: name
-                        objectName: name
-                        //ButtonGroup.group: group
-                        onClicked:  rade2.text = text
-                        ButtonGroup.group: radioGroup2
+                    Label {
+                        text: "gezinkt"
+                        objectName: 'L2'
+                        id : l2
+                    }
+                    Repeater {
+                        id: repeaterradios2
+                        model: radiomodel
+                        objectName: "radios2"
+                        RadioButton {
+                            Layout.preferredHeight: 15
+                            indicator.height: 15
+                            indicator.width: 15
+                            checked: checked_
+                            //text: qsTr("First")
+                            text: name
+                            objectName: name
+                            //ButtonGroup.group: group
+                            onClicked:  rade2.text = text
+                            ButtonGroup.group: radioGroup2
+                        }
                     }
                 }
             }
