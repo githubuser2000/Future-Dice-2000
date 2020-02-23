@@ -69,10 +69,10 @@ class MainWindow(QQmlApplicationEngine):
         self.chkmodel1,self.chkmodel2,self.chkmodel3 = model2.PersonModel(),model2.PersonModel(),model2.PersonModel()
         for i,el in enumerate(list(dice.randfkt2.values())):
             self.radiomodel.insertPerson(i, el, True if i==0 else False)
-            self.chkmodel1.insertPerson(i, el, True if i==0 else False)
-            self.chkmodel2.insertPerson(i, el, True if i==0 else False)
+            self.chkmodel1.insertPerson(i, el, True)
+            self.chkmodel2.insertPerson(i, el, True)
         for i,el in enumerate(list(dice.randfkt3.values())):
-            self.chkmodel3.insertPerson(i, el, True if i==0 else False)
+            self.chkmodel3.insertPerson(i, el, True)
         context = self.rootContext()
         context.setContextProperty("radiomodel", self.radiomodel)
         context.setContextProperty("scrollmodel", self.scrollmodel)

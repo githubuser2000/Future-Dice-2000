@@ -189,8 +189,8 @@ Window {
                         objectName: "repeatercheck1"
 
                         CheckBox {
-                            checked: true
-                            ButtonGroup.group: checkgroup1
+                            text : name
+                            checked: checked_
                         }
                     }
                 }
@@ -210,8 +210,9 @@ Window {
                         objectName: "repeatercheck2"
 
                         CheckBox {
+                            text : name
+                            checked: checked_
 
-                            ButtonGroup.group: checkgroup2
                         }
                     }
                 }
@@ -230,8 +231,9 @@ Window {
                         objectName: "repeatercheck3"
 
                         CheckBox {
+                            text : name
+                            checked: checked_
 
-                            ButtonGroup.group: checkgroup3
                         }
                     }
                 }
