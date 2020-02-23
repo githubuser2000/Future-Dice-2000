@@ -24,22 +24,23 @@ class MainWindow(QQmlApplicationEngine):
         #    print(str("x"+str(radio.property("checked"))))
         #    if radio.property("checked"):
         #        print(dice.randfkt2[i+1])
-
     def insertresults(self,result):
         for i,oneOf2 in enumerate(result):
 #            for i,elo in enumerate(ell):
 #                for i,el in enumerate(elo):
             if type(oneOf2) is dict:
                 for k,(key, value) in enumerate(oneOf2.items()):
-                    self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". :     "+str((round(float(value)*100))/100), True)
+                    self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". :    Wert "+str((round(float(value)*100))/100), True)
                 self.scrollmodel.insertPerson(0, '', True)
         for i,oneOf2 in enumerate(result):
             if  type(oneOf2) is tuple and len(oneOf2) == 2:
-                self.scrollmodel.insertPerson(0, "Wurf: "+ str(oneOf2[0])+". :     "+str(oneOf2[1]), True)
+                self.wuerfe += 1
+                self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(oneOf2[0])+1)+". :     Wert "+str(oneOf2[1]), True)
             elif  type(oneOf2) is list:
                 for k,erstwuerfe in enumerate(oneOf2):
                     if  len(erstwuerfe) == 2:
-                        self.scrollmodel.insertPerson(0, "Wurf: "+ str(erstwuerfe[0])+". :     "+str(erstwuerfe[1]), True)
+                        self.wuerfe += 1
+                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(erstwuerfe[0])+1)+". :    Wert "+str(erstwuerfe[1]), True)
 
     @pyqtSlot()
     def wuerfeln2(self):
@@ -58,6 +59,7 @@ class MainWindow(QQmlApplicationEngine):
     @pyqtSlot()
     def wuerfelErstellen(self):
         if not self.wuerfelrestellt:
+            self.wuerfe = 0
             self.wuerfelrestellt = True
             wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
             n = self.rootObjects()[0].findChild(QObject, "n")

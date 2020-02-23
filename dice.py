@@ -174,6 +174,7 @@ values, wuerfelType, wuerfelWuerfe, uniq, randos = None, None, None, None, None
 def wuerfeln():
     global wuerfelAugenSet
     global values, wuerfelType, wuerfelWuerfe, uniq, randos
+    wuerfelWuerfe2 = []
     if len(wuerfelAugenSet) == len(values):
         wuerfelAugenSet = set()
     if wuerfelType == 0:
@@ -182,6 +183,7 @@ def wuerfeln():
             if not dice in wuerfelAugenSet or not uniq:
                 wuerfelAugenSet.add(dice)
                 break
+        wuerfelWuerfe2.append((dice,values[dice]))
         wuerfelWuerfe.append((dice,values[dice]))
         print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice+1)+")")
     elif wuerfelType == 1:
@@ -193,9 +195,10 @@ def wuerfeln():
         print("rand augenzahl ergebnis: "+str(dice))
         #dice = random.randrange(inp[1])+1
         ergebnis = (randos[dice],values[dice])
+        wuerfelWuerfe2.append((dice,ergebnis[0],ergebnis[1]))
         wuerfelWuerfe.append((dice,ergebnis[0],ergebnis[1]))
         print("Würfelwurf: "+str(values[dice])+" (Würfelaugen "+str(dice)+")")
-    return wuerfelWuerfe
+    return wuerfelWuerfe2
 
 def main(inp,werfen = 2, uniq_ = False):
     global randfktvarA
@@ -231,7 +234,7 @@ def main(inp,werfen = 2, uniq_ = False):
                 print(str(i+1)+": "+str(value))
             for i in range(werfen):
                 wuerfelType = 0
-                wuerfelWuerfe = wuerfeln()
+                wuerfelWuerfe.append(wuerfeln())
     elif len(inp) == 11 and inp[2] == "gewicht":
         until = int(inp[1])
         inp[4] = int(inp[4])
@@ -258,7 +261,7 @@ def main(inp,werfen = 2, uniq_ = False):
                 print(str(i+1)+": "+str(rando)+", "+str(value))
             for i in range(werfen):
                 wuerfelType = 1
-                wuerfelWuerfe = wuerfeln()
+                wuerfelWuerfe.append(wuerfeln())
     else:
         help()
         return None
