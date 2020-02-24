@@ -4,6 +4,6 @@ import libdice
 import sys
 
 if len(sys.argv) > 5:
-    libdice.main(sys.argv)
+    libdice.dice(sys.argv).out()
 else:
     help()
