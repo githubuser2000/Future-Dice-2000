@@ -14,15 +14,10 @@ Window {
 
     GridLayout {
         //anchors.fill: parent
-        columns: 4
+        columns: 3
         anchors.leftMargin: 20
         anchors.topMargin: 20
         anchors.rightMargin: 20
-        anchors.left: win.right
-        anchors.top: win.top
-/*        Label {
-            text: " "
-        }*/
         Grid {
             id: haupt
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -33,10 +28,6 @@ Window {
             anchors.rightMargin: 20
             anchors.topMargin: 20
             //anchors.fill: parent
-            anchors.left: win.right
-            anchors.top: win.top
-
-
 
             Switch {
                 id: reverse_
@@ -66,7 +57,7 @@ Window {
                 text: " "
             }
             Label {
-                text: "Augen"
+                text: "   Augen"
             }
             TextField {
                 objectName: "augen"
@@ -91,7 +82,7 @@ Window {
 
             }
             Label {
-                text: "n"
+                text: "   n"
             }
             TextField {
                 objectName: "n"
@@ -115,7 +106,7 @@ Window {
 
             }
             Label {
-                text: "x"
+                text: "   x"
             }
             TextField {
                 objectName: "x"
@@ -140,7 +131,7 @@ Window {
 
             }
             Label {
-                text: "Wert an Stelle"
+                text: "   y"
 
             }
             TextField {
@@ -153,7 +144,7 @@ Window {
 
             }
             Label {
-                text: "Wert 2    "
+                text: "y2"
             }
 
             TextField {
@@ -166,19 +157,40 @@ Window {
 
             }
             Button {
+                anchors.leftMargin: 20
+                anchors.rightMargin: 20
                 id: bwuefelerstellen
                 x: 196
                 y: 383
                 text: qsTr("Würfel erstellen")
                 onClicked: MainWindow.wuerfelErstellen()
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: bwuefelerstellen.down ? "#d6d6d6" : "#f6f6f6"
+                    border.color: "#26282a"
+                    border.width: 1
+                    radius: 4
+                }
+
             }
             Button {
+                anchors.leftMargin: 20
+                anchors.rightMargin: 20
                 id: bwuerfe
                 x: 196
                 y: 424
                 text: qsTr("Würfeln")
                 spacing: -3
                 onClicked: MainWindow.wuerfeln2()
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: bwuerfe.down ? "#d6d6d6" : "#f6f6f6"
+                    border.color: "#26282a"
+                    border.width: 1
+                    radius: 4
+                }
             }
         }
         ButtonGroup {
