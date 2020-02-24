@@ -7,7 +7,7 @@ import sys
 #from PyQt5 import QtCore
 from PyQt5.QtQuick import QQuickView, QQuickItem
 from PyQt5.QtCore import QObject, QAbstractListModel, QModelIndex, Qt, QVariant, pyqtSlot, QUrl
-import dice
+import libdice as dice
 import model2
 
 class MainWindow(QQmlApplicationEngine):
