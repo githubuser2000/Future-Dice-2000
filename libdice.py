@@ -34,11 +34,13 @@ class dice():
     def randselect(self,includex):
             d = 1000
             self.randfktvarx = random.randrange(len(includex))+1
-            while not includex[self.randfktvarx-1]:
+            print("zz "+str(self.randfkt[self.randfktvarx].__name__))
+            while not includex[self.randfktvarx-1] or self.randfkt[self.randfktvarx].__name__ == "gewicht":
                 d-=1
                 if d <= 0:
                     return None
                 self.randfktvarx = random.randrange(len(includex))+1
+            print("zz "+str(d)+"  "+str(self.randfkt[self.randfktvarx].__name__))
             return self.randfktvarx
 
     def kombi(self,x,n,xe,e,reku = 50,xth=0):
@@ -87,7 +89,7 @@ class dice():
         if not okay1:
             return 1
         self.randfktvarA = self.randselect(self.include1 if xth == 0 else self.include2)
-        result = self.randfkt[self.randfktvarA](x,n,xe,e)
+        result = self.randfkt[self.randfktvarA](x,n,xe,e,xth)
         return result
 
 
@@ -219,7 +221,7 @@ class dice():
             if inp[4] <= inp[1] and inp[4] > 1 and inp[2] != "gewicht":
                 self.values = []
                 for a in range(1,until+1):
-                    self.values.append(fkt[inp[2]](a,inp[3],inp[4],inp[5]))
+                    self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
                 if inp[2][0]=='-':
                     self.values.reverse()
                 for i,value in enumerate(self.values):
