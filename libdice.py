@@ -10,6 +10,20 @@ import random
     # zahl n, bei lin zB Schrittweite
     # zahl die definiert werden sein soll z.B. 5 Augen als kurz vor Maximum
     # sys.argv
+randfkt2 = { 1 : 'lin',
+            2 : 'log',
+            3 : 'root',
+            4 : 'poly',
+            5 : 'exp',
+            6 : 'kombi',
+            7 : 'logistic',
+            8 : 'rand',
+            9 : 'gewicht'}
+
+randfkt3 = { 1 : 'mul',
+            2 : 'add',
+            3 : 'log',
+            4 : 'root'}
 class dice():
 
     def sigmoid(self,x,n,xe,e,xth=0):
@@ -60,16 +74,16 @@ class dice():
             #print("-- "+str(self.randfktvar1)+" "+str(self.randfktvar2)+" "+str(self.randfktvar3))
 
             if self.randfktvar3 == 1:
-                print("Kombi Mulitply: "+str(self.randfkt2[self.randfktvar1])+" "+str(self.randfkt2[self.randfktvar2]))
+                print("Kombi Mulitply: "+str(randfkt2[self.randfktvar1])+" "+str(randfkt2[self.randfktvar2]))
                 return self.randfkt[self.randfktvar1](x,n,xe,e) * self.randfkt[self.randfktvar2](x,n,xe,e)
             elif self.randfktvar3 == 2:
-                print("Kombi Addition "+str(self.randfkt2[self.randfktvar1])+" "+str(self.randfkt2[self.randfktvar2]))
+                print("Kombi Addition "+str(randfkt2[self.randfktvar1])+" "+str(randfkt2[self.randfktvar2]))
                 return self.randfkt[self.randfktvar1](x,n,xe,e) + self.randfkt[self.randfktvar2](x,n,xe,e)
             elif self.randfktvar3 == 3:
-                print("Kombi Logarithm "+str(self.randfkt2[self.randfktvar1])+" "+str(self.randfkt2[self.randfktvar2]))
+                print("Kombi Logarithm "+str(randfkt2[self.randfktvar1])+" "+str(randfkt2[self.randfktvar2]))
                 return math.log(self.randfkt[self.randfktvar1](x,n,xe,e)+1.1,self.randfkt[self.randfktvar2](x,n,xe,e)+1.1)
             elif self.randfktvar3 == 4:
-                print("Kombi Root "+str(self.randfkt2[self.randfktvar1])+" "+str(self.randfkt2[self.randfktvar2]))
+                print("Kombi Root "+str(randfkt2[self.randfktvar1])+" "+str(randfkt2[self.randfktvar2]))
                 return pow(self.randfkt[self.randfktvar1](x,n,xe,e), 1 / ( self.randfkt[self.randfktvar2](x,n,xe,e) + 1 ))
         except:
             if reku > 0:
@@ -181,21 +195,21 @@ class dice():
             8 : self.rand,
             9 : self.gewicht}
 
-        self.randfkt2 = { 1 : 'lin',
-            2 : 'log',
-            3 : 'root',
-            4 : 'poly',
-            5 : 'exp',
-            6 : 'kombi',
-            7 : 'logistic',
-            8 : 'rand',
-            9 : 'gewicht'}
 
-        self.randfkt3 = { 1 : 'mul',
-            2 : 'add',
-            3 : 'log',
-            4 : 'root'}
-
+        #randfkt2 = { 1 : 'lin',
+        #    2 : 'log',
+        #    3 : 'root',
+        #    4 : 'poly',
+        #    5 : 'exp',
+        #    6 : 'kombi',
+        #    7 : 'logistic',
+        #    8 : 'rand',
+        #    9 : 'gewicht'}
+#
+#        randfkt3 = { 1 : 'mul',
+#            2 : 'add',
+#            3 : 'log',
+#            4 : 'root'}
         self.inpp_ = inp
         self.wuerfelWuerfe = werfen
         self.uniq =uniq_
@@ -208,7 +222,7 @@ class dice():
                 inp=inp[:-3]
             else:
                 i1,i2,i3 = [],[],[True,True,True,True]
-                for i in range(len(self.randfkt2)):
+                for i in range(len(randfkt2)):
                     i1.append(True)
                     i2.append(True)
                 self.include1,self.include2,self.include3 = i1,i2,i3

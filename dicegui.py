@@ -7,7 +7,7 @@ import sys
 #from PyQt5 import QtCore
 from PyQt5.QtQuick import QQuickView, QQuickItem
 from PyQt5.QtCore import QObject, QAbstractListModel, QModelIndex, Qt, QVariant, pyqtSlot, QUrl
-import libdice as dice
+import libdice
 import model2
 
 class MainWindow(QQmlApplicationEngine):
@@ -59,7 +59,7 @@ class MainWindow(QQmlApplicationEngine):
         else:
             wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
             for i in range(int(wuerfe.property("text"))):
-                result = dice.wuerfeln()
+                result = self.dice.wuerfeln()
                 print("r " + str(result) )
                 self.insertresults(result)
 #                for ell in result:
@@ -71,7 +71,7 @@ class MainWindow(QQmlApplicationEngine):
             ListChecked = self.rootObjects()[0].findChild(QObject, checkgroups)
             changedchecked = ListChecked.property("anObject").toVariant()
             checklist=[]
-            for key0,key1 in dice.randfkt2.items():
+            for key0,key1 in libdice.randfkt2.items():
                 for key2,value2 in changedchecked.items():
                     if key2 == key1:
                         checklist.append(value2)
@@ -82,6 +82,7 @@ class MainWindow(QQmlApplicationEngine):
     @pyqtSlot()
     def wuerfelErstellen(self):
         Lists = self.checkedchanged()
+        self.wuerfelrestellt = False
         if not self.wuerfelrestellt:
             self.wuerfe = 0
             self.wuerfelrestellt = True
@@ -124,10 +125,10 @@ class MainWindow(QQmlApplicationEngine):
             wuerfe.property("text")
             print('ü '+str(gezinkt)+' '+str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
             if not gezinkt:
-                result = dice.main(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
+                self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             else:
-                result = dice.main(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
-            self.insertresults(result)
+                self.dice = libdice.dice(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
+            self.insertresults(self.dice.out())
 #            for ell in result:
 #                for i,el in enumerate(ell):
 #                    self.scrollmodel.insertPerson(i, str(el), True)
@@ -136,11 +137,11 @@ class MainWindow(QQmlApplicationEngine):
         self.radiomodel = model2.PersonModel()
         self.scrollmodel = model2.PersonModel()
         self.chkmodel1,self.chkmodel2,self.chkmodel3 = model2.PersonModel(),model2.PersonModel(),model2.PersonModel()
-        for i,el in enumerate(list(dice.randfkt2.values())[:-1]):
+        for i,el in enumerate(list(libdice.randfkt2.values())[:-1]):
             self.radiomodel.insertPerson(i, el, True if i==0 else False)
             self.chkmodel1.insertPerson(i, el, True)
             self.chkmodel2.insertPerson(i, el, True)
-        for i,el in enumerate(list(dice.randfkt3.values())):
+        for i,el in enumerate(list(libdice.randfkt3.values())):
             self.chkmodel3.insertPerson(i, el, True)
         context = self.rootContext()
         context.setContextProperty("radiomodel", self.radiomodel)
