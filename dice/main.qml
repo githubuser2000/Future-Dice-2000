@@ -169,8 +169,8 @@ Window {
                     implicitHeight: 40
                     color: bwuefelerstellen.down ? "#d6d6d6" : "#f6f6f6"
                     border.color: "#26282a"
-                    border.width: 1
-                    radius: 4
+                    border.width: 2
+                    radius: 13
                 }
 
             }
@@ -188,8 +188,8 @@ Window {
                     implicitHeight: 40
                     color: bwuerfe.down ? "#d6d6d6" : "#f6f6f6"
                     border.color: "#26282a"
-                    border.width: 1
-                    radius: 4
+                    border.width: 2
+                    radius: 13
                 }
             }
         }
