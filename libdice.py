@@ -64,7 +64,7 @@ class dice():
                     return 1
                 self.randfktvarx = random.randrange(len(includex))+1
 
-                while not (includex[self.randfktvarx-1]: # or self.randfkt[self.randfktvarx].__name__ == "gewicht":
+                while not includex[self.randfktvarx-1]: # or self.randfkt[self.randfktvarx].__name__ == "gewicht"):
                     d-=1
                     if d <= 0:
                         return 1
