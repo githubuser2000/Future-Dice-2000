@@ -298,11 +298,15 @@ Window {
                                 rade.text = text;
                                 lCheck0[0] = gewicht.position
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
-                                    for (var i = 0; i < radio2grid.children.length; i++)
+                                    for (var i = 0; i < chk3layout.children.length; i++)
                                     {
-                                        chk2layout.children[i].enabled = true
+                                        chk3layout.children[i].enabled = true
                                     }
-
+                                else
+                                    for (var i = 0; i < chk3layout.children.length; i++)
+                                    {
+                                        chk3layout.children[i].enabled = false
+                                    }
                                 /*
 
                                 if (text == 'kombi') {
@@ -349,9 +353,14 @@ Window {
                                 rade.text = text;
                                 lCheck0[1] = gewicht.position
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
-                                    for (var i = 0; i < radio2grid.children.length; i++)
+                                    for (var i = 0; i < chk3layout.children.length; i++)
                                     {
-                                        chk2layout.children[i].enabled = true
+                                        chk3layout.children[i].enabled = true
+                                    }
+                                else
+                                    for (var i = 0; i < chk3layout.children.length; i++)
+                                    {
+                                        chk3layout.children[i].enabled = false
                                     }
                                 /*
                                 if (text == 'kombi') {
