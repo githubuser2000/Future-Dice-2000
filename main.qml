@@ -282,7 +282,7 @@ Window {
                     }
                     Repeater {
                         id: repeaterradios
-                        model: radiomodel
+                        model: radiomodel1
                         objectName: "radios"
                         RadioButton {
                             id : id_
@@ -299,10 +299,10 @@ Window {
                                 if (text == 'kombi') {
                                     console.log("clicked:",chk3layout.enabled)
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = checked;
+                                        chk3layout.children[i].enabled = checked || radio2-kombi.checked;
                                 } else {
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = false;
+                                        chk3layout.children[i].enabled = false || radio2-kombi.checked;
 
                                 }
                             }
@@ -322,7 +322,7 @@ Window {
                     }
                     Repeater {
                         id: repeaterradios2
-                        model: radiomodel
+                        model: radiomodel2
                         objectName: "radios2"
                         RadioButton {
                             id : id_
@@ -341,10 +341,10 @@ Window {
                                 if (text == 'kombi') {
                                     console.log("clicked:",chk3layout.enabled)
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = checked;
+                                        chk3layout.children[i].enabled = checked || radio1-kombi.checked;
                                 } else {
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = false;
+                                        chk3layout.children[i].enabled = false || radio1-kombi.checked;
 
                                 }
                                 /*
