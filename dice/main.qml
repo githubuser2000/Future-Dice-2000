@@ -163,6 +163,7 @@ Window {
                 x: 196
                 y: 383
                 text: qsTr("Würfel erstellen")
+                antialiasing: true
                 onClicked: MainWindow.wuerfelErstellen()
                 background: Rectangle {
                     implicitWidth: 100
@@ -181,6 +182,7 @@ Window {
                 x: 196
                 y: 424
                 text: qsTr("Würfeln")
+                antialiasing: true
                 spacing: -3
                 onClicked: MainWindow.wuerfeln2()
                 background: Rectangle {
@@ -312,6 +314,8 @@ Window {
             //y: 174
             width: 200
             height: 100
+            antialiasing: true
+            transformOrigin: Item.TopLeft
             //Layout.fillHeight: true
             Layout.fillWidth: true
             clip: true
@@ -320,6 +324,9 @@ Window {
             ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
             ListView {
+                antialiasing: true
+                transformOrigin: Item.TopLeft
+                anchors.fill: parent
                 model: scrollmodel
                 highlight: Rectangle { color: "lightsteelblue" }
                 highlightRangeMode: ListView.ApplyRange
@@ -415,6 +422,8 @@ Window {
         }
     }
 }
+
+
 
 
 
