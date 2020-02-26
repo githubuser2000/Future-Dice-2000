@@ -238,7 +238,7 @@ Window {
                     {
                         chk2layout.children[i].enabled = gewicht.position;
                     }
-                    for (var i = 0; i < radio2grid.children.length; i++)
+                    for (i = 0; i < radio2grid.children.length; i++)
                     {
                         radio2grid.children[i].enabled = gewicht.position;
                     }
@@ -308,14 +308,10 @@ Window {
                                 lCheck0.anArray[0] = text === 'kombi' ? checked : false
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                    {
                                         chk3layout.children[i].enabled = true
-                                    }
                                 else
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                    {
                                         chk3layout.children[i].enabled = false
-                                    }
                         }
                     }
                 }
@@ -351,47 +347,10 @@ Window {
 
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                    {
                                         chk3layout.children[i].enabled = true
-                                    }
                                 else
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                    {
                                         chk3layout.children[i].enabled = false
-                                    }
-                                /*
-                                if (text == 'kombi') {
-                                    console.log("clicked:",chk3layout.enabled)
-                                    for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = checked;
-                                } else {
-                                    for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = false;
-
-                                }*/
-                                /*
-                                if (text == 'kombi') {
-                                    console.log("clicked:",chk3layout.enabled)
-                                    for (var i = 0; i < chk3layout.children.length; i++)
-
-                                        for (var k = 0; k < radio1grid.children.length-1; k++) {
-                                            console.log("bla",radio1grid.children[k].text);
-                                            if( radio1grid.children[k].text === 'kombi' && radio1grid.children[k].checked) {
-                                                chk3layout.children[i].enabled = true;
-                                                chk3layout.children[i].enabled = checked
-                                            }
-                                        }
-                                } else {
-                                    for (i = 0; i < chk3layout.children.length; i++) {
-                                        chk3layout.children[i].enabled = false
-                                        for (k = 0; k < radio1grid.children.length-1; k++)
-
-                                            if( radio1grid.children[k].text === 'kombi' && radio1grid.children[k].checked) {
-                                                console.log("bla ",radio1grid.children[k].text);
-                                                chk3layout.children[i].enabled = true;
-                                            }
-                                    }
-                                }*/
                             }
 
                         }
