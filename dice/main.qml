@@ -36,7 +36,7 @@ Window {
                 id: reverse_
                 x: 90
                 y: 119
-                text: qsTr("umgekehrt")
+                text: qsTr("invert")
                 objectName: "reverse"
             }
 
@@ -53,7 +53,8 @@ Window {
                 id: reverse2_
                 x: 90
                 y: 119
-                text: qsTr("umgekehrt2")
+
+                text: qsTr("invert Z")
                 objectName: "reverse2"
             }
             Label {
@@ -96,7 +97,8 @@ Window {
                 horizontalAlignment: Text.AlignRight
             }
             Label {
-                text: "n2"
+                text: "n<sub>2</sub>"
+                textFormat: Text.RichText
             }
 
             TextField {
@@ -121,7 +123,8 @@ Window {
 
             }
             Label {
-                text: "x2"
+                textFormat: Text.RichText
+                text: "x<sub>2</sub>"
             }
 
             TextField {
@@ -147,7 +150,8 @@ Window {
 
             }
             Label {
-                text: "y2"
+                text: "y<sub>2</sub>"
+                textFormat: Text.RichText
             }
 
             TextField {
@@ -177,6 +181,10 @@ Window {
                     radius: 13
                 }
 
+            }
+            Label {
+                text: " "
+                //textFormat: Text.RichText
             }
             Button {
                 anchors.leftMargin: 20
