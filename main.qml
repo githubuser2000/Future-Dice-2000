@@ -235,13 +235,9 @@ Window {
                 //repeaterradios2
                 onToggled: {
                     for (var i = 0; i < chk2layout.children.length; i++)
-                    {
                         chk2layout.children[i].enabled = gewicht.position;
-                    }
-                    for (i = 0; i < radio2grid.children.length; i++)
-                    {
+                    for (var i = 0; i < radio2grid.children.length; i++)
                         radio2grid.children[i].enabled = gewicht.position;
-                    }
                     y2.enabled = gewicht.position;
                     x2.enabled = gewicht.position;
                     n2.enabled = gewicht.position;
@@ -306,12 +302,16 @@ Window {
                             onToggled:  {
                                 rade.text = text;
                                 lCheck0.anArray[0] = text === 'kombi' ? checked : false
+                                console.log("x",lCheck0.anArray[0]);
+                                console.log("y",lCheck0.anArray[1]);
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = true
+                                        chk3layout.children[i].enabled = true;
                                 else
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = false
+                                        chk3layout.children[i].enabled = false;
+                            }
+
                         }
                     }
                 }
@@ -347,10 +347,10 @@ Window {
 
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = true
+                                        chk3layout.children[i].enabled = true;
                                 else
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = false
+                                        chk3layout.children[i].enabled = false;
                             }
 
                         }
@@ -360,10 +360,6 @@ Window {
         }
         Item { Layout.fillWidth: true }
 
-
-
-        //anchors.fill: parent
-        id: layoutZ
         ScrollView {
             id: scrollView
             objectName: 'scrollView'
