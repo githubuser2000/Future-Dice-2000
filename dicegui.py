@@ -103,7 +103,7 @@ class MainWindow(QQmlApplicationEngine):
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
             LRad2 = self.rootObjects()[0].findChild(QObject, "LRad2")
             ListChecked1 = self.rootObjects()[0].findChild(QObject, "_LCheck1_")
-            print("u"+ str(ListChecked1.property("anObject").toVariant()))
+            #print("u"+ str(ListChecked1.property("anObject").toVariant()))
             #ListChecked2 = self.rootObjects()[0].findChild(QObject, "repeatercheck2")
             #ListChecked3 = self.rootObjects()[0].findChild(QObject, "repeatercheck3")
             gezinkt = True if self.rootObjects()[0].findChild(QObject, "gewicht").property("position") == 1 else False
@@ -123,7 +123,7 @@ class MainWindow(QQmlApplicationEngine):
             y.property("text")
             uniq.property("position")
             wuerfe.property("text")
-            print('ü '+str(gezinkt)+' '+str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
+            #print('ü '+str(gezinkt)+' '+str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
             if not gezinkt:
                 self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False)
             else:

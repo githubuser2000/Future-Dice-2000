@@ -49,7 +49,8 @@ class dice():
 
             d = 1000
 
-            if len(includex) == 4:
+            print("CC "+str(len(includex)))
+            if not len(includex) == 4:
                 flag1 = False
                 for i,inc in enumerate(includex):
                     if self.randfkt[i+1].__name__ == "kombi":
@@ -82,8 +83,10 @@ class dice():
                         if d <= 0:
                             return 1
                         self.randfktvarx = random.randrange(len(includex))+1
+                    print("BB "+str(self.randfktvarx))
                     return self.randfktvarx
                 else:
+                    print("AA 1")
                     return 1
 
     def kombi(self,x,n,xe,e,reku = 50,xth=0):
