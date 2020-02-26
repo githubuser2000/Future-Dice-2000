@@ -49,7 +49,7 @@ class dice():
 
             d = 1000
 
-            print("CC "+str(len(includex)))
+            print("CC "+str((includex)))
             if not len(includex) == 4:
                 flag1 = False
                 for i,inc in enumerate(includex):
@@ -250,7 +250,7 @@ class dice():
         if len(inp) > 3:
             if type(inp[-3]) is list and type(inp[-2]) is list and type(inp[-1]) is list:
                 self.include1,self.include2,self.include3 = inp[-3],inp[-2],inp[-1]
-                print('_'+str(self.include1))
+                print('_'+str(self.include3))
                 inp=inp[:-3]
             else:
                 i1,i2,i3 = [],[],[True,True,True,True]

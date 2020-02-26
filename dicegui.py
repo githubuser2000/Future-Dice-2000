@@ -76,6 +76,7 @@ class MainWindow(QQmlApplicationEngine):
                     if key2 == key1:
                         checklist.append(value2)
             Lists.append(checklist)
+            print(str(Lists))
         return Lists
 
 
