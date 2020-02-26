@@ -226,6 +226,18 @@ Window {
                 y: 119
                 text: qsTr("gezinkt")
                 objectName: "gewicht"
+                //repeaterradios2
+                onToggled: {
+                    for (var i = 0; i < radio2grid.children.length; i++)
+                    {
+                        radio2grid.children[i].enabled = gewicht.position;
+                    }
+                    for (i = 0; i < chk2layout.children.length; i++)
+                    {
+                        chk2layout.children[i].enabled = gewicht.position;
+                    }
+
+                }
             }
             GridLayout {
                 anchors.leftMargin: 20
@@ -262,6 +274,7 @@ Window {
                 GridLayout {
                     transformOrigin: Item.TopLeft
                     columns: 1
+                    id : radio1grid
                     Label {
                         text: "Wert"
                         objectName: 'L1'
@@ -272,6 +285,7 @@ Window {
                         model: radiomodel
                         objectName: "radios"
                         RadioButton {
+                            id : id_
                             Layout.preferredHeight: 15
                             indicator.height: 15
                             indicator.width: 15
@@ -280,13 +294,26 @@ Window {
                             text: name
                             objectName: name
                             ButtonGroup.group: radioGroup
-                            onClicked:  rade.text = text
+                            onToggled:  {
+                                rade.text = text;
+                                if (text == 'kombi') {
+                                    console.log("clicked:",chk3layout.enabled)
+                                    for (var i = 0; i < chk3layout.children.length; i++)
+                                        chk3layout.children[i].enabled = checked;
+                                } else {
+                                    for (var i = 0; i < chk3layout.children.length; i++)
+                                        chk3layout.children[i].enabled = false;
+
+                                }
+                            }
+
                         }
                     }
                 }
                 GridLayout {
                     transformOrigin: Item.TopLeft
                     columns: 1
+                    id : radio2grid
 
                     Label {
                         text: "gezinkt"
@@ -298,6 +325,8 @@ Window {
                         model: radiomodel
                         objectName: "radios2"
                         RadioButton {
+                            id : id_
+                            enabled : false
                             Layout.preferredHeight: 15
                             indicator.height: 15
                             indicator.width: 15
@@ -306,8 +335,43 @@ Window {
                             text: name
                             objectName: name
                             //ButtonGroup.group: group
-                            onClicked:  rade2.text = text
                             ButtonGroup.group: radioGroup2
+                            onToggled:  {
+                                rade.text = text;
+                                if (text == 'kombi') {
+                                    console.log("clicked:",chk3layout.enabled)
+                                    for (var i = 0; i < chk3layout.children.length; i++)
+                                        chk3layout.children[i].enabled = checked;
+                                } else {
+                                    for (var i = 0; i < chk3layout.children.length; i++)
+                                        chk3layout.children[i].enabled = false;
+
+                                }
+                                /*
+                                if (text == 'kombi') {
+                                    console.log("clicked:",chk3layout.enabled)
+                                    for (var i = 0; i < chk3layout.children.length; i++)
+
+                                        for (var k = 0; k < radio1grid.children.length-1; k++) {
+                                            console.log("bla",radio1grid.children[k].text);
+                                            if( radio1grid.children[k].text === 'kombi' && radio1grid.children[k].checked) {
+                                                chk3layout.children[i].enabled = true;
+                                                chk3layout.children[i].enabled = checked
+                                            }
+                                        }
+                                } else {
+                                    for (i = 0; i < chk3layout.children.length; i++) {
+                                        chk3layout.children[i].enabled = false
+                                        for (k = 0; k < radio1grid.children.length-1; k++)
+
+                                            if( radio1grid.children[k].text === 'kombi' && radio1grid.children[k].checked) {
+                                                console.log("bla ",radio1grid.children[k].text);
+                                                chk3layout.children[i].enabled = true;
+                                            }
+                                    }
+                                }*/
+                            }
+
                         }
                     }
                 }
@@ -398,6 +462,7 @@ Window {
                     objectName: "repeatercheck1"
 
                     CheckBox {
+                        id : id_
                         Layout.preferredHeight: 15
                         indicator.height: 15
                         indicator.width: 15
@@ -410,12 +475,15 @@ Window {
                 }
             }
             ColumnLayout {
+                id : chk2layout
                 Repeater {
                     id: chk2
                     model: chkmodel2
                     objectName: "repeatercheck2"
 
                     CheckBox {
+                        id : id_
+                        enabled : false
                         Layout.preferredHeight: 15
                         indicator.height: 15
                         indicator.width: 15
@@ -426,12 +494,15 @@ Window {
                 }
             }
             ColumnLayout {
+                id : chk3layout
                 Repeater {
                     id: chk3
                     model: chkmodel3
                     objectName: "repeatercheck3"
 
                     CheckBox {
+                        id : id_
+                        enabled : false
                         Layout.preferredHeight: 15
                         indicator.height: 15
                         indicator.width: 15
