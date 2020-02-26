@@ -6,8 +6,10 @@ import QtQuick.Controls 2.8
 
 Window {
     visible: true
-    width: 700
-    height: 580
+    //width: 700
+    //height: 580
+    width: haupt.width + gridpartentradios.width
+    height: haupt.height + gridpartentradios.height
     title: qsTr("Dice Future 2000")
     id : win
 
@@ -18,6 +20,7 @@ Window {
         anchors.leftMargin: 20
         anchors.topMargin: 20
         anchors.rightMargin: 20
+
         Grid {
             id: haupt
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -204,6 +207,7 @@ Window {
         Grid {
             anchors.leftMargin: 20
             anchors.rightMargin: 20
+            id : gridpartentradios
 
             transformOrigin: Item.TopLeft
             columns: 1
@@ -312,21 +316,31 @@ Window {
             objectName: 'scrollView'
             //x: 487
             //y: 174
-            width: 200
-            height: 100
+            width: listView.height
+            height: listView.height
             antialiasing: true
             transformOrigin: Item.TopLeft
             //Layout.fillHeight: true
             Layout.fillWidth: true
-            clip: true
-            spacing: 2
-            padding: -2
+            Layout.fillHeight: true
+            //clip: true
+            //spacing: 2
+            //padding: -2
             ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+            contentHeight: listView.height
+            contentWidth: listView.width
 
             ListView {
+                id: listView
+                //implicitHeight: scrollView.height
+                //implicitWidth: scrollView.width
+                width: scrollView.width
+                height: scrollView.height
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 antialiasing: true
                 transformOrigin: Item.TopLeft
-                anchors.fill: parent
+                //anchors.fill: parent
                 model: scrollmodel
                 highlight: Rectangle { color: "lightsteelblue" }
                 highlightRangeMode: ListView.ApplyRange
@@ -341,6 +355,7 @@ Window {
             anchors.rightMargin: 20
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             transformOrigin: Item.TopLeft
+            id : gridcheckboxes
 
             columns: 3
 
