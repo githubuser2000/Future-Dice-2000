@@ -364,6 +364,7 @@ Window {
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             transformOrigin: Item.TopLeft
             id : gridcheckboxes
+            Layout.fillWidth: true
 
             columns: 3
 
