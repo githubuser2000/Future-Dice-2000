@@ -136,16 +136,17 @@ class MainWindow(QQmlApplicationEngine):
 #                    self.scrollmodel.insertPerson(i, str(el), True)
     def __init__(self):
         super().__init__()
-        self.radiomodel = model2.PersonModel()
+        self.radiomodel1 = model2.PersonModel()
+        self.radiomodel2 = model2.PersonModel()
         self.scrollmodel = model2.PersonModel()
         self.chkmodel1,self.chkmodel2,self.chkmodel3 = model2.PersonModel(),model2.PersonModel(),model2.PersonModel()
         for i,el in enumerate(list(libdice.randfkt2.values())[:-1]):
-            self.radiomodel1.insertPerson(i, el, True if i==0 else False, 'radio1-'+el)
-            self.radiomodel2.insertPerson(i, el, True if i==0 else False, 'radio2-'+el)
-            self.chkmodel1.insertPerson(i, el, True, 'chk1-'+el)
-            self.chkmodel2.insertPerson(i, el, True, 'chk2-'+el)
+            self.radiomodel1.insertPerson(i, el, True if i==0 else False, 'radio1'+el)
+            self.radiomodel2.insertPerson(i, el, True if i==0 else False, 'radio2'+el)
+            self.chkmodel1.insertPerson(i, el, True, 'chk1'+el)
+            self.chkmodel2.insertPerson(i, el, True, 'chk2'+el)
         for i,el in enumerate(list(libdice.randfkt3.values())):
-            self.chkmodel3.insertPerson(i, el, True,'chk3-'+el)
+            self.chkmodel3.insertPerson(i, el, True,'chk3'+el)
         context = self.rootContext()
         context.setContextProperty("radiomodel1", self.radiomodel1)
         context.setContextProperty("radiomodel2", self.radiomodel2)

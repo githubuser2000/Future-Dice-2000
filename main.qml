@@ -228,13 +228,13 @@ Window {
                 objectName: "gewicht"
                 //repeaterradios2
                 onToggled: {
+                    for (var i = 0; i < chk2layout.children.length; i++)
+                    {
+                        chk2layout.children[i].enabled = gewicht.position;
+                    }
                     for (var i = 0; i < radio2grid.children.length; i++)
                     {
                         radio2grid.children[i].enabled = gewicht.position;
-                    }
-                    for (i = 0; i < chk2layout.children.length; i++)
-                    {
-                        chk2layout.children[i].enabled = gewicht.position;
                     }
 
                 }
@@ -285,7 +285,7 @@ Window {
                         model: radiomodel1
                         objectName: "radios"
                         RadioButton {
-                            id : id_
+
                             Layout.preferredHeight: 15
                             indicator.height: 15
                             indicator.width: 15
@@ -296,15 +296,24 @@ Window {
                             ButtonGroup.group: radioGroup
                             onToggled:  {
                                 rade.text = text;
+                                lCheck0[0] = gewicht.position
+                                if (lCheck0.anArray[0] || lCheck0.anArray[1])
+                                    for (var i = 0; i < radio2grid.children.length; i++)
+                                    {
+                                        chk2layout.children[i].enabled = true
+                                    }
+
+                                /*
+
                                 if (text == 'kombi') {
                                     console.log("clicked:",chk3layout.enabled)
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = checked || radio2-kombi.checked;
+                                        chk3layout.children[i].enabled = checked;
                                 } else {
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = false || radio2-kombi.checked;
+                                        chk3layout.children[i].enabled = false;
 
-                                }
+                                }*/
                             }
 
                         }
@@ -325,7 +334,7 @@ Window {
                         model: radiomodel2
                         objectName: "radios2"
                         RadioButton {
-                            id : id_
+
                             enabled : false
                             Layout.preferredHeight: 15
                             indicator.height: 15
@@ -338,15 +347,22 @@ Window {
                             ButtonGroup.group: radioGroup2
                             onToggled:  {
                                 rade.text = text;
+                                lCheck0[1] = gewicht.position
+                                if (lCheck0.anArray[0] || lCheck0.anArray[1])
+                                    for (var i = 0; i < radio2grid.children.length; i++)
+                                    {
+                                        chk2layout.children[i].enabled = true
+                                    }
+                                /*
                                 if (text == 'kombi') {
                                     console.log("clicked:",chk3layout.enabled)
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = checked || radio1-kombi.checked;
+                                        chk3layout.children[i].enabled = checked;
                                 } else {
                                     for (var i = 0; i < chk3layout.children.length; i++)
-                                        chk3layout.children[i].enabled = false || radio1-kombi.checked;
+                                        chk3layout.children[i].enabled = false;
 
-                                }
+                                }*/
                                 /*
                                 if (text == 'kombi') {
                                     console.log("clicked:",chk3layout.enabled)
@@ -431,7 +447,13 @@ Window {
             Layout.fillWidth: true
 
             columns: 3
-
+            Label {
+                text: "LCheck1"
+                objectName: '_LCheckA_'
+                id : lCheck0
+                visible: false
+                property var anArray: [false,false]
+            }
             Label {
                 text: "LCheck1"
                 objectName: '_LCheck1_'
@@ -462,7 +484,6 @@ Window {
                     objectName: "repeatercheck1"
 
                     CheckBox {
-                        id : id_
                         Layout.preferredHeight: 15
                         indicator.height: 15
                         indicator.width: 15
@@ -482,7 +503,6 @@ Window {
                     objectName: "repeatercheck2"
 
                     CheckBox {
-                        id : id_
                         enabled : false
                         Layout.preferredHeight: 15
                         indicator.height: 15
