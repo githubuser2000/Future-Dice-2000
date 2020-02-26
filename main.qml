@@ -302,8 +302,6 @@ Window {
                             onToggled:  {
                                 rade.text = text;
                                 lCheck0.anArray[0] = text === 'kombi' ? checked : false
-                                console.log("x",lCheck0.anArray[0]);
-                                console.log("y",lCheck0.anArray[1]);
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
                                         chk3layout.children[i].enabled = true;
