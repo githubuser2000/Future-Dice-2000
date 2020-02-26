@@ -10,7 +10,7 @@ Window {
     //height: 580
     width: haupt.width + gridcheckboxes.width
     height: haupt.height + gridpartentradios.height
-    title: qsTr("Dice Future 2000")
+    title: qsTr("Future-Dice-2000")
     id : win
 
 
