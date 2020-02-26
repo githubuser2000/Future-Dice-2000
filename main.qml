@@ -306,8 +306,8 @@ Window {
                             onToggled:  {
                                 rade.text = text;
                                 lCheck0.anArray[0] = text === 'kombi' ? checked : false
-                                console.log("x",lCheck0[0]);
-                                console.log("y",lCheck0[1]);
+                                console.log("x",lCheck0.anArray[0]);
+                                console.log("y",lCheck0.anArray[1]);
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
                                     {
@@ -473,7 +473,7 @@ Window {
                 objectName: '_LCheckA_'
                 id : lCheck0
                 visible: false
-                property var anArray: [false,false]
+                property var anArray: new Array(2).fill(false);
             }
             Label {
                 text: "LCheck1"
