@@ -70,13 +70,14 @@ class MainWindow(QQmlApplicationEngine):
         for checkgroups in ["_LCheck1_","_LCheck2_", "_LCheck3_"]:
             ListChecked = self.rootObjects()[0].findChild(QObject, checkgroups)
             changedchecked = ListChecked.property("anObject").toVariant()
+            #print(str(changedchecked))
             checklist=[]
-            for key0,key1 in libdice.randfkt2.items():
+            for key0,key1 in (libdice.randfkt2.items() if not checkgroups == "_LCheck3_" else libdice.randfkt3.items()):
                 for key2,value2 in changedchecked.items():
                     if key2 == key1:
                         checklist.append(value2)
             Lists.append(checklist)
-            print(str(Lists))
+        #print(str(Lists))
         return Lists
 
 
