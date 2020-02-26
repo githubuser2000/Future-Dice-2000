@@ -103,6 +103,8 @@ Window {
 
             TextField {
                 objectName: "n2"
+                id : n2
+                enabled: false
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
@@ -129,6 +131,8 @@ Window {
 
             TextField {
                 objectName: "x2"
+                id : x2
+                enabled: false
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
@@ -156,6 +160,8 @@ Window {
 
             TextField {
                 objectName: "y2"
+                id : y2
+                enabled: false
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
                 text: "3"
@@ -236,6 +242,9 @@ Window {
                     {
                         radio2grid.children[i].enabled = gewicht.position;
                     }
+                    y2.enabled = gewicht.position;
+                    x2.enabled = gewicht.position;
+                    n2.enabled = gewicht.position;
 
                 }
             }
