@@ -296,7 +296,9 @@ Window {
                             ButtonGroup.group: radioGroup
                             onToggled:  {
                                 rade.text = text;
-                                lCheck0[0] = gewicht.position
+                                lCheck0.anArray[0] = text === 'kombi' ? checked : false
+                                console.log("x",lCheck0[0]);
+                                console.log("y",lCheck0[1]);
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
                                     {
@@ -351,7 +353,8 @@ Window {
                             ButtonGroup.group: radioGroup2
                             onToggled:  {
                                 rade.text = text;
-                                lCheck0[1] = gewicht.position
+                                lCheck0.anArray[1] = text === 'kombi' ? checked : false
+
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
                                     {
