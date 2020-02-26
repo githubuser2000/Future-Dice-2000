@@ -332,7 +332,7 @@ Window {
         GridLayout {
             anchors.leftMargin: 20
             anchors.rightMargin: 20
-
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             transformOrigin: Item.TopLeft
 
             columns: 3
