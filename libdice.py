@@ -46,28 +46,45 @@ class dice():
         return pow(n,x) / pow(n,xe) * e
 
     def randselect(self,includex):
+
             d = 1000
 
-            flag1 = False
-            for i,inc in enumerate(includex):
-                if self.randfkt[i+1].__name__ == "kombi":
-                    pass
-                elif self.randfkt[i+1].__name__ == "gewicht":
-                    pass
-                elif self.randfkt[i+1].__name__ == "rand":
-                    pass
-                elif inc:
-                    flag1 = True
-            if not flag1:
-                return 1
-            self.randfktvarx = random.randrange(len(includex))+1
-
-            while not includex[self.randfktvarx-1] or self.randfkt[self.randfktvarx].__name__ == "gewicht":
-                d-=1
-                if d <= 0:
-                    return None
+            if len(includex) == 4:
+                flag1 = False
+                for i,inc in enumerate(includex):
+                    if self.randfkt[i+1].__name__ == "kombi":
+                        pass
+                    elif self.randfkt[i+1].__name__ == "gewicht":
+                        pass
+                    elif self.randfkt[i+1].__name__ == "rand":
+                        pass
+                    elif inc:
+                        flag1 = True
+                if not flag1:
+                    return 1
                 self.randfktvarx = random.randrange(len(includex))+1
-            return self.randfktvarx
+
+                while not (includex[self.randfktvarx-1]: # or self.randfkt[self.randfktvarx].__name__ == "gewicht":
+                    d-=1
+                    if d <= 0:
+                        return 1
+                    self.randfktvarx = random.randrange(len(includex))+1
+                return self.randfktvarx
+            else:
+                flag1 = False
+                for i,inc in enumerate(includex):
+                    if inc:
+                        flag1 = True
+                if flag1:
+                    self.randfktvarx = random.randrange(len(includex))+1
+                    while not includex[self.randfktvarx-1]:
+                        d-=1
+                        if d <= 0:
+                            return 1
+                        self.randfktvarx = random.randrange(len(includex))+1
+                    return self.randfktvarx
+                else:
+                    return 1
 
     def kombi(self,x,n,xe,e,reku = 50,xth=0):
         try:
