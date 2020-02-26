@@ -149,7 +149,7 @@ class MainWindow(QQmlApplicationEngine):
         context.setContextProperty("chkmodel1", self.chkmodel1)
         context.setContextProperty("chkmodel2", self.chkmodel2)
         context.setContextProperty("chkmodel3", self.chkmodel3)
-        self.load('dice/main.qml')
+        self.load('main.qml')
 
         #rado = self.rootObjects()[0].findChild(QObject, "radios")
         #rado.setProperty("onClicked", self.radu() )

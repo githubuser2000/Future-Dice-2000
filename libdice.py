@@ -47,14 +47,26 @@ class dice():
 
     def randselect(self,includex):
             d = 1000
+
+            flag1 = False
+            for i,inc in enumerate(includex):
+                if self.randfkt[i+1].__name__ == "kombi":
+                    pass
+                elif self.randfkt[i+1].__name__ == "gewicht":
+                    pass
+                elif self.randfkt[i+1].__name__ == "rand":
+                    pass
+                elif inc:
+                    flag1 = True
+            if not flag1:
+                return 1
             self.randfktvarx = random.randrange(len(includex))+1
-            print("zz "+str(self.randfkt[self.randfktvarx].__name__))
+
             while not includex[self.randfktvarx-1] or self.randfkt[self.randfktvarx].__name__ == "gewicht":
                 d-=1
                 if d <= 0:
                     return None
                 self.randfktvarx = random.randrange(len(includex))+1
-            print("zz "+str(d)+"  "+str(self.randfkt[self.randfktvarx].__name__))
             return self.randfktvarx
 
     def kombi(self,x,n,xe,e,reku = 50,xth=0):
@@ -245,7 +257,7 @@ class dice():
                     self.wuerfelType = 0
                     self.wuerfelWuerfe.append(self.wuerfeln())
         elif len(inp) == 11 and inp[2] == "gewicht":
-            print("d")
+            #print("d")
             until = int(inp[1])
             inp[4] = int(inp[4])
             inp[5] = int(inp[5])
