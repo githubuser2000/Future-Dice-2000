@@ -92,16 +92,16 @@ class dice():
     def kombi(self,x,n,xe,e,reku = 50,xth=0):
         try:
         #if True:
-            okay1 = False
-            okay2 = False
-            for i,k in zip(self.include1,self.include2):
-                if i:
-                    okay1 = True
-                if k:
-                    okay2 = True
-
-            if not okay1 or not okay2:
-                return None
+#            okay1 = False
+#            okay2 = False
+#            for i,k in zip(self.include1,self.include2):
+#                if i:
+#                    okay1 = True
+#                if k:
+#                    okay2 = True
+#
+            #if not okay1 or not okay2:
+            #    return None
             self.randfktvar1,self.randfktvar2,self.randfktvar3 = self.randselect(self.include1),self.randselect(self.include2),self.randselect(self.include3)
             #print("-- "+str(self.randfktvar1)+" "+str(self.randfktvar2)+" "+str(self.randfktvar3))
 

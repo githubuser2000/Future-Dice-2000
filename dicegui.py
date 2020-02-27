@@ -54,17 +54,17 @@ class MainWindow(QQmlApplicationEngine):
                 self.wuerfe += 1
                 if type(oneOf2) is tuple:
                     if len(oneOf2) == 4:
-                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+" ("+str(oneOf2[3])+"): Augen "+ str(int(oneOf2[0])+1)+". : Wert "+str(round(float(oneOf2[1])*100)/100)+", Gewicht: "+str(round(float(oneOf2[2])*100)/100)+" "+str(int(float(oneOf2[2]/self.gesamtgewicht*100)))+"%", True,'')
+                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(oneOf2[0])+1)+".") if oneOf2[3]=="" else oneOf2[3])+" "+str(int(oneOf2[0])+1)+". Wert "+str(round(float(oneOf2[1])*100)/100)+", Gewicht: "+str(round(float(oneOf2[2])*100)/100)+" "+str(int(float(oneOf2[2]/self.gesamtgewicht*100)))+"%", True,'')
                     elif len(oneOf2) == 3:
-                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+"("+str(oneOf2[2])+"): Augen "+ str(int(oneOf2[0])+1)+". : Wert "+str(oneOf2[1]), True,'')
+                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(oneOf2[0])+1)+".") if oneOf2[2]=="" else oneOf2[2])+" Wert "+str(oneOf2[1]), True,'')
             elif  type(oneOf2) is list:
                 for k,erstwuerfe in enumerate(oneOf2):
                     if  len(erstwuerfe) in [3,4] and type(erstwuerfe) in [tuple,list]:
                         self.wuerfe += 1
                         if len(erstwuerfe) == 4:
-                            self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(erstwuerfe[0])+1)+". ("+str(erstwuerfe[3])+"): Wert "+str(round(float(erstwuerfe[1])*100)/100)+", Gewicht: "+str(round(float(erstwuerfe[2])*100)/100)+" "+str(int(float(erstwuerfe[2]/self.gesamtgewicht*100)))+"%", True,'')
+                            self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[3]=="" else erstwuerfe[3])+" Wert "+str(round(float(erstwuerfe[1])*100)/100)+", Gewicht: "+str(round(float(erstwuerfe[2])*100)/100)+" "+str(int(float(erstwuerfe[2]/self.gesamtgewicht*100)))+"%", True,'')
                         elif len(erstwuerfe) == 3:
-                            self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(erstwuerfe[0])+1)+". ("+str(erstwuerfe[2])+"): Wert "+str(round(float(erstwuerfe[1])*100)/100), True,'')
+                            self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[2]=="" else erstwuerfe[2])+" Wert "+str(round(float(erstwuerfe[1])*100)/100), True,'')
 
     @pyqtSlot()
     def wuerfeln2(self):
