@@ -57,8 +57,18 @@ Window {
                 text: qsTr("invert Z")
                 objectName: "reverse2"
             }
-            Label {
-                text: " "
+            Switch {
+                id: nega_
+                text: qsTr("+  ")
+                objectName: "nega_"
+                width : 50
+                onCheckedChanged: {
+                    medi_.enabled = checked;
+                    if (checked)
+                        text = '+-'
+                    else
+                        text = '+'
+                }
             }
             Label {
                 text: "   Augen"
@@ -551,21 +561,11 @@ Window {
             focus: true
             Layout.fillWidth: true
             columns: 2
-            Switch {
-                id: nega_
-                text: qsTr("+  ")
-                objectName: "nega_"
-                onCheckedChanged: {
-                    medi_.enabled = checked;
-                    if (checked)
-                        text = '- +'
-                    else
-                        text = '+  '
-                }
-            }
+
             Switch {
                 id: medi_
                 text: qsTr("avg")
+                visible : false
                 objectName: "medi_"
                 enabled : false
                 onCheckedChanged: {
