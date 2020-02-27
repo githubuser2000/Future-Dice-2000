@@ -42,26 +42,26 @@ class MainWindow(QQmlApplicationEngine):
             if type(oneOf2) is dict:
                 self.scrollmodel.insertPerson(0, '', True,'')
                 for k,(key, value) in enumerate(oneOf2.items()):
-                    if type(value) is tuple:
+                    if type(value) in [tuple,list]:
                         if len(value) == 3:
                             self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". ("+str(value[2])+") : Wert "+str(round(float(value[0])*100)/100)+", Gewicht: "+str(round(float(value[1])*100)/100)+" "+str(int(float(value[1]/self.gesamtgewicht*100)))+"%", True,'')
                         elif len(value) == 2:
                             self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". ("+str(value[1])+"): Wert "+str((round(float(value[0])*100))/100), True,'')
                 self.scrollmodel.insertPerson(0, '', True,'')
         for i,oneOf2 in enumerate(result):
-            if  type(oneOf2) is tuple and len(oneOf2) in [3,4]:
+            if  type(oneOf2) in [tuple,list] and len(oneOf2) in [3,4]:
                 self.wuerfe += 1
                 if type(oneOf2) is tuple and len(oneOf2) == 4:
                     self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+" ("+str(oneOf2[3])+"): Augen "+ str(int(oneOf2[0])+1)+". : Wert "+str(round(float(oneOf2[1])*100)/100)+", Gewicht: "+str(round(float(oneOf2[2])*100)/100)+" "+str(int(float(oneOf2[2]/self.gesamtgewicht*100)))+"%", True,'')
-                elif len(oneOf2) == 3:
+                elif type(erstwuerfe) in [tuple,list] and len(oneOf2) == 3:
                     self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+"("+str(oneOf2[2])+"): Augen "+ str(int(oneOf2[0])+1)+". : Wert "+str(oneOf2[1]), True,'')
             elif  type(oneOf2) is list:
                 for k,erstwuerfe in enumerate(oneOf2):
                     if  len(erstwuerfe) in [3,4]:
                         self.wuerfe += 1
-                        if type(erstwuerfe) is tuple and len(erstwuerfe) == 4:
+                        if type(erstwuerfe) in [tuple,list] and len(erstwuerfe) == 4:
                             self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(erstwuerfe[0])+1)+". ("+str(erstwuerfe[3])+"): Wert "+str(round(float(erstwuerfe[1])*100)/100)+", Gewicht: "+str(round(float(erstwuerfe[2])*100)/100)+" "+str(int(float(erstwuerfe[2]/self.gesamtgewicht*100)))+"%", True,'')
-                        elif len(erstwuerfe) == 3:
+                        elif type(erstwuerfe) in [tuple,list] and len(erstwuerfe) == 3:
                             self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+": Augen "+ str(int(erstwuerfe[0])+1)+". ("+str(erstwuerfe[2])+"): Wert "+str(round(float(erstwuerfe[1])*100)/100), True,'')
 
     @pyqtSlot()
@@ -120,6 +120,8 @@ class MainWindow(QQmlApplicationEngine):
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
             LRad2 = self.rootObjects()[0].findChild(QObject, "LRad2")
             ListChecked1 = self.rootObjects()[0].findChild(QObject, "_LCheck1_")
+            nega_ = self.rootObjects()[0].findChild(QObject, "nega_")
+            medi_ = self.rootObjects()[0].findChild(QObject, "medi_")
             #print("u"+ str(ListChecked1.property("anObject").toVariant()))
             #ListChecked2 = self.rootObjects()[0].findChild(QObject, "repeatercheck2")
             #ListChecked3 = self.rootObjects()[0].findChild(QObject, "repeatercheck3")
@@ -143,9 +145,9 @@ class MainWindow(QQmlApplicationEngine):
             #print('ü '+str(gezinkt)+' '+str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
             print("__ "+planesNames.property("text") if planesNames.property("sett") else "")
             if not gezinkt:
-                self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text") if planesNames.property("sett") else "")
+                self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text") if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
             else:
-                self.dice = libdice.dice(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text") if planesNames.property("sett") else "")
+                self.dice = libdice.dice(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("text"),x2.property("text"),y2.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text") if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
             self.insertresults(self.dice.out())
 #            for ell in result:
 #                for i,el in enumerate(ell):

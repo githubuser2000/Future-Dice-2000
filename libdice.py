@@ -279,7 +279,7 @@ class dice():
             inp[5] = float(inp[5])
             inp[3] = float(inp[3])
             inp[1] = int(inp[1])
-            print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
+            #print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
             if inp[4] <= inp[1] and inp[4] > 1 and inp[2] != "gewicht":
                 self.values = []
                 for a in range(1,until+1):
@@ -287,7 +287,7 @@ class dice():
                 if inp[2][0]=='-':
                     self.values.reverse()
                 for i,(value, bezeich) in enumerate(zip(self.values,self.bezeichners)):
-                    self.wuerfelWuerfeMoeglichkeiten[i] = (value, bezeich)
+                    self.wuerfelWuerfeMoeglichkeiten[i] = [value, bezeich]
                     print(str(i+1)+": "+str(value))
                 for i in range(werfen):
                     self.wuerfelType = 0
@@ -314,7 +314,7 @@ class dice():
                 if inp[7][0]=='-':
                     self.values.reverse()
                 for i,(rando,value,bezeich) in enumerate(zip(self.randos,self.values,self.bezeichners)):
-                    self.wuerfelWuerfeMoeglichkeiten[i] = (rando,value,bezeich)
+                    self.wuerfelWuerfeMoeglichkeiten[i] = [rando,value,bezeich]
                     print(str(i+1)+": "+str(value))
                     print(str(i+1)+": "+str(rando)+", "+str(value))
                 for i in range(werfen):
@@ -323,6 +323,17 @@ class dice():
         else:
             self.help()
             return None
+        if self.negativ:
+            #avg = 0
+            #for key,wert in self.wuerfelWuerfeMoeglichkeiten.items():
+            #    avg += float(wert[len(self.wuerfelWuerfeMoeglichkeiten)- 2])
+            #avg = avg / len(self.wuerfelWuerfeMoeglichkeiten)
+            for key,wert in self.wuerfelWuerfeMoeglichkeiten.items():
+                print("p "+str(self.wuerfelWuerfeMoeglichkeiten[int(len(self.wuerfelWuerfeMoeglichkeiten)/2)][0]))
+                print("p "+str(len(self.wuerfelWuerfeMoeglichkeiten[0])- 2))
+                print(self.wuerfelWuerfeMoeglichkeiten[int(len(self.wuerfelWuerfeMoeglichkeiten)/2)][len(self.wuerfelWuerfeMoeglichkeiten[0])- 2])
+                #print(str(self.wuerfelWuerfeMoeglichkeiten[int(len(self.wuerfelWuerfeMoeglichkeiten)/2)][len(self.wuerfelWuerfeMoeglichkeiten)- 2]))
+                wert[len(self.wuerfelWuerfeMoeglichkeiten[0])- 2] -= self.wuerfelWuerfeMoeglichkeiten[int(len(self.wuerfelWuerfeMoeglichkeiten)/2)][len(self.wuerfelWuerfeMoeglichkeiten[0])- 2]
         self.result = (self.wuerfelWuerfeMoeglichkeiten,self.wuerfelWuerfe)
         print(str(self.result))
 
