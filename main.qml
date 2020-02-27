@@ -61,7 +61,7 @@ Window {
                 id: nega_
                 text: qsTr("+  ")
                 objectName: "nega_"
-                width : 50
+                width : 100
                 onCheckedChanged: {
                     medi_.enabled = checked;
                     if (checked)
