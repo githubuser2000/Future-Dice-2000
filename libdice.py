@@ -177,8 +177,8 @@ class dice():
                 if not dice in self.wuerfelAugenSet or not self.uniq:
                     self.wuerfelAugenSet.add(dice)
                     break
-            self.wuerfelWuerfe2.append((dice,self.values[dice]))
-            self.wuerfelWuerfe.append((dice,self.values[dice]))
+            self.wuerfelWuerfe2.append((dice,self.values[dice],self.bezeichners[dice]))
+            self.wuerfelWuerfe.append((dice,self.values[dice],self.bezeichners[dice]))
             print("Würfelwurf: "+str(self.values[dice])+" (Würfelaugen "+str(dice+1)+")")
         elif self.wuerfelType == 1:
             while True:
@@ -189,12 +189,15 @@ class dice():
             print("rand augenzahl ergebnis: "+str(dice))
             #dice = random.randrange(inp[1])+1
             ergebnis = (self.randos[dice],self.values[dice])
-            self.wuerfelWuerfe2.append((dice,ergebnis[0],ergebnis[1]))
-            self.wuerfelWuerfe.append((dice,ergebnis[0],ergebnis[1]))
+            self.wuerfelWuerfe2.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
+            self.wuerfelWuerfe.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
             print("Würfelwurf: "+str(self.values[dice])+" (Würfelaugen "+str(dice)+")")
         return self.wuerfelWuerfe2
 
-    def __init__(self,inp,werfen = 2, uniq_ = False):
+    def __init__(self,inp,werfen = 2, uniq_ = False, negativ = False, median = False, bezeichner = ""):
+        self.negativ = negativ
+        self.median = median
+        self.bezeichner = bezeichner
         self.wuerfeltype = None
         self.wuerfelAugenSet = set()
         self.fkt = { 'lin' : self.lin,
@@ -247,6 +250,19 @@ class dice():
         self.uniq =uniq_
         self.wuerfelWuerfe = []
         self.wuerfelWuerfeMoeglichkeiten = {}
+
+        self.bezeichners = str(bezeichner).split()
+        if not self.bezeichner == "":
+            while len(self.bezeichners) < int(inp[1]):
+                self.bezeichners.append("?")
+        else:
+            while len(self.bezeichners) < int(inp[1]):
+                self.bezeichners.append("")
+        print(str(self.bezeichners))
+        #if len(self.bezeichners) > 0:
+        #    if self.bezeichners[-1] == "?":
+        #        self.bezeichner = " ".join(self.bezeichners)
+
         if len(inp) > 3:
             if type(inp[-3]) is list and type(inp[-2]) is list and type(inp[-1]) is list:
                 self.include1,self.include2,self.include3 = inp[-3],inp[-2],inp[-1]
@@ -267,13 +283,16 @@ class dice():
             if inp[4] <= inp[1] and inp[4] > 1 and inp[2] != "gewicht":
                 self.values = []
                 for a in range(1,until+1):
+                    print("f1")
                     self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
                 if inp[2][0]=='-':
                     self.values.reverse()
-                for i,value in enumerate(self.values):
-                    self.wuerfelWuerfeMoeglichkeiten[i] = value
+                for i,(value, bezeich) in enumerate(zip(self.values,self.bezeichners)):
+                    print("f2")
+                    self.wuerfelWuerfeMoeglichkeiten[i] = (value, bezeich)
                     print(str(i+1)+": "+str(value))
                 for i in range(werfen):
+                    print("f3")
                     self.wuerfelType = 0
                     self.wuerfelWuerfe.append(self.wuerfeln())
         elif len(inp) == 11 and inp[2] == "gewicht":
@@ -297,8 +316,8 @@ class dice():
                     self.randos.reverse()
                 if inp[7][0]=='-':
                     self.values.reverse()
-                for i,(rando,value) in enumerate(zip(self.randos,self.values)):
-                    self.wuerfelWuerfeMoeglichkeiten[i] = (rando,value)
+                for i,(rando,value,bezeich) in enumerate(zip(self.randos,self.values,self.bezeichners)):
+                    self.wuerfelWuerfeMoeglichkeiten[i] = (rando,value,bezeich)
                     print(str(i+1)+": "+str(value))
                     print(str(i+1)+": "+str(rando)+", "+str(value))
                 for i in range(werfen):

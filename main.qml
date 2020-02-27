@@ -9,7 +9,7 @@ Window {
     //width: 700
     //height: 580
     width: haupt.width + gridcheckboxes.width
-    height: haupt.height + gridpartentradios.height
+    height: haupt.height + scrollView.height + wuerfflaechNam.height + 12
     title: qsTr("Future-Dice-2000")
     id : win
 
@@ -122,6 +122,9 @@ Window {
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
+                onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
+                onTextEdited: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
 
             }
             Label {
@@ -138,6 +141,9 @@ Window {
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
+                onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
+                onTextEdited: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
 
             }
             Label {
@@ -218,7 +224,7 @@ Window {
         ButtonGroup {
             id: radioGroup2
         }
-        Grid {
+        GridLayout{
             anchors.leftMargin: 20
             anchors.rightMargin: 20
             id : gridpartentradios
@@ -244,7 +250,8 @@ Window {
 
                 }
             }
-            GridLayout {
+            Grid
+            {
                 anchors.leftMargin: 20
                 anchors.rightMargin: 20
 
@@ -493,6 +500,57 @@ Window {
                 }
             }
 
+        }
+        Label {
+            text: " "
+
+        }
+        TextField {
+            objectName: "WürfFlächBenennungen"
+            id : wuerfflaechNam
+            focus: true
+            text: "Wuerfelflächen Bezeichen"
+            Layout.fillWidth: true
+            horizontalAlignment: Text.AlignRight
+            onSelectionStartChanged: {
+                if (text == "Wuerfelflächen Bezeichen")
+                    text = ""
+            }
+            onFocusChanged: augen.text = text.split(" ").length
+            onTextChanged: augen.text = text.split(" ").length
+            onTextEdited: augen.text = text.split(" ").length
+
+        }
+        Grid {
+            objectName: "WürfFlächBenennungen"
+            id : wuerfflaechNam2
+            focus: true
+            Layout.fillWidth: true
+            columns: 2
+            Switch {
+                id: nega_
+                text: qsTr("+  ")
+                objectName: "nega_"
+                onCheckedChanged: {
+                    medi_.enabled = checked;
+                    if (checked)
+                        text = '- +'
+                    else
+                        text = '+  '
+                }
+            }
+            Switch {
+                id: medi_
+                text: qsTr("avg")
+                objectName: "medi_"
+                enabled : false
+                onCheckedChanged: {
+                    if (checked)
+                        text = 'medi'
+                    else
+                        text = 'avg'
+                }
+            }
         }
     }
 }
