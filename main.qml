@@ -66,20 +66,26 @@ Window {
             TextField {
                 objectName: "augen"
                 id : augen
-                validator: IntValidator {bottom: 1; top: 10000000;}
+                validator: IntValidator {bottom: 2; top: 10000000;}
                 focus: true
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
+
                 onFocusChanged: {
+                    if (parseInt(text,10) <2) text = 2;
                     if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
                     if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
+
                 }
                 onTextChanged: {
+                    if (parseInt(text,10) <2) text = 2;
                     if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
                     if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
+
                 }
                 onTextEdited: {
+                    if (parseInt(text,10) <2) text = 2;
                     if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
                     if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
                 }
@@ -130,15 +136,17 @@ Window {
             TextField {
                 id : x
                 objectName: "x"
-                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
+                validator: IntValidator {bottom: 2; top: 10000000;}
                 focus: true
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
-                onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
-                onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
-                onTextEdited: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
-
+                onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+                }
+                onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+                }
+                onTextEdited: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+                }
             }
             Label {
                 textFormat: Text.RichText
@@ -149,15 +157,17 @@ Window {
                 objectName: "x2"
                 id : x2
                 enabled: false
-                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
+                validator: IntValidator {bottom: 2; top: 10000000;}
                 focus: true
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
-                onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
-                onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
-                onTextEdited: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text }
-
+                onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+                }
+                onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+                }
+                onTextEdited: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+                }
             }
             Label {
                 text: "   y"
@@ -529,10 +539,11 @@ Window {
                 if (text == "Wuerfelflächen Bezeichen")
                     text = ""
             }
-            onFocusChanged: augen.text = text.split(" ").length
-            onTextChanged: augen.text = text.split(" ").length
-            onTextEdited: augen.text = text.split(" ").length
-
+            onFocusChanged: { augen.text = text.split(" ").length; if (text2 != text) sett=true; }
+            onTextChanged:{ augen.text = text.split(" ").length; if (text2 != text) sett=true; }
+            onTextEdited: { augen.text = text.split(" ").length; if (text2 != text) sett=true; }
+            property string text2: "Wuerfelflächen Bezeichen"
+            property bool sett: false
         }
         Grid {
             objectName: "WürfFlächBenennungen"

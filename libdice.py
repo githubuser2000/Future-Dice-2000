@@ -194,7 +194,7 @@ class dice():
             print("Würfelwurf: "+str(self.values[dice])+" (Würfelaugen "+str(dice)+")")
         return self.wuerfelWuerfe2
 
-    def __init__(self,inp,werfen = 2, uniq_ = False, negativ = False, median = False, bezeichner = ""):
+    def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
         self.negativ = negativ
         self.median = median
         self.bezeichner = bezeichner
@@ -258,7 +258,6 @@ class dice():
         else:
             while len(self.bezeichners) < int(inp[1]):
                 self.bezeichners.append("")
-        print(str(self.bezeichners))
         #if len(self.bezeichners) > 0:
         #    if self.bezeichners[-1] == "?":
         #        self.bezeichner = " ".join(self.bezeichners)
@@ -280,19 +279,17 @@ class dice():
             inp[5] = float(inp[5])
             inp[3] = float(inp[3])
             inp[1] = int(inp[1])
+            print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
             if inp[4] <= inp[1] and inp[4] > 1 and inp[2] != "gewicht":
                 self.values = []
                 for a in range(1,until+1):
-                    print("f1")
                     self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
                 if inp[2][0]=='-':
                     self.values.reverse()
                 for i,(value, bezeich) in enumerate(zip(self.values,self.bezeichners)):
-                    print("f2")
                     self.wuerfelWuerfeMoeglichkeiten[i] = (value, bezeich)
                     print(str(i+1)+": "+str(value))
                 for i in range(werfen):
-                    print("f3")
                     self.wuerfelType = 0
                     self.wuerfelWuerfe.append(self.wuerfeln())
         elif len(inp) == 11 and inp[2] == "gewicht":
