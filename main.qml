@@ -71,6 +71,18 @@ Window {
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                onFocusChanged: {
+                    if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
+                    if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
+                }
+                onTextChanged: {
+                    if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
+                    if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
+                }
+                onTextEdited: {
+                    if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
+                    if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
+                }
             }
             Label {
                 text: "Würfe"
@@ -116,6 +128,7 @@ Window {
                 text: "   x"
             }
             TextField {
+                id : x
                 objectName: "x"
                 validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
                 focus: true
