@@ -136,16 +136,16 @@ class MainWindow(QQmlApplicationEngine):
 
             #print(wuerfe.property("text"))
             result = None
-            augen.property("text")
-            reverse.property("position")
-            LRad.property("text")
-            n.property("text")
-            x.property("text")
-            y.property("text")
-            uniq.property("position")
-            wuerfe.property("text")
+            #augen.property("text")
+            #reverse.property("position")
+            #LRad.property("text")
+            #n.property("text")
+            #x.property("text")
+            #y.property("text")
+            #uniq.property("position")
+            #wuerfe.property("text")
             #print('ü '+str(gezinkt)+' '+str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
-            print("__ "+planesNames.property("text") if planesNames.property("sett") else "")
+            print("__ "+LRad2.property("text")+" "+str(Lists))
             if not gezinkt:
                 self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text") if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
             else:

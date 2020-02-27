@@ -380,7 +380,7 @@ Window {
                             //ButtonGroup.group: group
                             ButtonGroup.group: radioGroup2
                             onToggled:  {
-                                rade.text = text;
+                                rade2.text = text;
                                 lCheck0.anArray[1] = text === 'kombi' ? checked : false
 
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
