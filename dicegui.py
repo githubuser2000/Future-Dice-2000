@@ -28,11 +28,13 @@ class MainWindow(QQmlApplicationEngine):
 
         if self.gesamtgewicht == None:
             self.gesamtgewicht = 0
+            print('res '+str(result))
             for i,oneOf2 in enumerate(result):
                 if type(oneOf2) is dict:
                     for k,(key, value) in enumerate(oneOf2.items()):
-                        if len(value) == 3:
+                        if len(value) >= 3:
                             self.gesamtgewicht += float(value[1])
+                            print(str("add "+str(float(value[1]))))
         if self.gesamtgewicht == 0:
             self.gesamtgewicht = 1
 
@@ -50,21 +52,20 @@ class MainWindow(QQmlApplicationEngine):
                             self.scrollmodel.insertPerson(0, 'Augen '+str(key+1)+". ("+str(value[1])+"): Wert "+str((round(float(value[0])*100))/100), True,'')
                 self.scrollmodel.insertPerson(0, '', True,'')
         for i,oneOf2 in enumerate(result):
-            if  type(oneOf2) in [tuple,list] and len(oneOf2) in [3,4]:
+            if  type(oneOf2) in [tuple] and len(oneOf2) in [3,4]:
                 self.wuerfe += 1
-                if type(oneOf2) is tuple:
-                    if len(oneOf2) == 4:
-                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(oneOf2[0])+1)+".") if oneOf2[3]=="" else oneOf2[3])+" "+str(int(oneOf2[0])+1)+". Wert "+str(round(float(oneOf2[1])*100)/100)+", Gewicht: "+str(round(float(oneOf2[2])*100)/100)+" "+str(int(float(oneOf2[2]/self.gesamtgewicht*100)))+"%", True,'')
-                    elif len(oneOf2) == 3:
+                if len(oneOf2) == 4:
+                    self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(oneOf2[0])+1)+".") if oneOf2[3]=="" else oneOf2[3])+" Wert "+str(round(float(oneOf2[1])*100)/100)+", Gewicht: "+str(round(float(oneOf2[2])*100)/100)+" "+str(int(float(oneOf2[2]/self.gesamtgewicht*100)))+"%", True,'')
+                elif len(oneOf2) == 3:
                         self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(oneOf2[0])+1)+".") if oneOf2[2]=="" else oneOf2[2])+" Wert "+str(oneOf2[1]), True,'')
             elif  type(oneOf2) is list:
                 for k,erstwuerfe in enumerate(oneOf2):
-                    if  len(erstwuerfe) in [3,4] and type(erstwuerfe) in [tuple,list]:
-                        self.wuerfe += 1
-                        if len(erstwuerfe) == 4:
-                            self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[3]=="" else erstwuerfe[3])+" Wert "+str(round(float(erstwuerfe[1])*100)/100)+", Gewicht: "+str(round(float(erstwuerfe[2])*100)/100)+" "+str(int(float(erstwuerfe[2]/self.gesamtgewicht*100)))+"%", True,'')
-                        elif len(erstwuerfe) == 3:
-                            self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[2]=="" else erstwuerfe[2])+" Wert "+str(round(float(erstwuerfe[1])*100)/100), True,'')
+                    #if  len(erstwuerfe) in [3,4] and type(erstwuerfe) in [tuple,list]:
+                    self.wuerfe += 1
+                    if len(erstwuerfe) == 4:
+                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[3]=="" else erstwuerfe[3])+" Wert "+str(round(float(erstwuerfe[1])*100)/100)+", Gewicht: "+str(round(float(erstwuerfe[2])*100)/100)+" "+str(int(float(erstwuerfe[2]/self.gesamtgewicht*100)))+"%", True,'')
+                    elif len(erstwuerfe) == 3:
+                        self.scrollmodel.insertPerson(0, "Wurf "+str(self.wuerfe)+". "+(("Augen "+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[2]=="" else erstwuerfe[2])+" Wert "+str(round(float(erstwuerfe[1])*100)/100), True,'')
 
     @pyqtSlot()
     def wuerfeln2(self):
@@ -98,6 +99,7 @@ class MainWindow(QQmlApplicationEngine):
 
     @pyqtSlot()
     def wuerfelErstellen(self):
+        self.gesamtgewicht = None
         Lists = self.checkedchanged()
         self.wuerfelrestellt = False
         if not self.wuerfelrestellt:

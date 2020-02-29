@@ -168,7 +168,6 @@ class dice():
 
 
     def wuerfeln(self):
-        print("oo "+str(self.values))
         self.wuerfelWuerfe2 = []
         if len(self.wuerfelAugenSet) == len(self.values):
             self.wuerfelAugenSet = set()
@@ -189,7 +188,8 @@ class dice():
                     break
             print("rand augenzahl ergebnis: "+str(dice))
             #dice = random.randrange(inp[1])+1
-            ergebnis = (self.values[dice],self.randos[dice])
+            #ergebnis = (self.values[dice],self.randos[dice])
+            ergebnis = (self.randos[dice],self.values[dice])
             self.wuerfelWuerfe2.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
             print("Würfelwurf: "+str(self.values[dice])+" (Würfelaugen "+str(dice)+")")
