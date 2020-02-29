@@ -183,7 +183,7 @@ class dice():
             print("Würfelwurf: "+str(self.values[dice])+" (Würfelaugen "+str(dice+1)+")")
         elif self.wuerfelType == 1:
             while True:
-                dice = self.weightedrand(self.randos)
+                dice = self.weightedrand(self.values)
                 if not dice in self.wuerfelAugenSet or not self.uniq:
                     self.wuerfelAugenSet.add(dice)
                     break
