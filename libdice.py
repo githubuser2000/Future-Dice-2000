@@ -89,7 +89,7 @@ class dice():
                     #print("AA 1")
                     return 1
 
-    def kombi(self,x,n,xe,e,reku = 50,xth=0):
+    def kombi(self,x,n,xe,e,xth=0, reku = 50):
         try:
         #if True:
 #            okay1 = False
@@ -120,7 +120,7 @@ class dice():
         except:
             if reku > 0:
                 reku -= 1
-                return self.kombi(x,n,xe,e,reku)
+                return self.kombi(x,n,xe,e,xth,reku)
 
     def gewicht(self,type1,x,n,xe,e,type2,n2,xe2,e2):
         return ( self.fkt[type1](x,n,xe,e),
@@ -141,6 +141,7 @@ class dice():
 
 
     def weightedrand(self,weights):
+        print("ww "+str(weights))
         summ = 0
         sum2 = []
         for weight in weights:

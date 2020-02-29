@@ -14,9 +14,9 @@ class MainWindow(QQmlApplicationEngine):
     wuerfelrestellt = False
 #    radi = 'lin'
 
-    @pyqtSlot()
-    def getRadioBselected(self):
-        print(str(self.radi))
+    #@pyqtSlot()
+    #def getRadioBselected(self):
+        #print(str(self.radi))
         #radios = self.rootObjects()[0].findChild(QObject, "radiolayout")
         #print(radios.property["objectName"])
         #for i,radio in enumerate(radios.children()):
@@ -24,17 +24,17 @@ class MainWindow(QQmlApplicationEngine):
         #    print(str("x"+str(radio.property("checked"))))
         #    if radio.property("checked"):
         #        print(dice.randfkt2[i+1])
-    def insertresults(self,result):
 
+    def insertresults(self,result):
         if self.gesamtgewicht == None:
             self.gesamtgewicht = 0
-            print('res '+str(result))
+            #print('res '+str(result))
             for i,oneOf2 in enumerate(result):
                 if type(oneOf2) is dict:
                     for k,(key, value) in enumerate(oneOf2.items()):
                         if len(value) >= 3:
                             self.gesamtgewicht += float(value[1])
-                            print(str("add "+str(float(value[1]))))
+                            #print(str("add "+str(float(value[1]))))
         if self.gesamtgewicht == 0:
             self.gesamtgewicht = 1
 
@@ -76,7 +76,7 @@ class MainWindow(QQmlApplicationEngine):
             wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
             for i in range(int(wuerfe.property("text"))):
                 result = self.dice.wuerfeln()
-                print("r " + str(result) )
+                #print("r " + str(result) )
                 self.insertresults(result)
 #                for ell in result:
 #                    for i,el in enumerate(ell):
@@ -147,7 +147,7 @@ class MainWindow(QQmlApplicationEngine):
             #uniq.property("position")
             #wuerfe.property("text")
             #print('ü '+str(gezinkt)+' '+str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
-            print("__ "+LRad2.property("text")+" "+str(Lists))
+            #print("__ "+LRad2.property("text")+" "+str(Lists))
             if not gezinkt:
                 self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
             else:
