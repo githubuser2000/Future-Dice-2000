@@ -170,17 +170,17 @@ class dice():
 
     def wuerfeln(self):
         self.wuerfelWuerfe2 = []
-        if len(self.wuerfelAugenSet) == len(self.randos):
+        if len(self.wuerfelAugenSet) == len(self.values):
             self.wuerfelAugenSet = set()
         if self.wuerfelType == 0:
             while True:
-                dice = random.randrange(len(self.randos))
+                dice = random.randrange(len(self.values))
                 if not dice in self.wuerfelAugenSet or not self.uniq:
                     self.wuerfelAugenSet.add(dice)
                     break
-            self.wuerfelWuerfe2.append((dice,self.randos[dice],self.bezeichners[dice]))
-            self.wuerfelWuerfe.append((dice,self.randos[dice],self.bezeichners[dice]))
-            print("Würfelwurf: "+str(self.randos[dice])+" (Würfelaugen "+str(dice+1)+")")
+            self.wuerfelWuerfe2.append((dice,self.values[dice],self.bezeichners[dice]))
+            self.wuerfelWuerfe.append((dice,self.values[dice],self.bezeichners[dice]))
+            print("Würfelwurf: "+str(self.values[dice])+" (Würfelaugen "+str(dice+1)+")")
         elif self.wuerfelType == 1:
             while True:
                 dice = self.weightedrand(self.randos)
@@ -283,12 +283,12 @@ class dice():
             inp[1] = int(inp[1])
             #print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
             if inp[4] <= inp[1] and inp[4] > 1 and inp[2] != "gewicht":
-                self.randos = []
+                self.values = []
                 for a in range(1,until+1):
-                    self.randos.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
+                    self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
                 if inp[2][0]=='-':
-                    self.randos.reverse()
-                for i,(value, bezeich) in enumerate(zip(self.randos,self.bezeichners)):
+                    self.values.reverse()
+                for i,(value, bezeich) in enumerate(zip(self.values,self.bezeichners)):
                     self.wuerfelWuerfeMoeglichkeiten[i] = [value, bezeich]
                     print(str(i+1)+": "+str(value))
                 self.wuerfelType = 0
@@ -326,7 +326,7 @@ class dice():
             #for key,wert in self.wuerfelWuerfeMoeglichkeiten.items():
             #    avg += float(wert[len(self.wuerfelWuerfeMoeglichkeiten)- 2])
             #avg = avg / len(self.wuerfelWuerfeMoeglichkeiten)
-            self.randos= []
+            self.values = []
             middle = self.wuerfelWuerfeMoeglichkeiten[int(len(self.wuerfelWuerfeMoeglichkeiten)/2)][0]
             for key,wert in self.wuerfelWuerfeMoeglichkeiten.items():
                 #print("p "+str(self.wuerfelWuerfeMoeglichkeiten[int(len(self.wuerfelWuerfeMoeglichkeiten)/2)][0]))
@@ -334,7 +334,7 @@ class dice():
                 #print(self.wuerfelWuerfeMoeglichkeiten[int(len(self.wuerfelWuerfeMoeglichkeiten)/2)][len(self.wuerfelWuerfeMoeglichkeiten[0])- 2])
                 #print(str(self.wuerfelWuerfeMoeglichkeiten[int(len(self.wuerfelWuerfeMoeglichkeiten)/2)][len(self.wuerfelWuerfeMoeglichkeiten)- 2]))
                 wert[0] -= middle
-                self.randos.append(wert[0])
+                self.values.append(wert[0])
         for i in range(werfen):
             self.wuerfelWuerfe.append(self.wuerfeln())
         self.result = (self.wuerfelWuerfeMoeglichkeiten,self.wuerfelWuerfe)
