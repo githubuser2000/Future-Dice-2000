@@ -549,9 +549,19 @@ Window {
                 if (text == "Wuerfelflächen Bezeichen")
                     text = ""
             }
-            onFocusChanged: { augen.text = text.split(" ").length; if (text2 != text) sett=true; }
-            onTextChanged:{ augen.text = text.split(" ").length; if (text2 != text) sett=true; }
-            onTextEdited: { augen.text = text.split(" ").length; if (text2 != text) sett=true; }
+
+            onFocusChanged: {
+                augen.text = text.trim().split(/\s+/).length;
+                if (text2 != text) sett=true;
+            }
+            onTextChanged:{
+                augen.text = text.trim().split(/\s+/).length;
+                if (text2 != text) sett=true;
+            }
+            onTextEdited: {
+                augen.text = text.trim().split(/\s+/).length;
+                if (text2 != text) sett=true;
+            }
             property string text2: "Wuerfelflächen Bezeichen"
             property bool sett: false
         }
