@@ -141,7 +141,7 @@ class dice():
 
 
     def weightedrand(self,weights):
-        print("ww "+str(weights))
+        #print("ww "+str(weights))
         summ = 0
         sum2 = []
         for weight in weights:
@@ -157,13 +157,6 @@ class dice():
         return None
 
 
-
-    def help(self):
-        print("dice.py 3 -lin 3 2 7")
-        print("dice.py 3 gewicht poly 3 2 0.7 -poly 1 2 5")
-        print("dice.py 3 gewicht lin 3 3 7 lin 3 3 7")
-        print("dice.py 3 kombi 3 3 0.7")
-        print("dice.py 3 rand 3 3 5")
 
     #self.randos, self.wuerfelType, self.wuerfelWuerfe, self.uniq, self.values = None, None, None, None, None
 
@@ -187,7 +180,7 @@ class dice():
                 if not dice in self.wuerfelAugenSet or not self.uniq:
                     self.wuerfelAugenSet.add(dice)
                     break
-            print("rand augenzahl ergebnis: "+str(dice))
+            #print("rand augenzahl ergebnis: "+str(dice))
             #dice = random.randrange(inp[1])+1
             #ergebnis = (self.randos[dice],self.values[dice])
             ergebnis = (self.values[dice],self.randos[dice])
