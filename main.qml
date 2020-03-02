@@ -68,7 +68,7 @@ Window {
                 x: 90
                 y: 119
 
-                text: qsTr("invert Z")
+                text: qsTr("invert<sub>2</sub>")
                 objectName: "reverse2"
             }
             Switch {
@@ -142,7 +142,7 @@ Window {
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
-                    if (text == "" ) text = "1";
+                    if (text == "" || parseFloat(text,10) === 0 ) text = "1";
                 }
             }
             Label {
@@ -160,7 +160,7 @@ Window {
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
-                    if (text == "" ) text = "1";
+                    if (text == "" || parseInt(text,10) === 0 ) text = "1";
                 }
 
             }

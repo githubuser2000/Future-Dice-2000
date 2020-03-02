@@ -27,26 +27,41 @@ randfkt3 = { 1 : 'mul',
 class dice():
 
     def sigmoid(self,x,n,xe,e,xth=0):
-        x-=int(self.inpp_[1])/2
-        xe-=int(self.inpp_[1])/2
-        return ( n / (n + math.exp(-x)) ) / ( n / (n + math.exp(-xe)) ) * e
+        try:
+            x-=int(self.inpp_[1])/2
+            xe-=int(self.inpp_[1])/2
+            return ( n / (n + math.exp(-x)) ) / ( n / (n + math.exp(-xe)) ) * e
+        except:
+            return 0
 
     def lin(self,x,n,xe,e,xth=0):
-        #print(str(x))
-        #print(str(e))
-        #print(str(xe))
-        return (x * e) / xe
+        try:
+            return (x * e) / xe
+        except:
+            return 0
     def log(self,x,n,xe,e,xth=0):
-        if math.log(xe,n) * e != 0:
-            return math.log(x,n) / math.log(xe,n) * e
-        else:
+        try:
+            if math.log(xe,n) * e != 0:
+                return math.log(x,n) / math.log(xe,n) * e
+            else:
+                return 0
+        except:
             return 0
     def root(self,x,n,xe,e,xth=0):
-        return pow(x,1/n) / pow(xe,1/n) * e
+        try:
+            return pow(x,1/n) / pow(xe,1/n) * e
+        except:
+            return 0
     def poly(self,x,n,xe,e,xth=0):
-        return pow(x,n) / pow(xe,n) * e
+        try:
+            return pow(x,n) / pow(xe,n) * e
+        except:
+            return 0
     def expo(self,x,n,xe,e,xth=0):
-        return pow(n,x) / pow(n,xe) * e
+        try:
+            return pow(n,x) / pow(n,xe) * e
+        except:
+            return 0
 
     def randselect(self,includex):
 
