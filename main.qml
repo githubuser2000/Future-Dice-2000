@@ -114,10 +114,12 @@ Window {
                     if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
 
                 }
-                onTextChanged: {
+                onTextChanged: {                    
                     if (parseInt(text,10) <2) text = 2;
-                    if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
-                    if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
+                    if (! x === null)
+                        if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
+                    if (! x2 === null)
+                        if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
 
                 }
                 onTextEdited: {
@@ -149,7 +151,7 @@ Window {
                 validator: RegExpValidator { regExp: /^[0-9]+[\.,]?[0-9]*$/ }
                 focus: true
                 text: Number("3")
-                property real nn: 0;
+                property real nn: parseFloat(text);
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
@@ -168,6 +170,7 @@ Window {
                 validator: RegExpValidator { regExp: /^[0-9]+[\.,]?[0-9]*$/ }
                 focus: true
                 text: Number("3")
+                property real nn: parseFloat(text);
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
@@ -229,6 +232,7 @@ Window {
                 text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                property real nn: parseFloat(text);
                 onFocusChanged: {
                     if (text == "" ) text = Number("1");
                     nn = parseFloat(text.replace(",","."),10)
@@ -239,7 +243,6 @@ Window {
                 text: "y<sub>2</sub>"
                 textFormat: Text.RichText
             }
-
             TextField {
                 objectName: "y2"
                 id : y2
@@ -249,12 +252,11 @@ Window {
                 text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                property real nn: parseFloat(text);
                 onFocusChanged: {
                     if (text == "" ) text = Number("1");
                     nn = parseFloat(text.replace(",","."),10)
                 }
-
-
             }
             Button {
                 anchors.leftMargin: 20
@@ -273,7 +275,6 @@ Window {
                     border.width: 2
                     radius: 13
                 }
-
             }
             Label {
                 text: " "
@@ -339,8 +340,6 @@ Window {
                 transformOrigin: Item.TopLeft
                 columns: 2
                 objectName: "radiolayout"
-
-
                 /*
             ButtonGroup {
                 id: group
@@ -361,9 +360,6 @@ Window {
                     id : rade2
                     visible: false
                 }
-
-
-
                 GridLayout {
                     transformOrigin: Item.TopLeft
                     columns: 1
