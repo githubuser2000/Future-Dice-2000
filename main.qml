@@ -7,15 +7,12 @@ import Qt.labs.platform 1.1
 
 Window {
     visible: true
-    //width: 700
-    //height: 580
     width: haupt.width + gridcheckboxes.width    
     title: qsTr("Future-Dice-2000")
     id : win
     onVisibleChanged: {
         height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
     }
-
     SystemTrayIcon {
         visible: true
         icon.source: "wuerfel.png"
@@ -35,14 +32,7 @@ Window {
         onActivated: {
                 win.visible = ! win.visible
         }
-
-
     }
-/*
-    onHeightChanged: {
-        scrollView.height = height -haupt.height - wuerfflaechNam.height - 12;
-        height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
-    }*/
     onAfterRendering: {
         scrollView.height = height -haupt.height - wuerfflaechNam.height - 12;
         height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
@@ -76,7 +66,6 @@ Window {
                 text: qsTr("invert")
                 objectName: qsTr("reverse")
             }
-
             Switch {
                 id: uniq
                 x: 232
@@ -85,8 +74,6 @@ Window {
                 objectName: "uniq"
                 onClicked: MainWindow.uniq()                
             }
-
-
             Switch {
                 id: reverse2_
                 x: 90
@@ -116,12 +103,12 @@ Window {
                 id : augen
                 validator: IntValidator {bottom: 2; top: 10000000;}
                 focus: true
-                text: "3"
+                text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
 
                 onFocusChanged: {
-                    if (text == "" ) text = "2";
+                    if (text == "" ) text = Number("2");
                     if (parseInt(text,10) <2) text = 2;
                     if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
                     if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
@@ -147,46 +134,43 @@ Window {
                 id : wuerfe
                 validator: IntValidator {bottom: 1; top: 10000000;}
                 focus: true
-                text: "3"
+                text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
                     if (text == "" ) text = "0";
                 }
-
             }
             Label {
                 text: "   n"
             }
             TextField {
                 objectName: "n"
-                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
+                validator: RegExpValidator { regExp: /^[0-9]+[\.,]?[0-9]*$/ }
                 focus: true
-                text: "3"
+                text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
-                    if (text == "" || parseFloat(text,10) === 0 ) text = "1";
+                    if (text == "" || parseFloat(text,10) === 0 ) text = Number("1");
                 }
             }
             Label {
                 text: "n<sub>2</sub>"
                 textFormat: Text.RichText
             }
-
             TextField {
                 objectName: "n2"
                 id : n2
                 enabled: false
-                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
+                validator: RegExpValidator { regExp: /^[0-9]+[\.,]?[0-9]*$/ }
                 focus: true
-                text: "3"
+                text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
-                    if (text == "" || parseInt(text,10) === 0 ) text = "1";
+                    if (text == "" || parseInt(text,10) === 0 ) text = Number("1");
                 }
-
             }
             Label {
                 text: "   x"
@@ -196,19 +180,18 @@ Window {
                 objectName: "x"
                 validator: RegExpValidator { regExp: /^[1-9]+[0-9]*$/ }
                 focus: true
-                //text: "3"
+                //text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
 
                 onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
-                    if (text == "" ) text = "1";
+                    if (text == "" ) text = Number("1");
                 }
                 onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
                 }
                 onTextEdited: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
 
                 }
-
             }
             Label {
                 textFormat: Text.RichText
@@ -221,11 +204,11 @@ Window {
                 enabled: false
                 validator: RegExpValidator { regExp: /^[1-9]+[0-9]*$/ }
                 focus: true
-                text: "3"
+                text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
-                    if (text == "" ) text = "1";
+                    if (text == "" ) text = Number("1");
                 }
                 onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
                 }
@@ -238,9 +221,9 @@ Window {
             }
             TextField {
                 objectName: "y"
-                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
+                validator: RegExpValidator { regExp: /^[0-9]+[\.,]?[0-9]*$/ }
                 focus: true
-                text: "3"
+                text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
 
@@ -254,9 +237,9 @@ Window {
                 objectName: "y2"
                 id : y2
                 enabled: false
-                validator: DoubleValidator {bottom: 0.1; top: 100000000000;}
+                validator: RegExpValidator { regExp: /^[0-9]+[\.,]?[0-9]*$/ }
                 focus: true
-                text: "3"
+                text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
 
