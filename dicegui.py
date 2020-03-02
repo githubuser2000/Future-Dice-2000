@@ -73,7 +73,8 @@ class MainWindow(QQmlApplicationEngine):
 
     @pyqtSlot()
     def uniq(self):
-        self.dice.uniq = bool(self.rootObjects()[0].findChild(QObject, "uniq").property("position"))
+        if hasattr(self,'dice'):
+            self.dice.uniq = bool(self.rootObjects()[0].findChild(QObject, "uniq").property("position"))
 
     @pyqtSlot()
     def wuerfeln2(self):

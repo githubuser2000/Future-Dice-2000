@@ -145,23 +145,31 @@ class dice():
 
     def weightedrand(self,weights):
         #print("ww "+str(weights))
-        summ = 0
+        self.summ = 0
         sum2 = []
         for weight in weights:
-            summ += weight
-            sum2.append(summ)
+            self.summ += weight
+            sum2.append(self.summ)
 
-        rand1 = random.random() * summ
+        rand1 = random.random() * self.summ
 
         for i,asum in enumerate(sum2):
             if rand1 < asum:
                 return i # +1
-
         return None
 
 
 
     #self.randos, self.wuerfelType, self.wuerfelWuerfe, self.uniq, self.values = None, None, None, None, None
+    def wuerfelAugenSetNearEmpty(self):
+        #summe1 = 0
+        #for wuerfelauge in self.wuerfelAugenSet:
+        #    summe1 += self.randos[wuerfelauge]
+        summe2 = 0
+        for rando in self.randos:
+            summe2 += rando
+        diff = self.summ - summe2
+        return diff < 0.001
 
 
     def wuerfeln(self):
@@ -180,7 +188,8 @@ class dice():
         elif self.wuerfelType == 1:
             while True:
                 dice = self.weightedrand(self.randos)
-                if not dice in self.wuerfelAugenSet or not self.uniq:
+                if not dice in self.wuerfelAugenSet or self.wuerfelAugenSetNearEmpty() \
+                or not self.uniq:
                     self.wuerfelAugenSet.add(dice)
                     break
             #print("rand augenzahl ergebnis: "+str(dice))
@@ -311,7 +320,7 @@ class dice():
                     self.randos.reverse()
                 for i,(rando,value,bezeich) in enumerate(zip(self.values,self.randos,self.bezeichners)):
                     self.wuerfelWuerfeMoeglichkeiten[i] = [rando,value,bezeich]
-                    print(str(i+1)+": "+str(value))
+                    #print(str(i+1)+": "+str(value))
                     print(str(i+1)+": "+str(rando)+", "+str(value))
                 self.wuerfelType = 1
         else:

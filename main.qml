@@ -23,6 +23,10 @@ Window {
         scrollView.height = height -haupt.height - wuerfflaechNam.height - 12;
         height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
     }
+    Component.onCompleted: {
+        setX(Screen.width / 2 - width / 2);
+        setY(Screen.height / 2 - height / 2);
+    }
     GridLayout {
         //anchors.fill: parent
         columns: 3
@@ -623,19 +627,6 @@ Window {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*##^## Designer {
