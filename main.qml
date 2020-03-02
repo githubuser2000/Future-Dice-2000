@@ -149,10 +149,12 @@ Window {
                 validator: RegExpValidator { regExp: /^[0-9]+[\.,]?[0-9]*$/ }
                 focus: true
                 text: Number("3")
+                property real nn: 0;
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
                     if (text == "" || parseFloat(text,10) === 0 ) text = Number("1");
+                    nn = parseFloat(text.replace(",","."),10)
                 }
             }
             Label {
@@ -170,6 +172,7 @@ Window {
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: {
                     if (text == "" || parseInt(text,10) === 0 ) text = Number("1");
+                    nn = parseFloat(text.replace(",","."),10)
                 }
             }
             Label {
@@ -226,6 +229,10 @@ Window {
                 text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                onFocusChanged: {
+                    if (text == "" ) text = Number("1");
+                    nn = parseFloat(text.replace(",","."),10)
+                }
 
             }
             Label {
@@ -242,6 +249,11 @@ Window {
                 text: Number("3")
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                onFocusChanged: {
+                    if (text == "" ) text = Number("1");
+                    nn = parseFloat(text.replace(",","."),10)
+                }
+
 
             }
             Button {
