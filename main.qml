@@ -2,6 +2,7 @@ import QtQuick 2.8
 import QtQuick.Window 2.8
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.8
+import Qt.labs.platform 1.1
 
 
 Window {
@@ -13,6 +14,29 @@ Window {
     id : win
     onVisibleChanged: {
         height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
+    }
+
+    SystemTrayIcon {
+        visible: true
+        icon.source: "wuerfel.png"
+        tooltip : qsTr("Future-Dice-2000")
+        id : tray
+
+        menu: Menu {
+            MenuItem {
+                text: qsTr("Würfeln")
+                onTriggered: MainWindow.wuerfeln2()
+            }
+            MenuItem {
+                text: qsTr("Quit")
+                onTriggered: Qt.quit()
+            }
+        }
+        onActivated: {
+                win.visible = ! win.visible
+        }
+
+
     }
 /*
     onHeightChanged: {
@@ -59,7 +83,7 @@ Window {
                 y: 119
                 text: qsTr("uniq")
                 objectName: "uniq"
-                onClicked: MainWindow.uniq()
+                onClicked: MainWindow.uniq()                
             }
 
 
@@ -626,8 +650,8 @@ Window {
             }
         }
     }
-}
 
+}
 
 /*##^## Designer {
     D{i:1;anchors_x:0;anchors_y:40}

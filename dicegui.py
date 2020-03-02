@@ -38,6 +38,7 @@ class MainWindow(QQmlApplicationEngine):
         if self.gesamtgewicht == 0:
             self.gesamtgewicht = 1
 
+        self.wurflist.append(result)
 
         for i,oneOf2 in enumerate(result):
 #            for i,elo in enumerate(ell):
@@ -76,9 +77,11 @@ class MainWindow(QQmlApplicationEngine):
         if hasattr(self,'dice'):
             self.dice.uniq = bool(self.rootObjects()[0].findChild(QObject, "uniq").property("position"))
 
+
     @pyqtSlot()
     def wuerfeln2(self):
         #print(str(self.radios.property("checksate")))
+        self.lastWuerfelungen = []
         if not self.wuerfelrestellt:
             self.wuerfelErstellen()
         else:
@@ -87,6 +90,7 @@ class MainWindow(QQmlApplicationEngine):
                 result = self.dice.wuerfeln()
                 #print("r " + str(result) )
                 self.insertresults(result)
+                self.lastWuerfelungen.append(result)
 #                for ell in result:
 #                    for i,el in enumerate(ell):
 #                        self.scrollmodel.insertPerson(i, str(el), True)
@@ -108,6 +112,7 @@ class MainWindow(QQmlApplicationEngine):
 
     @pyqtSlot()
     def wuerfelErstellen(self):
+        self.wurflist = []
         self.gesamtgewicht = None
         Lists = self.checkedchanged()
         self.wuerfelrestellt = False
