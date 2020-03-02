@@ -8,12 +8,21 @@ Window {
     visible: true
     //width: 700
     //height: 580
-    width: haupt.width + gridcheckboxes.width
-    height: haupt.height + scrollView.height + wuerfflaechNam.height + 12
+    width: haupt.width + gridcheckboxes.width    
     title: qsTr("Future-Dice-2000")
     id : win
-
-
+    onVisibleChanged: {
+        height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
+    }
+/*
+    onHeightChanged: {
+        scrollView.height = height -haupt.height - wuerfflaechNam.height - 12;
+        height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
+    }*/
+    onAfterRendering: {
+        scrollView.height = height -haupt.height - wuerfflaechNam.height - 12;
+        height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
+    }
     GridLayout {
         //anchors.fill: parent
         columns: 3
@@ -418,8 +427,12 @@ Window {
             objectName: 'scrollView'
             //x: 487
             //y: 174
-            width: listView.height
-            height: listView.height
+            //width: listView.height
+            //height: listView.height
+            onVisibleChanged: {
+                height = listView.height
+                width = listView.height
+            }
             antialiasing: true
             transformOrigin: Item.TopLeft
             //Layout.fillHeight: true
@@ -436,8 +449,12 @@ Window {
                 id: listView
                 //implicitHeight: scrollView.height
                 //implicitWidth: scrollView.width
-                width: scrollView.width
-                height: scrollView.height
+                //width: scrollView.width
+                //height: scrollView.height
+                onVisibleChanged: {
+                    height = listView.height
+                    width = listView.height
+                }
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 antialiasing: true
