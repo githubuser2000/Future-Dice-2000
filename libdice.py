@@ -3,6 +3,7 @@
 import sys
 import math
 import random
+from PyQt5.QtCore import QObject
     #from collections import defaultdict
     # argv
     # 1 ist würfel bis zahl
@@ -24,7 +25,7 @@ randfkt3 = { 1 : 'mul',
             2 : 'add',
             3 : 'log',
             4 : 'root'}
-class dice():
+class dice(QObject):
 
     def sigmoid(self,x,n,xe,e,xth=0):
         try:
@@ -192,7 +193,7 @@ class dice():
                     break
             self.wuerfelWuerfe2.append((dice,self.values[dice],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,self.values[dice],self.bezeichners[dice]))
-            print("Würfelwurf: "+str(self.values[dice])+" (Würfelaugen "+str(dice+1)+")")
+            print(self.tr("Würfelwurf: ")+str(self.values[dice])+self.tr(" (Würfelaugen ")+str(dice+1)+")")
         elif self.wuerfelType == 1:
             while True:
                 dice = self.weightedrand(self.randos)
@@ -206,10 +207,11 @@ class dice():
             ergebnis = (self.values[dice],self.randos[dice])
             self.wuerfelWuerfe2.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
-            print("Würfelwurf: "+str(self.randos[dice])+" (Würfelaugen "+str(dice)+")")
+            print(self.tr("Würfelwurf: ")+str(self.randos[dice])+self.tr(" (Würfelaugen ")+str(dice)+")")
         return self.wuerfelWuerfe2
 
     def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
+        super().__init__()
         self.negativ = negativ
         self.median = median
         self.bezeichner = bezeichner

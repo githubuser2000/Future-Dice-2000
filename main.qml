@@ -74,7 +74,7 @@ Window {
                 x: 90
                 y: 119
                 text: qsTr("invert")
-                objectName: "reverse"
+                objectName: qsTr("reverse")
             }
 
             Switch {
@@ -92,7 +92,7 @@ Window {
                 x: 90
                 y: 119
 
-                text: qsTr("invert<sub>2</sub>")
+                text: qsTr("invert Z")
                 objectName: "reverse2"
             }
             Switch {
@@ -103,13 +103,13 @@ Window {
                 onCheckedChanged: {
                     medi_.enabled = checked;
                     if (checked)
-                        text = '+-'
+                        text = qsTr('+-')
                     else
-                        text = '+'
+                        text = qsTr('+')
                 }
             }
             Label {
-                text: "   Augen"
+                text: qsTr("   Augen")
             }
             TextField {
                 objectName: "augen"
@@ -140,7 +140,7 @@ Window {
                 }
             }
             Label {
-                text: "Würfe"
+                text: qsTr("Würfe")
             }
             TextField {
                 objectName: "wuerfe"
@@ -374,7 +374,7 @@ Window {
                     columns: 1
                     id : radio1grid
                     Label {
-                        text: "Wert"
+                        text: qsTr("Wert")
                         objectName: 'L1'
                         id : l1
                     }
@@ -383,7 +383,6 @@ Window {
                         model: radiomodel1
                         objectName: "radios"
                         RadioButton {
-
                             Layout.preferredHeight: 15
                             indicator.height: 15
                             indicator.width: 15
@@ -402,7 +401,6 @@ Window {
                                     for (var i = 0; i < chk3layout.children.length; i++)
                                         chk3layout.children[i].enabled = false;
                             }
-
                         }
                     }
                 }
@@ -412,7 +410,7 @@ Window {
                     id : radio2grid
 
                     Label {
-                        text: "gezinkt"
+                        text: qsTr("gezinkt")
                         objectName: 'L2'
                         id : l2
                     }
@@ -434,7 +432,7 @@ Window {
                             ButtonGroup.group: radioGroup2
                             onToggled:  {
                                 rade2.text = text;
-                                lCheck0.anArray[1] = text === 'kombi' ? checked : false
+                                lCheck0.anArray[1] = text === qsTr('kombi') ? checked : false
 
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
@@ -605,11 +603,11 @@ Window {
             objectName: "WürfFlächBenennungen"
             id : wuerfflaechNam
             focus: true
-            text: "Wuerfelflächen Bezeichen"
+            text: qsTr("Wuerfelflächen Bezeichen")
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignRight
             onSelectionStartChanged: {
-                if (text == "Wuerfelflächen Bezeichen")
+                if (text === qsTr("Wuerfelflächen Bezeichen"))
                     text = ""
             }
 
@@ -625,7 +623,7 @@ Window {
                 augen.text = text.trim().split(/\s+/).length;
                 if (text2 != text) sett=true;
             }
-            property string text2: "Wuerfelflächen Bezeichen"
+            property string text2: qsTr("Wuerfelflächen Bezeichen")
             property bool sett: false
         }
         Grid {
