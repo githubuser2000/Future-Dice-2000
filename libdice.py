@@ -158,19 +158,12 @@ class dice():
                 return i # +1
         return None
 
-
-
-    #self.randos, self.wuerfelType, self.wuerfelWuerfe, self.uniq, self.values = None, None, None, None, None
     def wuerfelAugenSetNearEmpty(self):
-        #summe1 = 0
-        #for wuerfelauge in self.wuerfelAugenSet:
-        #    summe1 += self.randos[wuerfelauge]
         summe2 = 0
         for rando in self.randos:
             summe2 += rando
         diff = self.summ - summe2
-        return diff < 0.001
-
+        return diff < self.summ / 100000000
 
     def wuerfeln(self):
         self.wuerfelWuerfe2 = []
