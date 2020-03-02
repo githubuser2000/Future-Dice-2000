@@ -63,3 +63,223 @@
 1581790042|2020-02-15 19:07:22|:alex!trace@808C1ED8.3DE4ED8E.3DD7867D.IP PRIVMSG #ot :!messages|alex|!messages
 1581790042|2020-02-15 19:07:22|PRIVMSG #ot :nothing from user anyone to user trace|wonderwoman|nothing from user anyone to user trace
 1581790046|2020-02-15 19:07:26|:alex!trace@808C1ED8.3DE4ED8E.3DD7867D.IP PRIVMSG #ot :!bitcoin|alex|!bitcoin
+1583144772|2020-03-02 11:26:12|JOIN #ot|wonderwoman|
+1583144773|2020-03-02 11:26:13|PING :644583F|644583F|
+1583144773|2020-03-02 11:26:13|PONG :644583F|wonderwoman|644583F
+1583144773|2020-03-02 11:26:13|JOIN #ot|wonderwoman|
+1583144773|2020-03-02 11:26:13|:hugoboss2000.no-ip.biz 001 wonderwoman :Welcome to the devserv IRC Network wonderwoman!wonderwoma@compalhub.home|hugoboss2000.no-ip.biz 001 wonderwoman|Welcome to the devserv IRC Network wonderwoman!wonderwoma@compalhub.home
+1583144773|2020-03-02 11:26:13||:hugoboss2000.no-ip.biz 002 wonderwoman :Your host is hugoboss2000.no-ip.biz, running version UnrealIRCd-4.2.4.1
+:hugoboss2000.no-ip.biz 003 wonderwoman :This server was created Mon Oct 7 2019 at 18:55:38 CEST
+:hugoboss2000.no-ip.biz 004 wonderwoman hugoboss2000.no-ip.biz UnrealIRCd-4.2.4.1 iowrsxzdHtIDZRqpWGTSB lvhopsmntikraqbeIzMQNRTOVKDdGLPZSCcf
+:hugoboss2000.no-ip.biz 005 wonderwoman AWAYLEN=307 CASEMAPPING=ascii CHANLIMIT=#:10 CHANMODES=beI,kLf,l,psmntirzMQNRTOVKDdGPZSCc CHANNELLEN=32 CHANTYPES=# DEAF=d ELIST=MNUCT EXCEPTS EXTBAN=~,tmTSOcaRrnqj HCN INVEX :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman KICKLEN=307 KNOCK MAP MAXCHANNELS=10 MAXLIST=b:60,e:60,I:60 MAXNICKLEN=30 MODES=12 NAMESX NETWORK=devserv NICKLEN=30 PREFIX=(qaohv)~&@%+ QUITLEN=307 :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman SAFELIST SILENCE=15 STATUSMSG=~&@%+ TARGMAX=DCCALLOW:,ISON:,JOIN:,KICK:4,KILL:,LIST:,NAMES:1,NOTICE:1,PART:,PRIVMSG:4,SAJOIN:,SAPART:,USERHOST:,USERIP:,WATCH:,WHO||hugoboss2000.no-ip.biz 002 wonderwoman||Your host is hugoboss2000.no-ip.biz, running version UnrealIRCd-4.2.4.1
+:hugoboss2000.no-ip.biz 003 wonderwoman :This server was created Mon Oct 7 2019 at 18:55:38 CEST
+:hugoboss2000.no-ip.biz 004 wonderwoman hugoboss2000.no-ip.biz UnrealIRCd-4.2.4.1 iowrsxzdHtIDZRqpWGTSB lvhopsmntikraqbeIzMQNRTOVKDdGLPZSCcf
+:hugoboss2000.no-ip.biz 005 wonderwoman AWAYLEN=307 CASEMAPPING=ascii CHANLIMIT=#:10 CHANMODES=beI,kLf,l,psmntirzMQNRTOVKDdGPZSCc CHANNELLEN=32 CHANTYPES=# DEAF=d ELIST=MNUCT EXCEPTS EXTBAN=~,tmTSOcaRrnqj HCN INVEX :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman KICKLEN=307 KNOCK MAP MAXCHANNELS=10 MAXLIST=b:60,e:60,I:60 MAXNICKLEN=30 MODES=12 NAMESX NETWORK=devserv NICKLEN=30 PREFIX=(qaohv)~&@%+ QUITLEN=307 :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman SAFELIST SILENCE=15 STATUSMSG=~&@%+ TARGMAX=DCCALLOW:,ISON:,JOIN:,KICK:4,KILL:,LIST:,NAMES:1,NOTICE:1,PART:,PRIVMSG:4,SAJOIN:,SAPART:,USERHOST:,USERIP:,WATCH:,WHO|
+1583144773|2020-03-02 11:26:13|PONG 002|wonderwoman|
+1583144773|2020-03-02 11:26:13||:1,WHOWAS:1 TOPICLEN=360 UHNAMES USERIP WALLCHOPS WATCH=128 WATCHOPTS=A :are supported by this server
+:hugoboss2000.no-ip.biz 396 wonderwoman Clk-CAEB9374.home :is now your displayed host
+:hugoboss2000.no-ip.biz 251 wonderwoman :There are 1 users and 1 invisible on 1 servers
+:hugoboss2000.no-ip.biz 254 wonderwoman 1 :channels formed
+:hugoboss2000.no-ip.biz 255 wonderwoman :I have 2 clients and 0 servers
+:hugoboss2000.no-ip.biz 265 wonderwoman 2 5 :Current local users 2, max 5
+:hugoboss2000.no-ip.biz 266 wonderwoman 2 2 :Current global users 2, max 2
+:hugoboss2000.no-ip.biz 375 wonderwoman :- hugoboss2000.no-ip.biz Message of the Day - 
+:hugoboss2000.no-ip.biz 372 wonderwoman :- 9/2/2020 17:20
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######  #   #  #####  #####  #####  #   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #       #   #  #      #      #||1,WHOWAS||1 TOPICLEN=360 UHNAMES USERIP WALLCHOPS WATCH=128 WATCHOPTS=A :are supported by this server
+:hugoboss2000.no-ip.biz 396 wonderwoman Clk-CAEB9374.home :is now your displayed host
+:hugoboss2000.no-ip.biz 251 wonderwoman :There are 1 users and 1 invisible on 1 servers
+:hugoboss2000.no-ip.biz 254 wonderwoman 1 :channels formed
+:hugoboss2000.no-ip.biz 255 wonderwoman :I have 2 clients and 0 servers
+:hugoboss2000.no-ip.biz 265 wonderwoman 2 5 :Current local users 2, max 5
+:hugoboss2000.no-ip.biz 266 wonderwoman 2 2 :Current global users 2, max 2
+:hugoboss2000.no-ip.biz 375 wonderwoman :- hugoboss2000.no-ip.biz Message of the Day - 
+:hugoboss2000.no-ip.biz 372 wonderwoman :- 9/2/2020 17:20
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######  #   #  #####  #####  #####  #   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #       #   #  #      #      #|
+1583144773|2020-03-02 11:26:13||#   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #    #  ###      # #   #####  ###    #####   # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #        # #       #  #      # #     # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######    #    #####  #####  #  #     #         #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 376 wonderwoman :End of /MOTD command.
+:wonderwoman MODE wonderwoman :+iwx
+:wonderwoman!wonderwoma@Clk-CAEB9374.home JOIN :#ot
+:hugoboss2000.no-ip.biz 353 wonderwoman = #ot :wonderwoman @trace 
+:hugoboss2000.no-ip.biz 366 wonderwoman #ot :End of /NAMES list.||hugoboss2000.no-ip.biz 372 wonderwoman||- #       #    #  ###      # #   #####  ###    #####   # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #        # #       #  #      # #     # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######    #    #####  #####  #  #     #         #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 376 wonderwoman :End of /MOTD command.
+:wonderwoman MODE wonderwoman :+iwx
+:wonderwoman!wonderwoma@Clk-CAEB9374.home JOIN :#ot
+:hugoboss2000.no-ip.biz 353 wonderwoman = #ot :wonderwoman @trace 
+:hugoboss2000.no-ip.biz 366 wonderwoman #ot :End of /NAMES list.|
+1583144779|2020-03-02 11:26:19|PRIVMSG #ot :nothing from user anyone to user hugoboss2000.no-ip.biz 372 wonderwoman|wonderwoman|nothing from user anyone to user hugoboss2000.no-ip.biz 372 wonderwoman
+1583144869|2020-03-02 11:27:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583144869|2020-03-02 11:27:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583144959|2020-03-02 11:29:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583144959|2020-03-02 11:29:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145049|2020-03-02 11:30:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145049|2020-03-02 11:30:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145139|2020-03-02 11:32:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145139|2020-03-02 11:32:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145229|2020-03-02 11:33:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145229|2020-03-02 11:33:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145319|2020-03-02 11:35:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145319|2020-03-02 11:35:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145409|2020-03-02 11:36:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145409|2020-03-02 11:36:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145499|2020-03-02 11:38:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145499|2020-03-02 11:38:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145589|2020-03-02 11:39:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145589|2020-03-02 11:39:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145679|2020-03-02 11:41:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145679|2020-03-02 11:41:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145769|2020-03-02 11:42:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145769|2020-03-02 11:42:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145859|2020-03-02 11:44:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145859|2020-03-02 11:44:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583145949|2020-03-02 11:45:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583145949|2020-03-02 11:45:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146039|2020-03-02 11:47:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146039|2020-03-02 11:47:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146129|2020-03-02 11:48:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146129|2020-03-02 11:48:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146219|2020-03-02 11:50:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146219|2020-03-02 11:50:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146309|2020-03-02 11:51:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146309|2020-03-02 11:51:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146399|2020-03-02 11:53:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146399|2020-03-02 11:53:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146489|2020-03-02 11:54:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146489|2020-03-02 11:54:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146579|2020-03-02 11:56:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146579|2020-03-02 11:56:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146669|2020-03-02 11:57:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146669|2020-03-02 11:57:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146759|2020-03-02 11:59:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146759|2020-03-02 11:59:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146849|2020-03-02 12:00:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146849|2020-03-02 12:00:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583146939|2020-03-02 12:02:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583146939|2020-03-02 12:02:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583147029|2020-03-02 12:03:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583147029|2020-03-02 12:03:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583147119|2020-03-02 12:05:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583147119|2020-03-02 12:05:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583147209|2020-03-02 12:06:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583147209|2020-03-02 12:06:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583147299|2020-03-02 12:08:19|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583147299|2020-03-02 12:08:19|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583147389|2020-03-02 12:09:49|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583147389|2020-03-02 12:09:49|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583147666|2020-03-02 12:14:26|JOIN #ot|wonderwoman|
+1583147668|2020-03-02 12:14:28|PING :A81F4B50|A81F4B50|
+1583147668|2020-03-02 12:14:28|PONG :A81F4B50|wonderwoman|A81F4B50
+1583147668|2020-03-02 12:14:28|JOIN #ot|wonderwoman|
+1583147668|2020-03-02 12:14:28|:hugoboss2000.no-ip.biz 001 wonderwoman :Welcome to the devserv IRC Network wonderwoman!wonderwoma@compalhub.home|hugoboss2000.no-ip.biz 001 wonderwoman|Welcome to the devserv IRC Network wonderwoman!wonderwoma@compalhub.home
+1583147668|2020-03-02 12:14:28||:hugoboss2000.no-ip.biz 002 wonderwoman :Your host is hugoboss2000.no-ip.biz, running version UnrealIRCd-4.2.4.1
+:hugoboss2000.no-ip.biz 003 wonderwoman :This server was created Mon Oct 7 2019 at 18:55:38 CEST
+:hugoboss2000.no-ip.biz 004 wonderwoman hugoboss2000.no-ip.biz UnrealIRCd-4.2.4.1 iowrsxzdHtIDZRqpWGTSB lvhopsmntikraqbeIzMQNRTOVKDdGLPZSCcf
+:hugoboss2000.no-ip.biz 005 wonderwoman AWAYLEN=307 CASEMAPPING=ascii CHANLIMIT=#:10 CHANMODES=beI,kLf,l,psmntirzMQNRTOVKDdGPZSCc CHANNELLEN=32 CHANTYPES=# DEAF=d ELIST=MNUCT EXCEPTS EXTBAN=~,tmTSOcaRrnqj HCN INVEX :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman KICKLEN=307 KNOCK MAP MAXCHANNELS=10 MAXLIST=b:60,e:60,I:60 MAXNICKLEN=30 MODES=12 NAMESX NETWORK=devserv NICKLEN=30 PREFIX=(qaohv)~&@%+ QUITLEN=307 :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman SAFELIST SILENCE=15 STATUSMSG=~&@%+ TARGMAX=DCCALLOW:,ISON:,JOIN:,KICK:4,KILL:,LIST:,NAMES:1,NOTICE:1,PART:,PRIVMSG:4,SAJOIN:,SAPART:,USERHOST:,USERIP:,WATCH:,WHO||hugoboss2000.no-ip.biz 002 wonderwoman||Your host is hugoboss2000.no-ip.biz, running version UnrealIRCd-4.2.4.1
+:hugoboss2000.no-ip.biz 003 wonderwoman :This server was created Mon Oct 7 2019 at 18:55:38 CEST
+:hugoboss2000.no-ip.biz 004 wonderwoman hugoboss2000.no-ip.biz UnrealIRCd-4.2.4.1 iowrsxzdHtIDZRqpWGTSB lvhopsmntikraqbeIzMQNRTOVKDdGLPZSCcf
+:hugoboss2000.no-ip.biz 005 wonderwoman AWAYLEN=307 CASEMAPPING=ascii CHANLIMIT=#:10 CHANMODES=beI,kLf,l,psmntirzMQNRTOVKDdGPZSCc CHANNELLEN=32 CHANTYPES=# DEAF=d ELIST=MNUCT EXCEPTS EXTBAN=~,tmTSOcaRrnqj HCN INVEX :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman KICKLEN=307 KNOCK MAP MAXCHANNELS=10 MAXLIST=b:60,e:60,I:60 MAXNICKLEN=30 MODES=12 NAMESX NETWORK=devserv NICKLEN=30 PREFIX=(qaohv)~&@%+ QUITLEN=307 :are supported by this server
+:hugoboss2000.no-ip.biz 005 wonderwoman SAFELIST SILENCE=15 STATUSMSG=~&@%+ TARGMAX=DCCALLOW:,ISON:,JOIN:,KICK:4,KILL:,LIST:,NAMES:1,NOTICE:1,PART:,PRIVMSG:4,SAJOIN:,SAPART:,USERHOST:,USERIP:,WATCH:,WHO|
+1583147668|2020-03-02 12:14:28|PONG 002|wonderwoman|
+1583147668|2020-03-02 12:14:28||:1,WHOWAS:1 TOPICLEN=360 UHNAMES USERIP WALLCHOPS WATCH=128 WATCHOPTS=A :are supported by this server
+:hugoboss2000.no-ip.biz 396 wonderwoman Clk-CAEB9374.home :is now your displayed host
+:hugoboss2000.no-ip.biz 251 wonderwoman :There are 1 users and 1 invisible on 1 servers
+:hugoboss2000.no-ip.biz 254 wonderwoman 1 :channels formed
+:hugoboss2000.no-ip.biz 255 wonderwoman :I have 2 clients and 0 servers
+:hugoboss2000.no-ip.biz 265 wonderwoman 2 5 :Current local users 2, max 5
+:hugoboss2000.no-ip.biz 266 wonderwoman 2 2 :Current global users 2, max 2
+:hugoboss2000.no-ip.biz 375 wonderwoman :- hugoboss2000.no-ip.biz Message of the Day - 
+:hugoboss2000.no-ip.biz 372 wonderwoman :- 9/2/2020 17:20
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######  #   #  #####  #####  #####  #   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #       #   #  #      #      #||1,WHOWAS||1 TOPICLEN=360 UHNAMES USERIP WALLCHOPS WATCH=128 WATCHOPTS=A :are supported by this server
+:hugoboss2000.no-ip.biz 396 wonderwoman Clk-CAEB9374.home :is now your displayed host
+:hugoboss2000.no-ip.biz 251 wonderwoman :There are 1 users and 1 invisible on 1 servers
+:hugoboss2000.no-ip.biz 254 wonderwoman 1 :channels formed
+:hugoboss2000.no-ip.biz 255 wonderwoman :I have 2 clients and 0 servers
+:hugoboss2000.no-ip.biz 265 wonderwoman 2 5 :Current local users 2, max 5
+:hugoboss2000.no-ip.biz 266 wonderwoman 2 2 :Current global users 2, max 2
+:hugoboss2000.no-ip.biz 375 wonderwoman :- hugoboss2000.no-ip.biz Message of the Day - 
+:hugoboss2000.no-ip.biz 372 wonderwoman :- 9/2/2020 17:20
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######  #   #  #####  #####  #####  #   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #       #   #  #      #      #|
+1583147668|2020-03-02 12:14:28||#   #       #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #    #  ###      # #   #####  ###    #####   # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #        # #       #  #      # #     # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######    #    #####  #####  #  #     #         #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 376 wonderwoman :End of /MOTD command.
+:wonderwoman MODE wonderwoman :+iwx
+:wonderwoman!wonderwoma@Clk-CAEB9374.home JOIN :#ot
+:hugoboss2000.no-ip.biz 353 wonderwoman = #ot :wonderwoman @trace 
+:hugoboss2000.no-ip.biz 366 wonderwoman #ot :End of /NAMES list.||hugoboss2000.no-ip.biz 372 wonderwoman||- #       #    #  ###      # #   #####  ###    #####   # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #   ##  #        # #       #  #      # #     # #        #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #       #####   ######    #    #####  #####  #  #     #         #
+:hugoboss2000.no-ip.biz 372 wonderwoman :- #################################################################
+:hugoboss2000.no-ip.biz 376 wonderwoman :End of /MOTD command.
+:wonderwoman MODE wonderwoman :+iwx
+:wonderwoman!wonderwoma@Clk-CAEB9374.home JOIN :#ot
+:hugoboss2000.no-ip.biz 353 wonderwoman = #ot :wonderwoman @trace 
+:hugoboss2000.no-ip.biz 366 wonderwoman #ot :End of /NAMES list.|
+1583147675|2020-03-02 12:14:35|PRIVMSG #ot :nothing from user anyone to user hugoboss2000.no-ip.biz 372 wonderwoman|wonderwoman|nothing from user anyone to user hugoboss2000.no-ip.biz 372 wonderwoman
+1583147765|2020-03-02 12:16:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583147765|2020-03-02 12:16:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583147855|2020-03-02 12:17:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583147855|2020-03-02 12:17:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583147945|2020-03-02 12:19:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583147945|2020-03-02 12:19:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148035|2020-03-02 12:20:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148035|2020-03-02 12:20:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148125|2020-03-02 12:22:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148125|2020-03-02 12:22:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148215|2020-03-02 12:23:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148215|2020-03-02 12:23:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148305|2020-03-02 12:25:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148305|2020-03-02 12:25:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148395|2020-03-02 12:26:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148395|2020-03-02 12:26:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148485|2020-03-02 12:28:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148485|2020-03-02 12:28:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148575|2020-03-02 12:29:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148575|2020-03-02 12:29:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148665|2020-03-02 12:31:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148665|2020-03-02 12:31:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148755|2020-03-02 12:32:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148755|2020-03-02 12:32:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148845|2020-03-02 12:34:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148845|2020-03-02 12:34:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583148935|2020-03-02 12:35:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583148935|2020-03-02 12:35:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583149025|2020-03-02 12:37:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583149025|2020-03-02 12:37:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583149115|2020-03-02 12:38:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583149115|2020-03-02 12:38:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583149205|2020-03-02 12:40:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583149205|2020-03-02 12:40:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583149295|2020-03-02 12:41:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583149295|2020-03-02 12:41:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583149385|2020-03-02 12:43:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583149385|2020-03-02 12:43:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583149475|2020-03-02 12:44:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583149475|2020-03-02 12:44:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583149565|2020-03-02 12:46:05|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583149565|2020-03-02 12:46:05|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz
+1583149655|2020-03-02 12:47:35|PING :hugoboss2000.no-ip.biz|hugoboss2000.no-ip.biz|
+1583149655|2020-03-02 12:47:35|PONG :hugoboss2000.no-ip.biz|wonderwoman|hugoboss2000.no-ip.biz

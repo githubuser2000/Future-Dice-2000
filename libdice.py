@@ -37,7 +37,10 @@ class dice():
         #print(str(xe))
         return (x * e) / xe
     def log(self,x,n,xe,e,xth=0):
-        return math.log(x,n) / math.log(xe,n) * e
+        if math.log(xe,n) * e != 0:
+            return math.log(x,n) / math.log(xe,n) * e
+        else:
+            return 0
     def root(self,x,n,xe,e,xth=0):
         return pow(x,1/n) / pow(xe,1/n) * e
     def poly(self,x,n,xe,e,xth=0):
@@ -275,7 +278,7 @@ class dice():
             inp[3] = float(inp[3])
             inp[1] = int(inp[1])
             #print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
-            if inp[4] <= inp[1] and inp[4] > 1 and inp[2] != "gewicht":
+            if inp[4] <= inp[1] and inp[4] > 0 and inp[2] != "gewicht":
                 self.values = []
                 for a in range(1,until+1):
                     self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))

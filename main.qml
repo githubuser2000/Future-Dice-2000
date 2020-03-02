@@ -83,6 +83,7 @@ Window {
                 horizontalAlignment: Text.AlignRight
 
                 onFocusChanged: {
+                    if (text == "" ) text = "2";
                     if (parseInt(text,10) <2) text = 2;
                     if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
                     if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
@@ -111,6 +112,9 @@ Window {
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                onFocusChanged: {
+                    if (text == "" ) text = "0";
+                }
 
             }
             Label {
@@ -123,6 +127,9 @@ Window {
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                onFocusChanged: {
+                    if (text == "" ) text = "1";
+                }
             }
             Label {
                 text: "n<sub>2</sub>"
@@ -138,6 +145,9 @@ Window {
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
+                onFocusChanged: {
+                    if (text == "" ) text = "1";
+                }
 
             }
             Label {
@@ -146,17 +156,21 @@ Window {
             TextField {
                 id : x
                 objectName: "x"
-                validator: IntValidator {bottom: 2; top: 10000000;}
+                validator: RegExpValidator { regExp: /^[1-9]+[0-9]*$/ }
                 focus: true
-                text: "3"
+                //text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
+
                 onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+                    if (text == "" ) text = "1";
                 }
                 onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
                 }
                 onTextEdited: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+
                 }
+
             }
             Label {
                 textFormat: Text.RichText
@@ -167,12 +181,13 @@ Window {
                 objectName: "x2"
                 id : x2
                 enabled: false
-                validator: IntValidator {bottom: 2; top: 10000000;}
+                validator: RegExpValidator { regExp: /^[1-9]+[0-9]*$/ }
                 focus: true
                 text: "3"
                 width: 50
                 horizontalAlignment: Text.AlignRight
                 onFocusChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
+                    if (text == "" ) text = "1";
                 }
                 onTextChanged: { if (parseInt(text,10) > parseInt(augen.text,10)) text = augen.text
                 }
