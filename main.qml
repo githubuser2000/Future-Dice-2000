@@ -430,10 +430,11 @@ Window {
             //y: 174
             //width: listView.height
             //height: listView.height
+            /*
             onVisibleChanged: {
                 height = listView.height
                 width = listView.height
-            }
+            }*/
             antialiasing: true
             transformOrigin: Item.TopLeft
             //Layout.fillHeight: true
@@ -452,10 +453,11 @@ Window {
                 //implicitWidth: scrollView.width
                 //width: scrollView.width
                 //height: scrollView.height
+                /*
                 onVisibleChanged: {
-                    height = listView.height
-                    width = listView.height
-                }
+                    height = scrollView.height
+                    width = scrollView.height
+                }*/
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 antialiasing: true
