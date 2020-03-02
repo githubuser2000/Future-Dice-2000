@@ -72,6 +72,10 @@ class MainWindow(QQmlApplicationEngine):
                         self.scrollmodel.insertPerson(0, "Wurf "+str(self.wurfnummer)+". "+(("Augen "+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[2]=="" else erstwuerfe[2])+" Wert "+str(round(float(erstwuerfe[1])*100)/100), True,'')
 
     @pyqtSlot()
+    def uniq(self):
+        self.dice.uniq = bool(self.rootObjects()[0].findChild(QObject, "uniq").property("position"))
+
+    @pyqtSlot()
     def wuerfeln2(self):
         #print(str(self.radios.property("checksate")))
         if not self.wuerfelrestellt:
