@@ -444,8 +444,8 @@ Window {
             //spacing: 2
             //padding: -2
             ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-            //contentHeight: listView.height
-            //contentWidth: listView.width
+            contentHeight: listView.height
+            contentWidth: listView.width
 
             ListView {
                 id: listView
