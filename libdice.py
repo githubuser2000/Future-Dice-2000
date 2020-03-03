@@ -228,23 +228,23 @@ class dice(QQmlApplicationEngine):
         self.bezeichner = bezeichner
         self.wuerfeltype = None
         self.wuerfelAugenSet = set()
-        self.fkt = { self.str_lin : self.lin,
-            self.str_log : self.log,
-            self.str_root : self.root,
-            self.str_poly : self.poly,
-            self.str_exp : self.expo,
-            self.str_rand : self.rand,
-            self.str_kombi : self.kombi,
-            self.str_gewicht : self.gewicht,
-            '-'+self.str_lin : self.lin,
-            '-'+self.str_log : self.log,
-            '-'+self.str_root : self.root,
-            '-'+self.str_poly : self.poly,
-            '-'+self.str_exp : self.expo,
-            '-'+self.str_rand : self.rand,
-            '-'+self.str_kombi : self.kombi,
-            self.str_logistic : self.sigmoid,
-            '-'+self.str_logistic : self.sigmoid}
+        self.fkt = { dice.strlist[0] : self.lin,
+            dice.strlist[1] : self.log,
+            dice.strlist[2] : self.root,
+            dice.strlist[3] : self.poly,
+            dice.strlist[4] : self.expo,
+            dice.strlist[7] : self.rand,
+            dice.strlist[5] : self.kombi,
+            dice.strlist[8] : self.gewicht,
+            '-'+dice.strlist[0] : self.lin,
+            '-'+dice.strlist[1] : self.log,
+            '-'+dice.strlist[2] : self.root,
+            '-'+dice.strlist[3] : self.poly,
+            '-'+dice.strlist[4] : self.expo,
+            '-'+dice.strlist[5] : self.rand,
+            '-'+dice.strlist[6] : self.kombi,
+            dice.strlist[6] : self.sigmoid,
+            '-'+dice.strlist[6] : self.sigmoid}
 
 
 
@@ -369,42 +369,29 @@ class dice(QQmlApplicationEngine):
     def out(self):
         return self.result
 
-    str_lin, str_log, str_root, str_poly, str_exp, str_kombi, str_logistic, str_rand, str_gewicht, str_add, str_mul, str_wurf, str_augen \
-        = None, None, None, None, None, None, None, None, None, None, None, None, None
     @staticmethod
-    def languages(app,gui):
-        dice.str_lin = gui.tr('lin')
-        dice.str_log = gui.tr('log')
-        dice.str_root = gui.tr('root')
-        dice.str_poly = gui.tr('poly')
-        dice.str_exp = gui.tr('exp')
-        dice.str_kombi = gui.tr('kombi')
-        dice.str_logistic = gui.tr('logistic')
-        dice.str_rand = gui.tr('rand')
-        dice.str_gewicht = gui.tr('gewicht')
-        dice.str_add = gui.tr('add')
-        dice.str_mul = gui.tr('mul')
-        dice.str_wurf = gui.tr("Wuerfelwurf: ")
-        dice.str_augen = gui.tr(" (Wuerfelaugen ")
-        dice.randfkt2 = { 1 : dice.str_lin,
-            2 : dice.str_log,
-            3 : dice.str_root,
-            4 : dice.str_poly,
-            5 : dice.str_exp,
-            6 : dice.str_kombi,
-            7 : dice.str_logistic,
-            8 : dice.str_rand,
-            9 : dice.str_gewicht}
-
-        dice.randfkt3 = { 1 : dice.str_mul,
-            2 : dice.str_add,
-            3 : dice.str_log,
-            4 : dice.str_root}
-        #app = QApplication(sys.argv)
+    def languages(app,strlist):
+        dice.strlist = strlist
         translator = QTranslator(app)
         def langu(key):
             langs = {QLocale.German : 'dice-en.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
             return langs.get(key,'dice-en.qm')
         translator.load(langu(QLocale().language()))
         app.installTranslator(translator)
+        dice.randfkt2 = { 1 : strlist[0],
+            2 : strlist[1],
+            3 : strlist[2],
+            4 : strlist[3],
+            5 : strlist[4],
+            6 : strlist[5],
+            7 : strlist[6],
+            8 : strlist[7],
+            9 : strlist[8]}
+
+        dice.randfkt3 = { 1 : strlist[10],
+            2 : strlist[9],
+            3 : strlist[1],
+            4 : strlist[2]}
+        dice.str_augen = strlist[12]
+        dice.str_wurf =  strlist[11]
 

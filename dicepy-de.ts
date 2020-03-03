@@ -31,6 +31,11 @@
         <source>Wurf </source>
         <translation>Wurf </translation>
     </message>
+    <message>
+        <location filename="dicegui.py" line="183"/>
+        <source>test</source>
+        <translation>bla</translation>
+    </message>
 </context>
 <context>
     <name>Wuerfelwurf: </name>
@@ -56,67 +61,67 @@
 <context>
     <name>gui</name>
     <message>
-        <location filename="libdice.py" line="376"/>
+        <location filename="libdice.py" line="382"/>
         <source>lin</source>
         <translation>linear</translation>
     </message>
     <message>
-        <location filename="libdice.py" line="377"/>
+        <location filename="libdice.py" line="383"/>
         <source>log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="378"/>
+        <location filename="libdice.py" line="384"/>
         <source>root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="379"/>
+        <location filename="libdice.py" line="385"/>
         <source>poly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="380"/>
+        <location filename="libdice.py" line="386"/>
         <source>exp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="381"/>
+        <location filename="libdice.py" line="387"/>
         <source>kombi</source>
         <translation>Kombination</translation>
     </message>
     <message>
-        <location filename="libdice.py" line="382"/>
+        <location filename="libdice.py" line="388"/>
         <source>logistic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="383"/>
+        <location filename="libdice.py" line="389"/>
         <source>rand</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="384"/>
+        <location filename="libdice.py" line="390"/>
         <source>gewicht</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="385"/>
+        <location filename="libdice.py" line="391"/>
         <source>add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="386"/>
+        <location filename="libdice.py" line="392"/>
         <source>mul</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="387"/>
+        <location filename="libdice.py" line="393"/>
         <source>Wuerfelwurf: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="libdice.py" line="388"/>
+        <location filename="libdice.py" line="394"/>
         <source> (Wuerfelaugen </source>
         <translation type="unfinished"></translation>
     </message>

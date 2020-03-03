@@ -179,7 +179,8 @@ class MainWindow(QQmlApplicationEngine):
     def __init__(self,app):
         super().__init__()
         self.app = app
-        libdice.dice.languages(app,self)
+        libdice_strlist = [self.tr('lin'), self.tr('log'), self.tr('root'), self.tr('poly'), self.tr('exp'), self.tr('kombi'), self.tr('logistic'), self.tr('rand'), self.tr('gewicht'), self.tr('add'), self.tr('mul'), self.tr("Wuerfelwurf: "),self.tr(" (Wuerfelaugen ")]
+        libdice.dice.languages(app, libdice_strlist)
 
         self.radiomodel1 = model2.PersonModel()
         self.radiomodel2 = model2.PersonModel()
