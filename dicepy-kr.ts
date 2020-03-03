@@ -39,27 +39,27 @@
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>lin</source>
-        <translation>선의</translation>
+        <translation>선형 함수</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>log</source>
-        <translation>log</translation>
+        <translation>물류 기능</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>root</source>
-        <translation>root</translation>
+        <translation>루트 기능</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>poly</source>
-        <translation>poly</translation>
+        <translation>다항식</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>exp</source>
-        <translation>exp</translation>
+        <translation>기하 급수적으로</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
@@ -69,37 +69,37 @@
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>logistic</source>
-        <translation>logistic</translation>
+        <translation>로지스틱 시그 모이 드 함수</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>rand</source>
-        <translation>rand</translation>
+        <translation>사고</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>gewicht</source>
-        <translation>gewicht</translation>
+        <translation>가중치</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>add</source>
-        <translation>add</translation>
+        <translation>부가</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>mul</source>
-        <translation>mul</translation>
+        <translation>곱셈</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>Wuerfelwurf: </source>
-        <translation>Wuerfelwurf: </translation>
+        <translation>주사위 롤: </translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source> (Wuerfelaugen </source>
-        <translation> (Wuerfelaugen </translation>
+        <translation> (주사위 </translation>
     </message>
 </context>
 <context>

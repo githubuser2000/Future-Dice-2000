@@ -308,6 +308,7 @@ class dice(QQmlApplicationEngine):
             inp[3] = float(inp[3])
             inp[1] = int(inp[1])
             #print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
+            print(str(inp[2]))
             if inp[4] <= inp[1] and inp[4] > 0 and inp[2] != "gewicht":
                 self.values = []
                 for a in range(1,until+1):
@@ -370,7 +371,16 @@ class dice(QQmlApplicationEngine):
         return self.result
 
     @staticmethod
-    def languages(app,strlist):
+    def languages1(app):
+        translator = QTranslator(app)
+        def langu(key):
+            langs = {QLocale.German : 'dice-en.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
+            return langs.get(key,'dice-en.qm')
+        translator.load(langu(QLocale().language()))
+        app.installTranslator(translator)
+
+    @staticmethod
+    def languages2(strlist):
         dice.strlist = strlist
         dice.randfkt2 = { 1 : strlist[0],
             2 : strlist[1],
@@ -388,9 +398,3 @@ class dice(QQmlApplicationEngine):
             4 : strlist[2]}
         dice.str_augen = strlist[12]
         dice.str_wurf =  strlist[11]
-        translator = QTranslator(app)
-        def langu(key):
-            langs = {QLocale.German : 'dice-en.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
-            return langs.get(key,'dice-en.qm')
-        translator.load(langu(QLocale().language()))
-        app.installTranslator(translator)

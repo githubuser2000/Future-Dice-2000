@@ -14,9 +14,14 @@ def help_():
 
 if len(sys.argv) > 5:
     app =QApplication(sys.argv)
-    libdice.dice.languages(app,QQmlApplicationEngine())
+    libdice.dice.languages1(app)
+    qAppEngin = QQmlApplicationEngine()
+    libdice_strlist = [qAppEngin.tr('lin'), qAppEngin.tr('log'), qAppEngin.tr('root'), qAppEngin.tr('poly'), qAppEngin.tr('exp'), qAppEngin.tr('kombi'), qAppEngin.tr('logistic'), qAppEngin.tr('rand'), qAppEngin.tr('gewicht'), qAppEngin.tr('add'), qAppEngin.tr('mul'), qAppEngin.tr("Wuerfelwurf: "),qAppEngin.tr(" (Wuerfelaugen ")]
+    blub = [qAppEngin.tr('test')]
+    libdice.dice.languages2(libdice_strlist)
+    print(str(blub[0]))
+    print(blub)
     dice = libdice.dice(sys.argv)
-    dice.rootContext().setContextProperty("dice", dice)
     #sys.exit(app.exec_())
     dice.out()
 else:

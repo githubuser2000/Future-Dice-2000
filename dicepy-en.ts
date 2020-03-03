@@ -74,12 +74,12 @@
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>rand</source>
-        <translation>rand</translation>
+        <translation>random</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>gewicht</source>
-        <translation>gewicht</translation>
+        <translation>weight</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
@@ -89,7 +89,7 @@
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>mul</source>
-        <translation>mul</translation>
+        <translation>mulitply</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>

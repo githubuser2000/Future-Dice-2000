@@ -74,7 +74,7 @@
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>rand</source>
-        <translation>rand</translation>
+        <translation>Zufall</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
@@ -84,12 +84,12 @@
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>add</source>
-        <translation>add</translation>
+        <translation>Addition</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
         <source>mul</source>
-        <translation>mul</translation>
+        <translation>multiplizieren</translation>
     </message>
     <message>
         <location filename="dicegui.py" line="182"/>
