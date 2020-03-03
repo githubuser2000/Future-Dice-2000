@@ -15,35 +15,21 @@ from PyQt5.QtQml import QQmlApplicationEngine
     # zahl die definiert werden sein soll z.B. 5 Augen als kurz vor Maximum
     # sys.argv
 
-str_lin = QCoreApplication.translate('lin','lin')
-str_log = QCoreApplication.translate('log','log')
-str_root = QCoreApplication.translate('root','root')
-str_poly = QCoreApplication.translate('poly','poly')
-str_exp = QCoreApplication.translate('exp','exp')
-str_kombi = QCoreApplication.translate('kombi','kombi')
-str_logistic = QCoreApplication.translate('logistic','logistic')
-str_rand = QCoreApplication.translate('rand','rand')
-str_gewicht = QCoreApplication.translate('gewicht','gewicht')
-str_add = QCoreApplication.translate('add','add')
-str_mul = QCoreApplication.translate('mul','mul')
-str_wurf = QCoreApplication.translate("Wuerfelwurf: ","Würfelwurf: ")
-str_augen = QCoreApplication.translate(" (Wuerfelaugen "," (Würfelaugen ")
+#self.str_lin = QCoreApplication.translate('lin','lin')
+#self.str_log = QCoreApplication.translate('log','log')
+#self.str_root = QCoreApplication.translate('root','root')
+#self.str_poly = QCoreApplication.translate('poly','poly')
+#self.str_exp = QCoreApplication.translate('exp','exp')
+#self.str_kombi = QCoreApplication.translate('kombi','kombi')
+#self.str_logistic = QCoreApplication.translate('logistic','logistic')
+#self.str_rand = QCoreApplication.translate('rand','rand')
+#self.str_gewicht = QCoreApplication.translate('gewicht','gewicht')
+#self.str_add = QCoreApplication.translate('add','add')
+#self.str_mul = QCoreApplication.translate('mul','mul')
+#self.str_wurf = QCoreApplication.translate("Wuerfelwurf: ","Würfelwurf: ")
+#self.str_augen = QCoreApplication.translate(" (Wuerfelaugen "," (Würfelaugen ")
 
 
-randfkt2 = { 1 : str_lin,
-            2 : str_log,
-            3 : str_root,
-            4 : str_poly,
-            5 : str_exp,
-            6 : str_kombi,
-            7 : str_logistic,
-            8 : str_rand,
-            9 : str_gewicht}
-
-randfkt3 = { 1 : str_mul,
-            2 : str_add,
-            3 : str_log,
-            4 : str_root}
 class dice(QQmlApplicationEngine):
 
     def sigmoid(self,x,n,xe,e,xth=0):
@@ -144,16 +130,16 @@ class dice(QQmlApplicationEngine):
             #print("-- "+str(self.randfktvar1)+" "+str(self.randfktvar2)+" "+str(self.randfktvar3))
 
             if self.randfktvar3 == 1:
-                print("Kombi Mulitply: "+str(randfkt2[self.randfktvar1])+" "+str(randfkt2[self.randfktvar2]))
+                print("Kombi Mulitply: "+str(self.randfkt2[self.randfktvar1])+" "+str(self.randfkt2[self.randfktvar2]))
                 return self.randfkt[self.randfktvar1](x,n,xe,e) * self.randfkt[self.randfktvar2](x,n,xe,e)
             elif self.randfktvar3 == 2:
-                print("Kombi Addition "+str(randfkt2[self.randfktvar1])+" "+str(randfkt2[self.randfktvar2]))
+                print("Kombi Addition "+str(self.randfkt2[self.randfktvar1])+" "+str(self.randfkt2[self.randfktvar2]))
                 return self.randfkt[self.randfktvar1](x,n,xe,e) + self.randfkt[self.randfktvar2](x,n,xe,e)
             elif self.randfktvar3 == 3:
-                print("Kombi Logarithm "+str(randfkt2[self.randfktvar1])+" "+str(randfkt2[self.randfktvar2]))
+                print("Kombi Logarithm "+str(self.randfkt2[self.randfktvar1])+" "+str(self.randfkt2[self.randfktvar2]))
                 return math.log(self.randfkt[self.randfktvar1](x,n,xe,e)+1.1,self.randfkt[self.randfktvar2](x,n,xe,e)+1.1)
             elif self.randfktvar3 == 4:
-                print("Kombi Root "+str(randfkt2[self.randfktvar1])+" "+str(randfkt2[self.randfktvar2]))
+                print("Kombi Root "+str(self.randfkt2[self.randfktvar1])+" "+str(self.randfkt2[self.randfktvar2]))
                 return pow(self.randfkt[self.randfktvar1](x,n,xe,e), 1 / ( self.randfkt[self.randfktvar2](x,n,xe,e) + 1 ))
         except:
             if reku > 0:
@@ -212,7 +198,7 @@ class dice(QQmlApplicationEngine):
                     break
             self.wuerfelWuerfe2.append((dice,self.values[dice],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,self.values[dice],self.bezeichners[dice]))
-            print(str_wurf+str(self.values[dice])+str_augen+str(dice+1)+")")
+            print(self.str_wurf+str(self.values[dice])+self.str_augen+str(dice+1)+")")
         elif self.wuerfelType == 1:
             while True:
                 dice = self.weightedrand(self.randos)
@@ -226,7 +212,7 @@ class dice(QQmlApplicationEngine):
             ergebnis = (self.values[dice],self.randos[dice])
             self.wuerfelWuerfe2.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
-            print(str_wurf+str(self.randos[dice])+str_augen+str(dice)+")")
+            print(self.str_wurf+str(self.randos[dice])+self.str_augen+str(dice)+")")
         return self.wuerfelWuerfe2
 
     def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
@@ -242,23 +228,23 @@ class dice(QQmlApplicationEngine):
         self.bezeichner = bezeichner
         self.wuerfeltype = None
         self.wuerfelAugenSet = set()
-        self.fkt = { str_lin : self.lin,
-            str_log : self.log,
-            str_root : self.root,
-            str_poly : self.poly,
-            str_exp : self.expo,
-            str_rand : self.rand,
-            str_kombi : self.kombi,
-            str_gewicht : self.gewicht,
-            '-'+str_lin : self.lin,
-            '-'+str_log : self.log,
-            '-'+str_root : self.root,
-            '-'+str_poly : self.poly,
-            '-'+str_exp : self.expo,
-            '-'+str_rand : self.rand,
-            '-'+str_kombi : self.kombi,
-            str_logistic : self.sigmoid,
-            '-'+str_logistic : self.sigmoid}
+        self.fkt = { self.str_lin : self.lin,
+            self.str_log : self.log,
+            self.str_root : self.root,
+            self.str_poly : self.poly,
+            self.str_exp : self.expo,
+            self.str_rand : self.rand,
+            self.str_kombi : self.kombi,
+            self.str_gewicht : self.gewicht,
+            '-'+self.str_lin : self.lin,
+            '-'+self.str_log : self.log,
+            '-'+self.str_root : self.root,
+            '-'+self.str_poly : self.poly,
+            '-'+self.str_exp : self.expo,
+            '-'+self.str_rand : self.rand,
+            '-'+self.str_kombi : self.kombi,
+            self.str_logistic : self.sigmoid,
+            '-'+self.str_logistic : self.sigmoid}
 
 
 
@@ -273,20 +259,20 @@ class dice(QQmlApplicationEngine):
             9 : self.gewicht}
 
 
-        #randfkt2 = { 1 : str_lin,
-        #    2 : str_log,
-        #    3 : str_root,
-        #    4 : str_poly,
-        #    5 : str_exp,
-        #    6 : str_kombi,
-        #    7 : str_logistic,
-        #    8 : str_rand,
-        #    9 : str_gewicht}
+        #self.randfkt2 = { 1 : self.str_lin,
+        #    2 : self.str_log,
+        #    3 : self.str_root,
+        #    4 : self.str_poly,
+        #    5 : self.str_exp,
+        #    6 : self.str_kombi,
+        #    7 : self.str_logistic,
+        #    8 : self.str_rand,
+        #    9 : self.str_gewicht}
 #
-#        randfkt3 = { 1 : 'mul',
+#        self.randfkt3 = { 1 : 'mul',
 #            2 : 'add',
-#            3 : str_log,
-#            4 : str_root}
+#            3 : self.str_log,
+#            4 : self.str_root}
         self.inpp_ = inp
         self.wuerfelWuerfe = werfen
         self.uniq =uniq_
@@ -311,7 +297,7 @@ class dice(QQmlApplicationEngine):
                 inp=inp[:-3]
             else:
                 i1,i2,i3 = [],[],[True,True,True,True]
-                for i in range(len(randfkt2)):
+                for i in range(len(self.randfkt2)):
                     i1.append(True)
                     i2.append(True)
                 self.include1,self.include2,self.include3 = i1,i2,i3
@@ -346,7 +332,7 @@ class dice(QQmlApplicationEngine):
                 self.values = []
                 self.randos = []
                 for a in range(1,until+1):
-                    thing = self.fkt[str_gewicht](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
+                    thing = self.fkt[self.str_gewicht](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
                     self.values.append(thing[0])
                     self.randos.append(thing[1])
                 if inp[3][0]=='-':
@@ -383,8 +369,37 @@ class dice(QQmlApplicationEngine):
     def out(self):
         return self.result
 
+    str_lin, str_log, str_root, str_poly, str_exp, str_kombi, str_logistic, str_rand, str_gewicht, str_add, str_mul, str_wurf, str_augen \
+        = None, None, None, None, None, None, None, None, None, None, None, None, None
     @staticmethod
-    def languages(app):
+    def languages(app,gui):
+        dice.str_lin = gui.tr('lin')
+        dice.str_log = gui.tr('log')
+        dice.str_root = gui.tr('root')
+        dice.str_poly = gui.tr('poly')
+        dice.str_exp = gui.tr('exp')
+        dice.str_kombi = gui.tr('kombi')
+        dice.str_logistic = gui.tr('logistic')
+        dice.str_rand = gui.tr('rand')
+        dice.str_gewicht = gui.tr('gewicht')
+        dice.str_add = gui.tr('add')
+        dice.str_mul = gui.tr('mul')
+        dice.str_wurf = gui.tr("Wuerfelwurf: ")
+        dice.str_augen = gui.tr(" (Wuerfelaugen ")
+        dice.randfkt2 = { 1 : dice.str_lin,
+            2 : dice.str_log,
+            3 : dice.str_root,
+            4 : dice.str_poly,
+            5 : dice.str_exp,
+            6 : dice.str_kombi,
+            7 : dice.str_logistic,
+            8 : dice.str_rand,
+            9 : dice.str_gewicht}
+
+        dice.randfkt3 = { 1 : dice.str_mul,
+            2 : dice.str_add,
+            3 : dice.str_log,
+            4 : dice.str_root}
         #app = QApplication(sys.argv)
         translator = QTranslator(app)
         def langu(key):

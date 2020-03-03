@@ -106,7 +106,7 @@ class MainWindow(QQmlApplicationEngine):
             changedchecked = ListChecked.property("anObject").toVariant()
             #print(str(changedchecked))
             checklist=[]
-            for key0,key1 in (libdice.randfkt2.items() if not checkgroups == "_LCheck3_" else libdice.randfkt3.items()):
+            for key0,key1 in (libdice.dice.randfkt2.items() if not checkgroups == "_LCheck3_" else libdice.dice.randfkt3.items()):
                 for key2,value2 in changedchecked.items():
                     if key2 == key1:
                         checklist.append(value2)
@@ -179,18 +179,18 @@ class MainWindow(QQmlApplicationEngine):
     def __init__(self,app):
         super().__init__()
         self.app = app
-        libdice.dice.languages(app)
+        libdice.dice.languages(app,self)
 
         self.radiomodel1 = model2.PersonModel()
         self.radiomodel2 = model2.PersonModel()
         self.scrollmodel = model2.PersonModel()
         self.chkmodel1,self.chkmodel2,self.chkmodel3 = model2.PersonModel(),model2.PersonModel(),model2.PersonModel()
-        for i,el in enumerate(list(libdice.randfkt2.values())[:-1]):
+        for i,el in enumerate(list(libdice.dice.randfkt2.values())[:-1]):
             self.radiomodel1.insertPerson(i, el, True if i==0 else False, 'radio1'+el)
             self.radiomodel2.insertPerson(i, el, True if i==0 else False, 'radio2'+el)
             self.chkmodel1.insertPerson(i, el, True, 'chk1'+el)
             self.chkmodel2.insertPerson(i, el, True, 'chk2'+el)
-        for i,el in enumerate(list(libdice.randfkt3.values())):
+        for i,el in enumerate(list(libdice.dice.randfkt3.values())):
             self.chkmodel3.insertPerson(i, el, True,'chk3'+el)
         context = self.rootContext()
         context.setContextProperty("radiomodel1", self.radiomodel1)

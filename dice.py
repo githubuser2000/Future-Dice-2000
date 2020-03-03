@@ -3,6 +3,7 @@
 import libdice
 import sys
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtQml import QQmlApplicationEngine
 
 def help_():
     print("dice.py 3 -lin 3 2 7")
@@ -13,7 +14,7 @@ def help_():
 
 if len(sys.argv) > 5:
     app =QApplication(sys.argv)
-    libdice.dice.languages(app)
+    libdice.dice.languages(app,QQmlApplicationEngine())
     dice = libdice.dice(sys.argv)
     dice.rootContext().setContextProperty("dice", dice)
     #sys.exit(app.exec_())
