@@ -26,6 +26,8 @@ str_rand = QCoreApplication.translate('rand','rand')
 str_gewicht = QCoreApplication.translate('gewicht','gewicht')
 str_add = QCoreApplication.translate('add','add')
 str_mul = QCoreApplication.translate('mul','mul')
+str_wurf = QCoreApplication.translate("Wuerfelwurf: ","Würfelwurf: ")
+str_augen = QCoreApplication.translate(" (Wuerfelaugen "," (Würfelaugen ")
 
 
 randfkt2 = { 1 : str_lin,
@@ -210,7 +212,7 @@ class dice(QQmlApplicationEngine):
                     break
             self.wuerfelWuerfe2.append((dice,self.values[dice],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,self.values[dice],self.bezeichners[dice]))
-            print(QCoreApplication.translate("Wuerfelwurf: ","Würfelwurf: ")+str(self.values[dice])+QCoreApplication.translate(" (Wuerfelaugen "," (Würfelaugen ")+str(dice+1)+")")
+            print(str_wurf+str(self.values[dice])+str_augen+str(dice+1)+")")
         elif self.wuerfelType == 1:
             while True:
                 dice = self.weightedrand(self.randos)
@@ -224,7 +226,7 @@ class dice(QQmlApplicationEngine):
             ergebnis = (self.values[dice],self.randos[dice])
             self.wuerfelWuerfe2.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
-            print(QCoreApplication.translate("Wuerfelwurf: ","Würfelwurf: ")+str(self.randos[dice])+QCoreApplication.translate(" (Wuerfelaugen "," (Würfelaugen ")+str(dice)+")")
+            print(str_wurf+str(self.randos[dice])+str_augen+str(dice)+")")
         return self.wuerfelWuerfe2
 
     def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
