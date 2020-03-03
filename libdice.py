@@ -3,7 +3,8 @@
 import sys
 import math
 import random
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QObject, QTranslator
+from PyQt5 import QtCore, QtWidgets
     #from collections import defaultdict
     # argv
     # 1 ist würfel bis zahl
@@ -11,6 +12,8 @@ from PyQt5.QtCore import QObject
     # zahl n, bei lin zB Schrittweite
     # zahl die definiert werden sein soll z.B. 5 Augen als kurz vor Maximum
     # sys.argv
+
+
 randfkt2 = { 1 : 'lin',
             2 : 'log',
             3 : 'root',
@@ -212,6 +215,11 @@ class dice(QObject):
 
     def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
         super().__init__()
+        #app = QtWidgets.QApplication(sys.argv)
+        #translator = QTranslator()
+        #translator.load('dice.qm')
+        #app.installTranslator(translator)
+
         self.negativ = negativ
         self.median = median
         self.bezeichner = bezeichner

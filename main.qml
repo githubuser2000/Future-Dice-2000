@@ -9,7 +9,7 @@ Window {
     visible: true
     width: haupt.width + gridcheckboxes.width    
     title: qsTr("Future-Dice-2000")
-    id : win
+    id : win    
     onVisibleChanged: {
         height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
     }
@@ -18,7 +18,6 @@ Window {
         icon.source: "wuerfel.png"
         tooltip : qsTr("Future-Dice-2000")
         id : tray
-
         menu: Menu {
             MenuItem {
                 text: qsTr("Würfeln")
@@ -64,7 +63,7 @@ Window {
                 x: 90
                 y: 119
                 text: qsTr("invert")
-                objectName: qsTr("reverse")
+                objectName: "reverse"
             }
             Switch {
                 id: uniq
@@ -94,7 +93,7 @@ Window {
                     else
                         text = qsTr('+')
                 }
-            }
+          }
             Label {
                 text: qsTr("   Augen")
             }
@@ -384,7 +383,7 @@ Window {
                             ButtonGroup.group: radioGroup
                             onToggled:  {
                                 rade.text = text;
-                                lCheck0.anArray[0] = text === 'kombi' ? checked : false
+                                lCheck0.anArray[0] = text === qsTr('kombi') ? checked : false
                                 if (lCheck0.anArray[0] || lCheck0.anArray[1])
                                     for (var i = 0; i < chk3layout.children.length; i++)
                                         chk3layout.children[i].enabled = true;
