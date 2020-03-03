@@ -28,7 +28,7 @@
     <message>
         <location filename="main.qml" line="77"/>
         <source>reverse</source>
-        <translation>reverse</translation>
+        <translation type="unfinished">reverse</translation>
     </message>
     <message>
         <location filename="main.qml" line="84"/>
@@ -84,7 +84,7 @@
     <message>
         <location filename="main.qml" line="435"/>
         <source>kombi</source>
-        <translation>kombi</translation>
+        <translation>Kombination</translation>
     </message>
     <message>
         <location filename="main.qml" line="606"/>

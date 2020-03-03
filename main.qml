@@ -348,13 +348,13 @@ Window {
                 onClicked:  console.log("clicked:",button.text)
             }*/
                 Label {
-                    text: "lin"
+                    text: ''
                     objectName: 'LRad'
                     id : rade
                     visible: false
                 }
                 Label {
-                    text: "lin"
+                    text: ''
                     objectName: 'LRad2'
                     id : rade2
                     visible: false

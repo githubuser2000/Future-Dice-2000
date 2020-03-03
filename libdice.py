@@ -77,11 +77,11 @@ class dice(QQmlApplicationEngine):
             if not len(includex) == 4:
                 flag1 = False
                 for i,inc in enumerate(includex):
-                    if self.randfkt[i+1].__name__ == "kombi":
+                    if self.randfkt[i+1].__name__ == dice.strlist[5]:
                         pass
-                    elif self.randfkt[i+1].__name__ == "gewicht":
+                    elif self.randfkt[i+1].__name__ == dice.strlist[8]:
                         pass
-                    elif self.randfkt[i+1].__name__ == "rand":
+                    elif self.randfkt[i+1].__name__ == dice.strlist[7]:
                         pass
                     elif inc:
                         flag1 = True
@@ -89,7 +89,7 @@ class dice(QQmlApplicationEngine):
                     return 1
                 self.randfktvarx = random.randrange(len(includex))+1
 
-                while not includex[self.randfktvarx-1] or self.randfkt[self.randfktvarx].__name__ == "gewicht":
+                while not includex[self.randfktvarx-1] or self.randfkt[self.randfktvarx].__name__ == dice.strlist[8]:
                     d-=1
                     if d <= 0:
                         return 1
@@ -301,6 +301,7 @@ class dice(QQmlApplicationEngine):
                     i1.append(True)
                     i2.append(True)
                 self.include1,self.include2,self.include3 = i1,i2,i3
+        print(inp[2]+" "+dice.strlist[8])
         if len(inp) == 6:
             until = int(inp[1])
             inp[4] = int(inp[4])
@@ -309,7 +310,7 @@ class dice(QQmlApplicationEngine):
             inp[1] = int(inp[1])
             #print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
             print(str(inp[2]))
-            if inp[4] <= inp[1] and inp[4] > 0 and inp[2] != "gewicht":
+            if inp[4] <= inp[1] and inp[4] > 0 and inp[2] != dice.strlist[8]:
                 self.values = []
                 for a in range(1,until+1):
                     self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
@@ -319,7 +320,7 @@ class dice(QQmlApplicationEngine):
                     self.wuerfelWuerfeMoeglichkeiten[i] = [value, bezeich]
                     print(str(i+1)+": "+str(value))
                 self.wuerfelType = 0
-        elif len(inp) == 11 and inp[2] == "gewicht":
+        elif len(inp) == 11 and inp[2] == dice.strlist[8]:
             #print("d")
             until = int(inp[1])
             inp[4] = int(inp[4])
@@ -333,7 +334,7 @@ class dice(QQmlApplicationEngine):
                 self.values = []
                 self.randos = []
                 for a in range(1,until+1):
-                    thing = self.fkt[self.str_gewicht](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
+                    thing = self.fkt[inp[2]](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
                     self.values.append(thing[0])
                     self.randos.append(thing[1])
                 if inp[3][0]=='-':
@@ -346,7 +347,6 @@ class dice(QQmlApplicationEngine):
                     print(str(i+1)+": "+str(rando)+", "+str(value))
                 self.wuerfelType = 1
         else:
-            self.help()
             return None
         if self.negativ:
             #avg = 0

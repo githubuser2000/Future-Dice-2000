@@ -139,39 +139,25 @@ class MainWindow(QQmlApplicationEngine):
             uniq = self.rootObjects()[0].findChild(QObject, "uniq")
             reverse = self.rootObjects()[0].findChild(QObject, "reverse")
             reverse2 = self.rootObjects()[0].findChild(QObject, "reverse2")
-            #print("x "+str(uniq.property("position"))+" x "+str(reverse.property("position")))
-            #wuerfe.setProperty("text", "x" )
             LRad = self.rootObjects()[0].findChild(QObject, "LRad")
             LRad2 = self.rootObjects()[0].findChild(QObject, "LRad2")
             ListChecked1 = self.rootObjects()[0].findChild(QObject, "_LCheck1_")
             nega_ = self.rootObjects()[0].findChild(QObject, "nega_")
             medi_ = self.rootObjects()[0].findChild(QObject, "medi_")
-            #print("u"+ str(ListChecked1.property("anObject").toVariant()))
-            #ListChecked2 = self.rootObjects()[0].findChild(QObject, "repeatercheck2")
-            #ListChecked3 = self.rootObjects()[0].findChild(QObject, "repeatercheck3")
             gezinkt = True if self.rootObjects()[0].findChild(QObject, "gewicht").property("position") == 1 else False
-            #print(str(blub))
-            #print(str(self.rootObjects()[0].findChild(QObject, "gewicht").property("position")))
-            #print(str(self.radiogroup))
-            #print(str(self.radiogroup.property("ButtonGroup")))
-            #priint(wuerfe.property("text"))
-
-            #print(wuerfe.property("text"))
             result = None
-            #augen.property("text")
-            #reverse.property("position")
-            #LRad.property("text")
-            #n.property("text")
-            #x.property("text")
-            #y.property("text")
-            #uniq.property("position")
-            #wuerfe.property("text")
-            #print('ü '+str(gezinkt)+' '+str(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("text"),x.property("text"),y.property("text")] + Lists))
-            #print("__ "+LRad2.property("text")+" "+str(Lists))
-            if not gezinkt:
-                self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("nn"),x.property("text"),y.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
+            if LRad.property("text") == '':
+                func1 = list(libdice.dice.randfkt2.values())[0]
             else:
-                self.dice = libdice.dice(['dicegui',augen.property("text"),'gewicht',('-' if reverse.property("position")==1 else '' )+LRad.property("text"),n.property("nn"),x.property("text"),y.property("nn"),('-' if reverse2.property("position")==1 else '' )+LRad2.property("text"),n2.property("nn"),x2.property("text"),y2.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
+                func1 = LRad.property("text")
+            if LRad2.property("text") == '':
+                func2 = list(libdice.dice.randfkt2.values())[0]
+            else:
+                func2 = LRad.property("text")
+            if not gezinkt:
+                self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+func1,n.property("nn"),x.property("text"),y.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
+            else:
+                self.dice = libdice.dice(['dicegui',augen.property("text"),self.libdice_strlist[8],('-' if reverse.property("position")==1 else '' )+func1,n.property("nn"),x.property("text"),y.property("nn"),('-' if reverse2.property("position")==1 else '' )+func2,n2.property("nn"),x2.property("text"),y2.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
             self.insertresults(self.dice.out())
 #            for ell in result:
 #                for i,el in enumerate(ell):
@@ -180,11 +166,12 @@ class MainWindow(QQmlApplicationEngine):
         super().__init__()
         self.app = app
         libdice.dice.languages1(app)
-        libdice_strlist = [self.tr('lin'), self.tr('log'), self.tr('root'), self.tr('poly'), self.tr('exp'), self.tr('kombi'), self.tr('logistic'), self.tr('rand'), self.tr('gewicht'), self.tr('add'), self.tr('mul'), self.tr("Wuerfelwurf: "),self.tr(" (Wuerfelaugen ")]
+        self.libdice_strlist = [self.tr('lin'), self.tr('log'), self.tr('root'), self.tr('poly'), self.tr('exp'), self.tr('kombi'), self.tr('logistic'), self.tr('rand'), self.tr('gewicht'), self.tr('add'), self.tr('mul'), self.tr("Wuerfelwurf: "),self.tr(" (Wuerfelaugen ")]
         blub = [self.tr('test')]
-        libdice.dice.languages2(libdice_strlist)
-        print(str(blub[0]))
-        print(blub)
+        libdice.dice.languages2(self.libdice_strlist)
+        #print(str(blub[0]))
+        #print(blub)
+        #print(str(libdice.dice.randfkt2.values()))
 
         self.radiomodel1 = model2.PersonModel()
         self.radiomodel2 = model2.PersonModel()
