@@ -176,18 +176,10 @@ class MainWindow(QQmlApplicationEngine):
 #            for ell in result:
 #                for i,el in enumerate(ell):
 #                    self.scrollmodel.insertPerson(i, str(el), True)
-    def __init__(self):
+    def __init__(self,app):
         super().__init__()
-        translator = QTranslator()
-        def langu(key):
-            langs = {QLocale.German : 'dice-kr.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
-            return langs.get(key,'dice-en.qm')
-        #print(str(QLocale().language()==QLocale.German))
-        #print(str(QLocale().language()==QLocale.English))
-        #print(str(QLocale().language()==QLocale.Korean))
-        #translator.load('dice.qm')
-        translator.load(langu(QLocale().language()))
-        app.installTranslator(translator)
+        self.app = app
+        libdice.dice.languages(app)
 
         self.radiomodel1 = model2.PersonModel()
         self.radiomodel2 = model2.PersonModel()
@@ -228,5 +220,5 @@ class MainWindow(QQmlApplicationEngine):
 if __name__ == "__main__":
     app =QApplication(sys.argv)
     app.setWindowIcon(QIcon("wuerfel.png"));
-    window = MainWindow()
+    window = MainWindow(app)
     sys.exit(window.show_())

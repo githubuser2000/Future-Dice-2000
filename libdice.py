@@ -3,8 +3,10 @@
 import sys
 import math
 import random
-from PyQt5.QtCore import QObject, QTranslator
+from PyQt5.QtCore import QObject, QTranslator, QLocale, QCoreApplication
+from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtQml import QQmlApplicationEngine
     #from collections import defaultdict
     # argv
     # 1 ist würfel bis zahl
@@ -28,7 +30,7 @@ randfkt3 = { 1 : 'mul',
             2 : 'add',
             3 : 'log',
             4 : 'root'}
-class dice(QObject):
+class dice(QQmlApplicationEngine):
 
     def sigmoid(self,x,n,xe,e,xth=0):
         try:
@@ -196,7 +198,7 @@ class dice(QObject):
                     break
             self.wuerfelWuerfe2.append((dice,self.values[dice],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,self.values[dice],self.bezeichners[dice]))
-            print(self.tr("Würfelwurf: ")+str(self.values[dice])+self.tr(" (Würfelaugen ")+str(dice+1)+")")
+            print(QCoreApplication.translate("Wuerfelwurf: ","Würfelwurf: ")+str(self.values[dice])+QCoreApplication.translate(" (Wuerfelaugen "," (Würfelaugen ")+str(dice+1)+")")
         elif self.wuerfelType == 1:
             while True:
                 dice = self.weightedrand(self.randos)
@@ -210,11 +212,12 @@ class dice(QObject):
             ergebnis = (self.values[dice],self.randos[dice])
             self.wuerfelWuerfe2.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
             self.wuerfelWuerfe.append((dice,ergebnis[0],ergebnis[1],self.bezeichners[dice]))
-            print(self.tr("Würfelwurf: ")+str(self.randos[dice])+self.tr(" (Würfelaugen ")+str(dice)+")")
+            print(QCoreApplication.translate("Wuerfelwurf: ","Würfelwurf: ")+str(self.randos[dice])+QCoreApplication.translate(" (Wuerfelaugen "," (Würfelaugen ")+str(dice)+")")
         return self.wuerfelWuerfe2
 
     def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
-        super().__init__()
+        super(dice,self).__init__()
+        #self.languages()
         #app = QtWidgets.QApplication(sys.argv)
         #translator = QTranslator()
         #translator.load('dice.qm')
@@ -366,8 +369,13 @@ class dice(QObject):
     def out(self):
         return self.result
 
+    @staticmethod
+    def languages(app):
+        #app = QApplication(sys.argv)
+        translator = QTranslator(app)
+        def langu(key):
+            langs = {QLocale.German : 'dice-en.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
+            return langs.get(key,'dice-en.qm')
+        translator.load(langu(QLocale().language()))
+        app.installTranslator(translator)
 
-    #if len(sys.argv) > 5:
-    #    main(sys.argv)
-    #else:
-    #    self.help()

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import libdice
 import sys
+from PyQt5.QtWidgets import QApplication
 
 def help_():
     print("dice.py 3 -lin 3 2 7")
@@ -11,6 +12,11 @@ def help_():
     print("dice.py 3 rand 3 3 5")
 
 if len(sys.argv) > 5:
-    libdice.dice(sys.argv).out()
+    app =QApplication(sys.argv)
+    libdice.dice.languages(app)
+    dice = libdice.dice(sys.argv)
+    dice.rootContext().setContextProperty("dice", dice)
+    #sys.exit(app.exec_())
+    dice.out()
 else:
     help_()
