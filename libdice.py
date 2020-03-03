@@ -15,21 +15,33 @@ from PyQt5.QtQml import QQmlApplicationEngine
     # zahl die definiert werden sein soll z.B. 5 Augen als kurz vor Maximum
     # sys.argv
 
+str_lin = QCoreApplication.translate('lin','lin')
+str_log = QCoreApplication.translate('log','log')
+str_root = QCoreApplication.translate('root','root')
+str_poly = QCoreApplication.translate('poly','poly')
+str_exp = QCoreApplication.translate('exp','exp')
+str_kombi = QCoreApplication.translate('kombi','kombi')
+str_logistic = QCoreApplication.translate('logistic','logistic')
+str_rand = QCoreApplication.translate('rand','rand')
+str_gewicht = QCoreApplication.translate('gewicht','gewicht')
+str_add = QCoreApplication.translate('add','add')
+str_mul = QCoreApplication.translate('mul','mul')
 
-randfkt2 = { 1 : 'lin',
-            2 : 'log',
-            3 : 'root',
-            4 : 'poly',
-            5 : 'exp',
-            6 : 'kombi',
-            7 : 'logistic',
-            8 : 'rand',
-            9 : 'gewicht'}
 
-randfkt3 = { 1 : 'mul',
-            2 : 'add',
-            3 : 'log',
-            4 : 'root'}
+randfkt2 = { 1 : str_lin,
+            2 : str_log,
+            3 : str_root,
+            4 : str_poly,
+            5 : str_exp,
+            6 : str_kombi,
+            7 : str_logistic,
+            8 : str_rand,
+            9 : str_gewicht}
+
+randfkt3 = { 1 : str_mul,
+            2 : str_add,
+            3 : str_log,
+            4 : str_root}
 class dice(QQmlApplicationEngine):
 
     def sigmoid(self,x,n,xe,e,xth=0):
@@ -228,23 +240,23 @@ class dice(QQmlApplicationEngine):
         self.bezeichner = bezeichner
         self.wuerfeltype = None
         self.wuerfelAugenSet = set()
-        self.fkt = { 'lin' : self.lin,
-            'log' : self.log,
-            'root' : self.root,
-            'poly' : self.poly,
-            'exp' : self.expo,
-            'rand' : self.rand,
-            'kombi' : self.kombi,
-            'gewicht' : self.gewicht,
-            '-lin' : self.lin,
-            '-log' : self.log,
-            '-root' : self.root,
-            '-poly' : self.poly,
-            '-exp' : self.expo,
-            '-rand' : self.rand,
-            '-kombi' : self.kombi,
-            'logistic' : self.sigmoid,
-            '-logistic' : self.sigmoid}
+        self.fkt = { str_lin : self.lin,
+            str_log : self.log,
+            str_root : self.root,
+            str_poly : self.poly,
+            str_exp : self.expo,
+            str_rand : self.rand,
+            str_kombi : self.kombi,
+            str_gewicht : self.gewicht,
+            '-'+str_lin : self.lin,
+            '-'+str_log : self.log,
+            '-'+str_root : self.root,
+            '-'+str_poly : self.poly,
+            '-'+str_exp : self.expo,
+            '-'+str_rand : self.rand,
+            '-'+str_kombi : self.kombi,
+            str_logistic : self.sigmoid,
+            '-'+str_logistic : self.sigmoid}
 
 
 
@@ -259,20 +271,20 @@ class dice(QQmlApplicationEngine):
             9 : self.gewicht}
 
 
-        #randfkt2 = { 1 : 'lin',
-        #    2 : 'log',
-        #    3 : 'root',
-        #    4 : 'poly',
-        #    5 : 'exp',
-        #    6 : 'kombi',
-        #    7 : 'logistic',
-        #    8 : 'rand',
-        #    9 : 'gewicht'}
+        #randfkt2 = { 1 : str_lin,
+        #    2 : str_log,
+        #    3 : str_root,
+        #    4 : str_poly,
+        #    5 : str_exp,
+        #    6 : str_kombi,
+        #    7 : str_logistic,
+        #    8 : str_rand,
+        #    9 : str_gewicht}
 #
 #        randfkt3 = { 1 : 'mul',
 #            2 : 'add',
-#            3 : 'log',
-#            4 : 'root'}
+#            3 : str_log,
+#            4 : str_root}
         self.inpp_ = inp
         self.wuerfelWuerfe = werfen
         self.uniq =uniq_
@@ -332,7 +344,7 @@ class dice(QQmlApplicationEngine):
                 self.values = []
                 self.randos = []
                 for a in range(1,until+1):
-                    thing = self.fkt['gewicht'](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
+                    thing = self.fkt[str_gewicht](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
                     self.values.append(thing[0])
                     self.randos.append(thing[1])
                 if inp[3][0]=='-':
