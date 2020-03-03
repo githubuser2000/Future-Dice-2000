@@ -592,18 +592,16 @@ Window {
         TextField {
             objectName: "WürfFlächBenennungen"
             id : wuerfflaechNam
-            focus: true
             text: qsTr("Wuerfelflächen Bezeichen")
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignRight
-            onSelectionStartChanged: {
+            //onSelectionStartChanged: {
+            //}
+            onFocusChanged: {
                 if (text === qsTr("Wuerfelflächen Bezeichen"))
                     text = ""
-            }
-
-            onFocusChanged: {
                 augen.text = text.trim().split(/\s+/).length;
-                if (text2 != text) sett=true;
+                if (text2 != text) sett=true;                
             }
             onTextChanged:{
                 augen.text = text.trim().split(/\s+/).length;

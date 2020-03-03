@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon
 import sys
 #from PyQt5 import QtCore
 from PyQt5.QtQuick import QQuickView, QQuickItem
-from PyQt5.QtCore import QObject, QAbstractListModel, QModelIndex, Qt, QVariant, pyqtSlot, QUrl
+from PyQt5.QtCore import QObject, QAbstractListModel, QModelIndex, Qt, QVariant, pyqtSlot, QUrl, QTranslator, QLocale
 import libdice
 import model2
 import locale
@@ -178,6 +178,17 @@ class MainWindow(QQmlApplicationEngine):
 #                    self.scrollmodel.insertPerson(i, str(el), True)
     def __init__(self):
         super().__init__()
+        translator = QTranslator()
+        def langu(key):
+            langs = {QLocale.German : 'dice-kr.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
+            return langs.get(key,'dice-en.qm')
+        #print(str(QLocale().language()==QLocale.German))
+        #print(str(QLocale().language()==QLocale.English))
+        #print(str(QLocale().language()==QLocale.Korean))
+        #translator.load('dice.qm')
+        translator.load(langu(QLocale().language()))
+        app.installTranslator(translator)
+
         self.radiomodel1 = model2.PersonModel()
         self.radiomodel2 = model2.PersonModel()
         self.scrollmodel = model2.PersonModel()
