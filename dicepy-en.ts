@@ -36,6 +36,71 @@
         <source>test</source>
         <translation>blub</translation>
     </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>lin</source>
+        <translation>linear</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>log</source>
+        <translation>log</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>root</source>
+        <translation>root</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>poly</source>
+        <translation>poly</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>exp</source>
+        <translation>exp</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>kombi</source>
+        <translation>combination</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>logistic</source>
+        <translation>logistic</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>rand</source>
+        <translation>rand</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>gewicht</source>
+        <translation>gewicht</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>add</source>
+        <translation>add</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>mul</source>
+        <translation>mul</translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source>Wuerfelwurf: </source>
+        <translation>thrown dice: </translation>
+    </message>
+    <message>
+        <location filename="dicegui.py" line="182"/>
+        <source> (Wuerfelaugen </source>
+        <translation> (dice holes </translation>
+    </message>
 </context>
 <context>
     <name>Wuerfelwurf: </name>
@@ -63,67 +128,12 @@
     <message>
         <location filename="libdice.py" line="382"/>
         <source>lin</source>
-        <translation>linear</translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="383"/>
-        <source>log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="384"/>
-        <source>root</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="385"/>
-        <source>poly</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="386"/>
-        <source>exp</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">linear</translation>
     </message>
     <message>
         <location filename="libdice.py" line="387"/>
         <source>kombi</source>
-        <translation>combination</translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="388"/>
-        <source>logistic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="389"/>
-        <source>rand</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="390"/>
-        <source>gewicht</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="391"/>
-        <source>add</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="392"/>
-        <source>mul</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="393"/>
-        <source>Wuerfelwurf: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="libdice.py" line="394"/>
-        <source> (Wuerfelaugen </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">combination</translation>
     </message>
 </context>
 <context>

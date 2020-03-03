@@ -372,12 +372,6 @@ class dice(QQmlApplicationEngine):
     @staticmethod
     def languages(app,strlist):
         dice.strlist = strlist
-        translator = QTranslator(app)
-        def langu(key):
-            langs = {QLocale.German : 'dice-en.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
-            return langs.get(key,'dice-en.qm')
-        translator.load(langu(QLocale().language()))
-        app.installTranslator(translator)
         dice.randfkt2 = { 1 : strlist[0],
             2 : strlist[1],
             3 : strlist[2],
@@ -394,4 +388,9 @@ class dice(QQmlApplicationEngine):
             4 : strlist[2]}
         dice.str_augen = strlist[12]
         dice.str_wurf =  strlist[11]
-
+        translator = QTranslator(app)
+        def langu(key):
+            langs = {QLocale.German : 'dice-en.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
+            return langs.get(key,'dice-en.qm')
+        translator.load(langu(QLocale().language()))
+        app.installTranslator(translator)
