@@ -614,14 +614,15 @@ Window {
                     i++;
                 })
                 i = 0;
-                bezeichnerlist.forEach(function(bezeichnung) {
-                    if (i % 3 == 0 && !parseInt(bezeichnung, 10)) {
-                    } else if ( i % 3 == 1 && parseInt(bezeichnung, 10)) {
-                    } else if ( i % 3 == 2 && parseInt(bezeichnung, 10)) {
-                    } else
-                        flag2 = false;
-                    i++;
-                })
+                if (!flag)
+                    bezeichnerlist.forEach(function(bezeichnung) {
+                        if (i % 3 == 0 && !parseInt(bezeichnung, 10)) {
+                        } else if ( i % 3 == 1 && parseInt(bezeichnung, 10)) {
+                        } else if ( i % 3 == 2 && parseInt(bezeichnung, 10)) {
+                        } else
+                            flag2 = false;
+                        i++;
+                    })
 
                 if (bezeichnerlist.length % 2 == 0 && flag)
                     augen.text = augen.text / 2;

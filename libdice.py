@@ -181,13 +181,17 @@ class dice(QQmlApplicationEngine):
 
     def wuerfelAugenSetNearEmpty(self):
         summe2 = 0
-        for rando in self.randos:
-            summe2 += rando
+        for index in self.wuerfelAugenSet:
+            summe2 += self.randos[index]
+#        for rando in self.randos:
+#            summe2 += rando
+        print("w "+str(self.summ)+" "+str(summe2))
         diff = self.summ - summe2
-        return diff < self.summ / 100000000
+        return True if abs(diff) <= 0.000001 else False
 
     def wuerfeln(self):
         self.wuerfelWuerfe2 = []
+        print("- "+str(self.wuerfelAugenSet)+"-"+str(self.values))
         if len(self.wuerfelAugenSet) == len(self.values):
             self.wuerfelAugenSet = set()
         if self.wuerfelType == 0:
@@ -202,7 +206,11 @@ class dice(QQmlApplicationEngine):
         elif self.wuerfelType == 1:
             while True:
                 dice = self.weightedrand(self.randos)
-                if not dice in self.wuerfelAugenSet or self.wuerfelAugenSetNearEmpty() \
+                print("_ "+str(dice))
+                print(str(self.wuerfelAugenSet))
+                print(str(self.wuerfelAugenSetNearEmpty()))
+                print(str(self.uniq))
+                if (not dice in self.wuerfelAugenSet or self.wuerfelAugenSetNearEmpty()) \
                 or not self.uniq:
                     self.wuerfelAugenSet.add(dice)
                     break
@@ -313,6 +321,9 @@ class dice(QQmlApplicationEngine):
             else:
                 flag = False
         if not flag:
+            self.randos = []
+            self.values = []
+            bezeichnerNeuList = []
             for i,bezeichnung in enumerate(bezeichnerlist):
                 if i % 3 == 0 and not bezeichnung.isdigit():
                     bezeichnerNeuList.append(bezeichnung)
