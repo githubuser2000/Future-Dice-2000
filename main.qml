@@ -7,9 +7,9 @@ import Qt.labs.platform 1.1
 
 Window {
     visible: true
-    width: haupt.width + gridcheckboxes.width    
+    width: haupt.width + gridcheckboxes.width
     title: qsTr("Future-Dice-2000")
-    id : win    
+    id : win
     onVisibleChanged: {
         height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
     }
@@ -29,7 +29,7 @@ Window {
             }
         }
         onActivated: {
-                win.visible = ! win.visible
+            win.visible = ! win.visible
         }
     }
     onAfterRendering: {
@@ -71,7 +71,7 @@ Window {
                 y: 119
                 text: qsTr("uniq")
                 objectName: "uniq"
-                onClicked: MainWindow.uniq()                
+                onClicked: MainWindow.uniq()
             }
             Switch {
                 id: reverse2_
@@ -93,7 +93,7 @@ Window {
                     else
                         text = qsTr('+')
                 }
-          }
+            }
             Label {
                 text: qsTr("   Augen")
             }
@@ -113,7 +113,7 @@ Window {
                     if (parseInt(x2.text,10) > parseInt(text,10)) x2.text = text;
 
                 }
-                onTextChanged: {                    
+                onTextChanged: {
                     if (parseInt(text,10) <2) text = 2;
                     if (! x === null)
                         if (parseInt(x.text,10) > parseInt(text,10)) x.text = text;
@@ -328,7 +328,7 @@ Window {
                     y2.enabled = gewicht.position;
                     x2.enabled = gewicht.position;
                     n2.enabled = gewicht.position;
-
+                    wuerfflaechNam.changed();
                 }
             }
             Grid
@@ -509,21 +509,21 @@ Window {
                 objectName: '_LCheck1_'
                 id : lCheck1
                 visible: false
-                property var anObject: { "lin": true }
+                property var anObject: { "": true }
             }
             Label {
                 text: "LCheck2"
                 objectName: '_LCheck2_'
                 id : lCheck2
                 visible: false
-                property var anObject: { "lin": true }
+                property var anObject: { "": true }
             }
             Label {
                 text: "LCheck3"
                 objectName: '_LCheck3_'
                 id : lCheck3
                 visible: false
-                property var anObject: { "lin": true }
+                property var anObject: { "": true }
             }
 
 
@@ -597,19 +597,56 @@ Window {
             horizontalAlignment: Text.AlignRight
             //onSelectionStartChanged: {
             //}
+
+            function changed() {
+                augen.text = text.trim().split(/\s+/).length;
+                if (text2 != text) sett=true;
+                var bezeichnerlist = text.trim().split(/\s+/);
+                var flag = false;
+                var flag2 = false;
+                var flag3 = false;
+                var count = 0;
+                bezeichnerlist.forEach(function(bezeichnung) {
+                    console.log("u: ",bezeichnung)
+                    console.log("u: ",flag)
+                    console.log("u: ",flag2)
+                    if (!flag && !parseInt(bezeichnung, 10)) {
+                        count++;
+                        flag = true;
+                        console.log("x: ",bezeichnung)
+                    } else if (flag && parseInt(bezeichnung, 10)) {
+                        count++;
+                        flag = false;
+                        flag2 = true;
+                        console.log("y: ",bezeichnung)
+                    } else if (!flag && flag2 && parseInt(bezeichnung, 10)) {
+                        count++;
+                        flag2 = false;
+                        flag3 = true;
+                        console.log("z: ",bezeichnung)
+                    }
+                })
+                console.log("","")
+                console.log("o: ",gewicht.position)
+                console.log("o: ",flag3)
+                console.log("o: ",count)
+                console.log("o: ",bezeichnerlist.length)
+                console.log("o: ",count)
+                if (count % 2 == 0 && count === bezeichnerlist.length && !flag3)
+                    augen.text = augen.text / 2;
+                else if (count % 3 == 0 && count === bezeichnerlist.length && flag3 && gewicht.position === 1)
+                    augen.text = augen.text / 3;
+            }
             onFocusChanged: {
                 if (text === qsTr("Wuerfelflächen Bezeichen"))
-                    text = ""
-                augen.text = text.trim().split(/\s+/).length;
-                if (text2 != text) sett=true;                
+                    text = "";
+                changed();
             }
-            onTextChanged:{
-                augen.text = text.trim().split(/\s+/).length;
-                if (text2 != text) sett=true;
+            onTextChanged: {
+                changed();
             }
             onTextEdited: {
-                augen.text = text.trim().split(/\s+/).length;
-                if (text2 != text) sett=true;
+                changed();
             }
             property string text2: qsTr("Wuerfelflächen Bezeichen")
             property bool sett: false

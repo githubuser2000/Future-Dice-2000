@@ -302,6 +302,49 @@ class dice(QQmlApplicationEngine):
                     i2.append(True)
                 self.include1,self.include2,self.include3 = i1,i2,i3
         print(inp[2]+" "+dice.strlist[8])
+
+        bezeichnerlist = bezeichner.split()
+        flag = False
+        flag2 = False
+        flag3 = False
+        flag4 = False
+        flag5 = False
+        self.randos = []
+        self.values = []
+        count = 0
+        bezeichnerNeuList = []
+        for bezeichnung in bezeichnerlist:
+            if not flag and not bezeichnung.isdigit():
+                count += 1
+                flag = True
+                bezeichnerNeuList.append(bezeichnung)
+                print("x")
+            elif flag and bezeichnung.isdigit():
+                count += 1
+                flag = False
+                flag2 = True
+                self.values.append(int(bezeichnung))
+                print("y")
+            elif not flag and flag2 and bezeichnung.isdigit():
+                count += 1
+                flag2 = False
+                flag3 = True
+                self.randos.append(int(bezeichnung))
+                print("z")
+
+        if count % 2 == 0 and count == len(bezeichnerlist) and not flag3:
+            #inp[1] = int(inp[1]) / 2
+            bezeichner = " ".join(bezeichnerNeuList)
+            self.bezeichner = bezeichner
+            self.bezeichners = str(bezeichner).split()
+            flag4 = True
+        elif count % 3 == 0 and count == len(bezeichnerlist) and flag3 and len(inp) == 11 and inp[2] == dice.strlist[8]:
+            #inp[1] = int(inp[1]) / 3
+            bezeichner = " ".join(bezeichnerNeuList)
+            self.bezeichner = bezeichner
+            self.bezeichners = str(bezeichner).split()
+            flag5 = True
+
         if len(inp) == 6:
             until = int(inp[1])
             inp[4] = int(inp[4])
@@ -311,9 +354,10 @@ class dice(QQmlApplicationEngine):
             #print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
             print(str(inp[2]))
             if inp[4] <= inp[1] and inp[4] > 0 and inp[2] != dice.strlist[8]:
-                self.values = []
-                for a in range(1,until+1):
-                    self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
+                if not flag4:
+                    self.values = []
+                    for a in range(1,until+1):
+                        self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
                 if inp[2][0]=='-':
                     self.values.reverse()
                 for i,(value, bezeich) in enumerate(zip(self.values,self.bezeichners)):
@@ -331,12 +375,13 @@ class dice(QQmlApplicationEngine):
             inp[9] = int(inp[9])
             inp[10] = float(inp[10])
             if inp[5] <= inp[1] and inp[5] > 0 and inp[9] <= inp[1] and inp[9] > 0:
-                self.values = []
-                self.randos = []
-                for a in range(1,until+1):
-                    thing = self.fkt[inp[2]](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
-                    self.values.append(thing[0])
-                    self.randos.append(thing[1])
+                if not flag5:
+                    self.values = []
+                    self.randos = []
+                    for a in range(1,until+1):
+                        thing = self.fkt[inp[2]](inp[3],a,inp[4],inp[5],inp[6],inp[7],inp[8],inp[9],inp[10])
+                        self.values.append(thing[0])
+                        self.randos.append(thing[1])
                 if inp[3][0]=='-':
                     self.values.reverse()
                 if inp[7][0]=='-':
@@ -374,7 +419,7 @@ class dice(QQmlApplicationEngine):
     def languages1(app):
         translator = QTranslator(app)
         def langu(key):
-            langs = {QLocale.German : 'dice-en.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
+            langs = {QLocale.German : 'dice-de.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
             return langs.get(key,'dice-en.qm')
         translator.load(langu(QLocale().language()))
         app.installTranslator(translator)
