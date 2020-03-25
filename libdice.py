@@ -279,13 +279,6 @@ class dice(QQmlApplicationEngine):
         self.wuerfelWuerfe = []
         self.wuerfelWuerfeMoeglichkeiten = {}
 
-        self.bezeichners = str(bezeichner).split()
-        if not self.bezeichner == "":
-            while len(self.bezeichners) < int(inp[1]):
-                self.bezeichners.append("?")
-        else:
-            while len(self.bezeichners) < int(inp[1]):
-                self.bezeichners.append("")
         #if len(self.bezeichners) > 0:
         #    if self.bezeichners[-1] == "?":
         #        self.bezeichner = " ".join(self.bezeichners)
@@ -318,19 +311,19 @@ class dice(QQmlApplicationEngine):
                 count += 1
                 flag = True
                 bezeichnerNeuList.append(bezeichnung)
-                print("x")
+                #print("x")
             elif flag and bezeichnung.isdigit():
                 count += 1
                 flag = False
                 flag2 = True
                 self.values.append(int(bezeichnung))
-                print("y")
+                #print("y")
             elif not flag and flag2 and bezeichnung.isdigit():
                 count += 1
                 flag2 = False
                 flag3 = True
                 self.randos.append(int(bezeichnung))
-                print("z")
+                #print("z")
 
         if count % 2 == 0 and count == len(bezeichnerlist) and not flag3:
             #inp[1] = int(inp[1]) / 2
@@ -344,6 +337,17 @@ class dice(QQmlApplicationEngine):
             self.bezeichner = bezeichner
             self.bezeichners = str(bezeichner).split()
             flag5 = True
+        else:
+            self.values = []
+            self.randos = []
+
+        self.bezeichners = str(bezeichner).split()
+        if not self.bezeichner == "":
+            while len(self.bezeichners) < int(inp[1]):
+                self.bezeichners.append("?")
+        else:
+            while len(self.bezeichners) < int(inp[1]):
+                self.bezeichners.append("")
 
         if len(inp) == 6:
             until = int(inp[1])
@@ -354,7 +358,7 @@ class dice(QQmlApplicationEngine):
             #print("UU-"+str(inp[1])+" "+str(inp[4])+" ")
             print(str(inp[2]))
             if inp[4] <= inp[1] and inp[4] > 0 and inp[2] != dice.strlist[8]:
-                if not flag4:
+                if not flag4 or len(self.values) < 2:
                     self.values = []
                     for a in range(1,until+1):
                         self.values.append(self.fkt[inp[2]](a,inp[3],inp[4],inp[5]))
@@ -375,7 +379,7 @@ class dice(QQmlApplicationEngine):
             inp[9] = int(inp[9])
             inp[10] = float(inp[10])
             if inp[5] <= inp[1] and inp[5] > 0 and inp[9] <= inp[1] and inp[9] > 0:
-                if not flag5:
+                if not flag5 or len(self.values) < 2:
                     self.values = []
                     self.randos = []
                     for a in range(1,until+1):
