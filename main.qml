@@ -602,39 +602,30 @@ Window {
                 augen.text = text.trim().split(/\s+/).length;
                 if (text2 != text) sett=true;
                 var bezeichnerlist = text.trim().split(/\s+/);
-                var flag = false;
-                var flag2 = false;
+                var flag = true;
+                var flag2 = true;
                 var flag3 = false;
-                var count = 0;
+                var i = 0;
                 bezeichnerlist.forEach(function(bezeichnung) {
-                    console.log("u: ",bezeichnung)
-                    console.log("u: ",flag)
-                    console.log("u: ",flag2)
-                    if (!flag && !parseInt(bezeichnung, 10)) {
-                        count++;
-                        flag = true;
-                        console.log("x: ",bezeichnung)
-                    } else if (flag && parseInt(bezeichnung, 10)) {
-                        count++;
+                    if (i % 2 == 0 && !parseInt(bezeichnung, 10)) {
+                    } else if ( i % 2 == 1 && parseInt(bezeichnung, 10)) {
+                    } else
                         flag = false;
-                        flag2 = true;
-                        console.log("y: ",bezeichnung)
-                    } else if (!flag && flag2 && parseInt(bezeichnung, 10)) {
-                        count++;
-                        flag2 = false;
-                        flag3 = true;
-                        console.log("z: ",bezeichnung)
-                    }
+                    i++;
                 })
-                console.log("","")
-                console.log("o: ",gewicht.position)
-                console.log("o: ",flag3)
-                console.log("o: ",count)
-                console.log("o: ",bezeichnerlist.length)
-                console.log("o: ",count)
-                if (count % 2 == 0 && count === bezeichnerlist.length && !flag3)
+                i = 0;
+                bezeichnerlist.forEach(function(bezeichnung) {
+                    if (i % 3 == 0 && !parseInt(bezeichnung, 10)) {
+                    } else if ( i % 3 == 1 && parseInt(bezeichnung, 10)) {
+                    } else if ( i % 3 == 2 && parseInt(bezeichnung, 10)) {
+                    } else
+                        flag2 = false;
+                    i++;
+                })
+
+                if (bezeichnerlist.length % 2 == 0 && flag)
                     augen.text = augen.text / 2;
-                else if (count % 3 == 0 && count === bezeichnerlist.length && flag3 && gewicht.position === 1)
+                else if (bezeichnerlist.length % 3 == 0 && flag2 && gewicht.position === 1)
                     augen.text = augen.text / 3;
             }
             onFocusChanged: {

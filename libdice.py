@@ -297,41 +297,38 @@ class dice(QQmlApplicationEngine):
         print(inp[2]+" "+dice.strlist[8])
 
         bezeichnerlist = bezeichner.split()
-        flag = False
-        flag2 = False
+        flag = True
+        flag2 = True
         flag3 = False
         flag4 = False
         flag5 = False
         self.randos = []
         self.values = []
-        count = 0
         bezeichnerNeuList = []
-        for bezeichnung in bezeichnerlist:
-            if not flag and not bezeichnung.isdigit():
-                count += 1
-                flag = True
+        for i,bezeichnung in enumerate(bezeichnerlist):
+            if i % 2 == 0 and not bezeichnung.isdigit():
                 bezeichnerNeuList.append(bezeichnung)
-                #print("x")
-            elif flag and bezeichnung.isdigit():
-                count += 1
-                flag = False
-                flag2 = True
+            elif i % 2 == 1 and bezeichnung.isdigit():
                 self.values.append(int(bezeichnung))
-                #print("y")
-            elif not flag and flag2 and bezeichnung.isdigit():
-                count += 1
-                flag2 = False
-                flag3 = True
-                self.randos.append(int(bezeichnung))
-                #print("z")
+            else:
+                flag = False
 
-        if count % 2 == 0 and count == len(bezeichnerlist) and not flag3:
-            #inp[1] = int(inp[1]) / 2
+        for i,bezeichnung in enumerate(bezeichnerlist):
+            if i % 3 == 0 and not bezeichnung.isdigit():
+                bezeichnerNeuList.append(bezeichnung)
+            elif i % 3 == 1 and bezeichnung.isdigit():
+                self.values.append(int(bezeichnung))
+            elif i % 3 == 2 and bezeichnung.isdigit():
+                self.randos.append(int(bezeichnung))
+            else:
+                flag2 = False
+
+        if len(bezeichnerlist) % 2 == 0 and flag:
             bezeichner = " ".join(bezeichnerNeuList)
             self.bezeichner = bezeichner
             self.bezeichners = str(bezeichner).split()
             flag4 = True
-        elif count % 3 == 0 and count == len(bezeichnerlist) and flag3 and len(inp) == 11 and inp[2] == dice.strlist[8]:
+        elif len(bezeichnerlist) % 3 == 0 and flag2 and len(inp) == 11 and inp[2] == dice.strlist[8]:
             #inp[1] = int(inp[1]) / 3
             bezeichner = " ".join(bezeichnerNeuList)
             self.bezeichner = bezeichner
