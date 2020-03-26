@@ -26,6 +26,13 @@ class MainWindow(QQmlApplicationEngine):
         #    if radio.property("checked"):
         #        print(dice.randfkt2[i+1])
 
+    @pyqtSlot()
+    def changeLanguage(self):
+        libdice.dice.languages1b(app)
+        self.languagerelevant()
+        self.retranslate()
+        self.languageChanged = True
+
     def insertresults(self,result):
         if self.gesamtgewicht == None:
             self.gesamtgewicht = 0
@@ -89,6 +96,9 @@ class MainWindow(QQmlApplicationEngine):
         self.lastWuerfelungen = []
         if not self.wuerfelrestellt:
             self.wuerfelErstellen()
+        elif self.languageChanged:
+            self.wuerfelErstellen()
+            self.languageChanged = False
         else:
             wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
             for i in range(int(wuerfe.property("text"))):
@@ -163,17 +173,10 @@ class MainWindow(QQmlApplicationEngine):
 #            for ell in result:
 #                for i,el in enumerate(ell):
 #                    self.scrollmodel.insertPerson(i, str(el), True)
-    def __init__(self,app):
-        super().__init__()
-        self.app = app
-        libdice.dice.languages1(app)
-        self.libdice_strlist = [self.tr('lin'), self.tr('log'), self.tr('root'), self.tr('poly'), self.tr('exp'), self.tr('kombi'), self.tr('logistic'), self.tr('rand'), self.tr('gewicht'), self.tr('add'), self.tr('mul'), self.tr("Wuerfelwurf: "),self.tr(" (Wuerfelaugen ")]
-        blub = [self.tr('test')]
-        libdice.dice.languages2(self.libdice_strlist)
-        #print(str(blub[0]))
-        #print(blub)
-        #print(str(libdice.dice.randfkt2.values()))
 
+    def languagerelevant(self):
+        self.libdice_strlist = [self.tr('lin'), self.tr('log'), self.tr('root'), self.tr('poly'), self.tr('exp'), self.tr('kombi'), self.tr('logistic'), self.tr('rand'), self.tr('gewicht'), self.tr('add'), self.tr('mul'), self.tr("Wuerfelwurf: "),self.tr(" (Wuerfelaugen ")]
+        libdice.dice.languages2(self.libdice_strlist)
         self.radiomodel1 = model2.PersonModel()
         self.radiomodel2 = model2.PersonModel()
         self.scrollmodel = model2.PersonModel()
@@ -192,6 +195,19 @@ class MainWindow(QQmlApplicationEngine):
         context.setContextProperty("chkmodel1", self.chkmodel1)
         context.setContextProperty("chkmodel2", self.chkmodel2)
         context.setContextProperty("chkmodel3", self.chkmodel3)
+
+
+    def __init__(self,app):
+        super().__init__()
+        self.app = app
+        libdice.dice.languages1(app)
+        self.languagerelevant()
+        #self.libdice_strlist = [self.tr('lin'), self.tr('log'), self.tr('root'), self.tr('poly'), self.tr('exp'), self.tr('kombi'), self.tr('logistic'), self.tr('rand'), self.tr('gewicht'), self.tr('add'), self.tr('mul'), self.tr("Wuerfelwurf: "),self.tr(" (Wuerfelaugen ")]
+        blub = [self.tr('test')]
+        #print(str(blub[0]))
+        #print(blub)
+        #print(str(libdice.dice.randfkt2.values()))
+
         self.load('main.qml')
 
         #rado = self.rootObjects()[0].findChild(QObject, "radios")

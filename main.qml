@@ -313,22 +313,49 @@ Window {
             transformOrigin: Item.TopLeft
             columns: 1
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-            Switch {
-                id: gewicht
-                x: 90
-                y: 119
-                text: qsTr("gezinkt")
-                objectName: "gewicht"
-                //repeaterradios2
-                onToggled: {
-                    for (var i = 0; i < chk2layout.children.length; i++)
-                        chk2layout.children[i].enabled = gewicht.position;
-                    for (var i = 0; i < radio2grid.children.length; i++)
-                        radio2grid.children[i].enabled = gewicht.position;
-                    y2.enabled = gewicht.position;
-                    x2.enabled = gewicht.position;
-                    n2.enabled = gewicht.position;
-                    wuerfflaechNam.changed();
+            Grid
+            {
+                anchors.leftMargin: 20
+                anchors.rightMargin: 20
+
+                transformOrigin: Item.TopLeft
+                columns: 2
+                Switch {
+                    id: gewicht
+                    x: 90
+                    y: 119
+                    text: qsTr("gezinkt")
+                    objectName: "gewicht"
+                    //repeaterradios2
+                    onToggled: {
+                        for (var i = 0; i < chk2layout.children.length; i++)
+                            chk2layout.children[i].enabled = gewicht.position;
+                        for (var i = 0; i < radio2grid.children.length; i++)
+                            radio2grid.children[i].enabled = gewicht.position;
+                        y2.enabled = gewicht.position;
+                        x2.enabled = gewicht.position;
+                        n2.enabled = gewicht.position;
+                        wuerfflaechNam.changed();
+                    }
+                }
+                Button {
+                    anchors.leftMargin: 20
+                    anchors.rightMargin: 20
+                    id: language
+                    x: 196
+                    y: 424
+                    text: qsTr("Sprache")
+                    antialiasing: true
+                    spacing: -3
+                    onClicked: MainWindow.changeLanguage()
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 40
+                        color: bwuerfe.down ? "#d6d6d6" : "#f6f6f6"
+                        border.color: "#26282a"
+                        border.width: 2
+                        radius: 13
+                    }
                 }
             }
             Grid

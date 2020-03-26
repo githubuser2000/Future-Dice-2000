@@ -427,12 +427,24 @@ class dice(QQmlApplicationEngine):
     def out(self):
         return self.result
 
+    translator = None
+
     @staticmethod
     def languages1(app):
-        translator = QTranslator(app)
+        dice.translator = QTranslator(app)
         def langu(key):
             langs = {QLocale.German : 'dice-de.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
             return langs.get(key,'dice-en.qm')
+        dice.translator.load(langu(QLocale().language()))
+        app.installTranslator(dice.translator)
+
+    @staticmethod
+    def languages1b(app):
+        translator = QTranslator(app)
+        def langu(key):
+            langs = {QLocale.German : 'dice-kr.qm',QLocale.English : 'dice-kr.qm',QLocale.Korean : 'dice-kr.qm'}
+            return langs.get(key,'dice-en.qm')
+        app.removeTranslator(dice.translator)
         translator.load(langu(QLocale().language()))
         app.installTranslator(translator)
 
