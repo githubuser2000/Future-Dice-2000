@@ -437,12 +437,13 @@ class dice(QQmlApplicationEngine):
 
     @staticmethod
     def __langs__(QUrl):
-        return {QLocale.German : ('dice-de.qm',QUrl.fromLocalFile('deutschland.png')),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png')),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png'))}
+        #return {QLocale.German : ('dice-de.qm',QUrl.fromLocalFile('deutschland.png')),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png')),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png'))}
+        return {QLocale.German : ('dice-de.qm',QUrl.fromLocalFile('deutschland.png')),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png')),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png')),QLocale.Chinese : ('dice-cn.qm',QUrl.fromLocalFile('china.png')),QLocale.Polish : ('dice-pl.qm',QUrl.fromLocalFile('polen.png')),QLocale.Japanese : ('dice-jp.qm',QUrl.fromLocalFile('japan.png')),QLocale.Portuguese : ('dice-pt.qm',QUrl.fromLocalFile('portugal.png')),QLocale.Russian : ('dice-ru.qm',QUrl.fromLocalFile('russland.png')),QLocale.Spanish : ('dice-es.qm',QUrl.fromLocalFile('spanien.png')),QLocale.Italian : ('dice-it.qm',QUrl.fromLocalFile('italien.png')),QLocale.French : ('dice-fr.qm',QUrl.fromLocalFile('frankreich.png'))}
     @staticmethod
     def __langu1__(key, QUrl):
         langs = dice.__langs__(QUrl)
         print(str(dice.langNum))
-        return list(langs.values())[(dice.langNum + 1) % 3] + ((dice.langNum + 1) % 3,)
+        return list(langs.values())[(dice.langNum + 1) % len(langs)] + ((dice.langNum + 1) % len(langs),)
 
     @staticmethod
     def __langu__(key, QUrl):
