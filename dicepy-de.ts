@@ -12,92 +12,92 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="dicegui.py" line="47"/>
+        <location filename="dicegui.py" line="57"/>
         <source>Augen </source>
         <translation>Augen </translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="48"/>
+        <location filename="dicegui.py" line="58"/>
         <source> Wert </source>
         <translation> Wert </translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="49"/>
+        <location filename="dicegui.py" line="59"/>
         <source>, Gewicht: </source>
         <translation>, Gewicht: </translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="50"/>
+        <location filename="dicegui.py" line="60"/>
         <source>Wurf </source>
         <translation>Wurf </translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="183"/>
+        <location filename="dicegui.py" line="207"/>
         <source>test</source>
         <translation>bla</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>lin</source>
         <translation>linear</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>log</source>
         <translation>log</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>root</source>
         <translation>root</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>poly</source>
         <translation>poly</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>exp</source>
         <translation>exp</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>kombi</source>
         <translation>Kombination</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>logistic</source>
         <translation>logistic</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>rand</source>
         <translation>Zufall</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>gewicht</source>
         <translation>gewicht</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>add</source>
         <translation>Addition</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>mul</source>
         <translation>multiplizieren</translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source>Wuerfelwurf: </source>
-        <translation>Wuerfelwurf: </translation>
+        <translation>Wurf: </translation>
     </message>
     <message>
-        <location filename="dicegui.py" line="182"/>
+        <location filename="dicegui.py" line="178"/>
         <source> (Wuerfelaugen </source>
         <translation> (Wuerfelaugen </translation>
     </message>

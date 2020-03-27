@@ -4,97 +4,102 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="main.qml" line="13"/>
-        <location filename="main.qml" line="22"/>
+        <location filename="main.qml" line="12"/>
+        <location filename="main.qml" line="20"/>
         <source>Future-Dice-2000</source>
         <translation>미래 주사위 2000</translation>
     </message>
     <message>
-        <location filename="main.qml" line="27"/>
-        <location filename="main.qml" line="293"/>
+        <location filename="main.qml" line="24"/>
+        <location filename="main.qml" line="290"/>
         <source>Würfeln</source>
         <translation>주사위</translation>
     </message>
     <message>
-        <location filename="main.qml" line="31"/>
+        <location filename="main.qml" line="28"/>
         <source>Quit</source>
         <translation>출구</translation>
     </message>
     <message>
-        <location filename="main.qml" line="76"/>
+        <location filename="main.qml" line="67"/>
         <source>invert</source>
         <translation>거꾸로</translation>
     </message>
     <message>
-        <location filename="main.qml" line="77"/>
         <source>reverse</source>
-        <translation>reverse</translation>
+        <translation type="vanished">reverse</translation>
     </message>
     <message>
-        <location filename="main.qml" line="84"/>
+        <location filename="main.qml" line="74"/>
         <source>uniq</source>
         <translation>유일한</translation>
     </message>
     <message>
-        <location filename="main.qml" line="95"/>
+        <location filename="main.qml" line="83"/>
         <source>invert Z</source>
         <translation>로드 된 주사위 뒤집기</translation>
     </message>
     <message>
-        <location filename="main.qml" line="100"/>
+        <location filename="main.qml" line="88"/>
         <source>+  </source>
         <translation>+  </translation>
     </message>
     <message>
-        <location filename="main.qml" line="106"/>
+        <location filename="main.qml" line="94"/>
         <source>+-</source>
         <translation>+-</translation>
     </message>
     <message>
-        <location filename="main.qml" line="108"/>
+        <location filename="main.qml" line="96"/>
         <source>+</source>
         <translation>+</translation>
     </message>
     <message>
-        <location filename="main.qml" line="112"/>
+        <location filename="main.qml" line="100"/>
         <source>   Augen</source>
         <translation>   주사위 점</translation>
     </message>
     <message>
-        <location filename="main.qml" line="143"/>
+        <location filename="main.qml" line="133"/>
         <source>Würfe</source>
         <translation>발생</translation>
     </message>
     <message>
-        <location filename="main.qml" line="270"/>
+        <location filename="main.qml" line="268"/>
         <source>Würfel erstellen</source>
         <translation>주사위 만들기</translation>
     </message>
     <message>
-        <location filename="main.qml" line="325"/>
-        <location filename="main.qml" line="413"/>
+        <location filename="main.qml" line="329"/>
+        <location filename="main.qml" line="435"/>
         <source>gezinkt</source>
         <translation>로드 된 주사위</translation>
     </message>
     <message>
-        <location filename="main.qml" line="377"/>
+        <location filename="main.qml" line="347"/>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="399"/>
         <source>Wert</source>
         <translation>가치</translation>
     </message>
     <message>
-        <location filename="main.qml" line="435"/>
+        <location filename="main.qml" line="418"/>
+        <location filename="main.qml" line="457"/>
         <source>kombi</source>
         <translation>결합</translation>
     </message>
     <message>
-        <location filename="main.qml" line="606"/>
-        <location filename="main.qml" line="610"/>
-        <location filename="main.qml" line="626"/>
+        <location filename="main.qml" line="628"/>
+        <location filename="main.qml" line="666"/>
+        <location filename="main.qml" line="676"/>
         <source>Wuerfelflächen Bezeichen</source>
         <translation>큐브면 지정</translation>
     </message>
     <message>
-        <location filename="main.qml" line="638"/>
+        <location filename="main.qml" line="688"/>
         <source>avg</source>
         <translation>avg</translation>
     </message>
