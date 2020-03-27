@@ -28,7 +28,7 @@ class MainWindow(QQmlApplicationEngine):
 
     @pyqtSlot()
     def changeLanguage(self):
-        libdice.dice.languages1b(app)
+        libdice.dice.languages1b(app, self, QUrl)
         self.languagerelevant()
         self.retranslate()
         self.languageChanged = True
@@ -200,7 +200,7 @@ class MainWindow(QQmlApplicationEngine):
     def __init__(self,app):
         super().__init__()
         self.app = app
-        libdice.dice.languages1(app)
+        selection = libdice.dice.languages1(app, self, QUrl)
         self.languagerelevant()
         #self.libdice_strlist = [self.tr('lin'), self.tr('log'), self.tr('root'), self.tr('poly'), self.tr('exp'), self.tr('kombi'), self.tr('logistic'), self.tr('rand'), self.tr('gewicht'), self.tr('add'), self.tr('mul'), self.tr("Wuerfelwurf: "),self.tr(" (Wuerfelaugen ")]
         blub = [self.tr('test')]
@@ -210,6 +210,8 @@ class MainWindow(QQmlApplicationEngine):
 
         self.load('main.qml')
 
+        langimg = self.rootObjects()[0].findChild(QObject, "langimg")
+        langimg.setProperty("source",selection[1])
         #rado = self.rootObjects()[0].findChild(QObject, "radios")
         #rado.setProperty("onClicked", self.radu() )
 

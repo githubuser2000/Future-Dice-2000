@@ -430,23 +430,37 @@ class dice(QQmlApplicationEngine):
     translator = None
 
     @staticmethod
-    def languages1(app):
-        dice.translator = QTranslator(app)
-        def langu(key):
-            langs = {QLocale.German : 'dice-de.qm',QLocale.English : 'dice-en.qm',QLocale.Korean : 'dice-kr.qm'}
-            return langs.get(key,'dice-en.qm')
-        dice.translator.load(langu(QLocale().language()))
-        app.installTranslator(dice.translator)
+    def langu1(key, QUrl):
+        langs = {QLocale.German : ('dice-de.qm',QUrl.fromLocalFile('deutschland.png'),0),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png'),1),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png'),2)}
+        print(str(dice.langNum))
+        return list(langs.values())[(dice.langNum + 1) % 3]
 
     @staticmethod
-    def languages1b(app):
+    def langu(key, QUrl):
+        langs = {QLocale.German : ('dice-de.qm',QUrl.fromLocalFile('deutschland.png'),0),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png'),1),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png'),2)}
+        return langs.get(key,('dice-en.qm',QUrl.fromLocalFile('usa.png'),2))
+
+    @staticmethod
+    def languages1(app, engine, QUrl):
+        dice.translator = QTranslator(app)
+        selection = dice.langu(QLocale().language(),QUrl)
+        dice.translator.load(selection[0])
+        app.installTranslator(dice.translator)
+        dice.langNum = selection[2]
+        return selection
+
+    @staticmethod
+    def languages1b(app, engine, QUrl):
         translator = QTranslator(app)
-        def langu(key):
-            langs = {QLocale.German : 'dice-kr.qm',QLocale.English : 'dice-kr.qm',QLocale.Korean : 'dice-kr.qm'}
-            return langs.get(key,'dice-en.qm')
         app.removeTranslator(dice.translator)
-        translator.load(langu(QLocale().language()))
+        selection = dice.langu1(QLocale().language(),QUrl)
+        translator.load(selection[0])
+        #translator.load(dice.langu(QLocale().language()))
         app.installTranslator(translator)
+        dice.langNum = selection[2]
+        langimg = engine.rootObjects()[0].findChild(QObject, "langimg")
+        langimg.setProperty("source",selection[1])
+        return selection
 
     @staticmethod
     def languages2(strlist):

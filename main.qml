@@ -7,7 +7,8 @@ import Qt.labs.platform 1.1
 
 Window {
     visible: true
-    width: haupt.width + gridcheckboxes.width
+    //width: haupt.width + gridcheckboxes.width
+    width: haupt1.width
     title: qsTr("Future-Dice-2000")
     id : win
     onVisibleChanged: {
@@ -41,6 +42,7 @@ Window {
         setY(Screen.height / 2 - height / 2);
     }
     GridLayout {
+        id: haupt1
         //anchors.fill: parent
         columns: 3
         anchors.leftMargin: 20
@@ -342,20 +344,23 @@ Window {
                     anchors.leftMargin: 20
                     anchors.rightMargin: 20
                     id: language
-                    x: 196
-                    y: 424
-                    text: qsTr("Sprache")
+                    text: qsTr("")
                     antialiasing: true
                     spacing: -3
                     onClicked: MainWindow.changeLanguage()
-                    background: Rectangle {
+                    background: Image {
+                        /*
                         implicitWidth: 100
                         implicitHeight: 40
                         color: bwuerfe.down ? "#d6d6d6" : "#f6f6f6"
                         border.color: "#26282a"
                         border.width: 2
-                        radius: 13
+                        radius: 13*/
+                        source: 'deutschland.png'
+                        id: langimg
+                        objectName: 'langimg'
                     }
+
                 }
             }
             Grid
