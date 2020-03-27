@@ -513,8 +513,8 @@ Window {
                 transformOrigin: Item.TopLeft
                 //anchors.fill: parent
                 model: scrollmodel
-                highlight: Rectangle { color: "lightsteelblue" }
-                highlightRangeMode: ListView.ApplyRange
+                //highlight: Rectangle { color: "lightsteelblue" }
+                //highlightRangeMode: ListView.ApplyRange
                 delegate: Text {
                     text: name
                 }
