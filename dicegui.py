@@ -29,12 +29,12 @@ class MainWindow(QQmlApplicationEngine):
     @pyqtSlot()
     def changeLanguage(self):
         textfield = self.rootObjects()[0].findChild(QObject, "listView")
-        model = textfield.property("model")
+        #model = textfield.property("model")
         libdice.dice.languages1b(app, self, QUrl)
         self.languagerelevant()
         self.retranslate()
-        textfield.setProperty("model", model)
-        self.scrollmodel = model
+        #textfield.setProperty("model", model)
+        #self.scrollmodel = model
 
     def insertresults(self,result):
         if self.gesamtgewicht == None:
@@ -179,7 +179,6 @@ class MainWindow(QQmlApplicationEngine):
         libdice.dice.languages2(self.libdice_strlist)
         self.radiomodel1 = model2.PersonModel()
         self.radiomodel2 = model2.PersonModel()
-        self.scrollmodel = model2.PersonModel()
         self.chkmodel1,self.chkmodel2,self.chkmodel3 = model2.PersonModel(),model2.PersonModel(),model2.PersonModel()
         for i,el in enumerate(list(libdice.dice.randfkt2.values())[:-1]):
             self.radiomodel1.insertPerson(i, el, True if i==0 else False, 'radio1'+el)
@@ -191,7 +190,6 @@ class MainWindow(QQmlApplicationEngine):
         context = self.rootContext()
         context.setContextProperty("radiomodel1", self.radiomodel1)
         context.setContextProperty("radiomodel2", self.radiomodel2)
-        context.setContextProperty("scrollmodel", self.scrollmodel)
         context.setContextProperty("chkmodel1", self.chkmodel1)
         context.setContextProperty("chkmodel2", self.chkmodel2)
         context.setContextProperty("chkmodel3", self.chkmodel3)
@@ -202,6 +200,9 @@ class MainWindow(QQmlApplicationEngine):
         self.app = app
         selection = libdice.dice.languages1(app, self, QUrl)
         self.languagerelevant()
+        context = self.rootContext()
+        self.scrollmodel = model2.PersonModel()
+        context.setContextProperty("scrollmodel", self.scrollmodel)
         #self.libdice_strlist = [self.tr('lin'), self.tr('log'), self.tr('root'), self.tr('poly'), self.tr('exp'), self.tr('kombi'), self.tr('logistic'), self.tr('rand'), self.tr('gewicht'), self.tr('add'), self.tr('mul'), self.tr("Wuerfelwurf: "),self.tr(" (Wuerfelaugen ")]
         blub = [self.tr('test')]
         #print(str(blub[0]))
