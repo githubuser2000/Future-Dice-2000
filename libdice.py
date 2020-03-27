@@ -29,6 +29,12 @@ from PyQt5.QtQml import QQmlApplicationEngine
 #self.str_wurf = QCoreApplication.translate("Wuerfelwurf: ","Würfelwurf: ")
 #self.str_augen = QCoreApplication.translate(" (Wuerfelaugen "," (Würfelaugen ")
 
+def getIndexByKey(key_, dictmap):
+    for i,(key,value) in enumerate(dictmap.items()):
+        if key_ == key:
+            return i,value
+    return None
+
 
 class dice(QQmlApplicationEngine):
 
@@ -430,20 +436,23 @@ class dice(QQmlApplicationEngine):
     translator = None
 
     @staticmethod
-    def langu1(key, QUrl):
-        langs = {QLocale.German : ('dice-de.qm',QUrl.fromLocalFile('deutschland.png'),0),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png'),1),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png'),2)}
+    def __langs__(QUrl):
+        return {QLocale.German : ('dice-de.qm',QUrl.fromLocalFile('deutschland.png')),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png')),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png'))}
+    @staticmethod
+    def __langu1__(key, QUrl):
+        langs = dice.__langs__(QUrl)
         print(str(dice.langNum))
-        return list(langs.values())[(dice.langNum + 1) % 3]
+        return list(langs.values())[(dice.langNum + 1) % 3] + ((dice.langNum + 1) % 3,)
 
     @staticmethod
-    def langu(key, QUrl):
-        langs = {QLocale.German : ('dice-de.qm',QUrl.fromLocalFile('deutschland.png'),0),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png'),1),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png'),2)}
-        return langs.get(key,('dice-en.qm',QUrl.fromLocalFile('usa.png'),2))
+    def __langu__(key, QUrl):
+        langs = dice.__langs__(QUrl)
+        return langs.get(key,('dice-en.qm',QUrl.fromLocalFile('usa.png'))) + getIndexByKey(key, langs)
 
     @staticmethod
     def languages1(app, engine, QUrl):
         dice.translator = QTranslator(app)
-        selection = dice.langu(QLocale().language(),QUrl)
+        selection = dice.__langu__(QLocale().language(),QUrl)
         dice.translator.load(selection[0])
         app.installTranslator(dice.translator)
         dice.langNum = selection[2]
@@ -453,7 +462,7 @@ class dice(QQmlApplicationEngine):
     def languages1b(app, engine, QUrl):
         translator = QTranslator(app)
         app.removeTranslator(dice.translator)
-        selection = dice.langu1(QLocale().language(),QUrl)
+        selection = dice.__langu1__(QLocale().language(),QUrl)
         translator.load(selection[0])
         #translator.load(dice.langu(QLocale().language()))
         app.installTranslator(translator)

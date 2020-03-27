@@ -497,6 +497,7 @@ Window {
 
             ListView {
                 id: listView
+                objectName: 'listView'
                 //implicitHeight: scrollView.height
                 //implicitWidth: scrollView.width
                 //width: scrollView.width

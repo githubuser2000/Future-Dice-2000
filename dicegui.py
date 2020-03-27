@@ -28,10 +28,13 @@ class MainWindow(QQmlApplicationEngine):
 
     @pyqtSlot()
     def changeLanguage(self):
+        textfield = self.rootObjects()[0].findChild(QObject, "listView")
+        model = textfield.property("model")
         libdice.dice.languages1b(app, self, QUrl)
         self.languagerelevant()
         self.retranslate()
-        self.languageChanged = True
+        textfield.setProperty("model", model)
+        self.scrollmodel = model
 
     def insertresults(self,result):
         if self.gesamtgewicht == None:
@@ -96,9 +99,6 @@ class MainWindow(QQmlApplicationEngine):
         self.lastWuerfelungen = []
         if not self.wuerfelrestellt:
             self.wuerfelErstellen()
-        elif self.languageChanged:
-            self.wuerfelErstellen()
-            self.languageChanged = False
         else:
             wuerfe = self.rootObjects()[0].findChild(QObject, "wuerfe")
             for i in range(int(wuerfe.property("text"))):
