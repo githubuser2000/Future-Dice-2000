@@ -8,7 +8,7 @@ import os
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 
-systemTypes = ['democrazy','dictatorship','aristocracy']
+systemTypes = ['democracy','dictatorship','aristocracy']
 
 def writeCsv(data):
     with open(data[1]+'.txt', mode='a') as csv_file:
@@ -33,12 +33,17 @@ if True:
     libdice.dice.languages2(libdice_strlist)
 
 if sys.argv[2] in systemTypes:
-    print(str((len(sys.argv)-3)/2))
+    auswahl=int((len(sys.argv)-3)/2)
     print(str(sys.argv[3:]))
     #longvar = ("dice.py "+str((len(sys.argv)-3))+" lin 1 1 1").split()
-    longvar = ("dice.py "+str(int((len(sys.argv)-3)/2))+" lin 1 1 1").split()
-    libdice.dice(longvar,bezeichner=' '.join(sys.argv[3:]))
-    writeCsv(sys.argv)
+    longvar = ("dice.py "+str(auswahl)+" lin 1 1 1").split()
+    people1 = libdice.dice(longvar, werfen=auswahl, uniq_=True, bezeichner=' '.join(sys.argv[3:]))
+    people = []
+    for someone in people1.out()[1]:
+        if type(someone) is tuple:
+            people.append(someone[2])
+    print(str(sys.argv[0:3]+people))
+    writeCsv(sys.argv[0:3]+people)
 else:
     print(str(systemTypes)+" ???")
 
