@@ -33,10 +33,11 @@ if True:
     libdice.dice.languages2(libdice_strlist)
 
 if sys.argv[2] in systemTypes:
-    print(str(len(sys.argv)-3))
+    print(str((len(sys.argv)-3)/2))
     print(str(sys.argv[3:]))
-    longvar = ("dice.py "+str(len(sys.argv)-3)+" lin 1 1 1").split()
-    libdice.dice(longvar,bezeichner=str(sys.argv[3:]))
+    #longvar = ("dice.py "+str((len(sys.argv)-3))+" lin 1 1 1").split()
+    longvar = ("dice.py "+str(int((len(sys.argv)-3)/2))+" lin 1 1 1").split()
+    libdice.dice(longvar,bezeichner=' '.join(sys.argv[3:]))
     writeCsv(sys.argv)
 else:
     print(str(systemTypes)+" ???")

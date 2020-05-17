@@ -16,3 +16,13 @@ democrazy;b;c
 democrazy;b;c
 democrazy;b;c
 democrazy;b;3;c;6
+democrazy;3;b;6;c
+democrazy;b;3;c;6
+democrazy;b;1;c;3
+democrazy;b;1;c;3
+democrazy;b;1;c;3
+democrazy;b;1;c;3
+democrazy;b;1;c;3
+democrazy;b;1;c;3
+democrazy;b;1;c;3
+democrazy;b;1;c;3

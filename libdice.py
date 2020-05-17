@@ -236,6 +236,8 @@ class dice(QQmlApplicationEngine):
         #translator = QTranslator()
         #translator.load('dice.qm')
         #app.installTranslator(translator)
+        print(str(inp))
+        print(str(bezeichner))
 
         self.negativ = negativ
         self.median = median
