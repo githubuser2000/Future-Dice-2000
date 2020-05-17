@@ -4,6 +4,7 @@ import libdice
 import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtCore import QUrl
 
 def help_():
     print("dice.py 3 -lin 3 2 7")
@@ -14,7 +15,7 @@ def help_():
 
 if len(sys.argv) > 5:
     app =QApplication(sys.argv)
-    libdice.dice.languages1(app)
+    libdice.dice.languages1(app,QQmlApplicationEngine,QUrl)
     qAppEngin = QQmlApplicationEngine()
     libdice_strlist = [qAppEngin.tr('lin'), qAppEngin.tr('log'), qAppEngin.tr('root'), qAppEngin.tr('poly'), qAppEngin.tr('exp'), qAppEngin.tr('kombi'), qAppEngin.tr('logistic'), qAppEngin.tr('rand'), qAppEngin.tr('gewicht'), qAppEngin.tr('add'), qAppEngin.tr('mul'), qAppEngin.tr("Wuerfelwurf: "),qAppEngin.tr(" (Wuerfelaugen ")]
     blub = [qAppEngin.tr('test')]

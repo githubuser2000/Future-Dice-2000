@@ -33,15 +33,16 @@ if True:
     libdice.dice.languages2(libdice_strlist)
 
 if sys.argv[2] in systemTypes:
-    auswahl=int((len(sys.argv)-3)/2)
+    auswahl=int((len(sys.argv)-3)/3)
     print(str(sys.argv[3:]))
     #longvar = ("dice.py "+str((len(sys.argv)-3))+" lin 1 1 1").split()
-    longvar = ("dice.py "+str(auswahl)+" lin 1 1 1").split()
+    # dice.py 3 gewicht poly 3 2 0.7 -poly 1 2 5
+    longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
     people1 = libdice.dice(longvar, werfen=auswahl, uniq_=True, bezeichner=' '.join(sys.argv[3:]))
     people = []
     for someone in people1.out()[1]:
         if type(someone) is tuple:
-            people.append(someone[2])
+            people.append(someone[3])
     print(str(sys.argv[0:3]+people))
     writeCsv(sys.argv[0:3]+people)
 else:
