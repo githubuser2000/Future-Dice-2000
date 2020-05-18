@@ -8,7 +8,8 @@ import os
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 
-systemTypes = ['democracy','dictatorship','aristocracy']
+systemTypeMaps =  {'strnum' : {'democracy': 0,'dictatorship':2,'aristocracy':4},'numstr':{0:'democracy',2:'dictatorship',4:'aristocracy'}}
+systemTypes = systemTypeMaps['numstr'].values()
 
 def writeCsv(data):
     with open(data[1]+'.txt', mode='a') as csv_file:
@@ -17,11 +18,36 @@ def writeCsv(data):
 
 def readCsv(data):
     with open(data[1]+'.txt', mode='r') as csv_file:
+        rowsuntil = []
         for row in reversed(list(csv.reader(csv_file, delimiter=';'))):
-            print ('; '.join(row))
+            #print ('; '.join(row))
+            rowsuntil += [row]
             if row[0] in systemTypes:
-                break
+                return rowsuntil
             #print(row[0])
+
+def newSystem(auswahl,argv):
+    longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
+    people1 = libdice.dice(longvar, werfen=auswahl, uniq_=True, bezeichner=' '.join(argv[3:]))
+    people = []
+    for someone in people1.out()[1]:
+        if type(someone) is tuple:
+            people.append(someone[3])
+    print(str(sys.argv[0:3]+people))
+    writeCsv(sys.argv[0:3]+people)
+
+def voting(userAmount,votes):
+    results = {}
+    for i in range(userAmount):
+        for vote in votes:
+            if int(i) == int(vote):
+                print(str(i)+' '+str(vote))
+                if not i in results.keys():
+                    results[i] = 1
+                else:
+                    results[i] += 1
+    return results
+
 
 #def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
 if True:
@@ -32,22 +58,38 @@ if True:
     blub = [qAppEngin.tr('test')]
     libdice.dice.languages2(libdice_strlist)
 
+auswahl=int((len(sys.argv)-3)/3)
+
 if sys.argv[2] in systemTypes:
-    auswahl=int((len(sys.argv)-3)/3)
-    print(str(sys.argv[3:]))
-    #longvar = ("dice.py "+str((len(sys.argv)-3))+" lin 1 1 1").split()
-    # dice.py 3 gewicht poly 3 2 0.7 -poly 1 2 5
-    longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
-    people1 = libdice.dice(longvar, werfen=auswahl, uniq_=True, bezeichner=' '.join(sys.argv[3:]))
-    people = []
-    for someone in people1.out()[1]:
-        if type(someone) is tuple:
-            people.append(someone[3])
-    print(str(sys.argv[0:3]+people))
-    writeCsv(sys.argv[0:3]+people)
+#    print(str(sys.argv[3:]))
+    newSystem(auswahl, sys.argv)
+elif sys.argv[2] in ['revolution']:
+    oldsystem = readCsv(sys.argv)[0]
+    newsystem = systemTypeMaps['numstr'][(systemTypeMaps['strnum'][oldsystem]+2)%6]
+    print(newsystem)
+    argv = sys.argv
+    argv[2] = newsystem
+    newSystem(auswahl, argv)
+elif sys.argv[2] in ['vote']:
+    historyThisGovernment = readCsv(sys.argv)
+    print(historyThisGovernment[-1][0])
+    if historyThisGovernment[-1][0] == systemTypeMaps['numstr'][0]:
+        print("voting")
+        names = []
+        votes = []
+        for i,entry in enumerate(sys.argv[3:]):
+            if i % 3 == 0:
+                names += [entry]
+            if i % 3 == 1:
+                votes += [entry]
+        print(str(names))
+        votingResults = voting(len(names),votes)
+        print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
+
+
 else:
     print(str(systemTypes)+" ???")
 
-readCsv(sys.argv)
+#readCsv(sys.argv)
 
 
