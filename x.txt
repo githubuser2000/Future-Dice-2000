@@ -1,0 +1,5 @@
+
+democracy;e;c;b
+vote;vote;[0, 2, 1]
+vote;[0, 2, 1]
+vote;0;2;1

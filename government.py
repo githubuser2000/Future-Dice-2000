@@ -12,6 +12,7 @@ systemTypeMaps =  {'strnum' : {'democracy': 0,'dictatorship':2,'aristocracy':4},
 systemTypes = systemTypeMaps['numstr'].values()
 
 def writeCsv(data):
+    print(str(data))
     with open(data[1]+'.txt', mode='a') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerow(data[2:])
@@ -38,6 +39,8 @@ def newSystem(auswahl,argv):
 
 def voting(userAmount,votes):
     results = {}
+    for i in range(userAmount):
+        results[i] = 0
     for i in range(userAmount):
         for vote in votes:
             if int(i) == int(vote):
@@ -85,6 +88,9 @@ elif sys.argv[2] in ['vote']:
         print(str(names))
         votingResults = voting(len(names),votes)
         print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
+        print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
+        value = sys.argv[:3]+list(votingResults.values())
+        writeCsv(value)
 
 
 else:
