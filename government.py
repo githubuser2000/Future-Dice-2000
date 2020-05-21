@@ -91,6 +91,12 @@ def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False,voteHierarch
         value = argv[:3]+list(votingResults.values())
         writeCsv(value)
 
+def endOfEveryVote(userUsedAndFinished,ObjDice):
+    ObjDice.wuerfelAugenSet.add(userUsedAndFinished)
+
+def peopleAlreadyDemocraticOrRandomlySelectedInPast():
+    print("last "+ str(readCsv(sys.argv)))
+
 def hierarchy(argv, auswahl):
         print("next in hierarchy")
         systempeople = readCsv(sys.argv)[-1][1:] # Menschen in ihrer Reihenfolge, wie sie vom System anfangs festgelegt wurden
@@ -125,7 +131,9 @@ def hierarchy(argv, auswahl):
  #               if user == argv[3:][roledone]:
  #                   break
             print('hierarchynow: '+str(hierarchynow))
+            #endOfEveryVote(roledone,hierarchyGame)
             return hierarchynow
+
 
 #def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
 if True:
@@ -172,7 +180,7 @@ elif sys.argv[2] in ['vote']:
         print('out: '+str(hierarchyGame.out()))
         voting2(sys.argv, True)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][1]: # Plutokratie
-        voting2(sys.argv,False,True)
+        voting2(sys.argv, False, True)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][5]: # Oligarchie - Programmiere ich später - mehr Eigennutz der Chefs, d.h. normale Wahl und dürfen bei jedem zweiten Mal selbst
         voting2(sys.argv, True)
 
@@ -195,3 +203,4 @@ elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, ab
 else:
     print(str(systemTypes)+" ???")
 
+peopleAlreadyDemocraticOrRandomlySelectedInPast()
