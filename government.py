@@ -46,28 +46,32 @@ def newSystem(auswahl, argv, oldsystem=systemTypeMaps['numstr'][3]):
     print(str(sys.argv[0:3]+people))
     writeCsv(sys.argv[0:3]+people)
 
-def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None):
+def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None, voteHierarchy=0):
     aristokratenAmount = math.floor(math.sqrt(len(sys.argv[3:])/3+2))
     results = {}
 
     for i in range(userAmount):
         results[i] = 0
-    for i,(vote,potential) in enumerate(zip(votes,potentials)):
-        if aristrokratsAreLessThanAll and aristokratenAmount <= i:
+    for k,(vote,potential) in enumerate(zip(votes,potentials)):
+        if aristrokratsAreLessThanAll and aristokratenAmount <= k:
             break
         for i in range(userAmount):
             print('_-_ '+str(vote))
             if int(i) == int(vote):
                 #print(str(i)+' '+str(vote))
                 print('-- '+str(potential))
-                if not i in results.keys():
-                    results[i] = 1 * int(potential)
-                else:
-                    results[i] += 1 * int(potential)
+                print("egal: "+str(voteHierarchy)+" "+str(i))
+                if voteHierarchy == 0 or \
+                    ( voteHierarchy > 0 and voteHierarchy - 1 <= i) or \
+                    ( voteHierarchy < 0 and -voteHierarchy - 1 >= i):
+                    if not i in results.keys():
+                        results[i] = 1 * int(potential)
+                    else:
+                        results[i] += 1 * int(potential)
     return results
 
 
-def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False):
+def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False,voteHierarchy=0):
         print("voting")
         names = []
         votes = []
@@ -81,7 +85,7 @@ def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False):
                 potentials += [entry]
         print(str(names))
         print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
-        votingResults = voting(len(names), votes, aristrokratsAreLessThanAll,potentials)
+        votingResults = voting(len(names), votes, aristrokratsAreLessThanAll,potentials,voteHierarchy)
         print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
         print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
         value = argv[:3]+list(votingResults.values())
@@ -179,13 +183,13 @@ elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, ab
         value = hierarchy(sys.argv, auswahl)
         print('val: '+str(value))
         print('blub: '+ str(sys.argv[:3] + value))
-        voting2(sys.argv[:3] + value, False)
+        voting2(sys.argv[:3] + value, False, False, int(len(value)/3))
         #writeCsv(value)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][3]: # Tyranei
         value = hierarchy(sys.argv, auswahl)
         print('val: '+str(value))
         print('blub: '+ str(sys.argv[:3] + value))
-        voting2(sys.argv[:3] + value, False)
+        voting2(sys.argv[:3] + value, False, False, -int(len(value)/3))
         #writeCsv(value)
 
 else:
