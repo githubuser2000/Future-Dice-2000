@@ -31,7 +31,7 @@ def readCsv(data):
             #print(row[0])
 
 
-def newSystem(auswahl, argv, oldsystem):
+def newSystem(auswahl, argv, oldsystem=systemTypeMaps['numstr'][3]):
     if systemTypeMaps['strnum'][oldsystem] % 2 == 1:
         longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
         people1 = libdice.dice(longvar, werfen=auswahl, uniq_=True, bezeichner=' '.join(argv[3:]))
@@ -46,16 +46,17 @@ def newSystem(auswahl, argv, oldsystem):
     print(str(sys.argv[0:3]+people))
     writeCsv(sys.argv[0:3]+people)
 
-def voting(userAmount, votes, NumberTooMuch=False, potentials=None):
+def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None):
     aristokratenAmount = math.floor(math.sqrt(len(sys.argv[3:])/3+2))
     results = {}
 
     for i in range(userAmount):
         results[i] = 0
     for i,(vote,potential) in enumerate(zip(votes,potentials)):
-        if NumberTooMuch and aristokratenAmount <= i:
+        if aristrokratsAreLessThanAll and aristokratenAmount <= i:
             break
         for i in range(userAmount):
+            print('_-_ '+str(vote))
             if int(i) == int(vote):
                 #print(str(i)+' '+str(vote))
                 print('-- '+str(potential))
@@ -66,7 +67,7 @@ def voting(userAmount, votes, NumberTooMuch=False, potentials=None):
     return results
 
 
-def voting2(argv, NumberTooMuch=False,Plutocracy=False):
+def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False):
         print("voting")
         names = []
         votes = []
@@ -79,7 +80,8 @@ def voting2(argv, NumberTooMuch=False,Plutocracy=False):
             if i % 3 == 2:
                 potentials += [entry]
         print(str(names))
-        votingResults = voting(len(names), votes, NumberTooMuch,potentials)
+        print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
+        votingResults = voting(len(names), votes, aristrokratsAreLessThanAll,potentials)
         print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
         print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
         value = argv[:3]+list(votingResults.values())
@@ -87,25 +89,39 @@ def voting2(argv, NumberTooMuch=False,Plutocracy=False):
 
 def hierarchy(argv, auswahl):
         print("next in hierarchy")
+        systempeople = readCsv(sys.argv)[-1][1:] # Menschen in ihrer Reihenfolge, wie sie vom System anfangs festgelegt wurden
+        # in argv stehen die aktuelleren people drin und anders drin, d.h. mit 2
+        # zahlen in arrayelementen jeweils
         longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
-        hierarchyGame = libdice.dice(longvar, werfen=0, uniq_=True, bezeichner=' '.join(sys.argv[3:]))
-        print('out: '+str(hierarchyGame.out()))
+        hierarchyGame = libdice.dice(longvar, werfen=0, uniq_=True, bezeichner=' '.join(argv[3:]))
+        print('dice out: '+str(hierarchyGame.out()))
         roledone = hierarchyGame.wuerfeln()[0][0]
-        print('out: '+str(roledone))
-        hierarchynow=[]
-        people = []
+        print('roledone: '+str(roledone))
 
-        for i,someone in enumerate(sys.argv[3:]):
-            if i % 3 == 0:
-                people.append(someone)
-        print('now: '+str(people))
+        hierarchynow = []
+        flag = False
 
-        for i, user in enumerate(people):
-            hierarchynow += [user]
-            if i == int(roledone):
-                break
-        print('now: '+str(hierarchynow))
-        return sys.argv[:3]+hierarchynow
+        for systemman in systempeople:
+            for i,nowSomeone in enumerate(argv[3:]):
+                if i % 3 == 0 and systemman == nowSomeone:
+                    hierarchynow += [nowSomeone]
+                    flag = True
+                if flag and i % 3 == 1:
+                    hierarchynow += [nowSomeone]
+                if flag and i % 3 == 2:
+                    hierarchynow += [nowSomeone]
+                    flag = False
+
+        print('hierarchynow: '+str(hierarchynow))
+        if argv[3:][roledone*3] in systempeople:
+
+            hierarchynow = hierarchynow[0:((roledone+1)*3)]
+#            for i, user in enumerate(systempeople):
+ #               hierarchynow += [user]
+ #               if user == argv[3:][roledone]:
+ #                   break
+            print('hierarchynow: '+str(hierarchynow))
+            return hierarchynow
 
 #def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
 if True:
@@ -161,10 +177,15 @@ elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, ab
     print(historyThisGovernment[-1][0])
     if historyThisGovernment[-1][0] == systemTypeMaps['numstr'][2]: # Dictatorship
         value = hierarchy(sys.argv, auswahl)
-        writeCsv(value)
+        print('val: '+str(value))
+        print('blub: '+ str(sys.argv[:3] + value))
+        voting2(sys.argv[:3] + value, False)
+        #writeCsv(value)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][3]: # Tyranei
         value = hierarchy(sys.argv, auswahl)
-        voting2(value, True)
+        print('val: '+str(value))
+        print('blub: '+ str(sys.argv[:3] + value))
+        voting2(sys.argv[:3] + value, False)
         #writeCsv(value)
 
 else:
