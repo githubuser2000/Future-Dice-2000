@@ -31,6 +31,29 @@ def readCsv(data):
             #print(row[0])
 
 
+
+def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
+    print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
+    for choice in readCsv(sys.argv)[:-2]:
+        if choice[0] == 'next':
+            ObjDice.wuerfelAugenSet.add(len(choice)-2)
+            print("last "+ str(len(choice)-2))
+        elif choice[0] == 'vote':
+            maxval = 0
+            for oneCandidateVoteAmount in choice[1:]:
+                if maxval < int(oneCandidateVoteAmount):
+                    maxval = int(oneCandidateVoteAmount)
+            #whoHasMax = []
+            for i,oneCandidateVoteAmount in enumerate(choice[1:]):
+                #print('max='+str(oneCandidateVoteAmount))
+                if int(maxval) == int(oneCandidateVoteAmount):
+                    #whoHasMax += [i]
+                    #ObjDice.wuerfelAugenSet.add(i)
+                    print("last "+ str(i))
+
+
+
+
 def newSystem(auswahl, argv, oldsystem=systemTypeMaps['numstr'][3]):
     if systemTypeMaps['strnum'][oldsystem] % 2 == 1:
         longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
@@ -91,12 +114,6 @@ def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False,voteHierarch
         value = argv[:3]+list(votingResults.values())
         writeCsv(value)
 
-def endOfEveryVote(userUsedAndFinished,ObjDice):
-    ObjDice.wuerfelAugenSet.add(userUsedAndFinished)
-
-def peopleAlreadyDemocraticOrRandomlySelectedInPast():
-    print("last "+ str(readCsv(sys.argv)))
-
 def hierarchy(argv, auswahl):
         print("next in hierarchy")
         systempeople = readCsv(sys.argv)[-1][1:] # Menschen in ihrer Reihenfolge, wie sie vom System anfangs festgelegt wurden
@@ -104,6 +121,7 @@ def hierarchy(argv, auswahl):
         # zahlen in arrayelementen jeweils
         longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
         hierarchyGame = libdice.dice(longvar, werfen=0, uniq_=True, bezeichner=' '.join(argv[3:]))
+        peopleAlreadyDemocraticOrRandomlySelectedInPast(hierarchyGame)
         print('dice out: '+str(hierarchyGame.out()))
         roledone = hierarchyGame.wuerfeln()[0][0]
         print('roledone: '+str(roledone))
@@ -175,14 +193,15 @@ elif sys.argv[2] in ['vote']:
         voting2(sys.argv)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][4]: # Aristrokratie
         print("vote in Aristokratie")
-        longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
-        hierarchyGame = libdice.dice(longvar, werfen=0, uniq_=True, bezeichner=' '.join(sys.argv[4:]))
-        print('out: '+str(hierarchyGame.out()))
+        #longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
+        #hierarchyGame = libdice.dice(longvar, werfen=0, uniq_=True, bezeichner=' '.join(sys.argv[4:]))
+        #print('out: '+str(hierarchyGame.out()))
         voting2(sys.argv, True)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][1]: # Plutokratie
         voting2(sys.argv, False, True)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][5]: # Oligarchie - Programmiere ich später - mehr Eigennutz der Chefs, d.h. normale Wahl und dürfen bei jedem zweiten Mal selbst
         voting2(sys.argv, True)
+    peopleAlreadyDemocraticOrRandomlySelectedInPast()
 
 elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, aber jeder der dran ist hat die Wahl sich oder höher bei Tyranei oder sich oder niedriger bei Dictatorship
     historyThisGovernment = readCsv(sys.argv)
@@ -203,4 +222,3 @@ elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, ab
 else:
     print(str(systemTypes)+" ???")
 
-peopleAlreadyDemocraticOrRandomlySelectedInPast()
