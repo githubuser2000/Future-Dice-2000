@@ -102,3 +102,16 @@ democracy;c;e;b
 vote;1;2;3
 vote;1;2;3
 vote;3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;-3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;3;2;1
+vote;3;2;1

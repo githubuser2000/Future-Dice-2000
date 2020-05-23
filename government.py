@@ -34,22 +34,24 @@ def readCsv(data):
 
 def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
+    whoHasMax = []
     for choice in readCsv(sys.argv)[:-2]:
         if choice[0] == 'next':
             ObjDice.wuerfelAugenSet.add(len(choice)-2)
             print("last "+ str(len(choice)-2))
         elif choice[0] == 'vote':
             maxval = 0
+            print(choice)
             for oneCandidateVoteAmount in choice[1:]:
                 if maxval < int(oneCandidateVoteAmount):
                     maxval = int(oneCandidateVoteAmount)
-            #whoHasMax = []
-            for i,oneCandidateVoteAmount in enumerate(choice[1:]):
+            for i, oneCandidateVoteAmount in enumerate(choice[1:]):
                 #print('max='+str(oneCandidateVoteAmount))
                 if int(maxval) == int(oneCandidateVoteAmount):
-                    #whoHasMax += [i]
+                    whoHasMax += [i]
                     #ObjDice.wuerfelAugenSet.add(i)
                     print("last "+ str(i))
+            return whoHasMax
 
 
 
@@ -112,7 +114,7 @@ def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False,voteHierarch
         print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
         print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
         value = argv[:3]+list(votingResults.values())
-        writeCsv(value)
+        return value
 
 def hierarchy(argv, auswahl):
         print("next in hierarchy")
@@ -188,20 +190,27 @@ elif sys.argv[2] in ['revolution']:
     newSystem(auswahl, argv, oldsystem)
 elif sys.argv[2] in ['vote']:
     historyThisGovernment = readCsv(sys.argv)
-    print(historyThisGovernment[-1][0])
+    argv = sys.argv
+
+    whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
+    for whoNotAnymore in whoHasMax:
+        print(argv[whoNotAnymore*3+4])
+        argv[whoNotAnymore*3+4] = -abs(int(argv[whoNotAnymore*3+4]))
+    #print(historyThisGovernment[-1][0])
+
     if historyThisGovernment[-1][0] == systemTypeMaps['numstr'][0]: # Demokratie
-        voting2(sys.argv)
+        value = voting2(argv)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][4]: # Aristrokratie
         print("vote in Aristokratie")
         #longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
         #hierarchyGame = libdice.dice(longvar, werfen=0, uniq_=True, bezeichner=' '.join(sys.argv[4:]))
         #print('out: '+str(hierarchyGame.out()))
-        voting2(sys.argv, True)
+        value = voting2(argv, True)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][1]: # Plutokratie
-        voting2(sys.argv, False, True)
+        value = voting2(argv, False, True)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][5]: # Oligarchie - Programmiere ich später - mehr Eigennutz der Chefs, d.h. normale Wahl und dürfen bei jedem zweiten Mal selbst
-        voting2(sys.argv, True)
-    peopleAlreadyDemocraticOrRandomlySelectedInPast()
+        value = voting2(argv, True)
+    writeCsv(value)
 
 elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, aber jeder der dran ist hat die Wahl sich oder höher bei Tyranei oder sich oder niedriger bei Dictatorship
     historyThisGovernment = readCsv(sys.argv)
@@ -210,14 +219,13 @@ elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, ab
         value = hierarchy(sys.argv, auswahl)
         print('val: '+str(value))
         print('blub: '+ str(sys.argv[:3] + value))
-        voting2(sys.argv[:3] + value, False, False, int(len(value)/3))
-        #writeCsv(value)
+        value = voting2(sys.argv[:3] + value, False, False, int(len(value)/3))
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][3]: # Tyranei
         value = hierarchy(sys.argv, auswahl)
         print('val: '+str(value))
         print('blub: '+ str(sys.argv[:3] + value))
-        voting2(sys.argv[:3] + value, False, False, -int(len(value)/3))
-        #writeCsv(value)
+        value = voting2(sys.argv[:3] + value, False, False, -int(len(value)/3))
+    writeCsv(value)
 
 else:
     print(str(systemTypes)+" ???")
