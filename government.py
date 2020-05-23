@@ -233,23 +233,29 @@ elif sys.argv[2] in ['vote']:
         value = voting2(argv, False, True)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][5]: # Oligarchie - Programmiere ich später - mehr Eigennutz der Chefs, d.h. normale Wahl und dürfen bei jedem zweiten Mal selbst
         value = voting2(argv, True)
-    if value[2] == 'vote':
-        writeCsv(value)
-
-elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, aber jeder der dran ist hat die Wahl sich oder höher bei Tyranei oder sich oder niedriger bei Dictatorship
-    historyThisGovernment = readCsv(sys.argv)
-    print(historyThisGovernment[-1][0])
-    if historyThisGovernment[-1][0] == systemTypeMaps['numstr'][2]: # Dictatorship
-        value = hierarchy(sys.argv, auswahl)
+#    if value[2] == 'vote':
+ #       writeCsv(value)
+#
+#elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, aber jeder der dran ist hat die Wahl sich oder höher bei Tyranei oder sich oder niedriger bei Dictatorship
+#    historyThisGovernment = readCsv(sys.argv)
+#    print(historyThisGovernment[-1][0])
+    elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][2]: # Dictatorship
+        value = hierarchy(argv, auswahl)
         print('val: '+str(value))
-        print('blub: '+ str(sys.argv[:3] + value))
-        value = voting2(sys.argv[:3] + value, False, False, int(len(value)/3))
+        print('blub: '+ str(argv[:3] + value))
+        value = voting2(argv[:3] + value, False, False, int(len(value)/3))
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][3]: # Tyranei
-        value = hierarchy(sys.argv, auswahl)
+        value = hierarchy(argv, auswahl)
         print('val: '+str(value))
-        print('blub: '+ str(sys.argv[:3] + value))
-        value = voting2(sys.argv[:3] + value, False, False, -int(len(value)/3))
-    if value[2] == 'next':
+        print('blub: '+ str(argv[:3] + value))
+        value = voting2(argv[:3] + value, False, False, -int(len(value)/3))
+
+    summ = 0
+    for val in value[3:]:
+        if val != 0:
+            summ += 1
+    if summ != 0:
+    #if value[2] == 'vote':
         writeCsv(value)
 
 else:
