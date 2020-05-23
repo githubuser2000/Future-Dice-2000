@@ -132,3 +132,6 @@ vote;0;0;1
 tyrannis;c;b;e
 vote;3;2
 aristocracy;c;e;b
+vote;3;2;0
+oligarchy;c;e;b
+vote;3;2;0
