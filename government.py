@@ -30,15 +30,25 @@ def readCsv(data):
                 return rowsuntil
             #print(row[0])
 
+def whoIsNotVotedAnymore(argv, whoNot):
+    allLastVotesAndGovernment = readCsv(sys.argv)
+    government = allLastVotesAndGovernment[-1][1:]
+    names = []
+    for oneNot in whoNot:
+        names += [government[oneNot]]
 
+
+
+whoHasMax = set()
 
 def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
+    global whoHasMax
     print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
-    whoHasMax = []
-    for choice in readCsv(sys.argv)[:-2]:
+    for choice in readCsv(sys.argv)[:-1]:
         if choice[0] == 'next':
             ObjDice.wuerfelAugenSet.add(len(choice)-2)
             print("last "+ str(len(choice)-2))
+            whoHasMax.add(len(choice)-2)
         elif choice[0] == 'vote':
             maxval = 0
             print(choice)
@@ -48,10 +58,10 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
             for i, oneCandidateVoteAmount in enumerate(choice[1:]):
                 #print('max='+str(oneCandidateVoteAmount))
                 if int(maxval) == int(oneCandidateVoteAmount):
-                    whoHasMax += [i]
+                    whoHasMax.add(i)
                     #ObjDice.wuerfelAugenSet.add(i)
                     print("last "+ str(i))
-            return whoHasMax
+    return whoHasMax
 
 
 
@@ -89,10 +99,11 @@ def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None,
                 if voteHierarchy == 0 or \
                     ( voteHierarchy > 0 and voteHierarchy - 1 <= i) or \
                     ( voteHierarchy < 0 and -voteHierarchy - 1 >= i):
-                    if not i in results.keys():
-                        results[i] = 1 * int(potential)
-                    else:
-                        results[i] += 1 * int(potential)
+                    if not i in whoHasMax:
+                        if not i in results.keys():
+                            results[i] = 1 * int(potential)
+                        else:
+                            results[i] += 1 * int(potential)
     return results
 
 
@@ -193,9 +204,10 @@ elif sys.argv[2] in ['vote']:
     argv = sys.argv
 
     whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
-    for whoNotAnymore in whoHasMax:
-        print(argv[whoNotAnymore*3+4])
-        argv[whoNotAnymore*3+4] = -abs(int(argv[whoNotAnymore*3+4]))
+    #for whoNotAnymore in whoHasMax:
+    #    print(argv[whoNotAnymore*3+4])
+    #    argv[whoNotAnymore*3+4] = -abs(int(argv[whoNotAnymore*3+4]))
+    #print(argv)
     #print(historyThisGovernment[-1][0])
 
     if historyThisGovernment[-1][0] == systemTypeMaps['numstr'][0]: # Demokratie
