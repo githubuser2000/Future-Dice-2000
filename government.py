@@ -30,12 +30,12 @@ def readCsv(data):
                 return rowsuntil
             #print(row[0])
 
-def whoIsNotVotedAnymore(argv, whoNot):
-    allLastVotesAndGovernment = readCsv(sys.argv)
-    government = allLastVotesAndGovernment[-1][1:]
-    names = []
-    for oneNot in whoNot:
-        names += [government[oneNot]]
+#def whoIsNotVotedAnymore(argv, whoNot):
+#    allLastVotesAndGovernment = readCsv(sys.argv)
+#    government = allLastVotesAndGovernment[-1][1:]
+#    names = []
+#    for oneNot in whoNot:
+#        names += [government[oneNot]]
 
 
 
@@ -82,8 +82,14 @@ def newSystem(auswahl, argv, oldsystem=systemTypeMaps['numstr'][3]):
     writeCsv(sys.argv[0:3]+people)
 
 def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None, voteHierarchy=0):
+    global whoHasMax
     aristokratenAmount = math.floor(math.sqrt(len(sys.argv[3:])/3+2))
     results = {}
+    if userAmount == len(whoHasMax):
+        revolution()
+        for l in range(userAmount):
+            results[l] = 0
+        return results
 
     for i in range(userAmount):
         results[i] = 0
@@ -91,11 +97,7 @@ def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None,
         if aristrokratsAreLessThanAll and aristokratenAmount <= k:
             break
         for i in range(userAmount):
-            print('_-_ '+str(vote))
             if int(i) == int(vote):
-                #print(str(i)+' '+str(vote))
-                print('-- '+str(potential))
-                print("egal: "+str(voteHierarchy)+" "+str(i))
                 if voteHierarchy == 0 or \
                     ( voteHierarchy > 0 and voteHierarchy - 1 <= i) or \
                     ( voteHierarchy < 0 and -voteHierarchy - 1 >= i):
@@ -104,6 +106,13 @@ def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None,
                             results[i] = 1 * int(potential)
                         else:
                             results[i] += 1 * int(potential)
+    isNotZero = 0
+    for result in results.values():
+        print('asd '+str(result))
+        if int(result) != 0:
+            isNotZero += 1
+    if isNotZero == 0:
+        revolution()
     return results
 
 
@@ -119,11 +128,11 @@ def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False,voteHierarch
                 votes += [entry]
             if i % 3 == 2:
                 potentials += [entry]
-        print(str(names))
-        print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
+        #print(str(names))
+        #print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
         votingResults = voting(len(names), votes, aristrokratsAreLessThanAll,potentials,voteHierarchy)
-        print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
-        print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
+        #print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
+        #print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
         value = argv[:3]+list(votingResults.values())
         return value
 
@@ -165,22 +174,7 @@ def hierarchy(argv, auswahl):
             #endOfEveryVote(roledone,hierarchyGame)
             return hierarchynow
 
-
-#def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
-if True:
-    app =QApplication(sys.argv)
-    #libdice.dice.languages1(app)
-    qAppEngin = QQmlApplicationEngine()
-    libdice_strlist = [qAppEngin.tr('lin'), qAppEngin.tr('log'), qAppEngin.tr('root'), qAppEngin.tr('poly'), qAppEngin.tr('exp'), qAppEngin.tr('kombi'), qAppEngin.tr('logistic'), qAppEngin.tr('rand'), qAppEngin.tr('gewicht'), qAppEngin.tr('add'), qAppEngin.tr('mul'), qAppEngin.tr("Wuerfelwurf: "),qAppEngin.tr(" (Wuerfelaugen ")]
-    blub = [qAppEngin.tr('test')]
-    libdice.dice.languages2(libdice_strlist)
-
-auswahl=int((len(sys.argv)-3)/3)
-
-if sys.argv[2] in systemTypes:
-#    print(str(sys.argv[3:]))
-    newSystem(auswahl, sys.argv)
-elif sys.argv[2] in ['revolution']:
+def revolution():
     # von Demokratie auf Plutokratie
     # von x modulo 2 = 0 auf darauf folgendes x += 1
     # von modulo 2 = 1 auf irgendein anderes x modulo 2 = 0
@@ -199,6 +193,23 @@ elif sys.argv[2] in ['revolution']:
     argv = sys.argv
     argv[2] = newsystem
     newSystem(auswahl, argv, oldsystem)
+
+#def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
+if True:
+    app =QApplication(sys.argv)
+    #libdice.dice.languages1(app)
+    qAppEngin = QQmlApplicationEngine()
+    libdice_strlist = [qAppEngin.tr('lin'), qAppEngin.tr('log'), qAppEngin.tr('root'), qAppEngin.tr('poly'), qAppEngin.tr('exp'), qAppEngin.tr('kombi'), qAppEngin.tr('logistic'), qAppEngin.tr('rand'), qAppEngin.tr('gewicht'), qAppEngin.tr('add'), qAppEngin.tr('mul'), qAppEngin.tr("Wuerfelwurf: "),qAppEngin.tr(" (Wuerfelaugen ")]
+    blub = [qAppEngin.tr('test')]
+    libdice.dice.languages2(libdice_strlist)
+
+auswahl=int((len(sys.argv)-3)/3)
+
+if sys.argv[2] in systemTypes:
+#    print(str(sys.argv[3:]))
+    newSystem(auswahl, sys.argv)
+elif sys.argv[2] in ['revolution']:
+    revolution()
 elif sys.argv[2] in ['vote']:
     historyThisGovernment = readCsv(sys.argv)
     argv = sys.argv
@@ -222,7 +233,8 @@ elif sys.argv[2] in ['vote']:
         value = voting2(argv, False, True)
     elif historyThisGovernment[-1][0] == systemTypeMaps['numstr'][5]: # Oligarchie - Programmiere ich später - mehr Eigennutz der Chefs, d.h. normale Wahl und dürfen bei jedem zweiten Mal selbst
         value = voting2(argv, True)
-    writeCsv(value)
+    if value[2] == 'vote':
+        writeCsv(value)
 
 elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, aber jeder der dran ist hat die Wahl sich oder höher bei Tyranei oder sich oder niedriger bei Dictatorship
     historyThisGovernment = readCsv(sys.argv)
@@ -237,7 +249,8 @@ elif sys.argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, ab
         print('val: '+str(value))
         print('blub: '+ str(sys.argv[:3] + value))
         value = voting2(sys.argv[:3] + value, False, False, -int(len(value)/3))
-    writeCsv(value)
+    if value[2] == 'next':
+        writeCsv(value)
 
 else:
     print(str(systemTypes)+" ???")
