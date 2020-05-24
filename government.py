@@ -98,37 +98,46 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     return whoHasMax
 
 def twistGewichtung(argv):
-    arev = argv[3:]
-    arev.reverse()
-    for i,rev in enumerate(arev):
+    argv2 = argv[3:]
+    argreverse = argv2.copy()
+    argreverse.reverse()
+    argreverse2 = argreverse.copy()
+    result = []
+    for i, (a, b) in enumerate(zip(argreverse2,argv2)):
         if i % 3 == 0:
-            print(str(rev))
-            argv[i+5] = rev
-    return argv
+            argreverse[i+2] = argv2[i+2]
+        if i % 3 == 2:
+            argreverse[i-2] = a
+    print(str(argreverse))
+    return argv[:3] + argreverse
+
 
 
 
 def newSystem(auswahl, argv, oldsystem=systemTypeMaps['numstr'][3]):
+    print('dd '+str(argv))
+    newargv = twistGewichtung(argv)
+    print('ww'+str(newargv))
     if systemTypeMaps['strnum'][oldsystem] % 2 == 1:
         longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
-        people1 = libdice.dice(longvar, werfen=auswahl, uniq_=True, bezeichner=' '.join(argv[3:]))
+        people1 = libdice.dice(longvar, werfen=auswahl, uniq_=True, bezeichner=' '.join(newargv[3:]))
         people1 = people1.out()[1]
         people = []
         for someone in people1:
             if type(someone) is tuple:
                 people.append(someone[3])
     else:
-        people = readCsv(argv)[-1][1:]
+        people = readCsv(newargv)[-1][1:]
 
-    print(str(argv[0:3]+people))
-    writeCsv(argv[0:3]+people)
+    print(str(newargv[0:3]+people))
+    #writeCsv(newargv[0:3]+people)
 
 def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None, voteHierarchy=0, oligarchy=False):
     global whoHasMax
     aristokratenAmount = math.floor(math.sqrt(len(argv[3:])/3+2))
     results = {}
     if userAmount == len(whoHasMax):
-        revolution()
+        revolution(argv)
         for l in range(userAmount):
             results[l] = 0
         return results
@@ -156,7 +165,7 @@ def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None,
         if int(result) != 0:
             isNotZero += 1
     if isNotZero == 0:
-        revolution()
+        revolution(argv)
     return results
 
 
@@ -218,7 +227,7 @@ def hierarchy(argv, auswahl):
             #endOfEveryVote(roledone,hierarchyGame)
             return hierarchynow
 
-def revolution():
+def revolution(argv):
     # von Demokratie auf Plutokratie
     # von x modulo 2 = 0 auf darauf folgendes x += 1
     # von modulo 2 = 1 auf irgendein anderes x modulo 2 = 0
@@ -234,7 +243,6 @@ def revolution():
         randbool = random.randint(0, 1) # randint 0 1 macht 0 oder 1 möglich
         newsystem = systemTypeMaps['numstr'][(systemTypeMaps['strnum'][oldsystem]+1+(2*randbool))%6]
     print(newsystem)
-    argv = argv
     argv[2] = newsystem
     newSystem(auswahl, argv, oldsystem)
 
@@ -253,10 +261,9 @@ if argv[2] in systemTypes:
 #    print(str(argv[3:]))
     newSystem(auswahl, argv)
 elif argv[2] in ['revolution']:
-    revolution()
+    revolution(argv)
 elif argv[2] in ['vote']:
     historyThisGovernment = readCsv(argv)
-    argv = argv
     argv= argv[:3] + orderOfPrecedence(argv,historyThisGovernment[-1][1:])
     print(str(argv))
     whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()

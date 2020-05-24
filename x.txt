@@ -142,3 +142,8 @@ vote;0;2;1
 vote;0;0;1
 plutocracy;e;c;b
 vote;1;2;3
+vote;3;2;0
+vote;0;2;0
+aristocracy;e;c;b
+vote;0;2;1
+vote;0;0;1
