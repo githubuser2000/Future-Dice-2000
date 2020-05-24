@@ -137,3 +137,4 @@ oligarchy;c;e;b
 vote;0;2;1
 vote;0;0;1
 democracy;e;c;b
+vote;3;2;1
