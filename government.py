@@ -11,6 +11,7 @@ import pickle
 import math
 import random
 
+
 systemTypeMaps =  {'strnum' : {'democracy': 0, 'plutocracy' : 1, 'dictatorship' : 2, 'tyrannis': 3, 'aristocracy' : 4, 'oligarchy' : 5},'numstr':{0:'democracy',1:'plutocracy',2:'dictatorship',3:'tyrannis',4:'aristocracy',5:'oligarchy'}}
 systemTypes = systemTypeMaps['numstr'].values()
 
@@ -29,6 +30,37 @@ def readCsv(data):
             if row[0] in systemTypes:
                 return rowsuntil
             #print(row[0])
+
+namesNotAllDifferent = False
+
+def orderOfPrecedence(argv, differentOrder):
+    global namesNotAllDifferent
+    #print(str(argv[3:]))
+    #print(differentOrder)
+    users = []
+    usernames = []
+    for user in differentOrder:
+        three = []
+        for i,thing in enumerate(argv[3:]):
+            if i % 3 == 0 and thing == user:
+                three += [thing]
+                usernames += [thing]
+            if i % 3 == 1 and len(three) == 1:
+                three += [thing]
+            if i % 3 == 2 and len(three) == 2:
+                three += [thing]
+                users += [three]
+    #print(str(lenset(usernames)))
+    if len(set(usernames)) != len(set(differentOrder)):
+        namesNotAllDifferent = True
+
+    threes = []
+    for three in users:
+        threes += three
+
+    #print(threes)
+    return threes
+
 
 #def whoIsNotVotedAnymore(argv, whoNot):
 #    allLastVotesAndGovernment = readCsv(sys.argv)
@@ -215,8 +247,13 @@ elif sys.argv[2] in ['revolution']:
 elif sys.argv[2] in ['vote']:
     historyThisGovernment = readCsv(sys.argv)
     argv = sys.argv
-
+    argv= argv[:3] + orderOfPrecedence(argv,historyThisGovernment[-1][1:])
+    print(str(argv))
     whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
+
+    if namesNotAllDifferent == True:
+        print("Some names are equal. Exit!")
+        exit()
     #for whoNotAnymore in whoHasMax:
     #    print(argv[whoNotAnymore*3+4])
     #    argv[whoNotAnymore*3+4] = -abs(int(argv[whoNotAnymore*3+4]))
@@ -258,7 +295,6 @@ elif sys.argv[2] in ['vote']:
         if val != 0:
             summ += 1
     if summ != 0:
-    #if value[2] == 'vote':
         writeCsv(value)
 
 else:
