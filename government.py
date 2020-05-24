@@ -108,29 +108,31 @@ def twistGewichtung(argv):
             argreverse[i+2] = argv2[i+2]
         if i % 3 == 2:
             argreverse[i-2] = a
-    print(str(argreverse))
+    #print(str(argreverse))
     return argv[:3] + argreverse
 
 
 
 
 def newSystem(auswahl, argv, oldsystem=systemTypeMaps['numstr'][3]):
-    print('dd '+str(argv))
+    #print('dd '+str(argv))
     newargv = twistGewichtung(argv)
-    print('ww'+str(newargv))
+    #print('ww'+str(newargv))
     if systemTypeMaps['strnum'][oldsystem] % 2 == 1:
         longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
         people1 = libdice.dice(longvar, werfen=auswahl, uniq_=True, bezeichner=' '.join(newargv[3:]))
+        print(str(people1.out()))
         people1 = people1.out()[1]
         people = []
         for someone in people1:
             if type(someone) is tuple:
                 people.append(someone[3])
     else:
+        #print("nein")
         people = readCsv(newargv)[-1][1:]
 
     print(str(newargv[0:3]+people))
-    #writeCsv(newargv[0:3]+people)
+    writeCsv(newargv[0:3]+people)
 
 def voting(userAmount, votes, aristrokratsAreLessThanAll=False, potentials=None, voteHierarchy=0, oligarchy=False):
     global whoHasMax
