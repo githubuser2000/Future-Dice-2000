@@ -492,8 +492,10 @@ Window {
             //spacing: 2
             //padding: -2
             ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+
             contentHeight: listView.height
             contentWidth: listView.width
+
 
             ListView {
                 id: listView
@@ -502,10 +504,11 @@ Window {
                 //implicitWidth: scrollView.width
                 //width: scrollView.width
                 //height: scrollView.height
-                /*
-                onVisibleChanged: {
+                //onWidthChanged:width = scrollView.width
+                //onHeightChanged: height = scrollView.height
+                /*onVisibleChanged: {
                     height = scrollView.height
-                    width = scrollView.height
+                    width = scrollView.width
                 }*/
                 Layout.fillWidth: true
                 Layout.fillHeight: true

@@ -231,6 +231,7 @@ class MainWindow(QQmlApplicationEngine):
 
 if __name__ == "__main__":
     app =QApplication(sys.argv)
+    #app.setStyle('Windows')
     app.setWindowIcon(QIcon("wuerfel.png"));
     window = MainWindow(app)
     sys.exit(window.show_())
