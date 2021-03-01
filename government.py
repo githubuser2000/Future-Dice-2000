@@ -17,6 +17,8 @@ from PyQt5.QtWidgets import QApplication
 # ./government.py x democracy b 1 c 3 e 21
 # 0. python exe, 1. logfile, 2. befehl, 3. 3-5 und 6-8 = erste beiden tripel: name zahl zahl, name zahl zahl
 # name zahl zahl entspricht den Parametern vom dice und zwar person, würfelaugenersatzwert und Gewichtung
+# befehle können sein: vote, revolution, staatsformname 
+
 
 # x.txt
 # democracy;c;e;b
@@ -90,6 +92,16 @@ namesNotAllDifferent = False
 
 def orderOfPrecedence(argv, differentOrder):
     global namesNotAllDifferent
+    """ gibt tripelliste zurück, in gleicher Reihenfolge
+    nichts besonderes!
+
+    alle usernamen werden durchgegangen
+    wenn vorhandener user und parameteruser gleich ist
+    dann in user_name_list
+    wenn letzte zahl des tripels der tripel
+    dann users_list ein tripel anhängen
+    users_list wird returned als variable threes
+    """
     # print(str(argv[3:]))
     # print(differentOrder)
     users = []
@@ -132,10 +144,16 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     global whoHasMax
     print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
     for choice in readCsv(argv)[:-1]:
+        """ letzte zeile aus log txt
+            die nummer des letzten wird bei whoHasMax angefügt, bei next
+            und bei vote ist es die nummer mit der höchsten zahl
+            das ist alles, außer dass dice das auch bekommt, bei next nur
+        """
         if choice[0] == "next":
-            ObjDice.wuerfelAugenSet.add(len(choice) - 2)
-            print("last " + str(len(choice) - 2))
-            whoHasMax.add(len(choice) - 2)
+            amountPeopleMinusOne =len(choice) - 2 
+            ObjDice.wuerfelAugenSet.add(amountPeopleMinusOne)
+            print("last " + str(amountPeopleMinusOne)
+            whoHasMax.add(amountPeopleMinusOne)
         elif choice[0] == "vote":
             maxval = 0
             print(choice)
@@ -218,21 +236,34 @@ def voting(
     oligarchy=False,
 ):
     global whoHasMax
-    aristokratenAmount = math.floor(math.sqrt(len(argv[3:]) / 3 + 2))
+    aristokratenAmount = math.floor(math.sqrt(len(argv[3:]) / 3 + 2)) # ein oberer Bruchteil ist Aristrokrat
     results = {}
+    """ Revolution, wenn alle durch sind und dann alle votes=0 returnen, ende"""
     if userAmount == len(whoHasMax):
         revolution(argv)
         for l in range(userAmount):
             results[l] = 0
         return results
 
+    """ zunächst sind alle votes 0"""
     for i in range(userAmount):
         results[i] = 0
+    """
+    + bei weniger als alle aristrokaten, stopp, so dass dann nur die aristrokraten wählen
+    + for votes for user, d.h. jeder user votet jeden user, es sei denn Aristrokratie
+    + """
     for k, (vote, potential) in enumerate(zip(votes, potentials)):
         if aristrokratsAreLessThanAll and aristokratenAmount <= k:
             break
         for i in range(userAmount):
             if int(i) == int(vote):
+                """ voteHierarchy definiert sich daraus welche user voten dürfen - das ist alles
+                + der max user fällt immer weg, der user mit der nummer whoHasMax
+                + in Oligarchie haben user dreifaches potential
+                    aber int(boolwert) * 3 ist irgendwie komisch aber funktionierend programmiert
+                + wo kommt eigentlich potentials her? 
+                + if true oder false, immer: resultliste hat immer den wert 1 * potentialvariable
+                """
                 if (
                     voteHierarchy == 0
                     or (voteHierarchy > 0 and voteHierarchy - 1 <= i)
@@ -245,6 +276,9 @@ def voting(
                             results[i] = 1 * int(potential)
                         else:
                             results[i] += 1 * int(potential)
+
+    """ revolution nach vote, wenn es letzter vote war
+    + immer returnen der Potentialliste per i = user"""
     isNotZero = 0
     for result in results.values():
         print("asd " + str(result))
@@ -262,6 +296,11 @@ def voting2(
     voteHierarchy=0,
     oligarchy=False,
 ):
+    """ tripel in liste, dann vote()
+    dann dessen ergebnis returned, einzelne, keine tripel
+    aber davor noch die 3 ersten parameter, wozu wohl auch die py datei gehört
+    das als liste returned
+    """
     print("voting")
     names = []
     votes = []
@@ -295,7 +334,7 @@ def hierarchy(argv, personenAnzahl):
         1:
     ]  # Menschen in ihrer Reihenfolge, wie sie vom System anfangs festgelegt wurden
     # in argv stehen die aktuelleren people drin und anders drin, d.h. mit 2
-    # zahlen in arrayelementen jeweils
+    # zahlen in arrayelementen jeweils: name, wert der Augen , gewichtung
     longvar = (
         "dice.py " + str(personenAnzahl) + " gewicht lin 1 1 1 lin 1 1 1"
     ).split()
@@ -337,8 +376,10 @@ def hierarchy(argv, personenAnzahl):
 def revolution(argv):
     # von Demokratie auf Plutokratie
     # von x modulo 2 = 0 auf darauf folgendes x += 1
+    # d.h. von einem der guten 3 auf das böse immer
     # von modulo 2 = 1 auf irgendein anderes x modulo 2 = 0
     # aber nicht das, was das entsprechende x modulo 2 = 0 wäre das davor liegen
+    # d.h. von etwas bösem auf ein anderes gutes, aber nicht dessen gutes, sondern etwas neues
     # würde
     oldsystem = readCsv(argv)[-1][0]
     print("oldsystem: " + str(systemTypeMaps["strnum"][oldsystem]))
