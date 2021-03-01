@@ -17,13 +17,15 @@ from PyQt5.QtWidgets import QApplication
 # ./government.py x democracy b 1 c 3 e 21
 # 0. python exe, 1. logfile, 2. befehl, 3. 3-5 und 6-8 = erste beiden tripel: name zahl zahl, name zahl zahl
 # name zahl zahl entspricht den Parametern vom dice und zwar person, würfelaugenersatzwert und Gewichtung
-# befehle können sein: vote, revolution, staatsformname 
+# befehle können sein: vote, revolution, staatsformname
 
 
 # x.txt
 # democracy;c;e;b
 # staatssystem und 3 Teilnehmer, ggf. als Rangfolge
 # danach voten oder next (next bei keine Demokratie-Elemente)
+# vote;1;1;1 bedeutet, erster in der staatform oben bekommt einen Wahlpunkt und hinteren beiden auch
+# d.h. c e und b bekommen einen wahlpunkt, bei gewichten von wahlfähigkeit ist es mehr
 # das ist alles
 
 # next;2;2;2
@@ -144,16 +146,16 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     global whoHasMax
     print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
     for choice in readCsv(argv)[:-1]:
-        """ letzte zeile aus log txt
-            die nummer des letzten wird bei whoHasMax angefügt, bei next
-            und bei vote ist es die nummer mit der höchsten zahl
-            das ist alles, außer dass dice das auch bekommt, bei next nur
+        """letzte zeile aus log txt
+        die nummer des letzten wird bei whoHasMax angefügt, bei next
+        und bei vote ist es die nummer mit der höchsten zahl
+        das ist alles, außer dass dice das auch bekommt, bei next nur
         """
         if choice[0] == "next":
-            amountPeopleMinusOne =len(choice) - 2 
+            amountPeopleMinusOne = len(choice) - 2
             ObjDice.wuerfelAugenSet.add(amountPeopleMinusOne)
-            print("last " + str(amountPeopleMinusOne)
-            whoHasMax.add(amountPeopleMinusOne)
+            print("last " + str(amountPeopleMinusOne))
+            whoHasMax |= {amountPeopleMinusOne}
         elif choice[0] == "vote":
             maxval = 0
             print(choice)
@@ -236,7 +238,9 @@ def voting(
     oligarchy=False,
 ):
     global whoHasMax
-    aristokratenAmount = math.floor(math.sqrt(len(argv[3:]) / 3 + 2)) # ein oberer Bruchteil ist Aristrokrat
+    aristokratenAmount = math.floor(
+        math.sqrt(len(argv[3:]) / 3 + 2)
+    )  # ein oberer Bruchteil ist Aristrokrat
     results = {}
     """ Revolution, wenn alle durch sind und dann alle votes=0 returnen, ende"""
     if userAmount == len(whoHasMax):
@@ -253,15 +257,25 @@ def voting(
     + for votes for user, d.h. jeder user votet jeden user, es sei denn Aristrokratie
     + """
     for k, (vote, potential) in enumerate(zip(votes, potentials)):
+        print(
+            "if aristrokratsAreLessThanAll and aristokratenAmount <= k: "
+            + str(aristrokratsAreLessThanAll)
+            + " "
+            + str(aristokratenAmount)
+            + " "
+            + str(k)
+            + " "
+            + str(aristrokratsAreLessThanAll and aristokratenAmount <= k)
+        )
         if aristrokratsAreLessThanAll and aristokratenAmount <= k:
             break
         for i in range(userAmount):
             if int(i) == int(vote):
-                """ voteHierarchy definiert sich daraus welche user voten dürfen - das ist alles
+                """voteHierarchy definiert sich daraus welche user voten dürfen - das ist alles
                 + der max user fällt immer weg, der user mit der nummer whoHasMax
                 + in Oligarchie haben user dreifaches potential
                     aber int(boolwert) * 3 ist irgendwie komisch aber funktionierend programmiert
-                + wo kommt eigentlich potentials her? 
+                + wo kommt eigentlich potentials her?: Das sind die gewichte, letzter wert im tripel
                 + if true oder false, immer: resultliste hat immer den wert 1 * potentialvariable
                 """
                 if (
@@ -296,7 +310,7 @@ def voting2(
     voteHierarchy=0,
     oligarchy=False,
 ):
-    """ tripel in liste, dann vote()
+    """tripel in liste, dann vote()
     dann dessen ergebnis returned, einzelne, keine tripel
     aber davor noch die 3 ersten parameter, wozu wohl auch die py datei gehört
     das als liste returned
