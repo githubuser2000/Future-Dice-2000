@@ -16,6 +16,7 @@ from PyQt5.QtWidgets import QApplication
 # ./government.py x vote b 0 1 c 1 1 e 2 1; tail -5 x.txt
 # ./government.py x democracy b 1 c 3 e 21
 # 0. python exe, 1. logfile, 2. befehl, 3. 3-5 und 6-8 = erste beiden tripel: name zahl zahl, name zahl zahl
+# name zahl zahl entspricht den Parametern vom dice und zwar person, würfelaugenersatzwert und Gewichtung
 
 # x.txt
 # democracy;c;e;b
@@ -58,6 +59,10 @@ argv = sys.argv
 
 
 def writeCsv(data):
+    """
+    schreibt in datei aus parameter 1
+    schreibt alles als ;-List ab Parameter 2 in die txt logdatei
+    """
     print(str(data))
     with open(data[1] + ".txt", mode="a+") as csv_file:
         writer = csv.writer(csv_file, delimiter=";")
@@ -65,6 +70,11 @@ def writeCsv(data):
 
 
 def readCsv(data):
+    """
+    liest rückwärts datei dessen name aus Parameter 1
+    list so lange bis die spalte[0] irgend ein Staatssystem im Namen trägt
+    Dann wird returned: matrix aus Spalten + Zeilen vom ende bis zum letzten Staatssystem
+    """
     with open(data[1] + ".txt", mode="r") as csv_file:
         rowsuntil = []
         for row in reversed(list(csv.reader(csv_file, delimiter=";"))):
@@ -142,11 +152,13 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
 
 
 def twistGewichtung(argv):
+    """
+    Die Gewichtung pro Person wird in ihrer Reihenfolge umgekehrt, so dass der Stärkste und Schwächste umgekehrt stark sind
+    """
     argv2 = argv[3:]
     argreverse = argv2.copy()
     argreverse.reverse()
     argreverse2 = argreverse.copy()
-    result = []
     for i, (a, b) in enumerate(zip(argreverse2, argv2)):
         if i % 3 == 0:
             argreverse[i + 2] = argv2[i + 2]
@@ -156,15 +168,25 @@ def twistGewichtung(argv):
     return argv[:3] + argreverse
 
 
-def newSystem(auswahl, argv, oldsystem=systemTypeMaps["numstr"][3]):
+def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["numstr"][3]):
+    """
+    Bei einem neuen System wird immer der schwächste zum größten und der größte zum kleinsten
+    durch die Funktion twistGewichtung
+    """
     # print('dd '+str(argv))
     newargv = twistGewichtung(argv)
     # print('ww'+str(newargv))
     if systemTypeMaps["strnum"][oldsystem] % 2 == 1:
-        longvar = ("dice.py " + str(auswahl) + " gewicht lin 1 1 1 lin 1 1 1").split()
+        """D.h. wenn es ein böses System ist (modulo 2 == 1), bzw. die 3 verschärften Systeme von den 6! """
+        longvar = (
+            "dice.py " + str(personenAnzahl) + " gewicht lin 1 1 1 lin 1 1 1"
+        ).split()
+        """ lineares bzw. genauer konstantes wachstum, also kein wachstum und gewicht auch also gleiches gewicht von allem
+        d.h. 6 würfelaugen bedeutet stinknormaler würfel in dem fall, würfelaugen == personenAnzahl"""
         people1 = libdice.dice(
-            longvar, werfen=auswahl, uniq_=True, bezeichner=" ".join(newargv[3:])
+            longvar, werfen=personenAnzahl, uniq_=True, bezeichner=" ".join(newargv[3:])
         )
+        """ people1 ergibt sich aus würfelung der alten people aber nur in anderer Reihenfogle """
         print(str(people1.out()))
         people1 = people1.out()[1]
         people = []
@@ -172,10 +194,18 @@ def newSystem(auswahl, argv, oldsystem=systemTypeMaps["numstr"][3]):
             if type(someone) is tuple:
                 people.append(someone[3])
     else:
+        """
+        wenn es zu den nicht bösen 3 varianten: modulo 2 = 0 gehört:
+        people werden aus dem letzten system übernommen
+        """
         # print("nein")
         people = readCsv(newargv)[-1][1:]
 
     print(str(newargv[0:3] + people))
+    """
+    eine Zeile in txt logfile: staatsystemname und die n user mit ihrem namen nach ihrer Rangfolge
+    das ist alles, keine zahlen oder so
+    """
     writeCsv(newargv[0:3] + people)
 
 
@@ -259,14 +289,16 @@ def voting2(
     return value
 
 
-def hierarchy(argv, auswahl):
+def hierarchy(argv, personenAnzahl):
     print("next in hierarchy")
     systempeople = readCsv(argv)[-1][
         1:
     ]  # Menschen in ihrer Reihenfolge, wie sie vom System anfangs festgelegt wurden
     # in argv stehen die aktuelleren people drin und anders drin, d.h. mit 2
     # zahlen in arrayelementen jeweils
-    longvar = ("dice.py " + str(auswahl) + " gewicht lin 1 1 1 lin 1 1 1").split()
+    longvar = (
+        "dice.py " + str(personenAnzahl) + " gewicht lin 1 1 1 lin 1 1 1"
+    ).split()
     hierarchyGame = libdice.dice(
         longvar, werfen=0, uniq_=True, bezeichner=" ".join(argv[3:])
     )
@@ -323,7 +355,7 @@ def revolution(argv):
         ]
     print(newsystem)
     argv[2] = newsystem
-    newSystem(auswahl, argv, oldsystem)
+    newSystem(personenAnzahl, argv, oldsystem)
 
 
 # def __init__(self,inp,werfen = 2, uniq_ = False, bezeichner : str = "", negativ = False, median = False):
@@ -349,11 +381,11 @@ if True:
     blub = [qAppEngin.tr("test")]
     libdice.dice.languages2(libdice_strlist)
 
-auswahl = int((len(argv) - 3) / 3)
+personenAnzahl = int((len(argv) - 3) / 3)
 
 if argv[2] in systemTypes:
     #    print(str(argv[3:]))
-    newSystem(auswahl, argv)
+    newSystem(personenAnzahl, argv)
 elif argv[2] in ["revolution"]:
     revolution(argv)
 elif argv[2] in ["vote"]:
@@ -375,7 +407,7 @@ elif argv[2] in ["vote"]:
         value = voting2(argv)
     elif historyThisGovernment[-1][0] == systemTypeMaps["numstr"][4]:  # Aristrokratie
         print("vote in Aristokratie")
-        # longvar = ("dice.py "+str(auswahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
+        # longvar = ("dice.py "+str(personenAnzahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
         # hierarchyGame = libdice.dice(longvar, werfen=0, uniq_=True, bezeichner=' '.join(argv[4:]))
         # print('out: '+str(hierarchyGame.out()))
         value = voting2(argv, True)
@@ -393,12 +425,12 @@ elif argv[2] in ["vote"]:
     #    historyThisGovernment = readCsv(argv)
     #    print(historyThisGovernment[-1][0])
     elif historyThisGovernment[-1][0] == systemTypeMaps["numstr"][2]:  # Dictatorship
-        value = hierarchy(argv, auswahl)
+        value = hierarchy(argv, personenAnzahl)
         print("val: " + str(value))
         print("blub: " + str(argv[:3] + value))
         value = voting2(argv[:3] + value, False, False, int(len(value) / 3))
     elif historyThisGovernment[-1][0] == systemTypeMaps["numstr"][3]:  # Tyranei
-        value = hierarchy(argv, auswahl)
+        value = hierarchy(argv, personenAnzahl)
         print("val: " + str(value))
         print("blub: " + str(argv[:3] + value))
         value = voting2(argv[:3] + value, False, False, -int(len(value) / 3))
