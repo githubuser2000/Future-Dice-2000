@@ -19,6 +19,7 @@ from PyQt5.QtWidgets import QApplication
 # name zahl zahl entspricht den Parametern vom dice und zwar person, würfelaugenersatzwert und Gewichtung
 # befehle können sein: vote, revolution, staatsformname
 
+# vote: tripel: eigenname, vote für welche nr, gewicht für das eigene voting
 
 # x.txt
 # democracy;c;e;b
@@ -244,6 +245,7 @@ def voting(
     results = {}
     """ Revolution, wenn alle durch sind und dann alle votes=0 returnen, ende"""
     if userAmount == len(whoHasMax):
+        print("Alle restlichen User sind dran, dann neues System!")
         revolution(argv)
         for l in range(userAmount):
             results[l] = 0
