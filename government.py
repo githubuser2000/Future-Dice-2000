@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.9
 # -*- coding: utf-8 -*-
 
 import csv
@@ -33,7 +33,7 @@ from PyQt5.QtWidgets import QApplication
 # vote;1;2;3
 
 systemTypeMaps = {
-    "strnum": {
+    "strint": {
         "democracy": 0,
         "plutocracy": 1,
         "dictatorship": 2,
@@ -41,7 +41,7 @@ systemTypeMaps = {
         "aristocracy": 4,
         "oligarchy": 5,
     },
-    "numstr": {
+    "intstr": {
         0: "democracy",
         1: "plutocracy",
         2: "dictatorship",
@@ -58,7 +58,7 @@ systemTypeMaps = {
         "oligarchy": "oligarchy",
     },
 }
-systemTypes = systemTypeMaps["numstr"].values()
+systemTypes = systemTypeMaps["intstr"].values()
 
 argv = sys.argv
 
@@ -189,7 +189,7 @@ def twistGewichtung(argv):
     return argv[:3] + argreverse
 
 
-def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["numstr"][3]):
+def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["intstr"][3]):
     """
     Bei einem neuen System wird immer der schwächste zum größten und der größte zum kleinsten
     durch die Funktion twistGewichtung
@@ -197,7 +197,7 @@ def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["numstr"][3]):
     # print('dd '+str(argv))
     newargv = twistGewichtung(argv)
     # print('ww'+str(newargv))
-    if systemTypeMaps["strnum"][oldsystem] % 2 == 1:
+    if systemTypeMaps["strint"][oldsystem] % 2 == 1:
         """D.h. wenn es ein böses System ist (modulo 2 == 1), bzw. die 3 verschärften Systeme von den 6! """
         longvar = (
             "dice.py " + str(personenAnzahl) + " gewicht lin 1 1 1 lin 1 1 1"
@@ -271,8 +271,8 @@ def voting(
         if (
             govType
             in (
-                systemTypeMaps["strnum"]["aristocracy"],
-                systemTypeMaps["strnum"]["oligarchy"],
+                systemTypeMaps["strint"]["aristocracy"],
+                systemTypeMaps["strint"]["oligarchy"],
             )
             and aristokratenAmount <= k
         ):
@@ -286,12 +286,13 @@ def voting(
                 + wo kommt eigentlich potentials her?: Das sind die gewichte, letzter wert im tripel
                 + if true oder false, immer: resultliste hat immer den wert 1 * potentialvariable
                 """
-                if (
-                    voteHierarchy == 0
-                    or (voteHierarchy > 0 and voteHierarchy - 1 <= i)
-                    # or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
-                ):
-                    if i not in whoHasMax:
+                if True or i not in whoHasMax:
+                    if (
+                        voteHierarchy == 0
+                        or (voteHierarchy != 0 and voteHierarchy - 1 <= i)
+                        # or (voteHierarchy > 0 and voteHierarchy - 1 <= i)
+                        # or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
+                    ):
                         """if oligarchy and i == k:
                             potential = int(oligarchy) * 3
                         if not i in results.keys():
@@ -301,21 +302,22 @@ def voting(
                             int(potential)
                             if govType
                             in (
-                                systemTypeMaps["strnum"]["oligarchy"],
-                                systemTypeMaps["strnum"]["tyrannis"],
+                                systemTypeMaps["strint"]["oligarchy"],
+                                systemTypeMaps["strint"]["tyrannis"],
+                                systemTypeMaps["strint"]["plutocracy"],
                             )
-                            else userAmount
-                            if govType == systemTypeMaps["strnum"]["dictatorship"]
+                            else 30
+                            if govType == systemTypeMaps["strint"]["dictatorship"]
                             else 1
                         )
-                elif govType == systemTypeMaps["strnum"]["dictatorship"]:
-                    results[i] += 1
+                elif govType == systemTypeMaps["strint"]["dictatorship"]:
+                    results[i] = 20
 
+    print("results " + str(results))
     """ revolution nach vote, wenn es letzter vote war
     + immer returnen der Potentialliste per i = user"""
     isNotZero = 0
     for result in results.values():
-        print("asd " + str(result))
         if int(result) != 0:
             isNotZero += 1
     if isNotZero == 0:
@@ -332,13 +334,19 @@ def voting2(
     aber davor noch die 3 ersten parameter, wozu wohl auch die py datei gehört
     das als liste returned
     """
-    if newSystem in (
-        systemTypeMaps["strstr"]["tyrannis"],
-        systemTypeMaps["strstr"]["dictatorship"],
+    print("BLUB: " + str(govType))
+    print("BLUB: " + str(systemTypeMaps["strint"]["dictatorship"]))
+    if govType in (
+        systemTypeMaps["strint"]["tyrannis"],
+        systemTypeMaps["strint"]["dictatorship"],
     ):
         triplesList_NotTripleInList = hierarchy(argv, personenAnzahl)
+        print("ED: " + str(triplesList_NotTripleInList))
+        triplesList_NotTripleInList = argv[3:]
+        print("EF: " + str(triplesList_NotTripleInList))
         argv = argv[:3] + triplesList_NotTripleInList
         voteHierarchy = int(len(triplesList_NotTripleInList) / 3)
+        print("BLA: " + str(voteHierarchy))
     else:
         voteHierarchy = 0
 
@@ -417,17 +425,17 @@ def revolution(argv):
     # d.h. von etwas bösem auf ein anderes gutes, aber nicht dessen gutes, sondern etwas neues
     # würde"""
     oldsystem = readCsv(argv)[-1][0]
-    print("oldsystem: " + str(systemTypeMaps["strnum"][oldsystem]))
-    if systemTypeMaps["strnum"][oldsystem] % 2 == 0:
+    print("oldsystem: " + str(systemTypeMaps["strint"][oldsystem]))
+    if systemTypeMaps["strint"][oldsystem] % 2 == 0:
         print("mod == 0")
-        newsystem = systemTypeMaps["numstr"][
-            (systemTypeMaps["strnum"][oldsystem] + 1) % 6
+        newsystem = systemTypeMaps["intstr"][
+            (systemTypeMaps["strint"][oldsystem] + 1) % 6
         ]
     else:
         print("mod == 1")
         randbool = random.randint(0, 1)  # randint 0 1 macht 0 oder 1 möglich
-        newsystem = systemTypeMaps["numstr"][
-            (systemTypeMaps["strnum"][oldsystem] + 1 + (2 * randbool)) % 6
+        newsystem = systemTypeMaps["intstr"][
+            (systemTypeMaps["strint"][oldsystem] + 1 + (2 * randbool)) % 6
         ]
     print(newsystem)
     argv[2] = newsystem
