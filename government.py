@@ -230,13 +230,22 @@ def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["numstr"][3]):
     writeCsv(newargv[0:3] + people)
 
 
+# def voting(
+#    userAmount,
+#    votes,
+#    aristrokratsAreLessThanAll=False,
+#    potentials=None,
+#    voteHierarchy=0,
+#    oligarchy=False,
+#    gewichtung=False,
+#    tyrannis=False,
+# ):
 def voting(
     userAmount,
     votes,
-    aristrokratsAreLessThanAll=False,
     potentials=None,
+    govType=0,
     voteHierarchy=0,
-    oligarchy=False,
 ):
     global whoHasMax
     aristokratenAmount = math.floor(
@@ -259,17 +268,14 @@ def voting(
     + for votes for user, d.h. jeder user votet jeden user, es sei denn Aristrokratie
     + """
     for k, (vote, potential) in enumerate(zip(votes, potentials)):
-        print(
-            "if aristrokratsAreLessThanAll and aristokratenAmount <= k: "
-            + str(aristrokratsAreLessThanAll)
-            + " "
-            + str(aristokratenAmount)
-            + " "
-            + str(k)
-            + " "
-            + str(aristrokratsAreLessThanAll and aristokratenAmount <= k)
-        )
-        if aristrokratsAreLessThanAll and aristokratenAmount <= k:
+        if (
+            govType
+            in (
+                systemTypeMaps["strnum"]["aristocracy"],
+                systemTypeMaps["strnum"]["oligarchy"],
+            )
+            and aristokratenAmount <= k
+        ):
             break
         for i in range(userAmount):
             if int(i) == int(vote):
@@ -286,12 +292,20 @@ def voting(
                     or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
                 ):
                     if not i in whoHasMax:
-                        if oligarchy and i == k:
+                        """if oligarchy and i == k:
                             potential = int(oligarchy) * 3
                         if not i in results.keys():
                             results[i] = 1 * int(potential)
-                        else:
-                            results[i] += 1 * int(potential)
+                        else:"""
+                        results[i] += (
+                            int(potential)
+                            if govType
+                            in (
+                                systemTypeMaps["strnum"]["oligarchy"],
+                                systemTypeMaps["strnum"]["tyrannis"],
+                            )
+                            else 1
+                        )
 
     """ revolution nach vote, wenn es letzter vote war
     + immer returnen der Potentialliste per i = user"""
@@ -307,10 +321,8 @@ def voting(
 
 def voting2(
     argv,
-    aristrokratsAreLessThanAll=False,
-    Plutocracy=False,
+    govType,
     voteHierarchy=0,
-    oligarchy=False,
 ):
     """tripel in liste, dann vote()
     dann dessen ergebnis returned, einzelne, keine tripel
@@ -330,14 +342,7 @@ def voting2(
             potentials += [entry]
     # print(str(names))
     # print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
-    votingResults = voting(
-        len(names),
-        votes,
-        aristrokratsAreLessThanAll,
-        potentials,
-        voteHierarchy,
-        oligarchy,
-    )
+    votingResults = voting(len(names), votes, potentials, govType, voteHierarchy=0)
     # print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
     # print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
     value = argv[:3] + list(votingResults.values())
@@ -460,37 +465,62 @@ elif argv[2] in ["vote"]:
     # print(argv)
     # print(historyThisGovernment[-1][0])
 
-    if historyThisGovernment[-1][0] == systemTypeMaps["numstr"][0]:  # Demokratie
-        value = voting2(argv)
-    elif historyThisGovernment[-1][0] == systemTypeMaps["numstr"][4]:  # Aristrokratie
+    if (
+        historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["democracy"]
+    ):  # Demokratie
+        # value = voting2(argv)
+        value = voting2(argv, 0)
+    elif (
+        historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["aristocracy"]
+    ):  # Aristrokratie
         print("vote in Aristokratie")
         # longvar = ("dice.py "+str(personenAnzahl)+" gewicht lin 1 1 1 lin 1 1 1").split()
         # hierarchyGame = libdice.dice(longvar, werfen=0, uniq_=True, bezeichner=' '.join(argv[4:]))
         # print('out: '+str(hierarchyGame.out()))
-        value = voting2(argv, True)
-    elif historyThisGovernment[-1][0] == systemTypeMaps["numstr"][1]:  # Plutokratie
-        value = voting2(argv, False, True)
+        """ Unterschied zur Demokratie, dadurch dass die meisten nicht wählen können """
+        # value = voting2(argv, True)
+        value = voting2(argv, 4)
     elif (
-        historyThisGovernment[-1][0] == systemTypeMaps["numstr"][5]
+        historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["plutocracy"]
+    ):  # Plutokratie
+        """ kein Unterschied zur Demokratie, trotz dieser 2 bool Werte !  """
+        # value = voting2(argv, False, True)
+        value = voting2(argv, 1)
+    elif (
+        historyThisGovernment[-1][0]
+        == systemTypeMaps["strstr"]["oligarchy"]  # oligarchy
     ):  # Oligarchie - Programmiere ich später - mehr Eigennutz der Chefs, d.h. normale Wahl und dürfen bei jedem zweiten Mal selbst
         # def voting2(argv, aristrokratsAreLessThanAll=False,Plutocracy=False,voteHierarchy=0,oligarchy=False):
-        value = voting2(argv, True, False, 0, True)
+        """ erster boolwert = nur wenige wählen wie bei aristrokratie, Zweiter Boolwert nie eine Auswirkung,  """
+        # value = voting2(argv, True, True, 0, True)
+        value = voting2(argv, 5)
     #    if value[2] == 'vote':
     #       writeCsv(value)
     #
     # elif argv[2] in ['next']:  # Tyranei und Dictatorship: beides Hierarchie, aber jeder der dran ist hat die Wahl sich oder höher bei Tyranei oder sich oder niedriger bei Dictatorship
     #    historyThisGovernment = readCsv(argv)
     #    print(historyThisGovernment[-1][0])
-    elif historyThisGovernment[-1][0] == systemTypeMaps["numstr"][2]:  # Dictatorship
+
+    elif (
+        historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["dictatorship"]
+    ):  # Dictatorship
         value = hierarchy(argv, personenAnzahl)
         print("val: " + str(value))
         print("blub: " + str(argv[:3] + value))
-        value = voting2(argv[:3] + value, False, False, int(len(value) / 3))
-    elif historyThisGovernment[-1][0] == systemTypeMaps["numstr"][3]:  # Tyranei
+        # value = voting2(
+        #    argv[:3] + value, False, False, int(len(value) / 3), False, False
+        # )
+        value = voting2(argv[:3] + value, 2, int(len(value) / 3))
+    elif (
+        historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["tyrannis"]
+    ):  # Tyranei
         value = hierarchy(argv, personenAnzahl)
         print("val: " + str(value))
         print("blub: " + str(argv[:3] + value))
-        value = voting2(argv[:3] + value, False, False, -int(len(value) / 3))
+        # value = voting2(
+        #    argv[:3] + value, False, False, -int(len(value) / 3), False, True
+        # )
+        value = voting2(argv[:3] + value, 3, int(len(value) / 3))
 
     summ = 0
     for val in value[3:]:
