@@ -402,3 +402,10 @@ vote;1;0;1
 dictatorship;e;c;b
 vote;1
 vote;0;3;3
+tyrannis;e;c;b
+vote;2;2;1
+vote;0;0;1
+democracy;c;b;e
+vote;1;1;1
+plutocracy;c;b;e
+vote;1;1;1
