@@ -289,9 +289,9 @@ def voting(
                 if (
                     voteHierarchy == 0
                     or (voteHierarchy > 0 and voteHierarchy - 1 <= i)
-                    or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
+                    # or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
                 ):
-                    if not i in whoHasMax:
+                    if i not in whoHasMax:
                         """if oligarchy and i == k:
                             potential = int(oligarchy) * 3
                         if not i in results.keys():
@@ -304,8 +304,12 @@ def voting(
                                 systemTypeMaps["strnum"]["oligarchy"],
                                 systemTypeMaps["strnum"]["tyrannis"],
                             )
+                            else userAmount
+                            if govType == systemTypeMaps["strnum"]["dictatorship"]
                             else 1
                         )
+                elif govType == systemTypeMaps["strnum"]["dictatorship"]:
+                    results[i] += 1
 
     """ revolution nach vote, wenn es letzter vote war
     + immer returnen der Potentialliste per i = user"""
@@ -322,13 +326,22 @@ def voting(
 def voting2(
     argv,
     govType,
-    voteHierarchy=0,
 ):
     """tripel in liste, dann vote()
     dann dessen ergebnis returned, einzelne, keine tripel
     aber davor noch die 3 ersten parameter, wozu wohl auch die py datei gehört
     das als liste returned
     """
+    if newSystem in (
+        systemTypeMaps["strstr"]["tyrannis"],
+        systemTypeMaps["strstr"]["dictatorship"],
+    ):
+        triplesList_NotTripleInList = hierarchy(argv, personenAnzahl)
+        argv = argv[:3] + triplesList_NotTripleInList
+        voteHierarchy = int(len(triplesList_NotTripleInList) / 3)
+    else:
+        voteHierarchy = 0
+
     print("voting")
     names = []
     votes = []
@@ -342,7 +355,7 @@ def voting2(
             potentials += [entry]
     # print(str(names))
     # print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
-    votingResults = voting(len(names), votes, potentials, govType, voteHierarchy=0)
+    votingResults = voting(len(names), votes, potentials, govType, voteHierarchy)
     # print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
     # print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
     value = argv[:3] + list(votingResults.values())
@@ -395,13 +408,14 @@ def hierarchy(argv, personenAnzahl):
 
 
 def revolution(argv):
+    """
     # von Demokratie auf Plutokratie
     # von x modulo 2 = 0 auf darauf folgendes x += 1
     # d.h. von einem der guten 3 auf das böse immer
     # von modulo 2 = 1 auf irgendein anderes x modulo 2 = 0
     # aber nicht das, was das entsprechende x modulo 2 = 0 wäre das davor liegen
     # d.h. von etwas bösem auf ein anderes gutes, aber nicht dessen gutes, sondern etwas neues
-    # würde
+    # würde"""
     oldsystem = readCsv(argv)[-1][0]
     print("oldsystem: " + str(systemTypeMaps["strnum"][oldsystem]))
     if systemTypeMaps["strnum"][oldsystem] % 2 == 0:
@@ -504,23 +518,23 @@ elif argv[2] in ["vote"]:
     elif (
         historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["dictatorship"]
     ):  # Dictatorship
-        value = hierarchy(argv, personenAnzahl)
-        print("val: " + str(value))
-        print("blub: " + str(argv[:3] + value))
+        # value = hierarchy(argv, personenAnzahl)
+        # print("val: " + str(value))
+        # print("blub: " + str(argv[:3] + value))
         # value = voting2(
         #    argv[:3] + value, False, False, int(len(value) / 3), False, False
         # )
-        value = voting2(argv[:3] + value, 2, int(len(value) / 3))
+        value = voting2(argv, 2)
     elif (
         historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["tyrannis"]
     ):  # Tyranei
-        value = hierarchy(argv, personenAnzahl)
-        print("val: " + str(value))
-        print("blub: " + str(argv[:3] + value))
+        # value = hierarchy(argv, personenAnzahl)
+        # print("val: " + str(value))
+        # print("blub: " + str(argv[:3] + value))
         # value = voting2(
         #    argv[:3] + value, False, False, -int(len(value) / 3), False, True
         # )
-        value = voting2(argv[:3] + value, 3, int(len(value) / 3))
+        value = voting2(argv, 3)
 
     summ = 0
     for val in value[3:]:

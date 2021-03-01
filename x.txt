@@ -399,3 +399,6 @@ tyrannis;b;c;e
 vote;0;0;1
 aristocracy;b;e;c
 vote;1;0;1
+dictatorship;e;c;b
+vote;1
+vote;0;3;3
