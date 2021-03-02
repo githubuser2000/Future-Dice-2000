@@ -419,5 +419,3 @@ democracy;b;e;c
 vote;2;1;0
 vote;2;1;0
 vote;2;1;0
-vote;2;1;0
-vote;2;1;0
