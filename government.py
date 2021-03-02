@@ -341,8 +341,8 @@ def voting2(
         systemTypeMaps["strint"]["dictatorship"],
     ):
         triplesList_NotTripleInList = hierarchy(argv, personenAnzahl)
-        print("ED: " + str(triplesList_NotTripleInList))
-        triplesList_NotTripleInList = argv[3:]
+        # print("ED: " + str(triplesList_NotTripleInList))
+        # triplesList_NotTripleInList = argv[3:]
         print("EF: " + str(triplesList_NotTripleInList))
         argv = argv[:3] + triplesList_NotTripleInList
         voteHierarchy = int(len(triplesList_NotTripleInList) / 3)
