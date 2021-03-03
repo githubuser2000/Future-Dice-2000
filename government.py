@@ -93,6 +93,12 @@ def readCsv(data):
 namesNotAllDifferent = False
 
 
+def AristrokratenAmount(argv):
+    return math.floor(
+        math.sqrt(len(argv[3:]) / 3 + 2)
+    )  # ein oberer Bruchteil ist Aristrokrat
+
+
 def orderOfPrecedence(argv, differentOrder):
     global namesNotAllDifferent
     """ gibt tripelliste zurück, in gleicher Reihenfolge
@@ -130,14 +136,6 @@ def orderOfPrecedence(argv, differentOrder):
 
     # print(threes)
     return threes
-
-
-# def whoIsNotVotedAnymore(argv, whoNot):
-#    allLastVotesAndGovernment = readCsv(argv)
-#    government = allLastVotesAndGovernment[-1][1:]
-#    names = []
-#    for oneNot in whoNot:
-#        names += [government[oneNot]]
 
 
 whoHasMax = set()
@@ -179,8 +177,15 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
                     # ObjDice.wuerfelAugenSet.add(i)
                     print("last " + str(i))
         # "voteNoRevolution", "voteRevolutionPossible"]:
-        if choice[0] == "voteNoRevolution" and len(whoHasMax) == len(choice[1:]):
-            whoHasMax = set()
+        relevantUsersofUsers = GetSortOfRelevantUserAmount(historyThisGovernment[-1][0])
+        print("YY")
+        print(str(len(whoHasMax)))
+        print(str(relevantUsersofUsers))
+        print("YY")
+        if choice[0] == "voteNoRevolution" and len(whoHasMax) == relevantUsersofUsers:
+            whoHasMax = {
+                maxval,
+            }
     return whoHasMax
 
 
@@ -242,16 +247,26 @@ def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["intstr"][3]):
     writeCsv(newargv[0:3] + people)
 
 
-# def voting(
-#    userAmount,
-#    votes,
-#    aristrokratsAreLessThanAll=False,
-#    potentials=None,
-#    voteHierarchy=0,
-#    oligarchy=False,
-#    gewichtung=False,
-#    tyrannis=False,
-# ):
+def GetSortOfRelevantUserAmount(govType):
+    global argv
+    return (
+        int(len(argv[3:]) / 3)
+        if govType
+        in (
+            systemTypeMaps["strint"]["democracy"],
+            systemTypeMaps["strint"]["plutocracy"],
+            systemTypeMaps["strint"]["dictatorship"],
+        )
+        else AristrokratenAmount(argv)
+        if govType
+        in (
+            systemTypeMaps["strint"]["aristocracy"],
+            systemTypeMaps["strint"]["oligarchy"],
+        )
+        else 1
+        if govType in (systemTypeMaps["strint"]["tyrannis"],)
+        else None
+    )
 
 
 def voting(
@@ -262,9 +277,7 @@ def voting(
     voteHierarchy=0,
 ):
     global whoHasMax
-    aristokratenAmount = math.floor(
-        math.sqrt(len(argv[3:]) / 3 + 2)
-    )  # ein oberer Bruchteil ist Aristrokrat
+    # aristokratenAmount = AristrokratenAmount(argv)
     print("XX")
     print(str(votes))
     print(str(potentials))
@@ -273,24 +286,7 @@ def voting(
     results = {}
     """ Revolution, wenn alle durch sind und dann alle votes=0 returnen, ende"""
 
-    sortOfRelevantUserAmount = (
-        userAmount
-        if govType
-        in (
-            systemTypeMaps["strint"]["democracy"],
-            systemTypeMaps["strint"]["plutocracy"],
-            systemTypeMaps["strint"]["dictatorship"],
-        )
-        else aristokratenAmount
-        if govType
-        in (
-            systemTypeMaps["strint"]["aristocracy"],
-            systemTypeMaps["strint"]["oligarchy"],
-        )
-        else 1
-        if govType in (systemTypeMaps["strint"]["tyrannis"],)
-        else None
-    )
+    sortOfRelevantUserAmount = GetSortOfRelevantUserAmount(govType)
 
     if (
         userAmount == len(whoHasMax) or len(readCsv(argv)) > sortOfRelevantUserAmount

@@ -40,3 +40,16 @@ voteNoRevolution;1;0;0
 voteNoRevolution;1;0;0
 voteNoRevolution;1;0;0
 aristocracy;b;c;e
+voteNoRevolution;1;1;0
+voteNoRevolution;1;1;0
+voteNoRevolution;1;1;0
+voteNoRevolution;1;1;0
+voteNoRevolution;1;1;0
+oligarchy;b;c;e
+voteNoRevolution;2;3;0
+voteNoRevolution;2;0;0
+voteNoRevolution;2;3;0
+voteNoRevolution;2;3;0
+voteNoRevolution;2;3;0
+voteNoRevolution;2;3;0
+voteNoRevolution;2;3;0
