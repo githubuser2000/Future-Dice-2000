@@ -273,9 +273,28 @@ def voting(
     results = {}
     """ Revolution, wenn alle durch sind und dann alle votes=0 returnen, ende"""
 
-    if (userAmount == len(whoHasMax) or len(readCsv(argv)) > userAmount) and argv[
-        2
-    ] in ["voteOnce"]:
+    sortOfRelevantUserAmount = (
+        userAmount
+        if govType
+        in (
+            systemTypeMaps["strint"]["democracy"],
+            systemTypeMaps["strint"]["plutocracy"],
+            systemTypeMaps["strint"]["dictatorship"],
+        )
+        else aristokratenAmount
+        if govType
+        in (
+            systemTypeMaps["strint"]["aristocracy"],
+            systemTypeMaps["strint"]["oligarchy"],
+        )
+        else 1
+        if govType in (systemTypeMaps["strint"]["tyrannis"],)
+        else None
+    )
+
+    if (
+        userAmount == len(whoHasMax) or len(readCsv(argv)) > sortOfRelevantUserAmount
+    ) and argv[2] in ["voteOnce"]:
         print("Alle restlichen User sind dran, dann neues System!")
         revolution(argv)
         for num in range(userAmount):
@@ -289,30 +308,34 @@ def voting(
     + bei weniger als alle aristrokaten, stopp, so dass dann nur die aristrokraten wählen
     + for votes for user, d.h. jeder user votet jeden user, es sei denn Aristrokratie
     + """
+
     for k, (vote, potential) in enumerate(zip(votes, potentials)):
-        if (
-            (
-                (
-                    govType
-                    in (
-                        systemTypeMaps["strint"]["aristocracy"],
-                        systemTypeMaps["strint"]["oligarchy"],
-                    )
-                    and aristokratenAmount <= k
-                )
-            )
-            or govType == systemTypeMaps["strint"]["tyrannis"]
-            and k == 1
-        ):
-            print(
-                "arist or olig: voting stopped for not all to vote "
-                + str(k)
-                + " of "
-                + str(len(votes))
-            )
-            break
-        for i in range(userAmount):
+
+        # if (
+        # (
+        # (
+        # govType
+        # in (
+        # systemTypeMaps["strint"]["aristocracy"],
+        # systemTypeMaps["strint"]["oligarchy"],
+        # )
+        # and aristokratenAmount <= k
+        # )
+        # )
+        # or govType == systemTypeMaps["strint"]["tyrannis"]
+        # and k == 1
+        # ):
+        # print(
+        # "arist or olig: voting stopped for not all to vote "
+        # + str(k)
+        # + " of "
+        # + str(len(votes))
+        # )
+        # break
+        for i in range(userAmount)[:sortOfRelevantUserAmount]:
+            print("user: " + str(i))
             if int(i) == int(vote):
+                print("vote: " + str(vote))
                 """voteHierarchy definiert sich daraus welche user voten dürfen - das ist alles
                 + der max user fällt immer weg, der user mit der nummer whoHasMax
                 + in Oligarchie haben user dreifaches potential
@@ -320,7 +343,7 @@ def voting(
                 + wo kommt eigentlich potentials her?: Das sind die gewichte, letzter wert im tripel
                 + if true oder false, immer: resultliste hat immer den wert 1 * potentialvariable
                 """
-                if i not in whoHasMax:
+                if i not in whoHasMax or len(whoHasMax) >= sortOfRelevantUserAmount:
                     if (
                         voteHierarchy
                         == 0
@@ -363,7 +386,7 @@ def voting(
     for result in results.values():
         if int(result) != 0:
             isNotZero += 1
-    if isNotZero == 0:
+    if isNotZero == 0 and argv[2] in ["voteOnce"]:
         print("revol am Ende von votes")
         revolution(argv)
     return results
@@ -599,6 +622,7 @@ elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
         value = voting2(argv, 3)
 
     summ = 0
+    print("LastValues: " + str(value[3:]))
     for val in value[3:]:
         if val != 0:
             summ += 1

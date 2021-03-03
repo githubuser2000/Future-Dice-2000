@@ -26,3 +26,17 @@ voteNoRevolution;1;3;5
 voteNoRevolution;1;3;0
 voteNoRevolution;1;0;0
 dictatorship;b;c;e
+voteNoRevolution;2;1;1
+voteNoRevolution;0;1;1
+voteNoRevolution;2;1;1
+voteNoRevolution;0;1;1
+voteNoRevolution;2;1;1
+voteNoRevolution;0;1;1
+voteNoRevolution;2;1;1
+tyrannis;b;c;e
+voteNoRevolution;1;0;0
+voteNoRevolution;1;0;0
+voteNoRevolution;1;0;0
+voteNoRevolution;1;0;0
+voteNoRevolution;1;0;0
+aristocracy;b;c;e
