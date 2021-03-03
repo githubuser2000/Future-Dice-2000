@@ -240,6 +240,8 @@ def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["intstr"][3]):
 #    gewichtung=False,
 #    tyrannis=False,
 # ):
+
+
 def voting(
     userAmount,
     votes,
@@ -269,13 +271,25 @@ def voting(
     + """
     for k, (vote, potential) in enumerate(zip(votes, potentials)):
         if (
-            govType
-            in (
-                systemTypeMaps["strint"]["aristocracy"],
-                systemTypeMaps["strint"]["oligarchy"],
+            (
+                (
+                    govType
+                    in (
+                        systemTypeMaps["strint"]["aristocracy"],
+                        systemTypeMaps["strint"]["oligarchy"],
+                    )
+                    and aristokratenAmount <= k
+                )
             )
-            and aristokratenAmount <= k
+            or govType == systemTypeMaps["strint"]["tyrannis"]
+            and k == 1
         ):
+            print(
+                "arist or olig: voting stopped for not all to vote "
+                + str(k)
+                + " of "
+                + str(len(votes))
+            )
             break
         for i in range(userAmount):
             if int(i) == int(vote):
@@ -286,18 +300,20 @@ def voting(
                 + wo kommt eigentlich potentials her?: Das sind die gewichte, letzter wert im tripel
                 + if true oder false, immer: resultliste hat immer den wert 1 * potentialvariable
                 """
-                if True or i not in whoHasMax:
+                if i not in whoHasMax:
                     if (
-                        voteHierarchy == 0
-                        or (voteHierarchy != 0 and voteHierarchy - 1 <= i)
+                        voteHierarchy
+                        == 0
+                        # or (voteHierarchy != 0 and voteHierarchy - 1 <= i)
                         # or (voteHierarchy > 0 and voteHierarchy - 1 <= i)
                         # or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
                     ):
-                        """if oligarchy and i == k:
-                            potential = int(oligarchy) * 3
-                        if not i in results.keys():
-                            results[i] = 1 * int(potential)
-                        else:"""
+                        # if oligarchy and i == k:
+                        #    potential = int(oligarchy) * 3
+                        # if not i in results.keys():
+                        # results[i] = 1 * int(potential)
+                        # else:
+                        # results[i] += 1 * int(potential)
                         results[i] += (
                             int(potential)
                             if govType
@@ -306,12 +322,19 @@ def voting(
                                 systemTypeMaps["strint"]["tyrannis"],
                                 systemTypeMaps["strint"]["plutocracy"],
                             )
-                            else 30
+                            else (
+                                len(votes) - 1
+                                if (len(votes) - 2) > 0
+                                else len(votes)
+                                if (len(votes) - 1) > 0
+                                else 1
+                            )
                             if govType == systemTypeMaps["strint"]["dictatorship"]
+                            and k == 0
                             else 1
                         )
-                elif govType == systemTypeMaps["strint"]["dictatorship"]:
-                    results[i] = 20
+                # elif govType == systemTypeMaps["strint"]["dictatorship"]:
+                #    results[i] = 20
 
     print("results " + str(results))
     """ revolution nach vote, wenn es letzter vote war
@@ -341,8 +364,8 @@ def voting2(
         systemTypeMaps["strint"]["dictatorship"],
     ):
         triplesList_NotTripleInList = hierarchy(argv, personenAnzahl)
-        # print("ED: " + str(triplesList_NotTripleInList))
-        # triplesList_NotTripleInList = argv[3:]
+        print("ED: " + str(triplesList_NotTripleInList))
+        triplesList_NotTripleInList = argv[3:]
         print("EF: " + str(triplesList_NotTripleInList))
         argv = argv[:3] + triplesList_NotTripleInList
         voteHierarchy = int(len(triplesList_NotTripleInList) / 3)
@@ -363,7 +386,8 @@ def voting2(
             potentials += [entry]
     # print(str(names))
     # print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
-    votingResults = voting(len(names), votes, potentials, govType, voteHierarchy)
+    # votingResults = voting(len(names), votes, potentials, govType, voteHierarchy)
+    votingResults = voting(len(names), votes, potentials, govType)
     # print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
     # print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
     value = argv[:3] + list(votingResults.values())
@@ -491,6 +515,7 @@ elif argv[2] in ["vote"]:
         historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["democracy"]
     ):  # Demokratie
         # value = voting2(argv)
+        print("Demokratie")
         value = voting2(argv, 0)
     elif (
         historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["aristocracy"]
