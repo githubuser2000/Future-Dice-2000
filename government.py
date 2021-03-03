@@ -7,6 +7,7 @@ import os
 import pickle
 import random
 import sys
+from copy import copy
 
 import libdice
 from PyQt5.QtQml import QQmlApplicationEngine
@@ -111,6 +112,7 @@ def orderOfPrecedence(argv, differentOrder):
     dann users_list ein tripel anhängen
     users_list wird returned als variable threes
     """
+
     # print(str(argv[3:]))
     # print(differentOrder)
     users = []
@@ -145,47 +147,73 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     global whoHasMax
     print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
     print("CSV: " + str(readCsv(argv)))
-    thisSystemTillNow = readCsv(argv)[:-1]
-    for choice in thisSystemTillNow:
+    thisGovSystemAndVotes = readCsv(argv)
+    print("BLUB " + str(thisGovSystemAndVotes))
+    allVotes = thisGovSystemAndVotes[:-1]
+    LastLenOfwhoHasMax = 0
+    whoHadMax = copy(whoHasMax)
+
+    for csvLine in allVotes:
         """letzte zeile aus log txt
         die nummer des letzten wird bei whoHasMax angefügt, bei next
         und bei vote ist es die nummer mit der höchsten zahl
         das ist alles, außer dass dice das auch bekommt, bei next nur
         """
-        # if choice[0] == "next":
-        # amountPeopleMinusOne = len(choice) - 2
-        # ObjDice.wuerfelAugenSet.add(amountPeopleMinusOne)
-        # print("last " + str(amountPeopleMinusOne))
-        # whoHasMax |= {amountPeopleMinusOne}
-        # elif len(choice[0]) > 3 and choice[0][:4] == "vote":
-        if True:
-            maxval = 0
-            print(choice)
-            for oneCandidateVoteAmount in (
-                choice[1:]
-                if len(whoHasMax) < len(choice[1:])
-                or len(thisSystemTillNow) > len(choice)
-                or True
-                else thisSystemTillNow[0][1:]
-            ):
-                if maxval < int(oneCandidateVoteAmount):
-                    maxval = int(oneCandidateVoteAmount)
-            for i, oneCandidateVoteAmount in enumerate(choice[1:]):
-                # print('max='+str(oneCandidateVoteAmount))
-                if int(maxval) == int(oneCandidateVoteAmount):
-                    whoHasMax.add(i)
-                    # ObjDice.wuerfelAugenSet.add(i)
-                    print("last " + str(i))
+
+        maxVotersPotential = 0
+        print(csvLine)
+        for oneCandidateVoteAmount in (
+            csvLine[1:]
+            if len(whoHasMax) < len(csvLine[1:])
+            or len(thisGovSystemAndVotes) > len(csvLine)
+            else thisGovSystemAndVotes[1][1:]
+            if len(thisGovSystemAndVotes) > 1
+            else None
+        ):
+            if maxVotersPotential < int(oneCandidateVoteAmount):
+                maxVotersPotential = int(oneCandidateVoteAmount)
+        for i, oneCandidateVoteAmount in enumerate(csvLine[1:]):
+            # print('max='+str(oneCandidateVoteAmount))
+            if int(maxVotersPotential) == int(oneCandidateVoteAmount):
+                whoHasMax.add(i)
+                # ObjDice.wuerfelAugenSet.add(i)
+                print("last " + str(i))
+
         # "voteNoRevolution", "voteRevolutionPossible"]:
         relevantUsersofUsers = GetSortOfRelevantUserAmount(
             systemTypeMaps["strint"][historyThisGovernment[-1][0]]
         )
-        print("YY")
-        print(str(len(whoHasMax)))
-        print(str(relevantUsersofUsers))
-        print("YY")
-        if choice[0] == "voteNoRevolution" and len(whoHasMax) == relevantUsersofUsers:
-            whoHasMax = set()
+
+        print("TCRTECVDFG: " + str(thisGovSystemAndVotes[:-1][-1][1:]))
+        if len(thisGovSystemAndVotes) > 1:
+            zeroVoters: int = 0
+            for voterAmount in thisGovSystemAndVotes[:-1][-1][1:]:
+                if int(voterAmount) == 0:
+                    zeroVoters += 1
+
+        LenOfwhoHasMax = len(whoHasMax)
+        if (
+            LenOfwhoHasMax == LastLenOfwhoHasMax
+            or len(whoHasMax) + zeroVoters == relevantUsersofUsers
+        ):
+            whoHasMax = whoHadMax
+            break
+        LastLenOfwhoHasMax = len(whoHasMax)
+        whoHadMax = copy(whoHasMax)
+
+    print("YY")
+    print(str((whoHasMax)))
+    print(str(len(whoHasMax)))
+    print(str(zeroVoters))
+    print(str(relevantUsersofUsers))
+    print("YY")
+    if (
+        thisGovSystemAndVotes[:-1][-1][0] == "voteNoRevolution"
+        and len(whoHasMax) + zeroVoters == relevantUsersofUsers
+    ):
+        whoHasMax = set()
+        print("whoHasMax now = empty")
+
     return whoHasMax
 
 
@@ -334,9 +362,9 @@ def voting(
         # )
         # break
         for i in range(userAmount)[:sortOfRelevantUserAmount]:
-            print("user: " + str(i))
+            # print("user: " + str(i))
             if int(i) == int(vote):
-                print("vote: " + str(vote))
+                # print("vote: " + str(vote))
                 """voteHierarchy definiert sich daraus welche user voten dürfen - das ist alles
                 + der max user fällt immer weg, der user mit der nummer whoHasMax
                 + in Oligarchie haben user dreifaches potential
@@ -629,6 +657,8 @@ elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
             summ += 1
     if summ != 0:
         writeCsv(value)
+    else:
+        print("NOT WRITE TO CSV: " + str(value[3:]))
 
 else:
     print(str(systemTypes) + " ???")
