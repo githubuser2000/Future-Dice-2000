@@ -167,6 +167,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
                 choice[1:]
                 if len(whoHasMax) < len(choice[1:])
                 or len(thisSystemTillNow) > len(choice)
+                or True
                 else thisSystemTillNow[0][1:]
             ):
                 if maxval < int(oneCandidateVoteAmount):
@@ -271,13 +272,15 @@ def voting(
     print("XX")
     results = {}
     """ Revolution, wenn alle durch sind und dann alle votes=0 returnen, ende"""
-    if userAmount == len(whoHasMax):
-        if argv[2] in ["voteOnce"]:
-            print("Alle restlichen User sind dran, dann neues System!")
-            revolution(argv)
-            for num in range(userAmount):
-                results[num] = 0
-            return results
+
+    if (userAmount == len(whoHasMax) or len(readCsv(argv)) > userAmount) and argv[
+        2
+    ] in ["voteOnce"]:
+        print("Alle restlichen User sind dran, dann neues System!")
+        revolution(argv)
+        for num in range(userAmount):
+            results[num] = 0
+        return results
 
     """ zunächst sind alle votes 0"""
     for i in range(userAmount):
@@ -361,6 +364,7 @@ def voting(
         if int(result) != 0:
             isNotZero += 1
     if isNotZero == 0:
+        print("revol am Ende von votes")
         revolution(argv)
     return results
 
