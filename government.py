@@ -185,9 +185,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
         print(str(relevantUsersofUsers))
         print("YY")
         if choice[0] == "voteNoRevolution" and len(whoHasMax) == relevantUsersofUsers:
-            whoHasMax = {
-                maxval,
-            }
+            whoHasMax = set()
     return whoHasMax
 
 
