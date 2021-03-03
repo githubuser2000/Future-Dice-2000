@@ -177,7 +177,9 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
                     # ObjDice.wuerfelAugenSet.add(i)
                     print("last " + str(i))
         # "voteNoRevolution", "voteRevolutionPossible"]:
-        relevantUsersofUsers = GetSortOfRelevantUserAmount(historyThisGovernment[-1][0])
+        relevantUsersofUsers = GetSortOfRelevantUserAmount(
+            systemTypeMaps["strint"][historyThisGovernment[-1][0]]
+        )
         print("YY")
         print(str(len(whoHasMax)))
         print(str(relevantUsersofUsers))
@@ -247,8 +249,13 @@ def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["intstr"][3]):
     writeCsv(newargv[0:3] + people)
 
 
-def GetSortOfRelevantUserAmount(govType):
+def GetSortOfRelevantUserAmount(govType: int) -> int:
     global argv
+    govType = int(govType)
+    print("GOV: " + str(govType))
+    print("GOV: " + str(systemTypeMaps["strint"]["oligarchy"]))
+    print("GOV: " + str(AristrokratenAmount(argv)))
+    print("GOV: " + str(systemTypeMaps["strint"]))
     return (
         int(len(argv[3:]) / 3)
         if govType
