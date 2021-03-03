@@ -146,21 +146,29 @@ whoHasMax = set()
 def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     global whoHasMax
     print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
-    for choice in readCsv(argv)[:-1]:
+    print("CSV: " + str(readCsv(argv)))
+    thisSystemTillNow = readCsv(argv)[:-1]
+    for choice in thisSystemTillNow:
         """letzte zeile aus log txt
         die nummer des letzten wird bei whoHasMax angefügt, bei next
         und bei vote ist es die nummer mit der höchsten zahl
         das ist alles, außer dass dice das auch bekommt, bei next nur
         """
-        if choice[0] == "next":
-            amountPeopleMinusOne = len(choice) - 2
-            ObjDice.wuerfelAugenSet.add(amountPeopleMinusOne)
-            print("last " + str(amountPeopleMinusOne))
-            whoHasMax |= {amountPeopleMinusOne}
-        elif choice[0] == "vote":
+        # if choice[0] == "next":
+        # amountPeopleMinusOne = len(choice) - 2
+        # ObjDice.wuerfelAugenSet.add(amountPeopleMinusOne)
+        # print("last " + str(amountPeopleMinusOne))
+        # whoHasMax |= {amountPeopleMinusOne}
+        # elif len(choice[0]) > 3 and choice[0][:4] == "vote":
+        if True:
             maxval = 0
             print(choice)
-            for oneCandidateVoteAmount in choice[1:]:
+            for oneCandidateVoteAmount in (
+                choice[1:]
+                if len(whoHasMax) < len(choice[1:])
+                or len(thisSystemTillNow) > len(choice)
+                else thisSystemTillNow[0][1:]
+            ):
                 if maxval < int(oneCandidateVoteAmount):
                     maxval = int(oneCandidateVoteAmount)
             for i, oneCandidateVoteAmount in enumerate(choice[1:]):
@@ -169,6 +177,9 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
                     whoHasMax.add(i)
                     # ObjDice.wuerfelAugenSet.add(i)
                     print("last " + str(i))
+        # "voteNoRevolution", "voteRevolutionPossible"]:
+        if choice[0] == "voteNoRevolution" and len(whoHasMax) == len(choice[1:]):
+            whoHasMax = set()
     return whoHasMax
 
 
@@ -245,7 +256,7 @@ def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["intstr"][3]):
 def voting(
     userAmount,
     votes,
-    potentials=None,
+    potentials,
     govType=0,
     voteHierarchy=0,
 ):
@@ -253,14 +264,20 @@ def voting(
     aristokratenAmount = math.floor(
         math.sqrt(len(argv[3:]) / 3 + 2)
     )  # ein oberer Bruchteil ist Aristrokrat
+    print("XX")
+    print(str(votes))
+    print(str(potentials))
+    print(str(whoHasMax))
+    print("XX")
     results = {}
     """ Revolution, wenn alle durch sind und dann alle votes=0 returnen, ende"""
     if userAmount == len(whoHasMax):
-        print("Alle restlichen User sind dran, dann neues System!")
-        revolution(argv)
-        for l in range(userAmount):
-            results[l] = 0
-        return results
+        if argv[2] in ["voteOnce"]:
+            print("Alle restlichen User sind dran, dann neues System!")
+            revolution(argv)
+            for num in range(userAmount):
+                results[num] = 0
+            return results
 
     """ zunächst sind alle votes 0"""
     for i in range(userAmount):
@@ -389,6 +406,7 @@ def voting2(
             potentials += [entry]
     # print(str(names))
     # print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
+    # print("VOTESbefore: " + str(votes))
     # votingResults = voting(len(names), votes, potentials, govType, voteHierarchy)
     votingResults = voting(len(names), votes, potentials, govType)
     # print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
@@ -499,7 +517,7 @@ if argv[2] in systemTypes:
     newSystem(personenAnzahl, argv)
 elif argv[2] in ["revolution"]:
     revolution(argv)
-elif argv[2] in ["vote"]:
+elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
     """ alle Staatsformen durchprobieren, wenn vote als Befehl verwendet wurde """
     historyThisGovernment = readCsv(argv)
     """ UMSORTIERUNG DER ARGV"""
@@ -507,8 +525,9 @@ elif argv[2] in ["vote"]:
     print("umsortierete Voter: " + str(argv))
     """ Welche User haben zusammen das Maximalgewicht """
     whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
+    print("whoHasMax: " + str(whoHasMax))
 
-    if namesNotAllDifferent == True:
+    if namesNotAllDifferent:
         print("Some names are equal. Exit!")
         exit()
     # for whoNotAnymore in whoHasMax:
