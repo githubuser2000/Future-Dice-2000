@@ -357,6 +357,8 @@ def voting2(
     aber davor noch die 3 ersten parameter, wozu wohl auch die py datei gehört
     das als liste returned
     """
+
+    """ unten Hat momentan keine Funktion """
     print("BLUB: " + str(govType))
     print("BLUB: " + str(systemTypeMaps["strint"]["dictatorship"]))
     if govType in (
@@ -372,6 +374,7 @@ def voting2(
         print("BLA: " + str(voteHierarchy))
     else:
         voteHierarchy = 0
+    """ oben Hat momentan keine Funktion """
 
     print("voting")
     names = []
@@ -497,9 +500,12 @@ if argv[2] in systemTypes:
 elif argv[2] in ["revolution"]:
     revolution(argv)
 elif argv[2] in ["vote"]:
+    """ alle Staatsformen durchprobieren, wenn vote als Befehl verwendet wurde """
     historyThisGovernment = readCsv(argv)
+    """ UMSORTIERUNG DER ARGV"""
     argv = argv[:3] + orderOfPrecedence(argv, historyThisGovernment[-1][1:])
-    print(str(argv))
+    print("umsortierete Voter: " + str(argv))
+    """ Welche User haben zusammen das Maximalgewicht """
     whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
 
     if namesNotAllDifferent == True:
@@ -510,7 +516,7 @@ elif argv[2] in ["vote"]:
     #    argv[whoNotAnymore*3+4] = -abs(int(argv[whoNotAnymore*3+4]))
     # print(argv)
     # print(historyThisGovernment[-1][0])
-
+    """ alle Staatsformen durchprobieren, wenn vote als Befehl verwendet wurde """
     if (
         historyThisGovernment[-1][0] == systemTypeMaps["strstr"]["democracy"]
     ):  # Demokratie
