@@ -159,6 +159,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     LastZeroVoters: int = 0
     deltaThisAndLast_A: int = None
     deltaThisAndLast_B: int = None
+    electedSummed: set = set()
 
     for e, csvLine in enumerate(allVotes):
         """letzte zeile aus log txt
@@ -223,6 +224,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
         LastWhoHasMaxPerTurn = whoHasMaxPerTurn
         LastZeroVoters = zeroVoters
         electedVoters = [govSystem[who + 1] for who in whoHasMaxPerTurn]
+        electedSummed |= electedVoters
 
         print(
             "DiffDeltaVotings "
@@ -242,6 +244,8 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
             + str(deltaThisAndLast_B)
             + ", elected: "
             + str(electedVoters)
+            + ", summed up: "
+            + str(electedSummed)
             + ", csvLine: "
             + str(csvLine)
         )
