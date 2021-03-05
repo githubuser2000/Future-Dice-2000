@@ -205,6 +205,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
                 zeroVoters += 1
 
         """ wenn alle bereits gevotet haben, dann Schleifenende """
+        """
         LenOfwhoHasMax = len(whoHasMax)
         if (
             LenOfwhoHasMax == LastLenOfwhoHasMax
@@ -212,6 +213,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
         ):
             whoHasMax = whoHadMax
             break
+        """
 
         invariante = relevantUsersofUsers - len(whoHasMaxPerTurn) - zeroVoters
         if invariante == 0 and e > 0:
