@@ -152,16 +152,24 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     allVotes = thisGovSystemAndVotes[:-1]
     LastLenOfwhoHasMax = 0
     whoHadMax = copy(whoHasMax)
+    whoHasMaxPerTurn: set
+    zeroVoters: int
+    LastWhoHasMaxPerTurn: int = 0
+    LastZeroVoters: int = 0
+    deltaThisAndLast_A: int = None
+    deltaThisAndLast_B: int = None
 
-    for csvLine in allVotes:
+    for e, csvLine in enumerate(allVotes):
         """letzte zeile aus log txt
         die nummer des letzten wird bei whoHasMax angefügt, bei next
         und bei vote ist es die nummer mit der höchsten zahl
         das ist alles, außer dass dice das auch bekommt, bei next nur
         """
+        whoHasMaxPerTurn = set()
 
+        """ Abschnitt A """
         maxVotersPotential = 0
-        print(csvLine)
+        # print(csvLine)
         for oneCandidateVoteAmount in (
             csvLine[1:]
             if len(whoHasMax) < len(csvLine[1:])
@@ -172,25 +180,31 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
         ):
             if maxVotersPotential < int(oneCandidateVoteAmount):
                 maxVotersPotential = int(oneCandidateVoteAmount)
+        """ Ende Abschnitt A: Abschnitt A: Bestimmung maxVotersPotential
+        Abschnitt B"""
+
         for i, oneCandidateVoteAmount in enumerate(csvLine[1:]):
-            # print('max='+str(oneCandidateVoteAmount))
             if int(maxVotersPotential) == int(oneCandidateVoteAmount):
-                whoHasMax.add(i)
-                # ObjDice.wuerfelAugenSet.add(i)
-                print("last " + str(i))
+                whoHasMax |= {i}
+                whoHasMaxPerTurn |= {i}
+
+        """ Ende Abschnitt B: whoHasMax= set of userIDs der obersten """
 
         # "voteNoRevolution", "voteRevolutionPossible"]:
+        """Die User, die nur für die Votes infrage kommen"""
         relevantUsersofUsers = GetSortOfRelevantUserAmount(
             systemTypeMaps["strint"][historyThisGovernment[-1][0]]
         )
 
-        print("TCRTECVDFG: " + str(thisGovSystemAndVotes[:-1][-1][1:]))
-        if len(thisGovSystemAndVotes) > 1:
-            zeroVoters: int = 0
-            for voterAmount in thisGovSystemAndVotes[:-1][-1][1:]:
-                if int(voterAmount) == 0:
-                    zeroVoters += 1
+        # print("TCRTECVDFG: " + str(thisGovSystemAndVotes[:-1][-1][1:]))
+        """ die User, die Null Votingpower haben """
+        zeroVoters = 0
+        # for voterAmount in thisGovSystemAndVotes[:-1][-1][1:]:
+        for voterAmount in csvLine[1:]:
+            if int(voterAmount) == 0:
+                zeroVoters += 1
 
+        """ wenn alle bereits gevotet haben, dann Schleifenende """
         LenOfwhoHasMax = len(whoHasMax)
         if (
             LenOfwhoHasMax == LastLenOfwhoHasMax
@@ -198,15 +212,46 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
         ):
             whoHasMax = whoHadMax
             break
+
+        invariante = relevantUsersofUsers - len(whoHasMaxPerTurn) - zeroVoters
+        if invariante == 0 and e > 0:
+            deltaThisAndLast_A = len(LastWhoHasMaxPerTurn) - len(whoHasMaxPerTurn)
+            deltaThisAndLast_B = LastZeroVoters - zeroVoters
+        LastWhoHasMaxPerTurn = whoHasMaxPerTurn
+        LastZeroVoters = zeroVoters
+
+        print(
+            "DiffDeltaVotings "
+            + str(e)
+            + ": "
+            + str(len(whoHasMaxPerTurn))
+            + " maxVoters + "
+            + " (mit Potential "
+            + str(maxVotersPotential)
+            + ") "
+            + str(zeroVoters)
+            + " ZeroVoters of:"
+            + str(relevantUsersofUsers)
+            + "delta1u2: "
+            + str(deltaThisAndLast_A)
+            + "|"
+            + str(deltaThisAndLast_B)
+            + ", csvLine: "
+            + str(csvLine)
+        )
+
         LastLenOfwhoHasMax = len(whoHasMax)
         whoHadMax = copy(whoHasMax)
-
+    """
     print("YY")
     print(str((whoHasMax)))
     print(str(len(whoHasMax)))
     print(str(zeroVoters))
     print(str(relevantUsersofUsers))
-    print("YY")
+    print("YY")"""
+    """ wenn letzter vote eines typs war, dass dabei keine
+    Revolutionen stattfinden können und wenn das der letzte Vote in
+    allen Abfolgen war, dann gibt es keine Sieger, d.h. keine whoHasMax"""
     if (
         thisGovSystemAndVotes[:-1][-1][0] == "voteNoRevolution"
         and len(whoHasMax) + zeroVoters == relevantUsersofUsers
