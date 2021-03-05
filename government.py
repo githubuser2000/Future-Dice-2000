@@ -150,6 +150,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     thisGovSystemAndVotes = readCsv(argv)
     print("BLUB " + str(thisGovSystemAndVotes))
     allVotes = thisGovSystemAndVotes[:-1]
+    govSystem = thisGovSystemAndVotes[-1]
     LastLenOfwhoHasMax = 0
     whoHadMax = copy(whoHasMax)
     whoHasMaxPerTurn: set
@@ -221,6 +222,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
             deltaThisAndLast_B = LastZeroVoters - zeroVoters
         LastWhoHasMaxPerTurn = whoHasMaxPerTurn
         LastZeroVoters = zeroVoters
+        electedVoters = [govSystem[who + 1] for who in whoHasMaxPerTurn]
 
         print(
             "DiffDeltaVotings "
@@ -238,6 +240,8 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
             + str(deltaThisAndLast_A)
             + "|"
             + str(deltaThisAndLast_B)
+            + ", elected: "
+            + str(electedVoters)
             + ", csvLine: "
             + str(csvLine)
         )
