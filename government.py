@@ -157,9 +157,12 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     zeroVoters: int
     LastWhoHasMaxPerTurn: int = 0
     LastZeroVoters: int = 0
-    deltaThisAndLast_A: int = None
-    deltaThisAndLast_B: int = None
+    deltaMaxVoters: int = None
+    deltaZeroVoters: int = None
     electedSummed: set = set()
+    electedSummedBefore: set = set()
+    elected4aTimespan: set = set()
+    elected4aTimespanBefore: set = set()
 
     for e, csvLine in enumerate(allVotes):
         """letzte zeile aus log txt
@@ -194,7 +197,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
 
         # "voteNoRevolution", "voteRevolutionPossible"]:
         """Die User, die nur für die Votes infrage kommen"""
-        relevantUsersofUsers = GetSortOfRelevantUserAmount(
+        relevantUsersForSystemsAmount = GetSortOfRelevantUserAmount(
             systemTypeMaps["strint"][historyThisGovernment[-1][0]]
         )
 
@@ -211,20 +214,48 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
         LenOfwhoHasMax = len(whoHasMax)
         if (
             LenOfwhoHasMax == LastLenOfwhoHasMax
-            or len(whoHasMax) + zeroVoters == relevantUsersofUsers
+            or len(whoHasMax) + zeroVoters == relevantUsersForSystemsAmount
         ):
             whoHasMax = whoHadMax
             break
         """
+        """invariante muss immer 0 sein """
+        invariante = relevantUsersForSystemsAmount - len(whoHasMaxPerTurn) - zeroVoters
+        elseNoneZeroNoneMaxVotersAmount = invariante
+        """ e > 0, weil Deltas nicht gleich beim ersten Wert berechnet werden können
+        """
+        if e > 0:
+            SetDeltaMaxVoters = LastWhoHasMaxPerTurn - whoHasMaxPerTurn
+            IntDeltaZeroVoters = LastZeroVoters - zeroVoters
+            deltaInBetweenVotersAmount = (
+                LastelseNoneZeroNoneMaxVotersAmount - elseNoneZeroNoneMaxVotersAmount
+            )
 
-        invariante = relevantUsersofUsers - len(whoHasMaxPerTurn) - zeroVoters
-        if invariante == 0 and e > 0:
-            deltaThisAndLast_A = len(LastWhoHasMaxPerTurn) - len(whoHasMaxPerTurn)
-            deltaThisAndLast_B = LastZeroVoters - zeroVoters
-        LastWhoHasMaxPerTurn = whoHasMaxPerTurn
+        electedVotersLastTurn = set([govSystem[who + 1] for who in whoHasMaxPerTurn])
+        electedSummed |= electedVotersLastTurn
+        elected4aTimespan |= electedVotersLastTurn
+        """Wenn die selben Voter wie beim vorherigen (unabhängig von wie Betrag, wie sehr):
+        dann nur noch die übrigen erlaubt"""
+        if (
+            elected4aTimespan == elected4aTimespanBefore
+            and csvLine[0] == "voteNoRevolution"
+        ):
+            """Wenn die Max-Voter-Anzahl erreicht ist, d.h. alle waren mal dran,
+            dann können alle noch mal beginnen"""
+            if len(elected4aTimespan) == len(govSystem[1:]):
+                print("__ Voters geleert")
+                elected4aTimespan = set()
+            else:
+                """ ansonsten sind alle dran, die noch nicht dran waren für diesen Abschnitt """
+                print("__ übrige Voters dran")
+                elected4aTimespan -= set(govSystem[1:])
+
+        """ alte aus neuen für Delta-Berechnungen """
+        electedSummedBefore = copy(electedSummed)
+        elected4aTimespanBefore = copy(elected4aTimespan)
+        LastWhoHasMaxPerTurn = copy(whoHasMaxPerTurn)
+        LastelseNoneZeroNoneMaxVotersAmount = copy(elseNoneZeroNoneMaxVotersAmount)
         LastZeroVoters = zeroVoters
-        electedVoters = [govSystem[who + 1] for who in whoHasMaxPerTurn]
-        electedSummed |= electedVoters
 
         print(
             "DiffDeltaVotings "
@@ -237,13 +268,13 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
             + ") "
             + str(zeroVoters)
             + " ZeroVoters of:"
-            + str(relevantUsersofUsers)
+            + str(relevantUsersForSystemsAmount)
             + "delta1u2: "
-            + str(deltaThisAndLast_A)
+            + str(deltaMaxVoters)
             + "|"
-            + str(deltaThisAndLast_B)
+            + str(deltaZeroVoters)
             + ", elected: "
-            + str(electedVoters)
+            + str(electedVotersLastTurn)
             + ", summed up: "
             + str(electedSummed)
             + ", csvLine: "
@@ -257,14 +288,14 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     print(str((whoHasMax)))
     print(str(len(whoHasMax)))
     print(str(zeroVoters))
-    print(str(relevantUsersofUsers))
+    print(str(relevantUsersForSystemsAmount))
     print("YY")"""
     """ wenn letzter vote eines typs war, dass dabei keine
     Revolutionen stattfinden können und wenn das der letzte Vote in
     allen Abfolgen war, dann gibt es keine Sieger, d.h. keine whoHasMax"""
     if (
         thisGovSystemAndVotes[:-1][-1][0] == "voteNoRevolution"
-        and len(whoHasMax) + zeroVoters == relevantUsersofUsers
+        and len(whoHasMax) + zeroVoters == relevantUsersForSystemsAmount
     ):
         whoHasMax = set()
         print("whoHasMax now = empty")
