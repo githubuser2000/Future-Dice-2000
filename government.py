@@ -244,13 +244,17 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
             """Wenn die Max-Voter-Anzahl erreicht ist, d.h. alle waren mal dran,
             dann können alle noch mal beginnen"""
             if len(elected4aTimespan) == len(govSystem[1:]):
-                print("__ Voters geleert")
                 elected4aTimespan = copy(whoHasMaxPerTurn)
+                print(
+                    "__ Voters geleert: echte MaxVoter nun: " + str(elected4aTimespan)
+                )
             else:
                 """ ansonsten sind alle dran, die noch nicht dran waren für diesen Abschnitt """
-                print("__ übrige Voters dran")
                 elected4aTimespan -= set(govSystem[1:])
+                print("__ übrige Voters dran: " + str(elected4aTimespan))
             whoHasMax = elected4aTimespan
+        else:
+            print("__ whoHasMax wird einfach nur erweitert: " + str(whoHasMax))
 
         """ alte aus neuen für Delta-Berechnungen """
         electedSummedBefore = copy(electedSummed)
