@@ -220,6 +220,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
             break
         """
         """invariante muss immer 0 sein """
+
         invariante = relevantUsersForSystemsAmount - len(whoHasMaxPerTurn) - zeroVoters
         elseNoneZeroNoneMaxVotersAmount = invariante
         """ e > 0, weil Deltas nicht gleich beim ersten Wert berechnet werden können
@@ -244,11 +245,12 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
             dann können alle noch mal beginnen"""
             if len(elected4aTimespan) == len(govSystem[1:]):
                 print("__ Voters geleert")
-                elected4aTimespan = set()
+                elected4aTimespan = copy(whoHasMaxPerTurn)
             else:
                 """ ansonsten sind alle dran, die noch nicht dran waren für diesen Abschnitt """
                 print("__ übrige Voters dran")
                 elected4aTimespan -= set(govSystem[1:])
+            whoHasMax = elected4aTimespan
 
         """ alte aus neuen für Delta-Berechnungen """
         electedSummedBefore = copy(electedSummed)
