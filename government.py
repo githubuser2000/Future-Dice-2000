@@ -140,11 +140,16 @@ def orderOfPrecedence(argv, differentOrder):
     return threes
 
 
-whoHasMax = set()
+whoHasMax: set = set()
+ifElseVoters = False
 
 
-def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
-    global whoHasMax
+def peopleAlreadyDemocraticOrRandomlySelectedInPast(onlyForLastElection=False):
+    global whoHasMax, ifElseVoters
+    if onlyForLastElection:
+        whoHadMax = set()
+        return whoHasMax
+
     print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
     print("CSV: " + str(readCsv(argv)))
     thisGovSystemAndVotes = readCsv(argv)
@@ -222,8 +227,9 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
         """
         """invariante muss immer 0 sein """
 
-        invariante = relevantUsersForSystemsAmount - len(whoHasMaxPerTurn) - zeroVoters
-        elseNoneZeroNoneMaxVotersAmount = invariante
+        elseNoneZeroNoneMaxVotersAmount = (
+            relevantUsersForSystemsAmount - len(whoHasMaxPerTurn) - zeroVoters
+        )
         """ e > 0, weil Deltas nicht gleich beim ersten Wert berechnet werden können
         """
         if e > 0:
@@ -238,6 +244,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
         elected4aTimespan |= whoHasMaxPerTurn
         """Wenn die selben Voter wie beim vorherigen (unabhängig von wie Betrag, wie sehr):
         dann nur noch die übrigen erlaubt"""
+        ifElseVoters = False
         if (
             elected4aTimespan == elected4aTimespanBefore
             and csvLine[0] == "voteNoRevolution"
@@ -251,8 +258,13 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
                 )
             else:
                 """ ansonsten sind alle dran, die noch nicht dran waren für diesen Abschnitt """
+                ifElseVoters = True
                 bla = copy(elected4aTimespan)
                 elected4aTimespan = set(range(len(govSystem[1:]))) - elected4aTimespan
+
+                for voter in elected4aTimespan:
+                    print("__ voter " + str(elected4aTimespan))
+                print("__ argv " + str(argv))
                 print(
                     "__ übrige Voters dran: "
                     + str(elected4aTimespan)
@@ -308,12 +320,12 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     """ wenn letzter vote eines typs war, dass dabei keine
     Revolutionen stattfinden können und wenn das der letzte Vote in
     allen Abfolgen war, dann gibt es keine Sieger, d.h. keine whoHasMax"""
-    if (
+    """if (
         thisGovSystemAndVotes[:-1][-1][0] == "voteNoRevolution"
         and len(whoHasMax) + zeroVoters == relevantUsersForSystemsAmount
     ):
         whoHasMax = set()
-        print("whoHasMax now = empty")
+        print("whoHasMax now = empty")"""
 
     return whoHasMax
 
@@ -438,6 +450,7 @@ def voting(
     + bei weniger als alle aristrokaten, stopp, so dass dann nur die aristrokraten wählen
     + for votes for user, d.h. jeder user votet jeden user, es sei denn Aristrokratie
     + """
+    print("__ whoHasMax: " + str(whoHasMax))
 
     for k, (vote, potential) in enumerate(zip(votes, potentials)):
 
@@ -522,10 +535,25 @@ def voting(
     return results
 
 
-def voting2(
-    argv,
-    govType,
-):
+def lastVoteEqualsThisVote(value):
+    num2: list = []
+    for num1 in readCsv(argv)[0][1:]:
+        num2 += [int(num1)]
+    print(
+        "__ value data "
+        + str(value[2:])
+        + " "
+        + str(readCsv(argv)[0])
+        + " "
+        + str(num2 == value[3:])
+        + " "
+        + str(value[2] == readCsv(argv)[0][0])
+    )
+    return num2 == value[3:] and value[2] == readCsv(argv)[0][0]
+
+
+def voting2(argv, govType, rekursionInt: int = 1):
+    global whoHasMax
     """tripel in liste, dann vote()
     dann dessen ergebnis returned, einzelne, keine tripel
     aber davor noch die 3 ersten parameter, wozu wohl auch die py datei gehört
@@ -569,6 +597,12 @@ def voting2(
     # print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
     # print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
     value = argv[:3] + list(votingResults.values())
+
+    if lastVoteEqualsThisVote(value) and rekursionInt > 0 and len(whoHasMax) != 0:
+        print("__ vote2 again")
+        whoHasMax = set()
+        voting2(argv, govType, 0)
+
     return value
 
 
@@ -585,7 +619,8 @@ def hierarchy(argv, personenAnzahl):
     hierarchyGame = libdice.dice(
         longvar, werfen=0, uniq_=True, bezeichner=" ".join(argv[3:])
     )
-    peopleAlreadyDemocraticOrRandomlySelectedInPast(hierarchyGame)
+    # peopleAlreadyDemocraticOrRandomlySelectedInPast(hierarchyGame)
+    # peopleAlreadyDemocraticOrRandomlySelectedInPast(OnceAgainGlobal)
     print("dice out: " + str(hierarchyGame.out()))
     roledone = hierarchyGame.wuerfeln()[0][0]
     print("roledone: " + str(roledone))
@@ -668,20 +703,22 @@ if True:
     libdice.dice.languages2(libdice_strlist)
 
 personenAnzahl = int((len(argv) - 3) / 3)
+OnceAgainGlobal = False
 
-if argv[2] in systemTypes:
-    #    print(str(argv[3:]))
-    newSystem(personenAnzahl, argv)
-elif argv[2] in ["revolution"]:
-    revolution(argv)
-elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
+
+def voting3(possiblyAgain: bool = True):
+    global personenAnzahl, systemTypeMaps, namesNotAllDifferent, argv, historyThisGovernment, whoHasMax
     """ alle Staatsformen durchprobieren, wenn vote als Befehl verwendet wurde """
     historyThisGovernment = readCsv(argv)
     """ UMSORTIERUNG DER ARGV"""
     argv = argv[:3] + orderOfPrecedence(argv, historyThisGovernment[-1][1:])
     print("umsortierete Voter: " + str(argv))
     """ Welche User haben zusammen das Maximalgewicht """
-    whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
+    if possiblyAgain:
+        whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
+    else:
+        print("__ not possibly again")
+        whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast(True)
     print("whoHasMax: " + str(whoHasMax))
 
     if namesNotAllDifferent:
@@ -759,7 +796,21 @@ elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
     if summ != 0:
         writeCsv(value)
     else:
-        print("NOT WRITE TO CSV: " + str(value[3:]))
+        if possiblyAgain:
+            print("__ nochmal")
+            whoHasMax = set()
+            OnceAgainGlobal = True
+            voting3(False)
+        else:
+            print("__ NOT WRITE TO CSV: " + str(value[3:]))
 
+
+if argv[2] in systemTypes:
+    #    print(str(argv[3:]))
+    newSystem(personenAnzahl, argv)
+elif argv[2] in ["revolution"]:
+    revolution(argv)
+elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
+    voting3(True)
 else:
     print(str(systemTypes) + " ???")
