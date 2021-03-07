@@ -33,6 +33,8 @@ from PyQt5.QtWidgets import QApplication
 # next;2;2;2
 # vote;1;2;3
 
+raise Exception("totales maximales optimalstes Refactoring von allem hier machen, vorher Planen welche Features ich in Zukunft noch willen, alles hier total modularisieren in viele winzige module und ggf. klassen")
+
 systemTypeMaps = {
     "strint": {
         "democracy": 0,
