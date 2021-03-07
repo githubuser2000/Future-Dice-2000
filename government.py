@@ -149,7 +149,8 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     print("CSV: " + str(readCsv(argv)))
     thisGovSystemAndVotes = readCsv(argv)
     print("BLUB " + str(thisGovSystemAndVotes))
-    allVotes = thisGovSystemAndVotes[:-1]
+    allElections = thisGovSystemAndVotes[:-1]
+    allElections.reverse()
     govSystem = thisGovSystemAndVotes[-1]
     LastLenOfwhoHasMax = 0
     whoHadMax = copy(whoHasMax)
@@ -164,7 +165,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
     elected4aTimespan: set = set()
     elected4aTimespanBefore: set = set()
 
-    for e, csvLine in enumerate(allVotes):
+    for e, csvLine in enumerate(allElections):
         """letzte zeile aus log txt
         die nummer des letzten wird bei whoHasMax angefügt, bei next
         und bei vote ist es die nummer mit der höchsten zahl
@@ -234,7 +235,7 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
 
         electedVotersLastTurn = set([govSystem[who + 1] for who in whoHasMaxPerTurn])
         electedSummed |= electedVotersLastTurn
-        elected4aTimespan |= electedVotersLastTurn
+        elected4aTimespan |= whoHasMaxPerTurn
         """Wenn die selben Voter wie beim vorherigen (unabhängig von wie Betrag, wie sehr):
         dann nur noch die übrigen erlaubt"""
         if (
@@ -250,8 +251,16 @@ def peopleAlreadyDemocraticOrRandomlySelectedInPast(ObjDice=None):
                 )
             else:
                 """ ansonsten sind alle dran, die noch nicht dran waren für diesen Abschnitt """
-                elected4aTimespan -= set(govSystem[1:])
-                print("__ übrige Voters dran: " + str(elected4aTimespan))
+                bla = copy(elected4aTimespan)
+                elected4aTimespan = set(range(len(govSystem[1:]))) - elected4aTimespan
+                print(
+                    "__ übrige Voters dran: "
+                    + str(elected4aTimespan)
+                    + " = "
+                    + str(set(range(len(govSystem[1:]))))
+                    + " - "
+                    + str(bla)
+                )
             whoHasMax = elected4aTimespan
         else:
             print("__ whoHasMax wird einfach nur erweitert: " + str(whoHasMax))
