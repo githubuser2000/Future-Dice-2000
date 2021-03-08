@@ -1,0 +1,847 @@
+#!/usr/bin/env python3.9
+# -*- coding: utf-8 -*-
+
+import csv
+import math
+import os
+import pickle
+import random
+import sys
+from copy import copy
+
+import libdice
+from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtWidgets import QApplication
+
+# example
+# ./government.py x vote b 0 1 c 1 1 e 2 1; tail -5 x.txt
+# ./government.py x democracy b 1 c 3 e 21
+# 0. python exe, 1. logfile, 2. befehl, 3. 3-5 und 6-8 = erste beiden tripel: name zahl zahl, name zahl zahl
+# name zahl zahl entspricht den Parametern vom dice und zwar person, würfelaugenersatzwert und Gewichtung
+# befehle können sein: vote, revolution, staatsformname
+
+# vote: tripel: eigenname, vote für welche nr, gewicht für das eigene voting
+
+# x.txt
+# democracy;c;e;b
+# staatssystem und 3 Teilnehmer, ggf. als Rangfolge
+# danach voten oder next (next bei keine Demokratie-Elemente)
+# vote;1;1;1 bedeutet, erster in der staatform oben bekommt einen Wahlpunkt und hinteren beiden auch
+# d.h. c e und b bekommen einen wahlpunkt, bei gewichten von wahlfähigkeit ist es mehr
+# das ist alles
+
+# next;2;2;2
+# vote;1;2;3
+
+systemTypeMaps = {
+    "strint": {
+        "democracy": 0,
+        "plutocracy": 1,
+        "dictatorship": 2,
+        "tyrannis": 3,
+        "aristocracy": 4,
+        "oligarchy": 5,
+    },
+    "intstr": {
+        0: "democracy",
+        1: "plutocracy",
+        2: "dictatorship",
+        3: "tyrannis",
+        4: "aristocracy",
+        5: "oligarchy",
+    },
+    "strstr": {
+        "democracy": "democracy",
+        "plutocracy": "plutocracy",
+        "dictatorship": "dictatorship",
+        "tyrannis": "tyrannis",
+        "aristocracy": "aristocracy",
+        "oligarchy": "oligarchy",
+    },
+}
+systemTypes = systemTypeMaps["intstr"].values()
+
+argv = sys.argv
+
+
+class CsvWork:
+    alreadyRead: list = None
+
+    @staticmethod
+    def writeCsv(data):
+        """
+        schreibt in datei aus parameter 1
+        schreibt alles als ;-List ab Parameter 2 in die txt logdatei
+        """
+        print(str(data))
+        with open(data[1] + ".txt", mode="a+") as csv_file:
+            writer = csv.writer(csv_file, delimiter=";")
+            writer.writerow(data[2:])
+
+    @staticmethod
+    def readCsv(data):
+        """
+        liest rückwärts datei dessen name aus Parameter 1
+        list so lange bis die spalte[0] irgend ein Staatssystem im Namen trägt
+        Dann wird returned: matrix aus Spalten + Zeilen vom ende bis zum letzten Staatssystem
+        """
+        if CsvWork.alreadyRead is not None:
+            return CsvWork.alreadyRead
+
+        with open(data[1] + ".txt", mode="r") as csv_file:
+            rowsuntil = []
+            for row in reversed(list(csv.reader(csv_file, delimiter=";"))):
+                # print ('; '.join(row))
+                rowsuntil += [row]
+                if row[0] in systemTypes:
+                    CsvWork.alreadyRead = rowsuntil
+                    return rowsuntil
+                # print(row[0])
+
+
+namesNotAllDifferent = False
+
+
+
+whoHasMax: set = set()
+ifElseVoters = False
+
+
+class SystemConcerns:
+    @staticmethod
+    def newSystem(personenAnzahl, argv, oldsystem=systemTypeMaps["intstr"][3]):
+        """
+        Bei einem neuen System wird immer der schwächste zum größten und der größte zum kleinsten
+        durch die Funktion twistGewichtung
+        """
+        # print('dd '+str(argv))
+        newargv = twistGewichtung(argv)
+        # print('ww'+str(newargv))
+        if systemTypeMaps["strint"][oldsystem] % 2 == 1:
+            """D.h. wenn es ein böses System ist (modulo 2 == 1), bzw. die 3 verschärften Systeme von den 6! """
+            longvar = (
+                "dice.py " + str(personenAnzahl) + " gewicht lin 1 1 1 lin 1 1 1"
+            ).split()
+            """ lineares bzw. genauer konstantes wachstum, also kein wachstum und gewicht auch also gleiches gewicht von allem
+            d.h. 6 würfelaugen bedeutet stinknormaler würfel in dem fall, würfelaugen == personenAnzahl"""
+            people1 = libdice.dice(
+                longvar, werfen=personenAnzahl, uniq_=True, bezeichner=" ".join(newargv[3:])
+            )
+            """ people1 ergibt sich aus würfelung der alten people aber nur in anderer Reihenfogle """
+            print(str(people1.out()))
+            people1 = people1.out()[1]
+            people = []
+            for someone in people1:
+                if type(someone) is tuple:
+                    people.append(someone[3])
+        else:
+            """
+            wenn es zu den nicht bösen 3 varianten: modulo 2 = 0 gehört:
+            people werden aus dem letzten system übernommen
+            """
+            # print("nein")
+            people = CsvWork.readCsv(newargv)[-1][1:]
+
+        print(str(newargv[0:3] + people))
+        """
+        eine Zeile in txt logfile: staatsystemname und die n user mit ihrem namen nach ihrer Rangfolge
+        das ist alles, keine zahlen oder so
+        """
+        CsvWork.writeCsv(newargv[0:3] + people)
+
+    @staticmethod
+    def hierarchy(argv, personenAnzahl):
+        print("next in hierarchy")
+        systempeople = CsvWork.readCsv(argv)[-1][
+            1:
+        ]  # Menschen in ihrer Reihenfolge, wie sie vom System anfangs festgelegt wurden
+        # in argv stehen die aktuelleren people drin und anders drin, d.h. mit 2
+        # zahlen in arrayelementen jeweils: name, wert der Augen , gewichtung
+        longvar = (
+            "dice.py " + str(personenAnzahl) + " gewicht lin 1 1 1 lin 1 1 1"
+        ).split()
+        hierarchyGame = libdice.dice(
+            longvar, werfen=0, uniq_=True, bezeichner=" ".join(argv[3:])
+        )
+        # peopleAlreadyDemocraticOrRandomlySelectedInPast(hierarchyGame)
+        # peopleAlreadyDemocraticOrRandomlySelectedInPast(OnceAgainGlobal)
+        print("dice out: " + str(hierarchyGame.out()))
+        roledone = hierarchyGame.wuerfeln()[0][0]
+        print("roledone: " + str(roledone))
+
+        hierarchynow = []
+        flag = False
+
+        for systemman in systempeople:
+            for i, nowSomeone in enumerate(argv[3:]):
+                if i % 3 == 0 and systemman == nowSomeone:
+                    hierarchynow += [nowSomeone]
+                    flag = True
+                if flag and i % 3 == 1:
+                    hierarchynow += [nowSomeone]
+                if flag and i % 3 == 2:
+                    hierarchynow += [nowSomeone]
+                    flag = False
+
+        print("hierarchynow: " + str(hierarchynow))
+        if argv[3:][roledone * 3] in systempeople:
+
+            hierarchynow = hierarchynow[0 : ((roledone + 1) * 3)]
+            #            for i, user in enumerate(systempeople):
+            #               hierarchynow += [user]
+            #               if user == argv[3:][roledone]:
+            #                   break
+            print("hierarchynow: " + str(hierarchynow))
+            # endOfEveryVote(roledone,hierarchyGame)
+            return hierarchynow
+
+    @staticmethod
+    def revolution(argv):
+        """
+        # von Demokratie auf Plutokratie
+        # von x modulo 2 = 0 auf darauf folgendes x += 1
+        # d.h. von einem der guten 3 auf das böse immer
+        # von modulo 2 = 1 auf irgendein anderes x modulo 2 = 0
+        # aber nicht das, was das entsprechende x modulo 2 = 0 wäre das davor liegen
+        # d.h. von etwas bösem auf ein anderes gutes, aber nicht dessen gutes, sondern etwas neues
+        # würde"""
+        oldsystem = CsvWork.readCsv(argv)[-1][0]
+        print("oldsystem: " + str(systemTypeMaps["strint"][oldsystem]))
+        if systemTypeMaps["strint"][oldsystem] % 2 == 0:
+            print("mod == 0")
+            newsystem = systemTypeMaps["intstr"][
+                (systemTypeMaps["strint"][oldsystem] + 1) % 6
+            ]
+        else:
+            print("mod == 1")
+            randbool = random.randint(0, 1)  # randint 0 1 macht 0 oder 1 möglich
+            newsystem = systemTypeMaps["intstr"][
+                (systemTypeMaps["strint"][oldsystem] + 1 + (2 * randbool)) % 6
+            ]
+        print(newsystem)
+        argv[2] = newsystem
+        SystemConcerns.newSystem(personenAnzahl, argv, oldsystem)
+
+def peopleAlreadyDemocraticOrRandomlySelectedInPast(onlyForLastElection=False):
+    global whoHasMax, ifElseVoters
+    if onlyForLastElection:
+        whoHadMax = set()
+        return whoHasMax
+
+    print("peopleAlreadyDemocraticOrRandomlySelectedInPast")
+    print("CSV: " + str(CsvWork.readCsv(argv)))
+    thisGovSystemAndVotes = CsvWork.readCsv(argv)
+    print("BLUB " + str(thisGovSystemAndVotes))
+    allElections = thisGovSystemAndVotes[:-1]
+    allElections.reverse()
+    govSystem = thisGovSystemAndVotes[-1]
+    LastLenOfwhoHasMax = 0
+    whoHadMax = copy(whoHasMax)
+    whoHasMaxPerTurn: set
+    zeroVoters: int
+    LastWhoHasMaxPerTurn: int = 0
+    LastZeroVoters: int = 0
+    deltaMaxVoters: int = None
+    deltaZeroVoters: int = None
+    electedSummed: set = set()
+    electedSummedBefore: set = set()
+    elected4aTimespan: set = set()
+    elected4aTimespanBefore: set = set()
+
+    for e, csvLine in enumerate(allElections):
+        """letzte zeile aus log txt
+        die nummer des letzten wird bei whoHasMax angefügt, bei next
+        und bei vote ist es die nummer mit der höchsten zahl
+        das ist alles, außer dass dice das auch bekommt, bei next nur
+        """
+        whoHasMaxPerTurn = set()
+
+        """ Abschnitt A """
+        maxVotersPotential = 0
+        # print(csvLine)
+        for oneCandidateVoteAmount in (
+            csvLine[1:]
+            if len(whoHasMax) < len(csvLine[1:])
+            or len(thisGovSystemAndVotes) > len(csvLine)
+            else thisGovSystemAndVotes[1][1:]
+            if len(thisGovSystemAndVotes) > 1
+            else None
+        ):
+            if maxVotersPotential < int(oneCandidateVoteAmount):
+                maxVotersPotential = int(oneCandidateVoteAmount)
+        """ Ende Abschnitt A: Abschnitt A: Bestimmung maxVotersPotential
+        Abschnitt B"""
+
+        for i, oneCandidateVoteAmount in enumerate(csvLine[1:]):
+            if int(maxVotersPotential) == int(oneCandidateVoteAmount):
+                whoHasMax |= {i}
+                whoHasMaxPerTurn |= {i}
+
+        """ Ende Abschnitt B: whoHasMax= set of userIDs der obersten """
+
+        # "voteNoRevolution", "voteRevolutionPossible"]:
+        """Die User, die nur für die Votes infrage kommen"""
+        relevantUsersForSystemsAmount = VotingConcerns.getSortOfRelevantUserAmount(
+            systemTypeMaps["strint"][historyThisGovernment[-1][0]]
+        )
+
+        # print("TCRTECVDFG: " + str(thisGovSystemAndVotes[:-1][-1][1:]))
+        """ die User, die Null Votingpower haben """
+        zeroVoters = 0
+        # for voterAmount in thisGovSystemAndVotes[:-1][-1][1:]:
+        for voterAmount in csvLine[1:]:
+            if int(voterAmount) == 0:
+                zeroVoters += 1
+
+        """ wenn alle bereits gevotet haben, dann Schleifenende """
+        """
+        LenOfwhoHasMax = len(whoHasMax)
+        if (
+            LenOfwhoHasMax == LastLenOfwhoHasMax
+            or len(whoHasMax) + zeroVoters == relevantUsersForSystemsAmount
+        ):
+            whoHasMax = whoHadMax
+            break
+        """
+        """invariante muss immer 0 sein """
+
+        elseNoneZeroNoneMaxVotersAmount = (
+            relevantUsersForSystemsAmount - len(whoHasMaxPerTurn) - zeroVoters
+        )
+        """ e > 0, weil Deltas nicht gleich beim ersten Wert berechnet werden können
+        """
+        if e > 0:
+            SetDeltaMaxVoters = LastWhoHasMaxPerTurn - whoHasMaxPerTurn
+            IntDeltaZeroVoters = LastZeroVoters - zeroVoters
+            deltaInBetweenVotersAmount = (
+                LastelseNoneZeroNoneMaxVotersAmount - elseNoneZeroNoneMaxVotersAmount
+            )
+
+        electedVotersLastTurn = set([govSystem[who + 1] for who in whoHasMaxPerTurn])
+        electedSummed |= electedVotersLastTurn
+        elected4aTimespan |= whoHasMaxPerTurn
+        """Wenn die selben Voter wie beim vorherigen (unabhängig von wie Betrag, wie sehr):
+        dann nur noch die übrigen erlaubt"""
+        ifElseVoters = False
+        if (
+            elected4aTimespan == elected4aTimespanBefore
+            and csvLine[0] == "voteNoRevolution"
+        ):
+            """Wenn die Max-Voter-Anzahl erreicht ist, d.h. alle waren mal dran,
+            dann können alle noch mal beginnen"""
+            if len(elected4aTimespan) == len(govSystem[1:]):
+                elected4aTimespan = copy(whoHasMaxPerTurn)
+                print(
+                    "__ Voters geleert: echte MaxVoter nun: " + str(elected4aTimespan)
+                )
+            else:
+                """ ansonsten sind alle dran, die noch nicht dran waren für diesen Abschnitt """
+                ifElseVoters = True
+                bla = copy(elected4aTimespan)
+                elected4aTimespan = set(range(len(govSystem[1:]))) - elected4aTimespan
+
+                for voter in elected4aTimespan:
+                    print("__ voter " + str(elected4aTimespan))
+                print("__ argv " + str(argv))
+                print(
+                    "__ übrige Voters dran: "
+                    + str(elected4aTimespan)
+                    + " = "
+                    + str(set(range(len(govSystem[1:]))))
+                    + " - "
+                    + str(bla)
+                )
+            whoHasMax = elected4aTimespan
+        else:
+            print("__ whoHasMax wird einfach nur erweitert: " + str(whoHasMax))
+
+        """ alte aus neuen für Delta-Berechnungen """
+        electedSummedBefore = copy(electedSummed)
+        elected4aTimespanBefore = copy(elected4aTimespan)
+        LastWhoHasMaxPerTurn = copy(whoHasMaxPerTurn)
+        LastelseNoneZeroNoneMaxVotersAmount = copy(elseNoneZeroNoneMaxVotersAmount)
+        LastZeroVoters = zeroVoters
+
+        print(
+            "DiffDeltaVotings "
+            + str(e)
+            + ": "
+            + str(len(whoHasMaxPerTurn))
+            + " maxVoters + "
+            + " (mit Potential "
+            + str(maxVotersPotential)
+            + ") "
+            + str(zeroVoters)
+            + " ZeroVoters of:"
+            + str(relevantUsersForSystemsAmount)
+            + "delta1u2: "
+            + str(deltaMaxVoters)
+            + "|"
+            + str(deltaZeroVoters)
+            + ", elected: "
+            + str(electedVotersLastTurn)
+            + ", summed up: "
+            + str(electedSummed)
+            + ", csvLine: "
+            + str(csvLine)
+        )
+
+        LastLenOfwhoHasMax = len(whoHasMax)
+        whoHadMax = copy(whoHasMax)
+    """
+    print("YY")
+    print(str((whoHasMax)))
+    print(str(len(whoHasMax)))
+    print(str(zeroVoters))
+    print(str(relevantUsersForSystemsAmount))
+    print("YY")"""
+    """ wenn letzter vote eines typs war, dass dabei keine
+    Revolutionen stattfinden können und wenn das der letzte Vote in
+    allen Abfolgen war, dann gibt es keine Sieger, d.h. keine whoHasMax"""
+    """if (
+        thisGovSystemAndVotes[:-1][-1][0] == "voteNoRevolution"
+        and len(whoHasMax) + zeroVoters == relevantUsersForSystemsAmount
+    ):
+        whoHasMax = set()
+        print("whoHasMax now = empty")"""
+
+    return whoHasMax
+
+
+def twistGewichtung(argv):
+    """
+    Die Gewichtung pro Person wird in ihrer Reihenfolge umgekehrt, so dass der Stärkste und Schwächste umgekehrt stark sind
+    """
+    argv2 = argv[3:]
+    argreverse = argv2.copy()
+    argreverse.reverse()
+    argreverse2 = argreverse.copy()
+    for i, (a, b) in enumerate(zip(argreverse2, argv2)):
+        if i % 3 == 0:
+            argreverse[i + 2] = argv2[i + 2]
+        if i % 3 == 2:
+            argreverse[i - 2] = a
+    # print(str(argreverse))
+    return argv[:3] + argreverse
+
+
+class VotingConcerns:
+    @staticmethod
+    def aristrokratenAmount(argv):
+        return math.floor(
+            math.sqrt(len(argv[3:]) / 3 + 2)
+        )  # ein oberer Bruchteil ist Aristrokrat
+
+    @staticmethod
+    def orderOfPrecedence(argv, differentOrder):
+        global namesNotAllDifferent
+        """ gibt tripelliste zurück, in gleicher Reihenfolge
+        nichts besonderes!
+
+        alle usernamen werden durchgegangen
+        wenn vorhandener user und parameteruser gleich ist
+        dann in user_name_list
+        wenn letzte zahl des tripels der tripel
+        dann users_list ein tripel anhängen
+        users_list wird returned als variable threes
+        """
+
+        # print(str(argv[3:]))
+        # print(differentOrder)
+        users = []
+        usernames = []
+        for user in differentOrder:
+            three = []
+            for i, thing in enumerate(argv[3:]):
+                if i % 3 == 0 and thing == user:
+                    three += [thing]
+                    usernames += [thing]
+                if i % 3 == 1 and len(three) == 1:
+                    three += [thing]
+                if i % 3 == 2 and len(three) == 2:
+                    three += [thing]
+                    users += [three]
+        # print(str(lenset(usernames)))
+        if len(set(usernames)) != len(set(differentOrder)):
+            namesNotAllDifferent = True
+
+        threes = []
+        for three in users:
+            threes += three
+
+        # print(threes)
+        return threes
+
+    def getSortOfRelevantUserAmount(govType: int) -> int:
+        global argv
+        govType = int(govType)
+        print("GOV: " + str(govType))
+        print("GOV: " + str(systemTypeMaps["strint"]["oligarchy"]))
+        print("GOV: " + str(votingConcerns.aristrokratenAmount(argv)))
+        print("GOV: " + str(systemTypeMaps["strint"]))
+        return (
+            int(len(argv[3:]) / 3)
+            if govType
+            in (
+                systemTypeMaps["strint"]["democracy"],
+                systemTypeMaps["strint"]["plutocracy"],
+                systemTypeMaps["strint"]["dictatorship"],
+            )
+            else votingConcerns.aristrokratenAmount(argv)
+            if govType
+            in (
+                systemTypeMaps["strint"]["aristocracy"],
+                systemTypeMaps["strint"]["oligarchy"],
+            )
+            else 1
+            if govType in (systemTypeMaps["strint"]["tyrannis"],)
+            else None
+        )
+
+
+    @staticmethod
+    def voting(
+        userAmount,
+        votes,
+        potentials,
+        govType=0,
+        voteHierarchy=0,
+    ):
+        global whoHasMax
+        # aristokratenAmount = votingConcerns.aristrokratenAmount(argv)
+        print("XX")
+        print(str(votes))
+        print(str(potentials))
+        print(str(whoHasMax))
+        print("XX")
+        results = {}
+        """ Revolution, wenn alle durch sind und dann alle votes=0 returnen, ende"""
+
+        sortOfRelevantUserAmount = VotingConcerns.getSortOfRelevantUserAmount(govType)
+
+        if (
+            userAmount == len(whoHasMax) or len(CsvWork.readCsv(argv)) > sortOfRelevantUserAmount
+        ) and argv[2] in ["voteOnce"]:
+            print("Alle restlichen User sind dran, dann neues System!")
+            SystemConcerns.revolution(argv)
+            for num in range(userAmount):
+                results[num] = 0
+            return results
+
+        """ zunächst sind alle votes 0"""
+        for i in range(userAmount):
+            results[i] = 0
+        """
+        + bei weniger als alle aristrokaten, stopp, so dass dann nur die aristrokraten wählen
+        + for votes for user, d.h. jeder user votet jeden user, es sei denn Aristrokratie
+        + """
+        print("__ whoHasMax: " + str(whoHasMax))
+
+        VotingConcerns.election(govType, potentials, results, sortOfRelevantUserAmount, voteHierarchy, votes, whoHasMax, VotingConcerns.electionPerVote)
+
+        print("results " + str(results))
+        """ revolution nach vote, wenn es letzter vote war
+        + immer returnen der Potentialliste per i = user"""
+        isNotZero = 0
+        for result in results.values():
+            if int(result) != 0:
+                isNotZero += 1
+        if isNotZero == 0 and argv[2] in ["voteOnce"]:
+            print("revol am Ende von votes")
+            SystemConcerns.revolution(argv)
+        return results
+
+    @staticmethod
+    def election(self, govType, potentials, results, sortOfRelevantUserAmount, voteHierarchy, votes, whoHasMax, electionfunction):
+        for k, (vote, potential) in enumerate(zip(votes, potentials)):
+
+            # if (
+            # (
+            # (
+            # govType
+            # in (
+            # systemTypeMaps["strint"]["aristocracy"],
+            # systemTypeMaps["strint"]["oligarchy"],
+            # )
+            # and aristokratenAmount <= k
+            # )
+            # )
+            # or govType == systemTypeMaps["strint"]["tyrannis"]
+            # and k == 1
+            # ):
+            # print(
+            # "arist or olig: voting stopped for not all to vote "
+            # + str(k)
+            # + " of "
+            # + str(len(votes))
+            # )
+            # break
+            for i in range(userAmount)[:sortOfRelevantUserAmount]:
+                # print("user: " + str(i))
+                if int(i) == int(vote):
+                    #VotingConcerns.electionPerVote(govType, i, k, potential, results, sortOfRelevantUserAmount,
+                    #                               voteHierarchy, votes, whoHasMax)
+                    electionfunction(govType, i, k, potential, results, sortOfRelevantUserAmount,
+                                                   voteHierarchy, votes, whoHasMax)
+
+    @staticmethod
+    def electionPerVote(self, govType, i, k, potential, results, sortOfRelevantUserAmount, voteHierarchy, votes,
+                        whoHasMax):
+        # print("vote: " + str(vote))
+        """voteHierarchy definiert sich daraus welche user voten dürfen - das ist alles
+                            + der max user fällt immer weg, der user mit der nummer whoHasMax
+                            + in Oligarchie haben user dreifaches potential
+                                aber int(boolwert) * 3 ist irgendwie komisch aber funktionierend programmiert
+                            + wo kommt eigentlich potentials her?: Das sind die gewichte, letzter wert im tripel
+                            + if true oder false, immer: resultliste hat immer den wert 1 * potentialvariable
+                            """
+        if i not in whoHasMax or len(whoHasMax) >= sortOfRelevantUserAmount:
+            if (
+                    voteHierarchy
+                    == 0
+                    # or (voteHierarchy != 0 and voteHierarchy - 1 <= i)
+                    # or (voteHierarchy > 0 and voteHierarchy - 1 <= i)
+                    # or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
+            ):
+                # if oligarchy and i == k:
+                #    potential = int(oligarchy) * 3
+                # if not i in results.keys():
+                # results[i] = 1 * int(potential)
+                # else:
+                # results[i] += 1 * int(potential)
+                results[i] += (
+                    int(potential)
+                    if govType
+                       in (
+                           systemTypeMaps["strint"]["oligarchy"],
+                           systemTypeMaps["strint"]["tyrannis"],
+                           systemTypeMaps["strint"]["plutocracy"],
+                       )
+                    else (
+                        len(votes) - 1
+                        if (len(votes) - 2) > 0
+                        else len(votes)
+                        if (len(votes) - 1) > 0
+                        else 1
+                    )
+                    if govType == systemTypeMaps["strint"]["dictatorship"]
+                       and k == 0
+                    else 1
+                )
+        # elif govType == systemTypeMaps["strint"]["dictatorship"]:
+        #    results[i] = 20
+
+    @staticmethod
+    def lastVoteEqualsThisVote(value):
+        num2: list = []
+        for num1 in CsvWork.readCsv(argv)[0][1:]:
+            num2 += [int(num1)]
+        print(
+            "__ value data "
+            + str(value[2:])
+            + " "
+            + str(CsvWork.readCsv(argv)[0])
+            + " "
+            + str(num2 == value[3:])
+            + " "
+            + str(value[2] == CsvWork.readCsv(argv)[0][0])
+        )
+        return num2 == value[3:] and value[2] == CsvWork.readCsv(argv)[0][0]
+
+
+    @staticmethod
+    def prepareVoting(argv, govType, rekursionInt: int = 1):
+        global whoHasMax
+        """tripel in liste, dann vote()
+        dann dessen ergebnis returned, einzelne, keine tripel
+        aber davor noch die 3 ersten parameter, wozu wohl auch die py datei gehört
+        das als liste returned
+        """
+
+        """ unten Hat momentan keine Funktion """
+        print("BLUB: " + str(govType))
+        print("BLUB: " + str(systemTypeMaps["strint"]["dictatorship"]))
+        if govType in (
+            systemTypeMaps["strint"]["tyrannis"],
+            systemTypeMaps["strint"]["dictatorship"],
+        ):
+            triplesList_NotTripleInList = SystemConcerns.hierarchy(argv, personenAnzahl)
+            print("ED: " + str(triplesList_NotTripleInList))
+            triplesList_NotTripleInList = argv[3:]
+            print("EF: " + str(triplesList_NotTripleInList))
+            argv = argv[:3] + triplesList_NotTripleInList
+            voteHierarchy = int(len(triplesList_NotTripleInList) / 3)
+            print("BLA: " + str(voteHierarchy))
+        else:
+            voteHierarchy = 0
+        """ oben Hat momentan keine Funktion """
+
+        print("voting")
+        names = []
+        votes = []
+        potentials = []
+        for i, entry in enumerate(argv[3:]):
+            if i % 3 == 0:
+                names += [entry]
+            if i % 3 == 1:
+                votes += [entry]
+            if i % 3 == 2:
+                potentials += [entry]
+        # print(str(names))
+        # print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
+        # print("VOTESbefore: " + str(votes))
+        # votingResults = votingConcerns.voting(len(names), votes, potentials, govType, voteHierarchy)
+        votingResults = votingConcerns.voting(len(names), votes, potentials, govType)
+        # print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
+        # print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
+        value = argv[:3] + list(votingResults.values())
+
+        if votingConcerns.lastVoteEqualsThisVote(value) and rekursionInt > 0 and len(whoHasMax) != 0:
+            print("__ vote2 again")
+            whoHasMax = set()
+            votingConcerns.prepareVoting(argv, govType, 0)
+
+        return value
+
+
+
+
+
+def votingCommands(possiblyAgain: bool = True):
+    global personenAnzahl, systemTypeMaps, namesNotAllDifferent, argv, historyThisGovernment, whoHasMax
+    """ alle Staatsformen durchprobieren, wenn vote als Befehl verwendet wurde """
+    historyThisGovernment = CsvWork.readCsv(argv)
+    """ UMSORTIERUNG DER ARGV"""
+    argv = argv[:3] + votingConcerns.orderOfPrecedence(argv, historyThisGovernment[-1][1:])
+    print("umsortierete Voter: " + str(argv))
+    """ Welche User haben zusammen das Maximalgewicht """
+    #if possiblyAgain:
+    #    whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
+    #else:
+    #    print("__ not possibly again")
+    #    whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast(True)
+    whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast(possiblyAgain)
+    print("whoHasMax: " + str(whoHasMax))
+
+    if namesNotAllDifferent:
+        print("Some names are equal. Exit!")
+        exit()
+    # for whoNotAnymore in whoHasMax:
+    #    print(argv[whoNotAnymore*3+4])
+    #    argv[whoNotAnymore*3+4] = -abs(int(argv[whoNotAnymore*3+4]))
+    # print(argv)
+    # print(historyThisGovernment[-1][0])
+    """ alle Staatsformen durchprobieren, wenn vote als Befehl verwendet wurde """
+    value = votingConcerns.prepareVoting(argv, systemTypeMaps["strint"][historyThisGovernment[-1][0]])
+
+
+def commands(argv):
+    global systemTypes, personenAnzahl
+    if argv[2] in systemTypes:
+        #    print(str(argv[3:]))
+        SystemConcerns.newSystem(personenAnzahl, argv)
+    elif argv[2] in ["revolution"]:
+        SystemConcerns.revolution(argv)
+    elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
+        votingCommands(True)
+    else:
+        print(str(systemTypes) + " ???")
+
+def start(argv):
+    personenAnzahl = int((len(argv) - 3) / 3)
+    OnceAgainGlobal = False
+
+    app = QApplication(argv)
+    # libdice.dice.languages1(app)
+    qAppEngin = QQmlApplicationEngine()
+    libdice_strlist = [
+        qAppEngin.tr("lin"),
+        qAppEngin.tr("log"),
+        qAppEngin.tr("root"),
+        qAppEngin.tr("poly"),
+        qAppEngin.tr("exp"),
+        qAppEngin.tr("kombi"),
+        qAppEngin.tr("logistic"),
+        qAppEngin.tr("rand"),
+        qAppEngin.tr("gewicht"),
+        qAppEngin.tr("add"),
+        qAppEngin.tr("mul"),
+        qAppEngin.tr("Wuerfelwurf: "),
+        qAppEngin.tr(" (Wuerfelaugen "),
+    ]
+    blub = [qAppEngin.tr("test")]
+    libdice.dice.languages2(libdice_strlist)
+
+    commands(argv)
+    summ = 0
+    print("LastValues: " + str(value[3:]))
+    for val in value[3:]:
+        if val != 0:
+            summ += 1
+    if summ != 0:
+        CsvWork.writeCsv(value)
+    else:
+        if possiblyAgain:
+            print("__ nochmal")
+            whoHasMax = set()
+            OnceAgainGlobal = True
+            votingCommands(False)
+        else:
+            print("__ NOT WRITE TO CSV: " + str(value[3:]))
+
+
+
+start(argv)
+
+"""
+Features, die noch kommen könnten:
++ Vote = Kombi von Vote und Revolutionsfähigkeit
++ Steuerung wer nach Revolution das Sagen hat:
+    + per Zufall
+    + der Revolutionsführer
+    + die Gruppe der Revolutionsführer, d.h. das ist noch ein Feature
+    + vorherige Ordnung invertiert
+    + Kombinationen aus dem Beschriebenem
+    + fest von extern festgelegt, welche Reihenfolge es geben wird
++ geheime und offen ausgetragener Versuch zu revoltieren
++ Staatssysteme könnten doch anders funktionieren
+
+offene Fragen
++ wie setze ich die Wahrscheinlichkeit, dass man die Revolution gewinnt
++ wie bei Gruppenrevolution
+
+späte Zukunft:
++ mehr strukturiertes Protokoll als Log Txt File
++ noch viel mehr Staatssysteme und andere Systeme, z.B. als Firma statt Staat 
++ pro Staatssystem kann noch ne Menge anderes in jenigem welchen gelten und passieren
+  d.h. umfangreicheres Protokoll dann: json dafür nehmen? Macht vieles einfacher!
+  Wie json, wenn es immer weiter als protokoll iteriert? Einfach lösbar, aber welche Methode?
++ noch viel mehr mit komplexen wahrscheinlichkeitswürel aus dicegui oder dice.py
+  arbeiten, z.B. bei
+    + Rangfolge
+    + wann die Rangfolge sich ändert
+    + wann sich das Staatssystem ändert
+
+
+
+Refactoringplan:
+1. mindstorming: welche Elemente gibt es minimal modular
+2. die Beziehungen zueinander: mache ich mit dem Tablet
+3. UML Zeichnung mit Tablet: Klassendiagramm
+4. UML Zeichnung mit Tablet: Flussdiagramm
+5. Durchführung des Refactoring mit anderer IDE
+
+1. Mindstorming:
+
++ Staatssystem Datenstruktur
++ Struktur: Ursprungsrangfolge, Rangfolge der Parameter, Datenstruktur - die das eine in das andere wandelt
++ Funktion(-en), die bewirken, dass Rangfolge anders wird
++ Revolutionen und neue Staatssyteme
++ csv read and write, and store, when already read
++ voting fkt 1 2 3
++ befehle bei start
++ Hauptprogramm als Ftk mit Py Methode, dass dieses Py File woanders eingebunden werden kann
++ hierarchy ?
++ Bestimmung mit Funktionen von neuen Datenstrukturen, z.B. dass in Aristrokratie gewisse Anzahl von Personen relevant
+
+"""

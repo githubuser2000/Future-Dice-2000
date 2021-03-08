@@ -33,7 +33,9 @@ from PyQt5.QtWidgets import QApplication
 # next;2;2;2
 # vote;1;2;3
 
-raise Exception("totales maximales optimalstes Refactoring von allem hier machen, vorher Planen welche Features ich in Zukunft noch willen, alles hier total modularisieren in viele winzige module und ggf. klassen")
+raise Exception(
+    "totales maximales optimalstes Refactoring von allem hier machen, vorher Planen welche Features ich in Zukunft noch willen, alles hier total modularisieren in viele winzige module und ggf. klassen"
+)
 
 systemTypeMaps = {
     "strint": {
@@ -816,3 +818,57 @@ elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
     voting3(True)
 else:
     print(str(systemTypes) + " ???")
+
+
+"""
+Features, die noch kommen könnten:
++ Vote = Kombi von Vote und Revolutionsfähigkeit
++ Steuerung wer nach Revolution das Sagen hat:
+    + per Zufall
+    + der Revolutionsführer
+    + die Gruppe der Revolutionsführer, d.h. das ist noch ein Feature
+    + vorherige Ordnung invertiert
+    + Kombinationen aus dem Beschriebenem
+    + fest von extern festgelegt, welche Reihenfolge es geben wird
++ geheime und offen ausgetragener Versuch zu revoltieren
++ Staatssysteme könnten doch anders funktionieren
+
+offene Fragen
++ wie setze ich die Wahrscheinlichkeit, dass man die Revolution gewinnt
++ wie bei Gruppenrevolution
+
+späte Zukunft:
++ mehr strukturiertes Protokoll als Log Txt File
++ noch viel mehr Staatssysteme und andere Systeme, z.B. als Firma statt Staat 
++ pro Staatssystem kann noch ne Menge anderes in jenigem welchen gelten und passieren
+  d.h. umfangreicheres Protokoll dann: json dafür nehmen? Macht vieles einfacher!
+  Wie json, wenn es immer weiter als protokoll iteriert? Einfach lösbar, aber welche Methode?
++ noch viel mehr mit komplexen wahrscheinlichkeitswürel aus dicegui oder dice.py
+  arbeiten, z.B. bei
+    + Rangfolge
+    + wann die Rangfolge sich ändert
+    + wann sich das Staatssystem ändert
+
+
+
+Refactoringplan:
+1. mindstorming: welche Elemente gibt es minimal modular
+2. die Beziehungen zueinander: mache ich mit dem Tablet
+3. UML Zeichnung mit Tablet: Klassendiagramm
+4. UML Zeichnung mit Tablet: Flussdiagramm
+5. Durchführung des Refactoring mit anderer IDE
+
+1. Mindstorming:
+
++ Staatssystem Datenstruktur
++ Struktur: Ursprungsrangfolge, Rangfolge der Parameter, Datenstruktur - die das eine in das andere wandelt
++ Funktion(-en), die bewirken, dass Rangfolge anders wird
++ Revolutionen und neue Staatssyteme
++ csv read and write, and store, when already read
++ voting fkt 1 2 3
++ befehle bei start
++ Hauptprogramm als Ftk mit Py Methode, dass dieses Py File woanders eingebunden werden kann
++ hierarchy ?
++ Bestimmung mit Funktionen von neuen Datenstrukturen, z.B. dass in Aristrokratie gewisse Anzahl von Personen relevant
+
+"""
