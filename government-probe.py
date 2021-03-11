@@ -678,7 +678,10 @@ class VotingConcerns:
     def lastVoteEqualsThisVote(value):
         num2: list = []
         for num1 in CsvWork.readCsv(argv)[0][1:]:
-            num2 += [int(num1)]
+            try:
+                num2 += [int(num1)]
+            except ValueError:
+                return False
         print(
             "__ value data "
             + str(value[2:])
@@ -780,12 +783,13 @@ def votingCommands(possiblyAgain: bool = True):
     value = VotingConcerns.prepareVoting(
         argv, systemTypeMaps["strint"][historyThisGovernment[-1][0]]
     )
-    return value
+    return value, possiblyAgain
 
 
 def commands(argv):
     global systemTypes, personenAnzahl
     value: list = []
+    possiblyAgain = True
 
     if argv[2] in systemTypes:
         #    print(str(argv[3:]))
@@ -793,10 +797,10 @@ def commands(argv):
     elif argv[2] in ["revolution"]:
         SystemConcerns.revolution(argv)
     elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
-        value = votingCommands(True)
+        value, possiblyAgain = votingCommands(True)
     else:
         print(str(systemTypes) + " ???")
-    return value
+    return value, possiblyAgain
 
 
 def start(argv):
@@ -826,7 +830,7 @@ def start(argv):
     blub = [qAppEngin.tr("test")]
     libdice.dice.languages2(libdice_strlist)
 
-    value = commands(argv)
+    value, possiblyAgain = commands(argv)
     summ = 0
     print("LastValues: " + str(value[3:]))
     for val in value[3:]:

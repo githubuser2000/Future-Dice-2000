@@ -168,3 +168,8 @@ voteNoRevolution;7;0;0;3;1;1;0
 voteNoRevolution;7;0;0;3;1;1;0
 voteNoRevolution;7;0;0;3;1;1;0
 voteNoRevolution;7;0;0;3;1;1;0
+democracy;e;c;f;b;i;h;g
+democracy;c;b;f;e;g;h;i
+democracy;c;e;b;i;h;f;g
+democracy;i;c;e;b;g;f;h
+democracy;c;b;g;e;f;i;h
