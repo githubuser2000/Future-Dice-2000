@@ -2,9 +2,9 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-imap <Nul> <C-Space>
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+imap <Nul> <C-Space>
 imap <C-R>	 <Plug>snipMateShow
 inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <silent> <Plug>(fzf-maps-i) :call fzf#vim#maps('i', 0)
@@ -91,10 +91,6 @@ nmap ]j :call PythonDec("class", 1)
 omap ]j :call PythonDec("class", 1)
 nmap ]J :call PythonDec("class", -1)
 omap ]J :call PythonDec("class", -1)
-map ]<Down> :call PythonNextLine(1)
-map ]<Up> :call PythonNextLine(-1)
-map ]d :call PythonSelectObject("function")
-map ]c :call PythonSelectObject("class")
 nmap ]u :call PythonUncommentSelection()
 omap ]u :call PythonUncommentSelection()
 nmap ]# :call PythonCommentSelection()
@@ -103,11 +99,15 @@ nmap ]> ]tV]e>
 omap ]> ]tV]e>
 nmap ]< ]tV]e<
 omap ]< ]tV]e<
-map ]v ]tV]e
 nmap ]e :PEoB
 omap ]e :PEoB
 nmap ]t :PBoB
 omap ]t :PBoB
+map ]v ]tV]e
+map ]c :call PythonSelectObject("class")
+map ]d :call PythonSelectObject("function")
+map ]<Up> :call PythonNextLine(-1)
+map ]<Down> :call PythonNextLine(1)
 nmap cS <Plug>CSurround
 nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
@@ -226,117 +226,7 @@ set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=de
 set hlsearch
 set ruler
-set runtimepath=
-set runtimepath+=~/.vim
-set runtimepath+=~/.vim/bundle/Vundle.vim
-set runtimepath+=~/.vim/bundle/SimpylFold
-set runtimepath+=~/.vim/bundle/indentpython.vim
-set runtimepath+=~/.vim/bundle/vim-flake8
-set runtimepath+=~/.vim/bundle/Zenburn
-set runtimepath+=~/.vim/bundle/vim-colors-solarized
-set runtimepath+=~/.vim/bundle/nerdtree
-set runtimepath+=~/.vim/bundle/vim-nerdtree-tabs
-set runtimepath+=~/.vim/bundle/ctrlp.vim
-set runtimepath+=~/.vim/bundle/vim-fugitive
-set runtimepath+=~/.vim/bundle/vim-addon-mw-utils
-set runtimepath+=~/.vim/bundle/tlib_vim
-set runtimepath+=~/.vim/bundle/vim-snipmate
-set runtimepath+=~/.vim/bundle/vim-snippets
-set runtimepath+=~/.vim/bundle/powerline/powerline/bindings/vim/
-set runtimepath+=~/.vim/bundle/YouCompleteMe
-set runtimepath+=~/.vim/bundle/vimwiki
-set runtimepath+=~/.vim/bundle/vim-rainbow
-set runtimepath+=~/.vim/bundle/vim-hardtime
-set runtimepath+=~/.vim/bundle/vim-pug-complete
-set runtimepath+=~/.vim/bundle/nerdcommenter
-set runtimepath+=~/.vim/bundle/SimpylFold
-set runtimepath+=~/.vim/bundle/Vundle.vim
-set runtimepath+=~/.vim/bundle/YouCompleteMe
-set runtimepath+=~/.vim/bundle/Zenburn
-set runtimepath+=~/.vim/bundle/autoload
-set runtimepath+=~/.vim/bundle/ctrlp.vim
-set runtimepath+=~/.vim/bundle/doc
-set runtimepath+=~/.vim/bundle/ftplugin
-set runtimepath+=~/.vim/bundle/indentpython.vim
-set runtimepath+=~/.vim/bundle/nerdcommenter
-set runtimepath+=~/.vim/bundle/nerdtree
-set runtimepath+=~/.vim/bundle/plugin
-set runtimepath+=~/.vim/bundle/powerline
-set runtimepath+=~/.vim/bundle/powerline-develop
-set runtimepath+=~/.vim/bundle/pythonx
-set runtimepath+=~/.vim/bundle/tagbar-master
-set runtimepath+=~/.vim/bundle/test
-set runtimepath+=~/.vim/bundle/tlib_vim
-set runtimepath+=~/.vim/bundle/ultisnips
-set runtimepath+=~/.vim/bundle/vim-addon-mw-utils
-set runtimepath+=~/.vim/bundle/vim-colors-solarized
-set runtimepath+=~/.vim/bundle/vim-flake8
-set runtimepath+=~/.vim/bundle/vim-fugitive
-set runtimepath+=~/.vim/bundle/vim-gutentags
-set runtimepath+=~/.vim/bundle/vim-hardtime
-set runtimepath+=~/.vim/bundle/vim-nerdtree-tabs
-set runtimepath+=~/.vim/bundle/vim-pug
-set runtimepath+=~/.vim/bundle/vim-pug-complete
-set runtimepath+=~/.vim/bundle/vim-rainbow
-set runtimepath+=~/.vim/bundle/vim-rhubarb
-set runtimepath+=~/.vim/bundle/vim-snipmate
-set runtimepath+=~/.vim/bundle/vim-snippets
-set runtimepath+=~/.vim/bundle/vimwiki
-set runtimepath+=~/.vim/bundle/powerline/powerline/bindings/vim/
-set runtimepath+=~/.vim/plugged/nord-vim
-set runtimepath+=~/.vim/plugged/oceanic-material
-set runtimepath+=~/.vim/plugged/fzf
-set runtimepath+=~/.vim/plugged/fzf.vim
-set runtimepath+=~/.vim/plugged/embark
-set runtimepath+=~/.vim/pack/tpope/start/surround
-set runtimepath+=~/.vim/pack/plugins/start/vimwiki
-set runtimepath+=~/.vim/pack/git-plugins/start/ale
-set runtimepath+=/usr/share/vim/vimfiles
-set runtimepath+=/usr/share/vim/vim82
-set runtimepath+=/usr/share/vim/vimfiles/after
-set runtimepath+=~/.vim/bundle/vim-snipmate/after
-set runtimepath+=~/.vim/bundle/vim-pug-complete/after
-set runtimepath+=~/.vim/bundle/ultisnips/after
-set runtimepath+=~/.vim/after
-set runtimepath+=~/.vim/bundle/Vundle.vim/after
-set runtimepath+=~/.vim/bundle/SimpylFold/after
-set runtimepath+=~/.vim/bundle/indentpython.vim/after
-set runtimepath+=~/.vim/bundle/vim-flake8/after
-set runtimepath+=~/.vim/bundle/Zenburn/after
-set runtimepath+=~/.vim/bundle/vim-colors-solarized/after
-set runtimepath+=~/.vim/bundle/nerdtree/after
-set runtimepath+=~/.vim/bundle/vim-nerdtree-tabs/after
-set runtimepath+=~/.vim/bundle/ctrlp.vim/after
-set runtimepath+=~/.vim/bundle/vim-fugitive/after
-set runtimepath+=~/.vim/bundle/vim-addon-mw-utils/after
-set runtimepath+=~/.vim/bundle/tlib_vim/after
-set runtimepath+=~/.vim/bundle/vim-snippets/after
-set runtimepath+=~/.vim/bundle/powerline/powerline/bindings/vim//after
-set runtimepath+=~/.vim/bundle/YouCompleteMe/after
-set runtimepath+=~/.vim/bundle/vimwiki/after
-set runtimepath+=~/.vim/bundle/vim-rainbow/after
-set runtimepath+=~/.vim/bundle/vim-hardtime/after
-set runtimepath+=~/.vim/bundle/Vundle.vim/after
-set runtimepath+=~/.vim/bundle/SimpylFold/after
-set runtimepath+=~/.vim/bundle/indentpython.vim/after
-set runtimepath+=~/.vim/bundle/vim-flake8/after
-set runtimepath+=~/.vim/bundle/Zenburn/after
-set runtimepath+=~/.vim/bundle/vim-colors-solarized/after
-set runtimepath+=~/.vim/bundle/nerdtree/after
-set runtimepath+=~/.vim/bundle/vim-nerdtree-tabs/after
-set runtimepath+=~/.vim/bundle/ctrlp.vim/after
-set runtimepath+=~/.vim/bundle/vim-fugitive/after
-set runtimepath+=~/.vim/bundle/vim-addon-mw-utils/after
-set runtimepath+=~/.vim/bundle/tlib_vim/after
-set runtimepath+=~/.vim/bundle/vim-snipmate/after
-set runtimepath+=~/.vim/bundle/vim-snippets/after
-set runtimepath+=~/.vim/bundle/powerline/powerline/bindings/vim//after
-set runtimepath+=~/.vim/bundle/YouCompleteMe/after
-set runtimepath+=~/.vim/bundle/vimwiki/after
-set runtimepath+=~/.vim/bundle/vim-rainbow/after
-set runtimepath+=~/.vim/bundle/vim-hardtime/after
-set runtimepath+=~/.vim/bundle/vim-pug-complete/after
-set runtimepath+=~/.vim/bundle/nerdcommenter/after
+set runtimepath=~/.vim,~/.vim/bundle/Vundle.vim,~/.vim/bundle/SimpylFold,~/.vim/bundle/indentpython.vim,~/.vim/bundle/vim-flake8,~/.vim/bundle/Zenburn,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/nerdtree,~/.vim/bundle/vim-nerdtree-tabs,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-addon-mw-utils,~/.vim/bundle/tlib_vim,~/.vim/bundle/vim-snipmate,~/.vim/bundle/vim-snippets,~/.vim/bundle/powerline/powerline/bindings/vim/,~/.vim/bundle/YouCompleteMe,~/.vim/bundle/vimwiki,~/.vim/bundle/vim-rainbow,~/.vim/bundle/vim-hardtime,~/.vim/bundle/vim-pug-complete,~/.vim/bundle/nerdcommenter,~/.vim/bundle/autoload,~/.vim/bundle/doc,~/.vim/bundle/ftplugin,~/.vim/bundle/plugin,~/.vim/bundle/powerline,~/.vim/bundle/powerline-develop,~/.vim/bundle/pythonx,~/.vim/bundle/tagbar-master,~/.vim/bundle/test,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-gutentags,~/.vim/bundle/vim-pug,~/.vim/bundle/vim-rhubarb,~/.vim/plugged/nord-vim,~/.vim/plugged/oceanic-material,~/.vim/plugged/fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/embark,~/.vim/pack/tpope/start/surround,~/.vim/pack/plugins/start/vimwiki,~/.vim/pack/git-plugins/start/ale,/usr/share/vim/vimfiles,/usr/share/vim/vim82,/usr/share/vim/vimfiles/after,~/.vim/bundle/vim-snipmate/after,~/.vim/bundle/vim-pug-complete/after,~/.vim/bundle/ultisnips/after,~/.vim/after,~/.vim/bundle/Vundle.vim/after,~/.vim/bundle/SimpylFold/after,~/.vim/bundle/indentpython.vim/after,~/.vim/bundle/vim-flake8/after,~/.vim/bundle/Zenburn/after,~/.vim/bundle/vim-colors-solarized/after,~/.vim/bundle/nerdtree/after,~/.vim/bundle/vim-nerdtree-tabs/after,~/.vim/bundle/ctrlp.vim/after,~/.vim/bundle/vim-fugitive/after,~/.vim/bundle/vim-addon-mw-utils/after,~/.vim/bundle/tlib_vim/after,~/.vim/bundle/vim-snippets/after,~/.vim/bundle/powerline/powerline/bindings/vim//after,~/.vim/bundle/YouCompleteMe/after,~/.vim/bundle/vimwiki/after,~/.vim/bundle/vim-rainbow/after,~/.vim/bundle/vim-hardtime/after,~/.vim/bundle/nerdcommenter/after
 set shell=/bin/bash
 set shiftround
 set shortmess=filnxtToOSc
@@ -358,6 +248,7 @@ argglobal
 %argdel
 $argadd government.py
 set stal=2
+tabnew
 tabnew
 tabnew
 tabnew
@@ -528,7 +419,7 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal statusline=%!py3eval('powerline.statusline(3)')
+setlocal statusline=%!py3eval('powerline.statusline(1)')
 setlocal suffixesadd=.py
 setlocal swapfile
 setlocal synmaxcol=3000
@@ -555,7 +446,202 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 327
-normal! 0136|
+normal! 011|
+tabnext
+edit government-probe.py
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+inoremap <buffer> <silent> <expr> <Right> TryKey('<Right>') ? '<Right>' : TooSoon('<RIGHT>','i')
+inoremap <buffer> <silent> <expr> <Left> TryKey('<Left>') ? '<Left>' : TooSoon('<LEFT>','i')
+inoremap <buffer> <silent> <expr> <Down> TryKey('<Down>') ? pumvisible() ? "\" : "\<Down>" : TooSoon('<DOWN>','i')
+inoremap <buffer> <silent> <expr> <Up> TryKey('<Up>') ? pumvisible() ? "\" : "\<Up>" : TooSoon('<UP>','i')
+inoremap <buffer> <silent> <Nul> =pymode#rope#complete(0)
+inoremap <buffer> <silent> <C-Space> =pymode#rope#complete(0)
+xnoremap <buffer> <silent> <expr> + TryKey('+') ? '+' : TooSoon('+','x')
+nnoremap <buffer> <silent> <expr> + TryKey('+') ? '+' : TooSoon('+','n')
+xnoremap <buffer> <silent> <expr> - TryKey('-') ? '-' : TooSoon('-','x')
+nnoremap <buffer> <silent> <expr> - TryKey('-') ? '-' : TooSoon('-','n')
+onoremap <buffer> C :call pymode#motion#select('^\s*class\s', 0)
+onoremap <buffer> M :call pymode#motion#select('^\s*def\s', 0)
+onoremap <buffer> [C :call pymode#motion#move('\v^(class|def)\s', 'b')
+nnoremap <buffer> [C :call pymode#motion#move('\v^(class|def)\s', 'b')
+vnoremap <buffer> [M :call pymode#motion#vmove('^\s*def\s', 'b')
+vnoremap <buffer> [[ :call pymode#motion#vmove('\v^(class|def)\s', 'b')
+onoremap <buffer> [M :call pymode#motion#move('^\s*def\s', 'b')
+onoremap <buffer> [[ :call pymode#motion#move('\v^(class|def)\s', 'b')
+nnoremap <buffer> [M :call pymode#motion#move('^\s*def\s', 'b')
+nnoremap <buffer> [[ :call pymode#motion#move('\v^(class|def)\s', 'b')
+onoremap <buffer> ]C :call pymode#motion#move('\v^(class|def)\s', '')
+nnoremap <buffer> ]C :call pymode#motion#move('\v^(class|def)\s', '')
+vnoremap <buffer> ]M :call pymode#motion#vmove('^\s*def\s', '')
+vnoremap <buffer> ]] :call pymode#motion#vmove('\v^(class|def)\s', '')
+onoremap <buffer> ]M :call pymode#motion#move('^\s*def\s', '')
+onoremap <buffer> ]] :call pymode#motion#move('\v^(class|def)\s', '')
+nnoremap <buffer> ]M :call pymode#motion#move('^\s*def\s', '')
+nnoremap <buffer> ]] :call pymode#motion#move('\v^(class|def)\s', '')
+vnoremap <buffer> aM :call pymode#motion#select('^\s*def\s', 0)
+onoremap <buffer> aM :call pymode#motion#select('^\s*def\s', 0)
+vnoremap <buffer> aC :call pymode#motion#select('^\s*class\s', 0)
+onoremap <buffer> aC :call pymode#motion#select('^\s*class\s', 0)
+xnoremap <buffer> <silent> <expr> h TryKey('h') ? 'h' : TooSoon('h','x')
+nnoremap <buffer> <silent> <expr> h TryKey('h') ? 'h' : TooSoon('h','n')
+vnoremap <buffer> iM :call pymode#motion#select('^\s*def\s', 1)
+onoremap <buffer> iM :call pymode#motion#select('^\s*def\s', 1)
+vnoremap <buffer> iC :call pymode#motion#select('^\s*class\s', 1)
+onoremap <buffer> iC :call pymode#motion#select('^\s*class\s', 1)
+xnoremap <buffer> <silent> <expr> j TryKey('j') ? 'j' : TooSoon('j','x')
+nnoremap <buffer> <silent> <expr> j TryKey('j') ? 'j' : TooSoon('j','n')
+xnoremap <buffer> <silent> <expr> k TryKey('k') ? 'k' : TooSoon('k','x')
+nnoremap <buffer> <silent> <expr> k TryKey('k') ? 'k' : TooSoon('k','n')
+xnoremap <buffer> <silent> <expr> l TryKey('l') ? 'l' : TooSoon('l','x')
+nnoremap <buffer> <silent> <expr> l TryKey('l') ? 'l' : TooSoon('l','n')
+xnoremap <buffer> <silent> <expr> <Right> TryKey('<Right>') ? '<Right>' : TooSoon('<RIGHT>','x')
+xnoremap <buffer> <silent> <expr> <Left> TryKey('<Left>') ? '<Left>' : TooSoon('<LEFT>','x')
+xnoremap <buffer> <silent> <expr> <Down> TryKey('<Down>') ? '<Down>' : TooSoon('<DOWN>','x')
+xnoremap <buffer> <silent> <expr> <Up> TryKey('<Up>') ? '<Up>' : TooSoon('<UP>','x')
+nnoremap <buffer> <silent> <expr> <Right> TryKey('<Right>') ? '<Right>' : TooSoon('<RIGHT>','n')
+nnoremap <buffer> <silent> <expr> <Left> TryKey('<Left>') ? '<Left>' : TooSoon('<LEFT>','n')
+nnoremap <buffer> <silent> <expr> <Down> TryKey('<Down>') ? '<Down>' : TooSoon('<DOWN>','n')
+nnoremap <buffer> <silent> <expr> <Up> TryKey('<Up>') ? '<Up>' : TooSoon('<UP>','n')
+noremap <buffer> <F7> :call flake8#Flake8()
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=b:#,fb:-
+setlocal commentstring=#\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'python'
+setlocal filetype=python
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=SimpylFold#FoldExpr(v:lnum)
+setlocal foldignore=#
+set foldlevel=99
+setlocal foldlevel=99
+setlocal foldmarker={{{,}}}
+set foldmethod=indent
+setlocal foldmethod=expr
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=tcq
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=^\\s*\\(from\\|import\\)
+setlocal includeexpr=substitute(substitute(substitute(v:fname,b:grandparent_match,b:grandparent_sub,''),b:parent_match,b:parent_sub,''),b:child_match,b:child_sub,'g')
+setlocal indentexpr=pymode#indent#get_indent(v:lnum)
+setlocal indentkeys=!^F,o,O,<:>,0),0],0},=elif,=except
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=pydoc
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=pymode#rope#completions
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal softtabstop=4
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!py3eval('powerline.statusline(2)')
+setlocal suffixesadd=.py
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'python'
+setlocal syntax=python
+endif
+setlocal tabstop=4
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=~/workspace-noneclipse/edice/tags,~/mytags
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal wincolor=
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+let s:l = 784 - ((28 * winheight(0) + 28) / 57)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+784
+normal! 09|
 tabnext
 edit x.txt
 set splitbelow splitright
@@ -1083,12 +1169,13 @@ exe s:l
 normal! zt
 173
 normal! 0
-tabnext 1
+tabnext 2
 set stal=1
 badd +0 government.py
-badd +0 ~/workspace-noneclipse/edice-backup-todel/government.py
-badd +0 ~/Dokumente/2020-04-10-sex-spiele-games.txt
-badd +0 x.txt
+badd +1 x.txt
+badd +1 ~/Dokumente/2020-04-10-sex-spiele-games.txt
+badd +1 ~/workspace-noneclipse/edice-backup-todel/government.py
+badd +0 government-probe.py
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif

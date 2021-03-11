@@ -33,6 +33,9 @@ from PyQt5.QtWidgets import QApplication
 # next;2;2;2
 # vote;1;2;3
 
+
+personenAnzahl: int
+
 systemTypeMaps = {
     "strint": {
         "democracy": 0,
@@ -102,7 +105,6 @@ class CsvWork:
 namesNotAllDifferent = False
 
 
-
 whoHasMax: set = set()
 ifElseVoters = False
 
@@ -125,7 +127,10 @@ class SystemConcerns:
             """ lineares bzw. genauer konstantes wachstum, also kein wachstum und gewicht auch also gleiches gewicht von allem
             d.h. 6 würfelaugen bedeutet stinknormaler würfel in dem fall, würfelaugen == personenAnzahl"""
             people1 = libdice.dice(
-                longvar, werfen=personenAnzahl, uniq_=True, bezeichner=" ".join(newargv[3:])
+                longvar,
+                werfen=personenAnzahl,
+                uniq_=True,
+                bezeichner=" ".join(newargv[3:]),
             )
             """ people1 ergibt sich aus würfelung der alten people aber nur in anderer Reihenfogle """
             print(str(people1.out()))
@@ -221,6 +226,7 @@ class SystemConcerns:
         print(newsystem)
         argv[2] = newsystem
         SystemConcerns.newSystem(personenAnzahl, argv, oldsystem)
+
 
 def peopleAlreadyDemocraticOrRandomlySelectedInPast(onlyForLastElection=False):
     global whoHasMax, ifElseVoters
@@ -477,7 +483,7 @@ class VotingConcerns:
         govType = int(govType)
         print("GOV: " + str(govType))
         print("GOV: " + str(systemTypeMaps["strint"]["oligarchy"]))
-        print("GOV: " + str(votingConcerns.aristrokratenAmount(argv)))
+        print("GOV: " + str(VotingConcerns.aristrokratenAmount(argv)))
         print("GOV: " + str(systemTypeMaps["strint"]))
         return (
             int(len(argv[3:]) / 3)
@@ -487,7 +493,7 @@ class VotingConcerns:
                 systemTypeMaps["strint"]["plutocracy"],
                 systemTypeMaps["strint"]["dictatorship"],
             )
-            else votingConcerns.aristrokratenAmount(argv)
+            else VotingConcerns.aristrokratenAmount(argv)
             if govType
             in (
                 systemTypeMaps["strint"]["aristocracy"],
@@ -498,7 +504,6 @@ class VotingConcerns:
             else None
         )
 
-
     @staticmethod
     def voting(
         userAmount,
@@ -508,7 +513,7 @@ class VotingConcerns:
         voteHierarchy=0,
     ):
         global whoHasMax
-        # aristokratenAmount = votingConcerns.aristrokratenAmount(argv)
+        # aristokratenAmount = VotingConcerns.aristrokratenAmount(argv)
         print("XX")
         print(str(votes))
         print(str(potentials))
@@ -520,7 +525,8 @@ class VotingConcerns:
         sortOfRelevantUserAmount = VotingConcerns.getSortOfRelevantUserAmount(govType)
 
         if (
-            userAmount == len(whoHasMax) or len(CsvWork.readCsv(argv)) > sortOfRelevantUserAmount
+            userAmount == len(whoHasMax)
+            or len(CsvWork.readCsv(argv)) > sortOfRelevantUserAmount
         ) and argv[2] in ["voteOnce"]:
             print("Alle restlichen User sind dran, dann neues System!")
             SystemConcerns.revolution(argv)
@@ -537,7 +543,17 @@ class VotingConcerns:
         + """
         print("__ whoHasMax: " + str(whoHasMax))
 
-        VotingConcerns.election(govType, potentials, results, sortOfRelevantUserAmount, voteHierarchy, votes, whoHasMax, VotingConcerns.electionPerVote)
+        VotingConcerns.election(
+            govType,
+            potentials,
+            results,
+            sortOfRelevantUserAmount,
+            voteHierarchy,
+            votes,
+            whoHasMax,
+            VotingConcerns.electionPerVote,
+            userAmount,
+        )
 
         print("results " + str(results))
         """ revolution nach vote, wenn es letzter vote war
@@ -552,7 +568,17 @@ class VotingConcerns:
         return results
 
     @staticmethod
-    def election(self, govType, potentials, results, sortOfRelevantUserAmount, voteHierarchy, votes, whoHasMax, electionfunction):
+    def election(
+        govType,
+        potentials,
+        results,
+        sortOfRelevantUserAmount,
+        voteHierarchy,
+        votes,
+        whoHasMax,
+        electionfunction,
+        userAmount,
+    ):
         for k, (vote, potential) in enumerate(zip(votes, potentials)):
 
             # if (
@@ -579,29 +605,47 @@ class VotingConcerns:
             for i in range(userAmount)[:sortOfRelevantUserAmount]:
                 # print("user: " + str(i))
                 if int(i) == int(vote):
-                    #VotingConcerns.electionPerVote(govType, i, k, potential, results, sortOfRelevantUserAmount,
+                    # VotingConcerns.electionPerVote(govType, i, k, potential, results, sortOfRelevantUserAmount,
                     #                               voteHierarchy, votes, whoHasMax)
-                    electionfunction(govType, i, k, potential, results, sortOfRelevantUserAmount,
-                                                   voteHierarchy, votes, whoHasMax)
+                    electionfunction(
+                        govType,
+                        i,
+                        k,
+                        potential,
+                        results,
+                        sortOfRelevantUserAmount,
+                        voteHierarchy,
+                        votes,
+                        whoHasMax,
+                    )
 
     @staticmethod
-    def electionPerVote(self, govType, i, k, potential, results, sortOfRelevantUserAmount, voteHierarchy, votes,
-                        whoHasMax):
+    def electionPerVote(
+        govType,
+        i,
+        k,
+        potential,
+        results,
+        sortOfRelevantUserAmount,
+        voteHierarchy,
+        votes,
+        whoHasMax,
+    ):
         # print("vote: " + str(vote))
         """voteHierarchy definiert sich daraus welche user voten dürfen - das ist alles
-                            + der max user fällt immer weg, der user mit der nummer whoHasMax
-                            + in Oligarchie haben user dreifaches potential
-                                aber int(boolwert) * 3 ist irgendwie komisch aber funktionierend programmiert
-                            + wo kommt eigentlich potentials her?: Das sind die gewichte, letzter wert im tripel
-                            + if true oder false, immer: resultliste hat immer den wert 1 * potentialvariable
-                            """
+        + der max user fällt immer weg, der user mit der nummer whoHasMax
+        + in Oligarchie haben user dreifaches potential
+            aber int(boolwert) * 3 ist irgendwie komisch aber funktionierend programmiert
+        + wo kommt eigentlich potentials her?: Das sind die gewichte, letzter wert im tripel
+        + if true oder false, immer: resultliste hat immer den wert 1 * potentialvariable
+        """
         if i not in whoHasMax or len(whoHasMax) >= sortOfRelevantUserAmount:
             if (
-                    voteHierarchy
-                    == 0
-                    # or (voteHierarchy != 0 and voteHierarchy - 1 <= i)
-                    # or (voteHierarchy > 0 and voteHierarchy - 1 <= i)
-                    # or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
+                voteHierarchy
+                == 0
+                # or (voteHierarchy != 0 and voteHierarchy - 1 <= i)
+                # or (voteHierarchy > 0 and voteHierarchy - 1 <= i)
+                # or (voteHierarchy < 0 and -voteHierarchy - 1 >= i)
             ):
                 # if oligarchy and i == k:
                 #    potential = int(oligarchy) * 3
@@ -612,11 +656,11 @@ class VotingConcerns:
                 results[i] += (
                     int(potential)
                     if govType
-                       in (
-                           systemTypeMaps["strint"]["oligarchy"],
-                           systemTypeMaps["strint"]["tyrannis"],
-                           systemTypeMaps["strint"]["plutocracy"],
-                       )
+                    in (
+                        systemTypeMaps["strint"]["oligarchy"],
+                        systemTypeMaps["strint"]["tyrannis"],
+                        systemTypeMaps["strint"]["plutocracy"],
+                    )
                     else (
                         len(votes) - 1
                         if (len(votes) - 2) > 0
@@ -624,8 +668,7 @@ class VotingConcerns:
                         if (len(votes) - 1) > 0
                         else 1
                     )
-                    if govType == systemTypeMaps["strint"]["dictatorship"]
-                       and k == 0
+                    if govType == systemTypeMaps["strint"]["dictatorship"] and k == 0
                     else 1
                 )
         # elif govType == systemTypeMaps["strint"]["dictatorship"]:
@@ -648,10 +691,9 @@ class VotingConcerns:
         )
         return num2 == value[3:] and value[2] == CsvWork.readCsv(argv)[0][0]
 
-
     @staticmethod
     def prepareVoting(argv, govType, rekursionInt: int = 1):
-        global whoHasMax
+        global whoHasMax, personenAnzahl
         """tripel in liste, dann vote()
         dann dessen ergebnis returned, einzelne, keine tripel
         aber davor noch die 3 ersten parameter, wozu wohl auch die py datei gehört
@@ -690,21 +732,22 @@ class VotingConcerns:
         # print(str(names))
         # print("iuz :"+str(len(names))+" "+str(votes)+" "+str(aristrokratsAreLessThanAll)+" "+str(potentials))
         # print("VOTESbefore: " + str(votes))
-        # votingResults = votingConcerns.voting(len(names), votes, potentials, govType, voteHierarchy)
-        votingResults = votingConcerns.voting(len(names), votes, potentials, govType)
+        # votingResults = VotingConcerns.voting(len(names), votes, potentials, govType, voteHierarchy)
+        votingResults = VotingConcerns.voting(len(names), votes, potentials, govType)
         # print('results: '+str(list(enumerate(names)))+' '+str(votingResults))
         # print(str(type(['vote']))+' '+str(type(list(votingResults.values()))))
         value = argv[:3] + list(votingResults.values())
 
-        if votingConcerns.lastVoteEqualsThisVote(value) and rekursionInt > 0 and len(whoHasMax) != 0:
+        if (
+            VotingConcerns.lastVoteEqualsThisVote(value)
+            and rekursionInt > 0
+            and len(whoHasMax) != 0
+        ):
             print("__ vote2 again")
             whoHasMax = set()
-            votingConcerns.prepareVoting(argv, govType, 0)
+            VotingConcerns.prepareVoting(argv, govType, 0)
 
         return value
-
-
-
 
 
 def votingCommands(possiblyAgain: bool = True):
@@ -712,12 +755,14 @@ def votingCommands(possiblyAgain: bool = True):
     """ alle Staatsformen durchprobieren, wenn vote als Befehl verwendet wurde """
     historyThisGovernment = CsvWork.readCsv(argv)
     """ UMSORTIERUNG DER ARGV"""
-    argv = argv[:3] + votingConcerns.orderOfPrecedence(argv, historyThisGovernment[-1][1:])
+    argv = argv[:3] + VotingConcerns.orderOfPrecedence(
+        argv, historyThisGovernment[-1][1:]
+    )
     print("umsortierete Voter: " + str(argv))
     """ Welche User haben zusammen das Maximalgewicht """
-    #if possiblyAgain:
+    # if possiblyAgain:
     #    whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast()
-    #else:
+    # else:
     #    print("__ not possibly again")
     #    whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast(True)
     whoHasMax = peopleAlreadyDemocraticOrRandomlySelectedInPast(possiblyAgain)
@@ -732,22 +777,31 @@ def votingCommands(possiblyAgain: bool = True):
     # print(argv)
     # print(historyThisGovernment[-1][0])
     """ alle Staatsformen durchprobieren, wenn vote als Befehl verwendet wurde """
-    value = votingConcerns.prepareVoting(argv, systemTypeMaps["strint"][historyThisGovernment[-1][0]])
+    value = VotingConcerns.prepareVoting(
+        argv, systemTypeMaps["strint"][historyThisGovernment[-1][0]]
+    )
+    return value
 
 
 def commands(argv):
     global systemTypes, personenAnzahl
+    value: list = []
+
     if argv[2] in systemTypes:
         #    print(str(argv[3:]))
         SystemConcerns.newSystem(personenAnzahl, argv)
     elif argv[2] in ["revolution"]:
         SystemConcerns.revolution(argv)
     elif argv[2] in ["voteOnce", "voteNoRevolution", "voteRevolutionPossible"]:
-        votingCommands(True)
+        value = votingCommands(True)
     else:
         print(str(systemTypes) + " ???")
+    return value
+
 
 def start(argv):
+    global personenAnzahl
+
     personenAnzahl = int((len(argv) - 3) / 3)
     OnceAgainGlobal = False
 
@@ -772,7 +826,7 @@ def start(argv):
     blub = [qAppEngin.tr("test")]
     libdice.dice.languages2(libdice_strlist)
 
-    commands(argv)
+    value = commands(argv)
     summ = 0
     print("LastValues: " + str(value[3:]))
     for val in value[3:]:
@@ -788,7 +842,6 @@ def start(argv):
             votingCommands(False)
         else:
             print("__ NOT WRITE TO CSV: " + str(value[3:]))
-
 
 
 start(argv)
