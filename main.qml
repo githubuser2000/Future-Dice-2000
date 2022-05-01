@@ -14,6 +14,7 @@ Window {
     onVisibleChanged: {
         height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
     }
+    //color: "black"
     SystemTrayIcon {
         visible: true
         icon.source: "wuerfel.png"
@@ -270,14 +271,14 @@ Window {
                 text: qsTr("Würfel erstellen")
                 antialiasing: true
                 onClicked: MainWindow.wuerfelErstellen()
-                background: Rectangle {
+                /*background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 40
                     color: bwuefelerstellen.down ? "#d6d6d6" : "#f6f6f6"
                     border.color: "#26282a"
                     border.width: 2
                     radius: 13
-                }
+                }*/
             }
             Label {
                 text: " "
@@ -293,14 +294,14 @@ Window {
                 antialiasing: true
                 spacing: -3
                 onClicked: MainWindow.wuerfeln2()
-                background: Rectangle {
+                /*background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 40
                     color: bwuerfe.down ? "#d6d6d6" : "#f6f6f6"
                     border.color: "#26282a"
                     border.width: 2
                     radius: 13
-                }
+                }*/
             }
         }
         ButtonGroup {
@@ -350,10 +351,10 @@ Window {
                     antialiasing: true
                     spacing: -3
                     onClicked: MainWindow.changeLanguage()
+                    implicitWidth: 70
+                    implicitHeight: 40
                     background: Image {
                         /*
-                        implicitWidth: 100
-                        implicitHeight: 40
                         color: bwuerfe.down ? "#d6d6d6" : "#f6f6f6"
                         border.color: "#26282a"
                         border.width: 2
