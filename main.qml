@@ -14,6 +14,7 @@ Window {
     onVisibleChanged: {
         height = haupt.height + scrollView.height + wuerfflaechNam.height + 12;
     }
+    //color: "black"
     SystemTrayIcon {
         visible: true
         icon.source: "wuerfel.png"
@@ -73,6 +74,8 @@ Window {
                 y: 119
                 text: qsTr("uniq")
                 objectName: "uniq"
+                //visualChecked: 0
+                //checked: 0
                 onClicked: MainWindow.uniq()
             }
             Switch {
@@ -268,14 +271,14 @@ Window {
                 text: qsTr("Würfel erstellen")
                 antialiasing: true
                 onClicked: MainWindow.wuerfelErstellen()
-                background: Rectangle {
+                /*background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 40
                     color: bwuefelerstellen.down ? "#d6d6d6" : "#f6f6f6"
                     border.color: "#26282a"
                     border.width: 2
                     radius: 13
-                }
+                }*/
             }
             Label {
                 text: " "
@@ -291,14 +294,14 @@ Window {
                 antialiasing: true
                 spacing: -3
                 onClicked: MainWindow.wuerfeln2()
-                background: Rectangle {
+                /*background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 40
                     color: bwuerfe.down ? "#d6d6d6" : "#f6f6f6"
                     border.color: "#26282a"
                     border.width: 2
                     radius: 13
-                }
+                }*/
             }
         }
         ButtonGroup {
@@ -331,12 +334,12 @@ Window {
                     //repeaterradios2
                     onToggled: {
                         for (var i = 0; i < chk2layout.children.length; i++)
-                            chk2layout.children[i].enabled = gewicht.position;
+                            chk2layout.children[i].enabled = gewicht.checked;
                         for (var i = 0; i < radio2grid.children.length; i++)
-                            radio2grid.children[i].enabled = gewicht.position;
-                        y2.enabled = gewicht.position;
-                        x2.enabled = gewicht.position;
-                        n2.enabled = gewicht.position;
+                            radio2grid.children[i].enabled = gewicht.checked;
+                        y2.enabled = gewicht.checked;
+                        x2.enabled = gewicht.checked;
+                        n2.enabled = gewicht.checked;
                         wuerfflaechNam.changed();
                     }
                 }
@@ -348,10 +351,10 @@ Window {
                     antialiasing: true
                     spacing: -3
                     onClicked: MainWindow.changeLanguage()
+                    implicitWidth: 70
+                    implicitHeight: 40
                     background: Image {
                         /*
-                        implicitWidth: 100
-                        implicitHeight: 40
                         color: bwuerfe.down ? "#d6d6d6" : "#f6f6f6"
                         border.color: "#26282a"
                         border.width: 2
@@ -361,6 +364,13 @@ Window {
                         objectName: 'langimg'
                     }
 
+                }
+                Switch {
+                    id: ganzZahlig
+                    x: 90
+                    y: 119
+                    text: qsTr("ganzzahlig")
+                    objectName: "ganzZahlig"
                 }
             }
             Grid
@@ -662,7 +672,7 @@ Window {
 
                 if (bezeichnerlist.length % 2 == 0 && flag)
                     augen.text = augen.text / 2;
-                else if (bezeichnerlist.length % 3 == 0 && flag2 && gewicht.position === 1)
+                else if (bezeichnerlist.length % 3 == 0 && flag2 && gewicht.checked === 1)
                     augen.text = augen.text / 3;
             }
             onFocusChanged: {

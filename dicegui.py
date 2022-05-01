@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent, QQmlContext
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QPushButton
@@ -58,21 +58,38 @@ class MainWindow(QQmlApplicationEngine):
             str_wert = self.tr(' Wert ')
             str_gewicht = self.tr(', Gewicht: ')
             str_wurf = self.tr('Wurf ')
+            str_summe = self.tr('Summe: ')
+            ganzZahl = self.rootObjects()[0].findChild(QObject, "ganzZahlig").property("checked")
             if type(oneOf2) is dict:
                 self.scrollmodel.insertPerson(0, '', True,'')
+                summe = 0
+                gewicht = 0
+                iterationen = 0
                 for k,(key, value) in enumerate(oneOf2.items()):
                     if type(value) in [tuple,list]:
                         if len(value) == 3:
-                            self.scrollmodel.insertPerson(0, str_augen+str(key+1)+". ("+str(value[2])+"):"+str_wert+locale.str(round(float(value[0])*100)/100)+str_gewicht+locale.str(round(float(value[1])*100)/100)+" "+str(int(float(value[1]/self.gesamtgewicht*100)))+"%", True,'')
+                            self.scrollmodel.insertPerson(0, str_augen+str(key+1)+". ("+str(value[2])+"):"+str_wert+locale.str(round(value[0]) if ganzZahl else round(float(value[0])*100)/100)+str_gewicht+locale.str(round(float(value[1])) if ganzZahl else round(float(value[1])*100)/100)+" "+str(int(float(value[1]/self.gesamtgewicht*100)))+"%", True,'')
+                            summe += (round(value[0]) if ganzZahl else (round(float(value[0])*100))/100) * (round(float(value[1])) if ganzZahl else round(float(value[1])*100)/100)
+                            gewicht += round(float(value[1])) if ganzZahl else round(float(value[1])*100)/100
+                            iterationen += 1
                         elif len(value) == 2:
-                            self.scrollmodel.insertPerson(0, str_augen+str(key+1)+". ("+str(value[1])+"):"+str_wert+locale.str((round(float(value[0])*100))/100), True,'')
+                            self.scrollmodel.insertPerson(0, str_augen+str(key+1)+". ("+str(value[1])+"):"+str_wert+locale.str(round(value[0]) if ganzZahl else (round(float(value[0])*100))/100), True,'')
+                            summe += round(value[0]) if ganzZahl else (round(float(value[0])*100))/100
+                if len(value) == 3:
+                    summe /= gewicht
+                    summe *= iterationen 
+                if summe == round(summe):
+                    summe = int(summe)
+                else:
+                    summe = round(summe*100) / 100
+                self.scrollmodel.insertPerson(0,str_summe+str(summe), True,'')
                 self.scrollmodel.insertPerson(0, '', True,'')
         for i,oneOf2 in enumerate(result):
             if  type(oneOf2) in [tuple] and len(oneOf2) in [3,4]:
                 self.wuerfe += 1
                 if len(oneOf2) == 4:
                     self.wurfnummer += 1
-                    self.scrollmodel.insertPerson(0, str_wurf+str(self.wurfnummer)+". "+((str_augen+str(int(oneOf2[0])+1)+".") if oneOf2[3]=="" else oneOf2[3])+str_wert+locale.str(round(float(oneOf2[1])*100)/100)+str_gewicht+locale.str(round(float(oneOf2[2])*100)/100)+" "+str(int(float(oneOf2[2]/self.gesamtgewicht*100)))+"%", True,'')
+                    self.scrollmodel.insertPerson(0, str_wurf+str(self.wurfnummer)+". "+((str_augen+str(int(oneOf2[0])+1)+".") if oneOf2[3]=="" else oneOf2[3])+str_wert+locale.str(round(float(oneOf2[1])) if ganzZahl else round(float(oneOf2[1])*100)/100)+str_gewicht+locale.str(round(oneOf2[2]) if ganzZahl else round(float(oneOf2[2])*100)/100)+" "+str(int(float(oneOf2[2]/self.gesamtgewicht*100)))+"%", True,'')
                 elif len(oneOf2) == 3:
                     self.wurfnummer += 1
                     self.scrollmodel.insertPerson(0, str_wurf+str(self.wurfnummer)+". "+((str_augen+str(int(oneOf2[0])+1)+".") if oneOf2[2]=="" else oneOf2[2])+str_wert+locale.str(oneOf2[1]), True,'')
@@ -82,15 +99,15 @@ class MainWindow(QQmlApplicationEngine):
                     self.wuerfe += 1
                     if len(erstwuerfe) == 4:
                         self.wurfnummer += 1
-                        self.scrollmodel.insertPerson(0, str_wurf+str(self.wurfnummer)+". "+((str_augen+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[3]=="" else erstwuerfe[3])+str_wert+locale.str(round(float(erstwuerfe[1])*100)/100)+str_gewicht+locale.str(round(float(erstwuerfe[2])*100)/100)+" "+str(int(float(erstwuerfe[2]/self.gesamtgewicht*100)))+"%", True,'')
+                        self.scrollmodel.insertPerson(0, str_wurf+str(self.wurfnummer)+". "+((str_augen+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[3]=="" else erstwuerfe[3])+str_wert+locale.str(round(erstwuerfe[1]) if ganzZahl else round(float(erstwuerfe[1])*100)/100)+str_gewicht+locale.str(round(erstwuerfe[2]) if ganzZahl else round(float(erstwuerfe[2])*100)/100)+" "+str(int(float(erstwuerfe[2]/self.gesamtgewicht*100)))+"%", True,'')
                     elif len(erstwuerfe) == 3:
                         self.wurfnummer += 1
-                        self.scrollmodel.insertPerson(0, str_wurf+str(self.wurfnummer)+". "+((str_augen+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[2]=="" else erstwuerfe[2])+str_wert+locale.str(round(float(erstwuerfe[1])*100)/100), True,'')
+                        self.scrollmodel.insertPerson(0, str_wurf+str(self.wurfnummer)+". "+((str_augen+str(int(erstwuerfe[0])+1)+".") if erstwuerfe[2]=="" else erstwuerfe[2])+str_wert+locale.str(round(erstwuerfe[1]) if ganzZahl else round(float(erstwuerfe[1])*100)/100), True,'')
 
     @pyqtSlot()
     def uniq(self):
         if hasattr(self,'dice'):
-            self.dice.uniq = bool(self.rootObjects()[0].findChild(QObject, "uniq").property("position"))
+            self.dice.uniq = bool(self.rootObjects()[0].findChild(QObject, "uniq").property("checked"))
 
 
     @pyqtSlot()
@@ -154,7 +171,7 @@ class MainWindow(QQmlApplicationEngine):
             ListChecked1 = self.rootObjects()[0].findChild(QObject, "_LCheck1_")
             nega_ = self.rootObjects()[0].findChild(QObject, "nega_")
             medi_ = self.rootObjects()[0].findChild(QObject, "medi_")
-            gezinkt = True if self.rootObjects()[0].findChild(QObject, "gewicht").property("position") == 1 else False
+            gezinkt = True if self.rootObjects()[0].findChild(QObject, "gewicht").property("checked") == 1 else False
             result = None
             if LRad.property("text") == '':
                 func1 = list(libdice.dice.randfkt2.values())[0]
@@ -166,9 +183,9 @@ class MainWindow(QQmlApplicationEngine):
                 func2 = LRad2.property("text")
             print("func2 "+func2)
             if not gezinkt:
-                self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("position")==1 else '' )+func1,n.property("nn"),x.property("text"),y.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
+                self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("checked")==1 else '' )+func1,n.property("nn"),x.property("text"),y.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("checked")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
             else:
-                self.dice = libdice.dice(['dicegui',augen.property("text"),self.libdice_strlist[8],('-' if reverse.property("position")==1 else '' )+func1,n.property("nn"),x.property("text"),y.property("nn"),('-' if reverse2.property("position")==1 else '' )+func2,n2.property("nn"),x2.property("text"),y2.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("position")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
+                self.dice = libdice.dice(['dicegui',augen.property("text"),self.libdice_strlist[8],('-' if reverse.property("checked")==1 else '' )+func1,n.property("nn"),x.property("text"),y.property("nn"),('-' if reverse2.property("checked")==1 else '' )+func2,n2.property("nn"),x2.property("text"),y2.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("checked")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
             self.insertresults(self.dice.out())
 #            for ell in result:
 #                for i,el in enumerate(ell):
