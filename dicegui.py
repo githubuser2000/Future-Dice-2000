@@ -58,15 +58,26 @@ class MainWindow(QQmlApplicationEngine):
             str_wert = self.tr(' Wert ')
             str_gewicht = self.tr(', Gewicht: ')
             str_wurf = self.tr('Wurf ')
+            str_summe = self.tr('Summe: ')
             ganzZahl = self.rootObjects()[0].findChild(QObject, "ganzZahlig").property("checked")
             if type(oneOf2) is dict:
                 self.scrollmodel.insertPerson(0, '', True,'')
+                summe = 0
+                gewicht = 0
                 for k,(key, value) in enumerate(oneOf2.items()):
                     if type(value) in [tuple,list]:
                         if len(value) == 3:
-                            self.scrollmodel.insertPerson(0, str_augen+str(key+1)+". ("+str(value[2])+"):"+str_wert+locale.str(round(value[0]) if ganzZahl else (float(value[0])*100)/100)+str_gewicht+locale.str(round(float(value[1])) if GanzZahl else round(float(value[1])*100)/100)+" "+str(int(float(value[1]/self.gesamtgewicht*100)))+"%", True,'')
+                            self.scrollmodel.insertPerson(0, str_augen+str(key+1)+". ("+str(value[2])+"):"+str_wert+locale.str(round(value[0]) if ganzZahl else (float(value[0])*100)/100)+str_gewicht+locale.str(round(float(value[1])) if ganzZahl else round(float(value[1])*100)/100)+" "+str(int(float(value[1]/self.gesamtgewicht*100)))+"%", True,'')
+                            summe += (round(value[0]) if ganzZahl else (round(float(value[0])*100))/100) * (round(float(value[1])) if ganzZahl else round(float(value[1])*100)/100)
+                            gewicht += round(float(value[1])) if ganzZahl else round(float(value[1])*100)/100
                         elif len(value) == 2:
                             self.scrollmodel.insertPerson(0, str_augen+str(key+1)+". ("+str(value[1])+"):"+str_wert+locale.str(round(value[0]) if ganzZahl else (round(float(value[0])*100))/100), True,'')
+                            summe += round(value[0]) if ganzZahl else (round(float(value[0])*100))/100
+                if len(value) == 3:
+                    summe /= gewicht
+                if summe == round(summe):
+                    summe = int(summe)
+                self.scrollmodel.insertPerson(0,str_summe+str(summe), True,'')
                 self.scrollmodel.insertPerson(0, '', True,'')
         for i,oneOf2 in enumerate(result):
             if  type(oneOf2) in [tuple] and len(oneOf2) in [3,4]:

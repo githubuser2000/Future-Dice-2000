@@ -73,8 +73,8 @@ Window {
                 y: 119
                 text: qsTr("uniq")
                 objectName: "uniq"
-                //visualPosition: 0
-                //position: 0
+                //visualChecked: 0
+                //checked: 0
                 onClicked: MainWindow.uniq()
             }
             Switch {
@@ -333,12 +333,12 @@ Window {
                     //repeaterradios2
                     onToggled: {
                         for (var i = 0; i < chk2layout.children.length; i++)
-                            chk2layout.children[i].enabled = gewicht.position;
+                            chk2layout.children[i].enabled = gewicht.checked;
                         for (var i = 0; i < radio2grid.children.length; i++)
-                            radio2grid.children[i].enabled = gewicht.position;
-                        y2.enabled = gewicht.position;
-                        x2.enabled = gewicht.position;
-                        n2.enabled = gewicht.position;
+                            radio2grid.children[i].enabled = gewicht.checked;
+                        y2.enabled = gewicht.checked;
+                        x2.enabled = gewicht.checked;
+                        n2.enabled = gewicht.checked;
                         wuerfflaechNam.changed();
                     }
                 }
@@ -671,7 +671,7 @@ Window {
 
                 if (bezeichnerlist.length % 2 == 0 && flag)
                     augen.text = augen.text / 2;
-                else if (bezeichnerlist.length % 3 == 0 && flag2 && gewicht.position === 1)
+                else if (bezeichnerlist.length % 3 == 0 && flag2 && gewicht.checked === 1)
                     augen.text = augen.text / 3;
             }
             onFocusChanged: {
