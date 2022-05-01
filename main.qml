@@ -362,6 +362,13 @@ Window {
                     }
 
                 }
+                Switch {
+                    id: ganzZahlig
+                    x: 90
+                    y: 119
+                    text: qsTr("ganzzahlig")
+                    objectName: "ganzZahlig"
+                }
             }
             Grid
             {

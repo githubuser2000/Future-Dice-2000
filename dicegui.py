@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3.9
 # -*- coding: utf-8 -*-
 from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent, QQmlContext
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QPushButton
