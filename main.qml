@@ -73,6 +73,8 @@ Window {
                 y: 119
                 text: qsTr("uniq")
                 objectName: "uniq"
+                //visualPosition: 0
+                //position: 0
                 onClicked: MainWindow.uniq()
             }
             Switch {
