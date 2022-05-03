@@ -1,5 +1,41 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>wuerfel.png</file>
+    <file>main.qml</file>
+    <file>china.png</file>
+<file>deutschland.png</file>
+<file>dicegui-2021-03.png</file>
+<file>frankreich.png</file>
+<file>indien.png</file>
+<file>israel.png</file>
+<file>italien.png</file>
+<file>japan.png</file>
+<file>korea.png</file>
+<file>niederlande.png</file>
+<file>polen.png</file>
+<file>portugal.png</file>
+<file>russland.png</file>
+<file>spanien.png</file>
+<file>tschechien.png</file>
+<file>usa.png</file>
+<file>dice-cn.qm</file>
+<file>dice-cz.qm</file>
+<file>dice-de.qm</file>
+<file>dice-en.qm</file>
+<file>dice-es.qm</file>
+<file>dice-fr.qm</file>
+<file>dice-il.qm</file>
+<file>dice-in.qm</file>
+<file>dice-it.qm</file>
+<file>dice-jp.qm</file>
+<file>dice-kr.qm</file>
+<file>dice-nl.qm</file>
+<file>dice-pl.qm</file>
+<file>dice-pt.qm</file>
+<file>dice-ru.qm</file>
+<file>dice.qm</file>
+<file>dicepy-de.qm</file>
+<file>dicepy-en.qm</file>
+<file>dicepy-kr.qm</file>
 </qresource>
 </RCC>

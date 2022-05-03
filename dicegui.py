@@ -227,10 +227,12 @@ class MainWindow(QQmlApplicationEngine):
         #print(blub)
         #print(str(libdice.dice.randfkt2.values()))
 
-        self.load('main.qml')
+        self.load(':/main.qml')
 
         langimg = self.rootObjects()[0].findChild(QObject, "langimg")
-        langimg.setProperty("source",selection[1])
+        # print("UrL: "+str(selection[1].fileName()))
+        #langimg.setProperty("source",(":/"+selection[1].fileName()))
+        langimg.setProperty("source", selection[1])
         #rado = self.rootObjects()[0].findChild(QObject, "radios")
         #rado.setProperty("onClicked", self.radu() )
 
