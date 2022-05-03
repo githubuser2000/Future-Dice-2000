@@ -17,7 +17,7 @@ Window {
     //color: "black"
     SystemTrayIcon {
         visible: true
-        icon.source: "wuerfel.png"
+        icon.source: "qrc:/wuerfel.png"
         tooltip : qsTr("Future-Dice-2000")
         id : tray
         menu: Menu {

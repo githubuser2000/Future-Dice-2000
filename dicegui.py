@@ -10,6 +10,7 @@ from PyQt5.QtCore import QObject, QAbstractListModel, QModelIndex, Qt, QVariant,
 import libdice
 import model2
 import locale
+import ress
 
 class MainWindow(QQmlApplicationEngine):
     wuerfelrestellt = False
@@ -249,6 +250,6 @@ class MainWindow(QQmlApplicationEngine):
 if __name__ == "__main__":
     app =QApplication(sys.argv)
     #app.setStyle('Windows')
-    app.setWindowIcon(QIcon("wuerfel.png"));
+    app.setWindowIcon(QIcon(":/wuerfel.png"));
     window = MainWindow(app)
     sys.exit(window.show_())
