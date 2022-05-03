@@ -183,7 +183,7 @@ class MainWindow(QQmlApplicationEngine):
                 func2 = list(libdice.dice.randfkt2.values())[0]
             else:
                 func2 = LRad2.property("text")
-            print("func2 "+func2)
+            #print("func2 "+func2)
             if not gezinkt:
                 self.dice = libdice.dice(['dicegui',augen.property("text"),('-' if reverse.property("checked")==1 else '' )+func1,n.property("nn"),x.property("text"),y.property("nn")] + Lists,int(wuerfe.property("text")), True if uniq.property("checked")==1 else False,planesNames.property("text").strip() if planesNames.property("sett") else "",nega_.property("checked"),medi_.property("checked"))
             else:
