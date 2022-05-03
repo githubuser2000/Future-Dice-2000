@@ -252,7 +252,7 @@ class MainWindow(QQmlApplicationEngine):
                     skaliere.setProperty("yScale", skala)
                     if skala > 1:
                         skala = 1
-                        windoof.setProperty("visibility","Maximized")
+                    windoof.setProperty("visibility","Maximized")
                     haupt1.setProperty("width", math.ceil(haupt1.property("width")*skala))
                     windoof.setProperty("height", math.ceil(windoof.property("height")*skala))
         #except:
