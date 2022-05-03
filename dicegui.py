@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import math
 from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent, QQmlContext
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from PyQt5.QtGui import QIcon
@@ -233,6 +234,26 @@ class MainWindow(QQmlApplicationEngine):
         # print("UrL: "+str(selection[1].fileName()))
         #langimg.setProperty("source",(":/"+selection[1].fileName()))
         langimg.setProperty("source", selection[1])
+
+
+        if "-help" in sys.argv or "-h" in sys.argv:
+            print("Mögliche Optionen:\n-skaliere 0.75")
+            exit()
+        #try:
+        if True:
+            for arg in ("-skaliere","-s"):
+                if arg in sys.argv:
+                    windoof = self.rootObjects()[0]
+                    skaliere = self.rootObjects()[0].findChild(QObject, "skalieren")
+                    haupt1 = self.rootObjects()[0].findChild(QObject, "haupt1a")
+                    i = sys.argv.index(arg)
+                    skala = float(sys.argv[i+1])
+                    skaliere.setProperty("xScale", skala)
+                    skaliere.setProperty("yScale", skala)
+                    haupt1.setProperty("width", math.ceil(haupt1.property("width")*skala))
+                    windoof.setProperty("height", math.ceil(windoof.property("height")*skala))
+        #except:
+        #    pass
         #rado = self.rootObjects()[0].findChild(QObject, "radios")
         #rado.setProperty("onClicked", self.radu() )
 
