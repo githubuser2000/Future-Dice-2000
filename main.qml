@@ -43,6 +43,7 @@ Window {
         setY(Screen.height / 2 - height / 2);
     }
     GridLayout {
+        transform: Scale { xScale: 1;yScale: 1; id: skalieren }
         id: haupt1
         //anchors.fill: parent
         columns: 3
@@ -101,6 +102,7 @@ Window {
             }
             Label {
                 text: qsTr("   Augen")
+                //onClick: skalieren.xScale = 0.75
             }
             TextField {
                 objectName: "augen"
