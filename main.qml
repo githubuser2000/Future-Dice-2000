@@ -43,8 +43,9 @@ Window {
         setY(Screen.height / 2 - height / 2);
     }
     GridLayout {
-        transform: Scale { xScale: 1;yScale: 1; id: skalieren }
+        transform: Scale { xScale: 1;yScale: 1; id: skalieren; objectName: "skalieren" }
         id: haupt1
+        objectName: "haupt1a"
         //anchors.fill: parent
         columns: 3
         anchors.leftMargin: 20
