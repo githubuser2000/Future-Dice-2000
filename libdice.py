@@ -440,8 +440,8 @@ class dice(QQmlApplicationEngine):
 
     @staticmethod
     def __langs__(QUrl):
-        #return {QLocale.German : (os.path.dirname(__file__)+os.sep+'dice-de.qm',QUrl.fromLocalFile('deutschland.png')),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png')),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png'))}
-        return {QLocale.German : (os.path.dirname(__file__)+os.sep+'dice-de.qm',QUrl.fromLocalFile('deutschland.png')),QLocale.Korean : ('dice-kr.qm',QUrl.fromLocalFile('korea.png')),QLocale.English : ('dice-en.qm',QUrl.fromLocalFile('usa.png')),QLocale.Chinese : ('dice-cn.qm',QUrl.fromLocalFile('china.png')),QLocale.Polish : ('dice-pl.qm',QUrl.fromLocalFile('polen.png')),QLocale.Japanese : ('dice-jp.qm',QUrl.fromLocalFile('japan.png')),QLocale.Portuguese : ('dice-pt.qm',QUrl.fromLocalFile('portugal.png')),QLocale.Russian : ('dice-ru.qm',QUrl.fromLocalFile('russland.png')),QLocale.Spanish : ('dice-es.qm',QUrl.fromLocalFile('spanien.png')),QLocale.Italian : ('dice-it.qm',QUrl.fromLocalFile('italien.png')),QLocale.Czech : ('dice-cz.qm',QUrl.fromLocalFile('tschechien.png')),QLocale.Hindi : ('dice-in.qm',QUrl.fromLocalFile('indien.png')),QLocale.Dutch : ('dice-nl.qm',QUrl.fromLocalFile('niederlande.png')),QLocale.Hebrew : ('dice-il.qm',QUrl.fromLocalFile('israel.png')),QLocale.French : ('dice-fr.qm',QUrl.fromLocalFile('frankreich.png'))}
+        #return {QLocale.German : (os.path.dirname(__file__)+os.sep+'dice-de.qm',QUrl('qrc:/deutschland.png')),QLocale.English : ('dice-en.qm',QUrl('qrc:/usa.png')),QLocale.Korean : ('dice-kr.qm',QUrl('qrc:/korea.png'))}
+        return {QLocale.German : (os.path.dirname(__file__)+os.sep+'dice-de.qm',QUrl('qrc:/deutschland.png')),QLocale.Korean : ('dice-kr.qm',QUrl('qrc:/korea.png')),QLocale.English : ('dice-en.qm',QUrl('qrc:/usa.png')),QLocale.Chinese : ('dice-cn.qm',QUrl('qrc:/china.png')),QLocale.Polish : ('dice-pl.qm',QUrl('qrc:/polen.png')),QLocale.Japanese : ('dice-jp.qm',QUrl('qrc:/japan.png')),QLocale.Portuguese : ('dice-pt.qm',QUrl('qrc:/portugal.png')),QLocale.Russian : ('dice-ru.qm',QUrl('qrc:/russland.png')),QLocale.Spanish : ('dice-es.qm',QUrl('qrc:/spanien.png')),QLocale.Italian : ('dice-it.qm',QUrl('qrc:/italien.png')),QLocale.Czech : ('dice-cz.qm',QUrl('qrc:/tschechien.png')),QLocale.Hindi : ('dice-in.qm',QUrl('qrc:/indien.png')),QLocale.Dutch : ('dice-nl.qm',QUrl('qrc:/niederlande.png')),QLocale.Hebrew : ('dice-il.qm',QUrl('qrc:/israel.png')),QLocale.French : ('dice-fr.qm',QUrl('qrc:/frankreich.png'))}
     @staticmethod
     def __langu1__(key, QUrl):
         langs = dice.__langs__(QUrl)
@@ -451,7 +451,7 @@ class dice(QQmlApplicationEngine):
     @staticmethod
     def __langu__(key, QUrl):
         langs = dice.__langs__(QUrl)
-        return langs.get(key,(os.path.dirname(__file__)+os.sep+'dice-en.qm',QUrl.fromLocalFile('usa.png'))) + getIndexByKey(key, langs)
+        return langs.get(key,(os.path.dirname(__file__)+os.sep+'dice-en.qm',QUrl('qrc:/usa.png'))) + getIndexByKey(key, langs)
 
     @staticmethod
     def languages1(app, engine, QUrl):
