@@ -252,6 +252,7 @@ class MainWindow(QQmlApplicationEngine):
                     skaliere.setProperty("yScale", skala)
                     haupt1.setProperty("width", math.ceil(haupt1.property("width")*skala))
                     windoof.setProperty("height", math.ceil(windoof.property("height")*skala))
+                    windoof.setProperty("width", math.ceil(windoof.property("width")*skala))
         #except:
         #    pass
         #rado = self.rootObjects()[0].findChild(QObject, "radios")
