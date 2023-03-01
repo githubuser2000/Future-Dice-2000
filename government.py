@@ -839,7 +839,7 @@ offene Fragen
 
 späte Zukunft:
 + mehr strukturiertes Protokoll als Log Txt File
-+ noch viel mehr Staatssysteme und andere Systeme, z.B. als Firma statt Staat 
++ noch viel mehr Staatssysteme und andere Systeme, z.B. als Firma statt Staat
 + pro Staatssystem kann noch ne Menge anderes in jenigem welchen gelten und passieren
   d.h. umfangreicheres Protokoll dann: json dafür nehmen? Macht vieles einfacher!
   Wie json, wenn es immer weiter als protokoll iteriert? Einfach lösbar, aber welche Methode?
